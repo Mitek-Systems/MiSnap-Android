@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- app:cameraProfile is required but other attributes are optional and can be set programmatically -->
+    <com.miteksystems.misnap.camera.view.CameraView
+        android:id="@+id/cameraView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:cameraProfile="DocumentBackCamera"
+        app:recordingEnabled="true"
+        app:torchEnabled="true"
+        app:videoBitrate="1000000"
+        app:videoHeight="1920"
+        app:videoWidth="1080" />
+
+</FrameLayout>

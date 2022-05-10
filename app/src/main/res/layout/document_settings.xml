@@ -1,0 +1,395 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/documentSettingsTriggerContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/misnapSampleAppSettingsDocumentTriggerLabel" />
+
+        <Spinner
+            android:id="@+id/documentSettingsTriggerSpinner"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:entries="@array/documentTriggersArray" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/documentSettingsSessionOrientationContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/misnapSampleAppLayoutVerticalMargin"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/documentSettingsTriggerContainer">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/misnapSampleAppSettingsDocumentSessionOrientationLabel" />
+
+        <Spinner
+            android:id="@+id/documentSettingsSessionOrientationSpinner"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:entries="@array/documentSessionOrientationsArray" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/documentSettingsDocumentRequestOcrContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/misnapSampleAppLayoutVerticalMargin"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/documentSettingsSessionOrientationContainer">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.9"
+            android:text="@string/misnapSampleAppSettingsDocumentRequestDocumentExtractionLabel" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/documentExtractionTooltip"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:background="@drawable/settings_info_icon"
+            android:layout_gravity="top"/>
+
+        <Spinner
+            android:id="@+id/documentSettingsDocumentRequestOcrSpinner"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:entries="@array/documentExtractionRequirementsArray" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/documentSettingsRequestBarcodeExtractionContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/misnapSampleAppLayoutVerticalMargin"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/documentSettingsDocumentRequestOcrContainer">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.9"
+            android:text="@string/misnapSampleAppSettingsBarcodeRequestBarcodeExtractionLabel" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/barcodeExtractionTooltip"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:background="@drawable/settings_info_icon"
+            android:layout_gravity="top"/>
+
+        <Spinner
+            android:id="@+id/documentSettingsBarcodeRequestExtractionSpinner"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:entries="@array/barcodeExtractionRequirementsArray" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/documentSettingsGeoContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/misnapSampleAppLayoutVerticalMargin"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/documentSettingsRequestBarcodeExtractionContainer">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.9"
+            android:text="@string/misnapSampleAppSettingsDocumentGeographyLabel" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/geoTooltip"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:background="@drawable/settings_info_icon"
+            android:layout_gravity="top"/>
+
+        <Spinner
+            android:id="@+id/documentSettingsGeoSpinner"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:entries="@array/documentGeosArray" />
+    </LinearLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/documentSettingsCornerConfidenceContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/misnapSampleAppLayoutVerticalMargin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/documentSettingsGeoContainer">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/documentSettingsCornerConfidence"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:digits="0123456789"
+            android:hint="@string/misnapSampleAppSettingsDocumentCornersConfidenceThreshold"
+            android:imeOptions="actionNext"
+            android:inputType="number"
+            android:maxLength="4" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/documentSettingsMinPaddingContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/misnapSampleAppLayoutVerticalMargin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/documentSettingsCornerConfidenceContainer">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/documentSettingsMinPadding"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:digits="0123456789"
+            android:hint="@string/misnapSampleAppSettingsDocumentMinPaddingThreshold"
+            android:imeOptions="actionNext"
+            android:inputType="number"
+            android:maxLength="4" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/documentSettingsMinFillAlignedContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/misnapSampleAppLayoutVerticalMargin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/documentSettingsMinPaddingContainer">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/documentSettingsMinHorizontalFillAligned"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:digits="0123456789"
+            android:hint="@string/misnapSampleAppSettingsDocumentMinHorizontalFillAlignedThreshold"
+            android:imeOptions="actionNext"
+            android:inputType="number"
+            android:maxLength="4" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/documentSettingsMinFillUnalignedContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/misnapSampleAppLayoutVerticalMargin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/documentSettingsMinFillAlignedContainer">
+
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/documentSettingsMinHorizontalFillUnAligned"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:digits="0123456789"
+            android:hint="@string/misnapSampleAppSettingsDocumentMinHorizontalFillUnalignedThreshold"
+            android:imeOptions="actionNext"
+            android:inputType="number"
+            android:maxLength="4" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/documentSettingsMinBrightnessContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/misnapSampleAppLayoutVerticalMargin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/documentSettingsMinFillUnalignedContainer">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/documentSettingsMinBrightness"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:digits="0123456789"
+            android:hint="@string/misnapSampleAppSettingsDocumentMinBrightnessThreshold"
+            android:imeOptions="actionNext"
+            android:inputType="number"
+            android:maxLength="4" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/documentSettingsMaxBrightnessContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/misnapSampleAppLayoutVerticalMargin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/documentSettingsMinBrightnessContainer">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/documentSettingsMaxBrightness"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:digits="0123456789"
+            android:hint="@string/misnapSampleAppSettingsDocumentMaxBrightnessThreshold"
+            android:imeOptions="actionNext"
+            android:inputType="number"
+            android:maxLength="4" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/documentSettingsMinContrastContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/misnapSampleAppLayoutVerticalMargin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/documentSettingsMaxBrightnessContainer">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/documentSettingsMinContrast"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:digits="0123456789"
+            android:hint="@string/misnapSampleAppSettingsDocumentMinContrastThreshold"
+            android:imeOptions="actionNext"
+            android:inputType="number"
+            android:maxLength="4" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/documentSettingsMinBusyBackgroundContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/misnapSampleAppLayoutVerticalMargin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/documentSettingsMinContrastContainer">
+
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/documentSettingsMinBusyBackground"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:digits="0123456789"
+            android:hint="@string/misnapSampleAppSettingsDocumentMinBusyBackgroundThreshold"
+            android:imeOptions="actionNext"
+            android:inputType="number"
+            android:maxLength="4" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/documentSettingsMaximumAngleContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/misnapSampleAppLayoutVerticalMargin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/documentSettingsMinBusyBackgroundContainer">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/documentSettingsMaxAngle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:digits="0123456789"
+            android:hint="@string/misnapSampleAppSettingsDocumentMaxAngleThreshold"
+            android:imeOptions="actionNext"
+            android:inputType="number"
+            android:maxLength="4" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/documentSettingsMinSharpnessContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/misnapSampleAppLayoutVerticalMargin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/documentSettingsMaximumAngleContainer">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/documentSettingsMinSharpness"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:digits="0123456789"
+            android:hint="@string/misnapSampleAppSettingsDocumentMinSharpnessThreshold"
+            android:imeOptions="actionNext"
+            android:inputType="number"
+            android:maxLength="4" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/documentSettingsNoGlareContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/misnapSampleAppLayoutVerticalMargin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/documentSettingsMinSharpnessContainer">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/documentSettingsMinNoGlare"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:digits="0123456789"
+            android:hint="@string/misnapSampleAppSettingsDocumentNoGlareThreshold"
+            android:imeOptions="actionNext"
+            android:inputType="number"
+            android:maxLength="4" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/documentSettingsMrzConfidenceContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/misnapSampleAppLayoutVerticalMargin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/documentSettingsNoGlareContainer">
+
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/documentSettingsMrzConfidence"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:digits="0123456789"
+            android:hint="@string/misnapSampleAppSettingsDocumentMrzConfidenceThreshold"
+            android:imeOptions="actionNext"
+            android:inputType="number"
+            android:maxLength="4" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

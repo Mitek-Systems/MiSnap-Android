@@ -1,0 +1,160 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/versionInfo"
+        app:layout_constraintEnd_toStartOf="@id/guidelineEndContent"
+        app:layout_constraintStart_toEndOf="@id/guidelineStartContent"
+        app:layout_constraintTop_toTopOf="@id/guidelineTopContent"
+        android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="top"
+        android:orientation="vertical">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/misnapSampleAppDemoDocumentFlowsLabel" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/idSessionButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/misnapSampleAppDemoStartIdSessionButtonLabel" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/passportSessionButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/misnapSampleAppDemoStartPassportSessionButtonLabel" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/checkBackSessionButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/misnapSampleAppDemoStartCheckBackSessionButtonLabel" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/checkFrontSessionButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/misnapSampleAppDemoStartCheckFrontSessionButtonLabel" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/barcodeSessionButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/misnapSampleAppDemoStartBarcodeSessionButtonLabel" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/misnapWorkflowLayoutVerticalMarginHalf"
+            android:text="@string/misnapSampleAppDemoFaceFlowsLabel" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/faceSessionButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/misnapSampleAppDemoStartFaceSessionButtonLabel" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/misnapWorkflowLayoutVerticalMarginHalf"
+            android:text="@string/misnapSampleAppDemoNfcFlowsLabel" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/nfcSessionButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/misnapSampleAppDemoStartNfcReadingButtonLabel" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/misnapWorkflowLayoutVerticalMarginHalf"
+            android:text="@string/misnapSampleAppDemoCombinedFlowsLabel" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/combinedCheckSessionButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/misnapSampleAppDemoStartCombinedCheckReadingButtonLabel" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/nfcCombinedPassportSessionButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/misnapSampleAppDemoStartNfcCombinedPassportReadingButtonLabel" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/nfcCombinedIdSessionButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/misnapSampleAppDemoStartNfcCombinedIdReadingButtonLabel" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/nfcCombinedIdFaceSessionButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/misnapSampleAppDemoStartNfcCombinedIdFaceReadingButtonLabel" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/misnapWorkflowLayoutVerticalMarginHalf"
+            android:text="@string/misnapSampleAppDemoCustomLabel" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/advancedSettingsButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/misnapSampleAppDemoCustomFlowsButtonLabel" />
+
+    </LinearLayout>
+
+    </ScrollView>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/versionInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@id/guidelineBottomContent"
+        app:layout_constraintEnd_toEndOf="@id/guidelineEndContent"
+        app:layout_constraintStart_toStartOf="@id/guidelineStartContent" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineStartContent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="@dimen/misnapSampleAppLayoutHorizontalMargin" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineTopContent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="@dimen/misnapSampleAppLayoutVerticalMargin" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineEndContent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="@dimen/misnapSampleAppLayoutHorizontalMargin" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineBottomContent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_end="@dimen/misnapSampleAppLayoutVerticalMargin" />
+</androidx.constraintlayout.widget.ConstraintLayout>

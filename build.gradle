@@ -1,0 +1,40 @@
+buildscript {
+    apply from: 'versions.gradle'
+
+    repositories {
+        google()
+        mavenCentral()
+        gradlePluginPortal()
+    }
+
+    dependencies {
+        classpath "com.android.tools.build:gradle:$agpVersion"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
+        classpath "org.jetbrains.kotlin:kotlin-serialization:$kotlinVersion"
+        classpath "org.jetbrains.dokka:dokka-gradle-plugin:$dokkaVersion"
+        classpath "org.jetbrains.kotlinx:binary-compatibility-validator:$apiValidatorVersion"
+        classpath "org.jacoco:org.jacoco.core:$jacocoVersion"
+        classpath "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:$detektVersion"
+//        classpath 'net.sf.proguard:proguard-gradle:6.2.2' //TODO: add dependency on Proguard 6.2 for it to work when R8 is disabled in documentation
+//        classpath 'com.guardsquare:proguard-gradle:7.1.0'
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+        jcenter()
+        mavenLocal()
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+    delete files("${project.rootDir}/.detekt/reports")
+    delete files("${project.rootDir}/.lint/reports")
+}
+
+
+
+//

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- MiSnapView internally defines its CameraView with the id `cameraView`,
+    use it to ensure elements remain bounded by the camera's preview -->
+    <com.miteksystems.misnap.workflow.view.MiSnapView
+        android:id="@+id/misnapView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" >
+
+        <com.miteksystems.misnap.workflow.view.GuideView
+            android:id="@+id/guideView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="@id/cameraView"
+            app:layout_constraintEnd_toEndOf="@id/cameraView"
+            app:layout_constraintStart_toStartOf="@id/cameraView"
+            app:layout_constraintTop_toTopOf="@id/cameraView" />
+
+        <com.miteksystems.misnap.workflow.view.HintView
+            android:id="@+id/hintView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@id/cameraView"
+            app:layout_constraintEnd_toEndOf="@id/cameraView"
+            app:layout_constraintStart_toStartOf="@id/cameraView"
+            app:layout_constraintTop_toTopOf="@id/cameraView" />
+
+        <com.miteksystems.misnap.workflow.view.RecordingIconView
+            android:id="@+id/recordingIconView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="@id/cameraView"
+            app:layout_constraintStart_toStartOf="@id/cameraView"
+            app:layout_constraintTop_toTopOf="@id/cameraView" />
+
+        <com.miteksystems.misnap.workflow.view.TorchView
+            android:id="@+id/torchView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="32dp"
+            app:layout_constraintStart_toStartOf="@id/cameraView"
+            app:layout_constraintTop_toTopOf="@id/cameraView" />
+
+        <com.miteksystems.misnap.workflow.view.SuccessView
+            android:id="@+id/successView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@id/cameraView"
+            app:layout_constraintEnd_toEndOf="@id/cameraView"
+            app:layout_constraintStart_toStartOf="@id/cameraView"
+            app:layout_constraintTop_toTopOf="@id/cameraView" />
+
+    </com.miteksystems.misnap.workflow.view.MiSnapView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

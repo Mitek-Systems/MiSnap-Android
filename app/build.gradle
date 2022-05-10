@@ -1,0 +1,78 @@
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'kotlinx-serialization'
+}
+
+android {
+    compileSdkVersion project.compileSdkVersion
+
+    defaultConfig {
+        minSdkVersion project.coreMinSdk
+        targetSdkVersion project.targetSdkVersion
+
+        buildToolsVersion project.buildToolsVersion
+
+        applicationId "com.miteksystems.misnap.sampleapp"
+
+        versionCode project.misnapVersionCode
+        versionName project.misnapVersion
+
+        buildConfigField "String", "MISNAP_APP_AC_KEY", "\"${System.getenv().APPCENTER_CRASH_REPORT_KEY ?: ""}\""
+
+        // Only armv7a is currently enabled, but if you need one of these other variants,
+        // then uncomment the variant you need and copy the relevant SO libraries into the project.
+        ndk {
+            abiFilters "armeabi-v7a" //, "arm64-v8a", "armeabi", "x86", "x86_64"
+        }
+    }
+
+    buildTypes {
+        debug {
+            versionNameSuffix ' debug'
+
+            resValue "string", "misnapVersion", "${defaultConfig.versionName}$versionNameSuffix"
+        }
+
+        // Since the SDK is not released to the Google Play Store, we don't need to sign it with
+        //   our own certificate. If we override the default release signing settings with the debug
+        //   settings, the release build will be automatically signed.
+        release {
+            resValue "string", "misnapVersion", defaultConfig.versionName
+
+            signingConfig signingConfigs.debug
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    buildFeatures {
+        buildConfig true
+        resValues true
+        viewBinding true
+    }
+
+    compileOptions {
+        sourceCompatibility jdkVersion
+        targetCompatibility jdkVersion
+    }
+
+    lintOptions {
+        abortOnError false
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation "com.miteksystems.misnap:document:$misnapVersion"
+    implementation "com.miteksystems.misnap:barcode:$misnapVersion"
+    implementation "com.miteksystems.misnap:face:$misnapVersion"
+    implementation "com.miteksystems.misnap:combined-nfc:$misnapVersion"
+
+    // Memory Leak detection
+    debugImplementation "com.squareup.leakcanary:leakcanary-android:$leakcanaryVersion"
+
+    // AppCenter crash reporting. Used only for this sample app. Not used within SDK modules.
+    implementation 'com.microsoft.appcenter:appcenter-crashes:3.2.2'
+}

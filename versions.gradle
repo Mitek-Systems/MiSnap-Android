@@ -1,0 +1,62 @@
+project.ext {
+    // These automatically generate the version strings that used to be manually set in strings.xml
+    // BUILD_NUMBER is either set by Jenkins, or 0 for developer local builds.
+    def buildNumber = String.format("%03d", System.getenv().BUILD_NUMBER?.toInteger() ?: 0)
+    def version = "5.0.0"
+
+    misnapVersionCode = Integer.parseInt("${version.replaceAll("\\.", "")}$buildNumber")
+    misnapVersion = "$version-beta2"
+
+    targetSdkVersion = 31
+    compileSdkVersion = 31
+    coreMinSdk = 23
+    buildToolsVersion = "31.0.0"
+
+    jdkVersion = JavaVersion.VERSION_1_8
+    ndkVersion = "17.2.4988734"
+
+    agpVersion = '4.2.2'
+
+    kotlinVersion = '1.5.32'
+    kotlinCoroutinesVersion = '1.5.2'
+    kotlinSerializationVersion = '1.3.0'
+
+    jacocoVersion = '0.8.7'
+
+    dokkaVersion = '1.4.32'
+
+    detektVersion = '1.18.1'
+
+    appcompatVersion = '1.4.1'
+    cameraxVersion = '1.0.2'
+    constraintLayoutVersion = '2.1.3'
+    fragmentVersion = '1.4.0'
+    lifecycleVersion = '2.4.1'
+    navVersion = '2.3.5'
+    viewbindingVersion = '7.1.3'
+
+    mlKitVersion = '16.1.5'
+
+    materialDesignVersion = '1.5.0'
+
+    commonsImagingVersion = '1.0-alpha2'
+
+    jmrtdVersion = '0.7.30'
+    scubaSmartCardVersion = '0.0.22'
+    jp2Version = '1.0.3'
+
+    androidxTestVersion = '1.4.0'
+    androidxCoreArchTestVersion = '2.1.0'
+    androidxTestExtJunitVersion = '1.1.3'
+    espressoVersion = '3.4.0'
+    junitVersion = '4.13.2'
+    robolectricVersion = '4.7.2'
+    mockitoVersion = '3.12.4'
+    mockkVersion = '1.12.2'
+
+    apiValidatorVersion = '0.8.0'
+
+    leakcanaryVersion = '2.7'
+
+    uiautomatorVersion = '2.2.0'
+}

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/sampleAppFlow"
+    app:startDestination="@id/demoFragment">
+
+    <include app:graph="@navigation/document_session_flow" />
+    <include app:graph="@navigation/barcode_session_flow" />
+    <include app:graph="@navigation/nfc_reader_flow" />
+    <include app:graph="@navigation/face_session_flow" />
+
+    <fragment
+        android:id="@+id/demoFragment"
+        android:name="com.miteksystems.misnap.sampleapp.DemoFragment"
+        android:label="@string/misnapSampleAppDemoFragmentLabel">
+        <action
+            android:id="@+id/navigateDocumentSession"
+            app:destination="@id/documentSessionFlow"
+            app:popUpTo="@id/demoFragment"/>
+
+        <action
+            android:id="@+id/navigateBarcodeSession"
+            app:destination="@id/barcodeSessionFlow"
+            app:popUpTo="@id/demoFragment"/>
+
+        <action
+            android:id="@+id/navigateNfcRead"
+            app:destination="@id/nfcReaderFlow"
+            app:popUpTo="@id/demoFragment"/>
+
+        <action
+            android:id="@+id/navigateFaceSession"
+            app:destination="@id/faceSessionFlow"
+            app:popUpTo="@id/demoFragment"/>
+
+        <action
+            android:id="@+id/navigateSettings"
+            app:destination="@id/settingsFragment"
+            app:popUpTo="@id/demoFragment"/>
+
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.miteksystems.misnap.sampleapp.SettingsFragment"
+        android:label="@string/misnapSampleAppSettingsFragmentLabel">
+
+        <action
+            android:id="@+id/navigateDocumentSession"
+            app:destination="@id/documentSessionFlow"
+            app:popUpTo="@id/settingsFragment"
+            app:popUpToInclusive="true"/>
+
+        <action
+            android:id="@+id/navigateBarcodeSession"
+            app:destination="@id/barcodeSessionFlow"
+            app:popUpTo="@id/settingsFragment"
+            app:popUpToInclusive="true"/>
+
+        <action
+            android:id="@+id/navigateFaceSession"
+            app:destination="@id/faceSessionFlow"
+            app:popUpTo="@id/settingsFragment"
+            app:popUpToInclusive="true"/>
+
+        <action
+            android:id="@+id/navigateNfcRead"
+            app:destination="@id/nfcReaderFlow"
+            app:popUpTo="@id/settingsFragment"
+            app:popUpToInclusive="true"/>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/documentResultsFragment"
+        android:name="com.miteksystems.misnap.sampleapp.results.ResultsFragment"
+        android:label="@string/misnapSampleAppResultsFragmentLabel">
+        <action
+            android:id="@+id/navigateContinue"
+            app:destination="@id/demoFragment"
+            app:popUpTo="@id/demoFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+</navigation>

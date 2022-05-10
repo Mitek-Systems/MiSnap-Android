@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/documentWorkflowSettingsReviewConditionContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/misnapSampleAppLayoutVerticalMargin"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/misnapSampleAppSettingsDocumentWorkflowReviewConditionLabel" />
+
+        <Spinner
+            android:id="@+id/documentWorkflowSettingsReviewConditionSpinner"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:entries="@array/documentReviewConditionsArray" />
+    </LinearLayout>
+
+    <com.google.android.material.checkbox.MaterialCheckBox
+        android:id="@+id/documentWorkflowSettingsShowBoundingBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/misnapSampleAppLayoutVerticalMargin"
+        android:checked="false"
+        android:text="@string/misnapSampleAppSettingsDocumentWorkflowShowBoundingBoxLabel"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/documentWorkflowSettingsReviewConditionContainer" />
+
+    <com.google.android.material.checkbox.MaterialCheckBox
+        android:id="@+id/documentWorkflowSettingsShowGlareBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/misnapSampleAppLayoutVerticalMargin"
+        android:checked="false"
+        android:text="@string/misnapSampleAppSettingsDocumentWorkflowShowGlareBoxLabel"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/documentWorkflowSettingsShowBoundingBox" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/documentWorkflowSettingsTimeoutDurationLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/misnapWorkflowLayoutVerticalMargin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/documentWorkflowSettingsShowGlareBox">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/documentWorkflowSettingsTimeoutDuration"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:digits="0123456789"
+            android:hint="@string/misnapSampleAppSettingsDocumentWorkflowTimeoutDurationLabel"
+            android:imeOptions="actionNext"
+            android:inputType="number"
+            android:maxLength="5" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/documentWorkflowSettingsHintDurationLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/misnapWorkflowLayoutVerticalMargin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/documentWorkflowSettingsTimeoutDurationLayout">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/documentWorkflowSettingsHintDuration"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:digits="0123456789"
+            android:hint="@string/misnapSampleAppSettingsDocumentWorkflowHintDurationLabel"
+            android:imeOptions="actionNext"
+            android:inputType="number"
+            android:maxLength="4" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/documentWorkflowSettingsGuideViewScalePercentageAlignedLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/misnapWorkflowLayoutVerticalMargin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/documentWorkflowSettingsHintDurationLayout">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/documentWorkflowSettingsGuideViewScalePercentageAligned"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:digits="0123456789."
+            android:hint="@string/misnapSampleAppSettingsDocumentWorkflowGuideViewScalePercentageAlignedLabel"
+            android:imeOptions="actionNext"
+            android:inputType="numberDecimal"
+            android:maxLength="4" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/documentWorkflowSettingsGuideViewScalePercentageUnalignedLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/misnapWorkflowLayoutVerticalMargin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/documentWorkflowSettingsGuideViewScalePercentageAlignedLayout">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/documentWorkflowSettingsGuideViewScalePercentageUnaligned"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:digits="0123456789."
+            android:hint="@string/misnapSampleAppSettingsDocumentWorkflowGuideViewScalePercentageUnalignedLabel"
+            android:imeOptions="actionNext"
+            android:inputType="numberDecimal"
+            android:maxLength="4" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.checkbox.MaterialCheckBox
+        android:id="@+id/documentWorkflowSettingsShowVignetteBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/misnapSampleAppLayoutVerticalMargin"
+        android:checked="false"
+        android:text="@string/misnapSampleAppSettingsDocumentWorkflowShowVignetteLabel"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/documentWorkflowSettingsGuideViewScalePercentageUnalignedLayout" />
+
+    <com.google.android.material.checkbox.MaterialCheckBox
+        android:id="@+id/documentWorkflowSettingsHintViewShowBackground"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/misnapSampleAppLayoutVerticalMargin"
+        android:checked="false"
+        android:text="@string/misnapSampleAppSettingsDocumentWorkflowHintViewShowBackground"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/documentWorkflowSettingsShowVignetteBox" />
+
+    <com.google.android.material.checkbox.MaterialCheckBox
+        android:id="@+id/documentWorkflowSettingsSuccessViewShouldVibrateBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/misnapSampleAppLayoutVerticalMargin"
+        android:checked="false"
+        android:text="@string/misnapSampleAppSettingsDocumentWorkflowSuccessViewShouldVibrateLabel"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/documentWorkflowSettingsHintViewShowBackground" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Extend MiSnapTheme and set it in AndroidManifest.xml -->
+    <style name="YellowTheme" parent="MiSnapTheme">
+        <item name="colorPrimary">#FF69B4</item>
+        <item name="colorOnPrimary">#000000</item>
+        <item name="colorSecondary">#f06292</item>
+        <item name="colorOnSecondary">#000000</item>
+    </style>
+</resources>
