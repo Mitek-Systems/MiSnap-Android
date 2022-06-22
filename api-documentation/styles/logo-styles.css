@@ -1,0 +1,11 @@
+.page-summary, #leftColumn, #searchBar {
+    display: none;
+}
+
+#main {
+    max-width: calc(100%);
+}
+
+.keyValue {
+  grid-template-columns: 25% 75%;
+}

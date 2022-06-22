@@ -60,7 +60,8 @@
         <![CDATA[<b>Document Code:</b>]]> %2$s <![CDATA[<br>]]>
         <![CDATA[<b>Issuing Country:</b>]]> %3$s <![CDATA[<br>]]>
         <![CDATA[<b>Date of Birth:</b>]]> %4$s <![CDATA[<br>]]>
-        <![CDATA[<b>Date of Expiry:</b>]]> %5$s
+        <![CDATA[<b>Date of Expiry:</b>]]> %5$s <![CDATA[<br>]]>
+        <![CDATA[<b>Optional Data1:</b>]]> %6$s
     </string>
 
     <string name="misnapSampleAppResultsMrzOneLineData" translatable="false"><![CDATA[<b>Mrz Data:</b>]]> %1$s</string>
@@ -270,6 +271,7 @@
     <string-array name="barcodeOrientationsArray">
         <item>Portrait</item>
         <item>Landscape</item>
+        <item>Device</item>
     </string-array>
 
     <string-array name="barcodeExtractionRequirementsArray">

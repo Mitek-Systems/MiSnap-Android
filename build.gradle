@@ -25,6 +25,13 @@ allprojects {
         google()
         mavenCentral()
         jcenter()
+        maven {
+            url = uri('https://maven.pkg.github.com/mitek-systems/misnap-android')
+            credentials {
+                username = "your-github-username"
+                password = "personal-access-token"
+            }
+        }
         mavenLocal()
     }
 }
@@ -37,4 +44,4 @@ task clean(type: Delete) {
 
 
 
-//
+

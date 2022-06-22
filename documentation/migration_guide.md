@@ -1,9 +1,9 @@
 # MiSnap Migration Guide
 
-## Upgrading the MiSnap SDK from 4.x to 5.0.0
-This new version of MiSnap SDK introduces a variety of improvements over past versions, and it comes with a long list of breaking changes. For this reason, it’s not a step-by-step guide on how to migrate your existing integration but a collection of important differences to consider while upgrading.
+## Upgrading the MiSnap SDK from v4.x to v5.0.0
+This new version of the MiSnap SDK introduces a variety of improvements over past versions, and it comes with a long list of breaking changes. For this reason, this is not a step-by-step guide on how to migrate your existing integration, but a collection of important differences to consider while upgrading.
 
-If you prefer to start fresh with a MiSnap SDK 5.0.0 integration instead, please follow the guide that best suits your needs from the [integration guides](activity_integration_guide.md) section.
+If you prefer to start fresh with a MiSnap SDK v5.0.0 integration instead, please follow the guide that best suits your needs from the [integration guides](activity_integration_guide.md) section.
 
 ### Project Configuration
 The project configuration and requirements have changed. Please look into the [system requirements](../README.md#system-requirements) section for more details.
@@ -23,10 +23,10 @@ The MiSnap SDK doesn't expose any module as source code for customizations and n
 Please look into the `Dependencies` section of your preferred [integration guide](activity_integration_guide.md) for more information on the available modules and how to integrate them into your project.
 
 ### I/O API changes
-This version of MiSnap SDK introduces changes to the way a session is started and how the results are retrieved regarding previous versions. The most relevant changes are:
+This version of the MiSnap SDK introduces changes the way a session is started and how the results are retrieved. The most relevant changes are:
 * Previous API classes such as `MiSnapApi` and `ScienceApi` and parameter manager classes such as `ScienceParamMgr` and `BarcodeParamMgr` were all replaced with `MiSnapSettings`, the latter being the single source of truth for specifying a session configuration.
 * The `Activity` classes in `misnapworkflow` and `misnapworkflow_UX2` modules were replaced by the `MiSnapWorkflowActivity` in `workflow`'s module.
-* The sessions results are no longer in the results intent, the session results can be retrieved from `MiSnapWorkflowActivity.Result` instead.
+* The session results are no longer in the results intent, the session results can be retrieved from the `MiSnapWorkflowActivity.Result` singleton instead.
 
 Please look into the [integration guides](activity_integration_guide.md) for more details and examples on the various ways of starting a session.
 

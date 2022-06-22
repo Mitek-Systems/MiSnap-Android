@@ -99,8 +99,11 @@ class DemoFragment : Fragment(R.layout.fragment_demo) {
             startMiSnapSession(
                 MiSnapWorkflowStep(MiSnapSettings(MiSnapSettings.UseCase.PASSPORT, license).apply {
                     analysis.document.documentExtractionRequirement =
-                        MiSnapSettings.Analysis.Document.ExtractionRequirement.OPTIONAL
+                        MiSnapSettings.Analysis.Document.ExtractionRequirement.REQUIRED
                 }),
+                MiSnapWorkflowStep(MiSnapSettings(MiSnapSettings.UseCase.BARCODE, license).apply {
+                    analysis.barcode.type = MiSnapSettings.Analysis.Barcode.Type.QR_CODE
+                }, behavior = MiSnapWorkflowStep.Behavior.OnMissingNldBSN),
                 MiSnapWorkflowStep(MiSnapSettings(MiSnapSettings.UseCase.NFC, license))
             )
         }

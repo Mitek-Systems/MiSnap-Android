@@ -368,7 +368,7 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
 
     private fun applyBarcodeWorkflowTabUiInputToSettings(settings: MiSnapSettings) {
         barcodeWorkflowSettingsBinding?.let {
-            val defaultWorkflowSettings = BarcodeAnalysisFragment.getDefaultWorkflowSettings()
+            val defaultWorkflowSettings = BarcodeAnalysisFragment.getDefaultWorkflowSettings(settings)
             val workflowSettings = BarcodeAnalysisFragment.buildWorkflowSettings(
                 guideViewAlignedScalePercentage = kotlin.runCatching {
                     it.barcodeWorkflowSettingsGuideViewAlignedScalePercentage.text.toString()
@@ -930,7 +930,7 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
                             workflowSettingsString
                         )
                     }
-            val defaultWorkflowSettings = BarcodeAnalysisFragment.getDefaultWorkflowSettings()
+            val defaultWorkflowSettings = BarcodeAnalysisFragment.getDefaultWorkflowSettings(settings)
 
             (workflowSettings?.guideViewAlignedScalePercentage
                 ?: defaultWorkflowSettings.guideViewAlignedScalePercentage)?.let {
@@ -1256,6 +1256,7 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
         when (index) {
             1 -> MiSnapSettings.Analysis.Barcode.Orientation.LANDSCAPE
             0 -> MiSnapSettings.Analysis.Barcode.Orientation.PORTRAIT
+            2 -> MiSnapSettings.Analysis.Barcode.Orientation.DEVICE
             else -> null
         }
 

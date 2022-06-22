@@ -1,0 +1,322 @@
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>MiSnapWorkflowViewModel</title>
+</head><body><link href="../../../../../../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../../../";</script><script src="https://unpkg.com/kotlin-playground@1" data-selector="code.runnablesample"></script><script src="https://unpkg.com/kotlin-playground@1" data-selector="code.runnablesample"></script><script type="text/javascript" src="../../../../scripts/sourceset_dependencies.js" async></script><link href="../../../../styles/style.css" rel="Stylesheet"><link href="../../../../styles/logo-styles.css" rel="Stylesheet"><link href="../../../../styles/jetbrains-mono.css" rel="Stylesheet"><link href="../../../../styles/main.css" rel="Stylesheet"><script type="text/javascript" src="../../../../scripts/clipboard.js" async></script><script type="text/javascript" src="../../../../scripts/navigation-loader.js" async></script><script type="text/javascript" src="../../../../scripts/platform-content-handler.js" async></script><script type="text/javascript" src="../../../../scripts/main.js" async></script>
+  
+    <div id="container">
+      <div id="leftColumn"><a href="../../../../index.html">
+            <div id="logo"></div>
+          </a>
+        <div id="paneSearch"></div>
+        <div id="sideMenu"></div>
+      </div>
+      <div id="main">
+        <script type="text/javascript" src="../../../../scripts/main.js"></script><div id="leftToggler"><span class="icon-toggler"></span></div>
+
+        <div class="main-content" id="content" pageids="workflow::com.miteksystems.misnap.workflow.fragment/MiSnapWorkflowViewModel///PointingToDeclaration//1506957492">
+          <div class="navigation-wrapper" id="navigation-wrapper">
+            <div class="breadcrumbs"><a href="../../../index.html">workflow</a>/<a href="../index.html">com.miteksystems.misnap.workflow.fragment</a>/<a href="index.html">MiSnapWorkflowViewModel</a></div>
+            <div class="pull-right d-flex">
+              <div id="searchBar"></div>
+            </div>
+          </div>
+          <div class="cover ">
+            <h1 class="cover"><span>Mi</span><wbr><span>Snap</span><wbr><span>Workflow</span><wbr><span>View</span><wbr><span>Model</span></h1>
+            <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":workflow:dokkaHtmlPartial/release"><div class="symbol monospace">class <a href="index.html">MiSnapWorkflowViewModel</a> : <a href="https://developer.android.com/reference/kotlin/androidx/lifecycle/ViewModel.html">ViewModel</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><p class="paragraph">Used for storing inter-fragment state and data during a session.</p></div></div>
+          </div>
+          <div class="tabbedcontent">
+            <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="Constructors">Constructors</button><button class="section-tab" data-togglable="Functions">Functions</button><button class="section-tab" data-togglable="Properties">Properties</button><button class="section-tab" data-togglable="Samples">Samples</button></div>
+            <div class="tabs-section-body">
+              <h2 class="">Samples</h2>
+              <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Samples"><div class="content sourceset-depenent-content" data-active="" data-togglable=":workflow:dokkaHtmlPartial/release"><div class="sample-container"><code class="runnablesample monospace" theme="idea"><pre>import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
+import com.miteksystems.misnap.core.MiSnapSettings
+import com.miteksystems.misnap.workflow.MiSnapFinalResult
+import com.miteksystems.misnap.workflow.fragment.MiSnapWorkflowViewModel
+import com.miteksystems.misnap.R
+fun main() { 
+   //sampleStart 
+   class AnalysisFragmentNavigation : AppCompatActivity(R.layout.example_fragment_navigation) {
+    private val license = "your_sdk_license"
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        // call MiSnapViewModel.applySettings() before navigating to graph's startDestination
+        val settings = MiSnapSettings(MiSnapSettings.UseCase.BARCODE, license)
+
+        ViewModelProvider(this)[MiSnapWorkflowViewModel::class.java].also { viewModel -&gt;
+            viewModel.applySettings(settings)
+
+            viewModel.results.observe(this) {
+                it?.let { result -&gt;
+                    when (result) {
+                        is MiSnapFinalResult.BarcodeSession -&gt; {
+                            // Session complete. Continue your flow.
+                        }
+                    }
+                }
+            }
+
+            viewModel.error.observe(this) {
+                it?.let {
+                    // Handle errors
+                }
+            }
+        }
+    }
+} 
+   //sampleEnd
+}</pre></code></div><div class="sample-container"><code class="runnablesample monospace" theme="idea"><pre>import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import com.miteksystems.misnap.core.MiSnapSettings
+import com.miteksystems.misnap.workflow.MiSnapFinalResult
+import com.miteksystems.misnap.workflow.MiSnapWorkflowError
+import com.miteksystems.misnap.workflow.fragment.*
+import com.miteksystems.misnap.databinding.ExampleFragmentTransactionBinding
+fun main() { 
+   //sampleStart 
+   class AnalysisFragmentTransaction : AppCompatActivity() {
+    private val license = "your_sdk_license"
+
+    private lateinit var binding: ExampleFragmentTransactionBinding
+
+    private var tutorialFragmentHashCode: Int? = null
+
+    private val viewModel by lazy {
+        ViewModelProvider(this)[MiSnapWorkflowViewModel::class.java]
+    }
+
+    // Handle the NavigationErrors to determine the next destination
+    private val navigationErrorsObserver = Observer&lt;NavigationError?&gt; { navError -&gt;
+        navError?.navigationErrorInfo?.let { errorInfo -&gt;
+            when (errorInfo.fragmentClass) {
+                HelpFragment::class.java -&gt; {
+                    when (navError.action) {
+                        is NavigationAction.Help.NavigateContinue -&gt; {
+                            // Help fragment is used as tutorial and help screen, the hashCode from
+                            // the errorInfo is useful to differentiate between instances of the same
+                            // fragment
+                            if (tutorialFragmentHashCode == errorInfo.hashCode) {
+                                // Handle a continue action from a Tutorial Screen
+                                executeFragmentTransaction(BarcodeAnalysisFragment())
+                            } else {
+                                // Handle a continue action from a Help Screen
+                            }
+                        }
+                    }
+                }
+                BarcodeAnalysisFragment::class.java -&gt; {
+                    when (navError.action) {
+                        is NavigationAction.BarcodeAnalysis.NavigateHelp -&gt; {
+                            executeFragmentTransaction(HelpFragment())
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        binding = ExampleFragmentTransactionBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+        viewModel.applySettings(MiSnapSettings(MiSnapSettings.UseCase.BARCODE, license))
+
+        viewModel.navigationErrors.observe(this, navigationErrorsObserver)
+
+        viewModel.results.observe(this) { result -&gt;
+            result?.let {
+                when (it) {
+                    is MiSnapFinalResult.BarcodeSession -&gt; {
+                    }
+                }
+            }
+        }
+
+        viewModel.error.observe(this) { error -&gt;
+            error?.let {
+                when (it.error) {
+                    is MiSnapWorkflowError.Permission -&gt; {
+                    }
+                    is MiSnapWorkflowError.Camera -&gt; {
+                    }
+                    is MiSnapWorkflowError.Cancelled -&gt; {
+                    }
+                }
+            }
+        }
+
+        startSession()
+    }
+
+    private fun startSession() {
+        // Start with the tutorial
+        val tutorialFragment = HelpFragment()
+        tutorialFragmentHashCode = tutorialFragment.hashCode()
+        executeFragmentTransaction(tutorialFragment)
+    }
+
+    private fun executeFragmentTransaction(fragment: Fragment) {
+        supportFragmentManager
+            .beginTransaction()
+            .apply {
+                replace(binding.fragmentContainer.id, fragment)
+            }
+            .commit()
+    }
+} 
+   //sampleEnd
+}</pre></code></div></div></div>
+              <h2 class="tabbedcontent">Constructors</h2>
+              <div class="table" data-togglable="Constructors"><a data-name="-1797955797%2FConstructors%2F1506957492" anchor-label="MiSnapWorkflowViewModel" id="-1797955797%2FConstructors%2F1506957492" data-filterable-set=":workflow:dokkaHtmlPartial/release"></a>
+                <div class="table-row" data-filterable-current=":workflow:dokkaHtmlPartial/release" data-filterable-set=":workflow:dokkaHtmlPartial/release">
+                  <div class="main-subrow keyValue TabbedContent">
+                    <div class=""><span class="inline-flex"><a href="-mi-snap-workflow-view-model.html">MiSnapWorkflowViewModel</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1797955797%2FConstructors%2F1506957492"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title">
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":workflow:dokkaHtmlPartial/release"><div class="symbol monospace">fun <a href="-mi-snap-workflow-view-model.html">MiSnapWorkflowViewModel</a>()<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <h2 class="">Functions</h2>
+              <div class="table" data-togglable="Functions"><a data-name="1857219998%2FFunctions%2F1506957492" anchor-label="applySettings" id="1857219998%2FFunctions%2F1506957492" data-filterable-set=":workflow:dokkaHtmlPartial/release"></a>
+                <div class="table-row" data-filterable-current=":workflow:dokkaHtmlPartial/release" data-filterable-set=":workflow:dokkaHtmlPartial/release">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="apply-settings.html">applySettings</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1857219998%2FFunctions%2F1506957492"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":workflow:dokkaHtmlPartial/release" data-filterable-set=":workflow:dokkaHtmlPartial/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":workflow:dokkaHtmlPartial/release"><div class="symbol monospace">fun <a href="apply-settings.html">applySettings</a>(settings: <a href="../../../../core/core/com.miteksystems.misnap.core/-mi-snap-settings/index.html">MiSnapSettings</a>)<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+<a data-name="1857219998%2FFunctions%2F1506957492" anchor-label="applySettings" id="1857219998%2FFunctions%2F1506957492" data-filterable-set=":workflow:dokkaHtmlPartial/release"></a><div class="brief "><a data-name="1857219998%2FFunctions%2F1506957492" anchor-label="applySettings" id="1857219998%2FFunctions%2F1506957492" data-filterable-set=":workflow:dokkaHtmlPartial/release"></a>Applies the provided <a href="../../../../core/core/com.miteksystems.misnap.core/-mi-snap-settings/index.html">MiSnapSettings</a> to the workflow.</div></div>
+</div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="-1834498297%2FFunctions%2F1506957492" anchor-label="clearResults" id="-1834498297%2FFunctions%2F1506957492" data-filterable-set=":workflow:dokkaHtmlPartial/release"></a>
+                <div class="table-row" data-filterable-current=":workflow:dokkaHtmlPartial/release" data-filterable-set=":workflow:dokkaHtmlPartial/release">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="clear-results.html">clearResults</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1834498297%2FFunctions%2F1506957492"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":workflow:dokkaHtmlPartial/release" data-filterable-set=":workflow:dokkaHtmlPartial/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":workflow:dokkaHtmlPartial/release"><div class="symbol monospace">fun <a href="clear-results.html">clearResults</a>()<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+<a data-name="-1834498297%2FFunctions%2F1506957492" anchor-label="clearResults" id="-1834498297%2FFunctions%2F1506957492" data-filterable-set=":workflow:dokkaHtmlPartial/release"></a><div class="brief "><a data-name="-1834498297%2FFunctions%2F1506957492" anchor-label="clearResults" id="-1834498297%2FFunctions%2F1506957492" data-filterable-set=":workflow:dokkaHtmlPartial/release"></a>Clears the results object to free up resources used by the returned data.</div></div>
+</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <h2 class="">Properties</h2>
+              <div class="table" data-togglable="Properties"><a data-name="2004251138%2FProperties%2F1506957492" anchor-label="error" id="2004251138%2FProperties%2F1506957492" data-filterable-set=":workflow:dokkaHtmlPartial/release"></a>
+                <div class="table-row" data-filterable-current=":workflow:dokkaHtmlPartial/release" data-filterable-set=":workflow:dokkaHtmlPartial/release">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="error.html">error</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2004251138%2FProperties%2F1506957492"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title">
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable=":workflow:dokkaHtmlPartial/release"><a data-name="2004251138%2FProperties%2F1506957492" anchor-label="error" id="2004251138%2FProperties%2F1506957492" data-filterable-set=":workflow:dokkaHtmlPartial/release"></a><div class="symbol monospace">val <a href="error.html">error</a>: <a href="https://developer.android.com/reference/kotlin/androidx/lifecycle/LiveData.html">LiveData</a>&lt;<a href="../../com.miteksystems.misnap.workflow/-mi-snap-error-result/index.html">MiSnapErrorResult</a>?&gt;<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><a data-name="2004251138%2FProperties%2F1506957492" anchor-label="error" id="2004251138%2FProperties%2F1506957492" data-filterable-set=":workflow:dokkaHtmlPartial/release"></a>Livedata for reporting errors that occurred during the session.</div></div></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="-866876029%2FProperties%2F1506957492" anchor-label="failoverReasonsHandler" id="-866876029%2FProperties%2F1506957492" data-filterable-set=":workflow:dokkaHtmlPartial/release"></a>
+                <div class="table-row" data-filterable-current=":workflow:dokkaHtmlPartial/release" data-filterable-set=":workflow:dokkaHtmlPartial/release">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="failover-reasons-handler.html">failoverReasonsHandler</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-866876029%2FProperties%2F1506957492"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title">
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable=":workflow:dokkaHtmlPartial/release"><a data-name="-866876029%2FProperties%2F1506957492" anchor-label="failoverReasonsHandler" id="-866876029%2FProperties%2F1506957492" data-filterable-set=":workflow:dokkaHtmlPartial/release"></a><div class="symbol monospace">val <a href="failover-reasons-handler.html">failoverReasonsHandler</a>: <a href="../../com.miteksystems.misnap.workflow.util/-failover-reasons-handler/index.html">FailoverReasonsHandler</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><a data-name="-866876029%2FProperties%2F1506957492" anchor-label="failoverReasonsHandler" id="-866876029%2FProperties%2F1506957492" data-filterable-set=":workflow:dokkaHtmlPartial/release"></a>A utility class to keep track of the most common issues found during a session to use them as diagnostic for failed sessions.</div></div></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="1476072593%2FProperties%2F1506957492" anchor-label="navigationErrors" id="1476072593%2FProperties%2F1506957492" data-filterable-set=":workflow:dokkaHtmlPartial/release"></a>
+                <div class="table-row" data-filterable-current=":workflow:dokkaHtmlPartial/release" data-filterable-set=":workflow:dokkaHtmlPartial/release">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="navigation-errors.html">navigationErrors</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1476072593%2FProperties%2F1506957492"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title">
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable=":workflow:dokkaHtmlPartial/release"><a data-name="1476072593%2FProperties%2F1506957492" anchor-label="navigationErrors" id="1476072593%2FProperties%2F1506957492" data-filterable-set=":workflow:dokkaHtmlPartial/release"></a><div class="symbol monospace">val <a href="navigation-errors.html">navigationErrors</a>: <a href="https://developer.android.com/reference/kotlin/androidx/lifecycle/LiveData.html">LiveData</a>&lt;<a href="../-navigation-error/index.html">NavigationError</a>?&gt;<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><a data-name="1476072593%2FProperties%2F1506957492" anchor-label="navigationErrors" id="1476072593%2FProperties%2F1506957492" data-filterable-set=":workflow:dokkaHtmlPartial/release"></a>Livedata for reporting navigation errors that occurred during the session.</div></div></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="-2036412268%2FProperties%2F1506957492" anchor-label="results" id="-2036412268%2FProperties%2F1506957492" data-filterable-set=":workflow:dokkaHtmlPartial/release"></a>
+                <div class="table-row" data-filterable-current=":workflow:dokkaHtmlPartial/release" data-filterable-set=":workflow:dokkaHtmlPartial/release">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="results.html">results</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2036412268%2FProperties%2F1506957492"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title">
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable=":workflow:dokkaHtmlPartial/release"><a data-name="-2036412268%2FProperties%2F1506957492" anchor-label="results" id="-2036412268%2FProperties%2F1506957492" data-filterable-set=":workflow:dokkaHtmlPartial/release"></a><div class="symbol monospace">val <a href="results.html">results</a>: <a href="https://developer.android.com/reference/kotlin/androidx/lifecycle/LiveData.html">LiveData</a>&lt;<a href="../../com.miteksystems.misnap.workflow/-mi-snap-final-result/index.html">MiSnapFinalResult</a>?&gt;<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><a data-name="-2036412268%2FProperties%2F1506957492" anchor-label="results" id="-2036412268%2FProperties%2F1506957492" data-filterable-set=":workflow:dokkaHtmlPartial/release"></a>Livedata for returning results of the session.</div></div></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="-1073796817%2FProperties%2F1506957492" anchor-label="reviewFinalResult" id="-1073796817%2FProperties%2F1506957492" data-filterable-set=":workflow:dokkaHtmlPartial/release"></a>
+                <div class="table-row" data-filterable-current=":workflow:dokkaHtmlPartial/release" data-filterable-set=":workflow:dokkaHtmlPartial/release">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="review-final-result.html">reviewFinalResult</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1073796817%2FProperties%2F1506957492"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title">
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable=":workflow:dokkaHtmlPartial/release"><a data-name="-1073796817%2FProperties%2F1506957492" anchor-label="reviewFinalResult" id="-1073796817%2FProperties%2F1506957492" data-filterable-set=":workflow:dokkaHtmlPartial/release"></a><div class="symbol monospace">var <a href="review-final-result.html">reviewFinalResult</a>: <a href="../../com.miteksystems.misnap.workflow/-mi-snap-final-result/index.html">MiSnapFinalResult</a>? = null<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><a data-name="-1073796817%2FProperties%2F1506957492" anchor-label="reviewFinalResult" id="-1073796817%2FProperties%2F1506957492" data-filterable-set=":workflow:dokkaHtmlPartial/release"></a>The result to be reviewed on the review fragment.</div></div></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="1812438669%2FProperties%2F1506957492" anchor-label="settings" id="1812438669%2FProperties%2F1506957492" data-filterable-set=":workflow:dokkaHtmlPartial/release"></a>
+                <div class="table-row" data-filterable-current=":workflow:dokkaHtmlPartial/release" data-filterable-set=":workflow:dokkaHtmlPartial/release">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="settings.html">settings</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1812438669%2FProperties%2F1506957492"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title">
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable=":workflow:dokkaHtmlPartial/release"><a data-name="1812438669%2FProperties%2F1506957492" anchor-label="settings" id="1812438669%2FProperties%2F1506957492" data-filterable-set=":workflow:dokkaHtmlPartial/release"></a><div class="symbol monospace">val <a href="settings.html">settings</a>: <a href="https://developer.android.com/reference/kotlin/androidx/lifecycle/LiveData.html">LiveData</a>&lt;<a href="../../../../core/core/com.miteksystems.misnap.core/-mi-snap-settings/index.html">MiSnapSettings</a>?&gt;<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><a data-name="1812438669%2FProperties%2F1506957492" anchor-label="settings" id="1812438669%2FProperties%2F1506957492" data-filterable-set=":workflow:dokkaHtmlPartial/release"></a>Livedata for getting the current settings of the session.</div></div></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="footer"><span class="go-to-top-icon"><a href="#content"></a></span><span>© 2022 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span></div>
+      </div>
+    </div>
+  
+</body></html>
+
+

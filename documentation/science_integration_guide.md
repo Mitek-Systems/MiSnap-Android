@@ -1,88 +1,91 @@
-# MiSnap SDK v5.0.0 Core Science Integration Guide
+# MiSnap SDK v5.0.0 Science Integration Guide
 
-This guide is targeted towards customers who want to integrate **MiSnap's core computational processing** without the default workflow shipped with the MiSnap SDK.
+This guide is targeted towards customers who want to integrate **MiSnap's base processing** without the default workflow shipped with the MiSnap SDK.
 
 # Table of Contents
 [Document, Barcode, and Face Analysis](#document-barcode-and-face-analysis)
 * [Dependencies](#dependencies)
-* [Start Analysis](#start-analysis)
+* [Starting Image Analysis](#starting-image-analysis)
 
 [NFC Reading](#nfc-reading)
 * [Dependencies](#dependencies-1)
-* [Start Reading](#start-reading)
+* [Start Reading NFC](#start-reading-nfc)
 
 - - - - 
 
 # Document, Barcode, and Face Analysis
 
-Document, barcode, and face analysis uses `MiSnapController` in `controller` module to determine whether the provided frame is good enough or not. `controller` is built on top of core science modules `document-analysis`, `barcode-analysis`, and `face-analysis` and provides an easy opt-out option with a consistent API and additional Mitek's business logic for selection of a high quality frame.
+Document, barcode, and face analysis use `MiSnapController` in the `controller` module to determine whether the provided frame is good enough or not. The `controller` module is built on top of the `document-analysis`, `barcode-analysis`, and `face-analysis` science modules and provides an easy opt-out option with a consistent API and additional business logic for the selection of a high quality frame.
 
-Developers can, however, choose to integrate the science modules but will lose the high quality frame selection capabilities as science modules only return the raw Image Quality Analysis (IQA) values. This guide provides integration steps for `controller` only.
+Developers can, however, choose to integrate the science modules alone, but in doing so lose the high quality frame selection capabilities as the science modules only return the raw Image Quality Analysis (IQA) values. This guide provides the integration steps for an integration at the `controller` level.
 
 ## Dependencies 
 
-The easiest way to integrate to integrate document, face, or barcode analysis is to add the following to integrating module's `build.gradle`:
+The easiest way to integrate document, face, or barcode analysis is to add the following to the integrating module's `build.gradle`:
 ```groovy
 dependencies {
-    implementation "com.miteksystems.misnap:controller:5.0.0-beta2"
+    implementation "com.miteksystems.misnap:controller:5.0.0-beta3"
 
     // Optional barcode analysis dependency
-    implementation "com.miteksystems.misnap:barcode-analysis:5.0.0-beta2"
+    implementation "com.miteksystems.misnap:barcode-analysis:5.0.0-beta3"
 
     // Optional document analysis dependency
-    implementation "com.miteksystems.misnap:document-analysis:5.0.0-beta2"
+    implementation "com.miteksystems.misnap:document-analysis:5.0.0-beta3"
 
     // Optional face analysis dependency
-    implementation "com.miteksystems.misnap:face-analysis:5.0.0-beta2"
+    implementation "com.miteksystems.misnap:face-analysis:5.0.0-beta3"
 
     // Optional MRZ detector dependency
-    implementation "com.miteksystems.misnap:feature-detector:5.0.0-beta2"
+    implementation "com.miteksystems.misnap:feature-detector:5.0.0-beta3"
 }
 ```
 
-To integrate MiSnap without having access to external maven server, please see [this FAQ](../README.md#how-to-integrate-misnap-sdk-without-having-access-to-maven).
+To integrate the MiSnap SDK without having access to an external Maven server, please see [this FAQ](../README.md#how-to-integrate-misnap-sdk-without-having-access-to-maven).
 
-## Start Analysis
+## Starting Image Analysis
 
-1. Initialize `MiSnapSettings` with appropriate `UseCase`; for example `MiSnapSettings.UseCase.CHECK_FRONT` to analyze the front side of a check or `MiSnapSettings.UseCase.FACE` to analyze a face
+1. Create a `MiSnapSettings` instance with the appropriate `MiSnapSettings.UseCase`; for example `MiSnapSettings.UseCase.CHECK_FRONT` to analyze the front side of a check or `MiSnapSettings.UseCase.FACE` to analyze a face.
 
-2. Initialize `MiSnapController` with `MiSnapSettings` initialized in Step 1
+2. Create a `MiSnapController` instance with the `MiSnapSettings` from the previous step.
 
-3. Register to listen for `LiveData` updates for `MiSnapSettings.feedbackResult`, `MiSnapSettings.frameResult`, and `MiSnapSettings.errorResult`. Please see in-code documentation for more details
+3. Register to listen for `LiveData` updates for `MiSnapController.feedbackResult`, `MiSnapController.frameResult`, and `MiSnapController.errorResult`.
 
-4. Create `Frame` instance and call `MiSnapSettings.analyzeFrame` to start analysis. Analysis will be performed asynchronously and appropriate `LiveData` would get updated
+4. Create a `Frame` instance and call `MiSnapController.analyzeFrame` to start the analysis. The analysis will be performed asynchronously and the appropriate `LiveData` will start receiving updates.
 
-Please see `examples/science/FrameFromCamera.kt` to create `Frame` instance.
+Please see `examples/science/FrameFromNativeCamera.kt` for the full code sample on how to create a `Frame` instance.
 
-Please see `examples/science/DocumentAnalysis.kt`, `examples/science/FaceAnalysis.kt`, and `examples/science/BarcodeAnalysis.kt` for full code.
+Please see `examples/science/DocumentAnalysis.kt`, `examples/science/FaceAnalysis.kt`, and `examples/science/BarcodeAnalysis.kt` for the full code sample.
 
 - - - -
 
 # NFC Reading
 
-NFC sessions don't go through `MiSnapController` as it doesn't require a camera frame to work. Hence, `nfc-reader` module can directly be integrated into customer's application without `controller`
+NFC sessions don't go through the `MiSnapController` as it doesn't require a camera frame to work. Hence, the `nfc-reader` module can directly be integrated into the customer's application without the `controller` module.
 
 ## Dependencies
 
-The easiest way to integrate to integrate NFC reader is to integrating module's `build.gradle`:
+The easiest way to integrate NFC reading is to add the following to the integrating module's `build.gradle`:
 ```groovy
 dependencies {
-    implementation "com.miteksystems.misnap:nfc-reader:5.0.0-beta2"
+    implementation "com.miteksystems.misnap:nfc-reader:5.0.0-beta3"
 }
 ```
 
-To integrate MiSnap without having access to external maven server, please see [this FAQ](../README.md#how-to-integrate-misnap-sdk-without-having-access-to-maven).
+To integrate the MiSnap SDK without having access to an external Maven server, please see [this FAQ](../README.md#how-to-integrate-misnap-sdk-without-having-access-to-maven).
 
-## Start Reading
+## Start Reading NFC
 
-1. Initialize `MiSnapSettings` with `UseCase.NFC`
+1. Create a `MiSnapSettings` instance with the use case `UseCase.NFC` and configure it with the appropriate `Mrz`; use `MrzData` for Passports and ID cards (including Resident Permits), use `Mrz1Line` for European Union Driver's Licenses.
 
-2. Initialize `NfcReader` with `MiSnapSettings` initialized in Step 1
+2. Create an `NfcReader` instance with the `MiSnapSettings` from the previous step.
 
-3. Register to listen for `LiveData` updates for `NfcReader.events`, `NfcReader.completedEvent`, and `NfcReader.errorEvents`. Please see inline code documentation for more details
+3. Register to listen for `LiveData` updates for `NfcReader.events`, `NfcReader.completedEvent`, and `NfcReader.errorEvents`.
 
-4. Call `NfcReader.start()` with appropriate `Mrz`; `MrzData` for Passports and ID cards (including Resident Permits), `Mrz1Line` for European Union Drivers Licenses
+4. Call `NfcReader.start()` by passing an `Activity` and the `MiSnapSettings` from step 1. The appropriate `LiveData`s will start receiving updates during the reading process. 
 
-Please see `examples/science/NfcRead.kt` for full code.
+
+Please see `examples/science/NfcRead.kt` for the full code sample.
+
+Please see the in-code documentation for more details and the full API.
 
 - - - -

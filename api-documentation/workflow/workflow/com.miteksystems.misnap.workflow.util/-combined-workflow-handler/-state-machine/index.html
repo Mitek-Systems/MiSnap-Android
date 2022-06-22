@@ -1,0 +1,254 @@
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>StateMachine</title>
+</head><body><link href="../../../../../../../../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../../../../";</script><script src="https://unpkg.com/kotlin-playground@1" data-selector="code.runnablesample"></script><script type="text/javascript" src="../../../../../scripts/sourceset_dependencies.js" async></script><link href="../../../../../styles/style.css" rel="Stylesheet"><link href="../../../../../styles/logo-styles.css" rel="Stylesheet"><link href="../../../../../styles/jetbrains-mono.css" rel="Stylesheet"><link href="../../../../../styles/main.css" rel="Stylesheet"><script type="text/javascript" src="../../../../../scripts/clipboard.js" async></script><script type="text/javascript" src="../../../../../scripts/navigation-loader.js" async></script><script type="text/javascript" src="../../../../../scripts/platform-content-handler.js" async></script><script type="text/javascript" src="../../../../../scripts/main.js" async></script>
+  
+    <div id="container">
+      <div id="leftColumn"><a href="../../../../../index.html">
+            <div id="logo"></div>
+          </a>
+        <div id="paneSearch"></div>
+        <div id="sideMenu"></div>
+      </div>
+      <div id="main">
+        <script type="text/javascript" src="../../../../../scripts/main.js"></script><div id="leftToggler"><span class="icon-toggler"></span></div>
+
+        <div class="main-content" id="content" pageids="workflow::com.miteksystems.misnap.workflow.util/CombinedWorkflowHandler.StateMachine///PointingToDeclaration//1506957492">
+          <div class="navigation-wrapper" id="navigation-wrapper">
+            <div class="breadcrumbs"><a href="../../../../index.html">workflow</a>/<a href="../../index.html">com.miteksystems.misnap.workflow.util</a>/<a href="../index.html">CombinedWorkflowHandler</a>/<a href="index.html">StateMachine</a></div>
+            <div class="pull-right d-flex">
+              <div id="searchBar"></div>
+            </div>
+          </div>
+          <div class="cover ">
+            <h1 class="cover"><span>State</span><wbr><span>Machine</span></h1>
+            <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":workflow:dokkaHtmlPartial/release"><div class="symbol monospace">class <a href="index.html">StateMachine</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><p class="paragraph">A simple state machine to handle combined workflow steps in a sequential order.</p></div></div>
+          </div>
+          <div class="tabbedcontent">
+            <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="Types">Types</button><button class="section-tab" data-togglable="Constructors">Constructors</button><button class="section-tab" data-togglable="Functions">Functions</button><button class="section-tab" data-togglable="Samples">Samples</button></div>
+            <div class="tabs-section-body">
+              <h2 class="">Samples</h2>
+              <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Samples"><div class="content sourceset-depenent-content" data-active="" data-togglable=":workflow:dokkaHtmlPartial/release"><div class="sample-container"><code class="runnablesample monospace" theme="idea"><pre>import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
+import com.miteksystems.misnap.core.MiSnapSettings
+import com.miteksystems.misnap.workflow.MiSnapWorkflowStep
+import com.miteksystems.misnap.workflow.fragment.MiSnapWorkflowViewModel
+import com.miteksystems.misnap.workflow.util.CombinedWorkflowHandler
+import com.miteksystems.misnap.R
+import com.miteksystems.misnap.databinding.ExampleActivityCombinedWorkflowIntegrationBinding
+fun main() { 
+   //sampleStart 
+   /**
+ * This is an advanced combined workflow integration example, it is strongly recommended to follow
+ * the most simple and easiest combined workflow integration instead:
+ * @see com.miteksystems.misnap.examples.activity.IntegrationActivity
+ *
+ * If the aforementioned example doesn't fit your needs you can integrate the combined workflow in
+ * your own activity and delegate the navigation to the MiSnap SDK following this integration
+ * instead:
+ * @see com.miteksystems.misnap.examples.workflowhandler.CombinedWorkflowHandlerActivity
+ *
+ * Use this example if you want a single activity based integration and you want to create a combined
+ * workflow in your own activity while retaining full control of the navigation.
+ */
+class CombinedWorkflowIntegrationActivity : AppCompatActivity() {
+    private val license = "your_sdk_license"
+    private lateinit var binding: ExampleActivityCombinedWorkflowIntegrationBinding
+    private val misnapWorkflowViewModel: MiSnapWorkflowViewModel by lazy {
+        ViewModelProvider(this)[MiSnapWorkflowViewModel::class.java]
+    }
+    private val combinedWorkflowViewModel: CombinedWorkflowHandler.CombinedViewModel by lazy {
+        ViewModelProvider(this)[CombinedWorkflowHandler.CombinedViewModel::class.java]
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        binding = ExampleActivityCombinedWorkflowIntegrationBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+        // Create the list of steps in the order you want the workflow.
+        val stepsList = listOf(
+            MiSnapWorkflowStep(MiSnapSettings(MiSnapSettings.UseCase.PASSPORT, license)),
+            MiSnapWorkflowStep(MiSnapSettings(MiSnapSettings.UseCase.BARCODE, license).apply {
+                analysis.barcode.type = MiSnapSettings.Analysis.Barcode.Type.QR_CODE
+                analysis.document.barcodeExtractionRequirement =
+                    MiSnapSettings.Analysis.Document.ExtractionRequirement.REQUIRED
+            }),
+            MiSnapWorkflowStep(MiSnapSettings(MiSnapSettings.UseCase.NFC, license))
+        )
+
+        // Observe the final results of each step to collect them.
+        misnapWorkflowViewModel.results.observe(this) {
+            it?.let {
+                combinedWorkflowViewModel.addCombinedWorkflowStepResult(
+                    MiSnapWorkflowStep.Result.Success(it)
+                )
+
+                // Once collected, process to the next step.
+                processNextStep()
+            }
+        }
+
+        // Observe the errors to collect them as results if necessary.
+        misnapWorkflowViewModel.error.observe(this) {
+            it?.let {
+                combinedWorkflowViewModel.addCombinedWorkflowStepResult(
+                    MiSnapWorkflowStep.Result.Error(it)
+                )
+
+                // Once collected, process to the next step.
+                processNextStep()
+            }
+        }
+
+        // Configure the combined workflow ViewModel and validate its configuration.
+        combinedWorkflowViewModel.applyCombinedWorkflowSteps(stepsList)
+        if (combinedWorkflowViewModel.isCombinedWorkflowConfigured()) {
+            // Kickoff the combined workflow.
+            misnapWorkflowViewModel.applySettings(stepsList.first().settings)
+
+            // Handle the step navigation.
+            navigateToStep(stepsList.first().settings.useCase)
+        } else {
+            // Handle the invalid configuration.
+        }
+    }
+
+    private fun processNextStep() {
+        // Use the combined workflow state machine to determine the next action
+        combinedWorkflowViewModel.combinedWorkflowStateMachine?.let { workflowStateMachine -&gt;
+            val results = combinedWorkflowViewModel.getCombinedWorkflowStepResultsList()
+            val steps = combinedWorkflowViewModel.combinedWorkflowStepsList
+            // Determine the next and previous step, as well as the last results.
+            // At the end of all steps there should be one result for each step.
+            val latestResults = results.last()
+            val latestStep = steps[results.size - 1]
+            val nextStep = steps.getOrNull(results.size)
+
+            // Determine the next action to take in the workflow.
+            when (val nextAction =
+                workflowStateMachine.processNextState(latestResults, latestStep, nextStep)) {
+                is CombinedWorkflowHandler.StateMachine.Action.Next -&gt; {
+                    // Continue to the next step.
+                    val nextStepSettings = nextAction.step.settings
+
+                    // Clear the viewmodel between steps
+                    misnapWorkflowViewModel.clearResults()
+
+                    // Handle your custom logic, e.g. by mutating the settings based on other results
+                    // or skipping steps based on business rules.
+                    misnapWorkflowViewModel.applySettings(nextStepSettings)
+
+                    // Navigate to the next step.
+                    navigateToStep(nextStepSettings.useCase)
+                }
+                is CombinedWorkflowHandler.StateMachine.Action.Skip -&gt; {
+                    // Handle steps that should be skipped, e.g. by adding them as an error result
+                    // before moving to the next step.
+                }
+                is CombinedWorkflowHandler.StateMachine.Action.Finish -&gt; {
+                    // Handle the end of the workflow e.g. by collecting all the results and
+                    // cleaning the view models.
+                    val allResults = combinedWorkflowViewModel.getCombinedWorkflowStepResultsList()
+
+                    combinedWorkflowViewModel.resetViewModel()
+                    misnapWorkflowViewModel.clearResults()
+                }
+            }
+        }
+    }
+
+    private fun navigateToStep(useCase: MiSnapSettings.UseCase) {
+        // Navigate to the appropriate flow according to the use case
+        // in this case replacing the current navgraph.
+        val navGraph = when (useCase) {
+            MiSnapSettings.UseCase.PASSPORT -&gt; {
+                R.navigation.document_session_flow
+            }
+            MiSnapSettings.UseCase.BARCODE -&gt; {
+                R.navigation.barcode_session_flow
+            }
+            MiSnapSettings.UseCase.NFC -&gt; {
+                R.navigation.nfc_reader_flow
+            }
+            else -&gt; {
+                throw IllegalArgumentException()
+            }
+        }
+
+        findNavController(R.id.fragmentContainer).setGraph(navGraph)
+    }
+} 
+   //sampleEnd
+}</pre></code></div></div></div>
+              <h2 class="tabbedcontent">Constructors</h2>
+              <div class="table" data-togglable="Constructors"><a data-name="-1002864703%2FConstructors%2F1506957492" anchor-label="StateMachine" id="-1002864703%2FConstructors%2F1506957492" data-filterable-set=":workflow:dokkaHtmlPartial/release"></a>
+                <div class="table-row" data-filterable-current=":workflow:dokkaHtmlPartial/release" data-filterable-set=":workflow:dokkaHtmlPartial/release">
+                  <div class="main-subrow keyValue TabbedContent">
+                    <div class=""><span class="inline-flex"><a href="-state-machine.html">StateMachine</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1002864703%2FConstructors%2F1506957492"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title">
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":workflow:dokkaHtmlPartial/release"><div class="symbol monospace">fun <a href="-state-machine.html">StateMachine</a>()<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <h2 class="">Types</h2>
+              <div class="table" data-togglable="Types"><a data-name="-2022473194%2FClasslikes%2F1506957492" anchor-label="Action" id="-2022473194%2FClasslikes%2F1506957492" data-filterable-set=":workflow:dokkaHtmlPartial/release"></a>
+                <div class="table-row" data-filterable-current=":workflow:dokkaHtmlPartial/release" data-filterable-set=":workflow:dokkaHtmlPartial/release">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="-action/index.html">Action</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2022473194%2FClasslikes%2F1506957492"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":workflow:dokkaHtmlPartial/release" data-filterable-set=":workflow:dokkaHtmlPartial/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":workflow:dokkaHtmlPartial/release"><div class="symbol monospace">sealed class <a href="-action/index.html">Action</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+<a data-name="-2022473194%2FClasslikes%2F1506957492" anchor-label="Action" id="-2022473194%2FClasslikes%2F1506957492" data-filterable-set=":workflow:dokkaHtmlPartial/release"></a><div class="brief "><a data-name="-2022473194%2FClasslikes%2F1506957492" anchor-label="Action" id="-2022473194%2FClasslikes%2F1506957492" data-filterable-set=":workflow:dokkaHtmlPartial/release"></a>Describes the "next action to take" during a combined workflow.</div></div>
+</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <h2 class="">Functions</h2>
+              <div class="table" data-togglable="Functions"><a data-name="414416755%2FFunctions%2F1506957492" anchor-label="processNextState" id="414416755%2FFunctions%2F1506957492" data-filterable-set=":workflow:dokkaHtmlPartial/release"></a>
+                <div class="table-row" data-filterable-current=":workflow:dokkaHtmlPartial/release" data-filterable-set=":workflow:dokkaHtmlPartial/release">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="process-next-state.html">processNextState</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="414416755%2FFunctions%2F1506957492"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":workflow:dokkaHtmlPartial/release" data-filterable-set=":workflow:dokkaHtmlPartial/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":workflow:dokkaHtmlPartial/release"><div class="symbol monospace">fun <a href="process-next-state.html">processNextState</a>(prevStepResult: <a href="../../../com.miteksystems.misnap.workflow/-mi-snap-workflow-step/-result/index.html">MiSnapWorkflowStep.Result</a>, prevStep: <a href="../../../com.miteksystems.misnap.workflow/-mi-snap-workflow-step/index.html">MiSnapWorkflowStep</a>, nextStep: <a href="../../../com.miteksystems.misnap.workflow/-mi-snap-workflow-step/index.html">MiSnapWorkflowStep</a>?): <a href="-action/index.html">CombinedWorkflowHandler.StateMachine.Action</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+<a data-name="414416755%2FFunctions%2F1506957492" anchor-label="processNextState" id="414416755%2FFunctions%2F1506957492" data-filterable-set=":workflow:dokkaHtmlPartial/release"></a><div class="brief "><a data-name="414416755%2FFunctions%2F1506957492" anchor-label="processNextState" id="414416755%2FFunctions%2F1506957492" data-filterable-set=":workflow:dokkaHtmlPartial/release"></a>Determines the next <a href="-action/index.html">Action</a> in the workflow.</div></div>
+</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="footer"><span class="go-to-top-icon"><a href="#content"></a></span><span>© 2022 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span></div>
+      </div>
+    </div>
+  
+</body></html>
+
+

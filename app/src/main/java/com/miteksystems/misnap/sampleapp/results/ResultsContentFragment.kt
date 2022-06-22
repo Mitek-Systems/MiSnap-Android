@@ -52,11 +52,11 @@ class ResultsContentFragment : Fragment(R.layout.fragment_result_content) {
                         when (val misnapResult = miSnapWorkflowStepResult.result) {
                             is MiSnapFinalResult.DocumentSession -> {
                                 adapter.addView(
-                                    getTouchImageView(misnapResult.frame),
+                                    getTouchImageView(misnapResult.jpegImage),
                                     getString(R.string.misnapSampleAppResultsFrameTabTitle)
                                 )
 
-                                misnapResult.videoRecording?.let {
+                                misnapResult.video?.let {
                                     adapter.addView(
                                         getMiSnapVideoView(it),
                                         getString(R.string.misnapSampleAppResultsVideoTabTitle)
@@ -91,11 +91,11 @@ class ResultsContentFragment : Fragment(R.layout.fragment_result_content) {
                             }
                             is MiSnapFinalResult.BarcodeSession -> {
                                 adapter.addView(
-                                    getTouchImageView(misnapResult.frame),
+                                    getTouchImageView(misnapResult.jpegImage),
                                     getString(R.string.misnapSampleAppResultsFrameTabTitle)
                                 )
 
-                                misnapResult.videoRecording?.let {
+                                misnapResult.video?.let {
                                     adapter.addView(
                                         getMiSnapVideoView(it),
                                         getString(R.string.misnapSampleAppResultsVideoTabTitle)
@@ -116,11 +116,11 @@ class ResultsContentFragment : Fragment(R.layout.fragment_result_content) {
                             }
                             is MiSnapFinalResult.FaceSession -> {
                                 adapter.addView(
-                                    getTouchImageView(misnapResult.frame),
+                                    getTouchImageView(misnapResult.jpegImage),
                                     getString(R.string.misnapSampleAppResultsFrameTabTitle)
                                 )
 
-                                misnapResult.videoRecording?.let {
+                                misnapResult.video?.let {
                                     adapter.addView(
                                         getMiSnapVideoView(it),
                                         getString(R.string.misnapSampleAppResultsVideoTabTitle)
@@ -552,7 +552,8 @@ class ResultsContentFragment : Fragment(R.layout.fragment_result_content) {
                             mrz.documentCode,
                             mrz.country,
                             mrz.dateOfBirth,
-                            mrz.dateOfExpiry
+                            mrz.dateOfExpiry,
+                            mrz.optionalData1
                         ),
                         HtmlCompat.FROM_HTML_MODE_COMPACT
                     )

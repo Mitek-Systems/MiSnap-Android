@@ -1,6 +1,6 @@
 # MiSnap SDK v5.0.0 Activity-based Integration Guide
 
-This **recommended** guide is targeted towards developers who want the **easiest integration** of MiSnap SDK and is best suited for applications with **multi-activity application architecture**.
+This **recommended** guide is targeted towards developers who want the **easiest integration** of the MiSnap SDK and is best suited for applications with a **multi-activity architecture**.
 
 - - - -
 
@@ -8,9 +8,9 @@ This **recommended** guide is targeted towards developers who want the **easiest
 
 [Dependencies](#dependencies)
 
-[Start Session](#start-session)
+[Starting a Session](#starting-a-session)
 
-[Retrieving Results](#retrieve-results)
+[Retrieving Results](#retrieving-results)
 
 [Customizations](#customizations)
 * [Theme and Colors](#theme-and-colors)
@@ -23,53 +23,54 @@ This **recommended** guide is targeted towards developers who want the **easiest
 
 # Dependencies
 
-The easiest way to integrate MiSnap SDK is to add the following to integrating module's `build.gradle`:
+The easiest way to integrate the MiSnap SDK is to add the following to the integrating module's `build.gradle`:
 
 ```groovy
 dependencies {
     // Use this for check + id sessions
-    implementation "com.miteksystems.misnap:document:5.0.0-beta2"
+    implementation "com.miteksystems.misnap:document:5.0.0-beta3"
 
     // Use this for barcode sessions
-    implementation "com.miteksystems.misnap:barcode:5.0.0-beta2"
+    implementation "com.miteksystems.misnap:barcode:5.0.0-beta3"
 
     // Use this for selfie sessions
-    implementation "com.miteksystems.misnap:face:5.0.0-beta2"
+    implementation "com.miteksystems.misnap:face:5.0.0-beta3"
 
     // Use this for automatically getting the nfc credentials and then reading the chip
-    implementation "com.miteksystems.misnap:combined-nfc:5.0.0-beta2"
+    implementation "com.miteksystems.misnap:combined-nfc:5.0.0-beta3"
 
     // Use this for only reading the nfc chip
-    implementation "com.miteksystems.misnap:nfc:5.0.0-beta2"
+    implementation "com.miteksystems.misnap:nfc:5.0.0-beta3"
 }
 ```
 
-To integrate MiSnap without having access to external maven server, please see [this FAQ](../README.md#how-to-integrate-misnap-sdk-without-having-access-to-maven).
+To integrate the MiSnap SDK without having access to an external Maven server, please see [this FAQ](../README.md#how-to-integrate-misnap-sdk-without-having-access-to-maven).
 
 - - - -
 
-# Start Session
+# Starting a Session
 
-1. Create `MiSnapWorkflowStep` by instantiating either `Analysis` or `Nfc`
+1. Instantiate a `MiSnapWorkflowStep`.
 
-2. Create `Activity`-launch `Intent` by calling `MiSnapWorkflowActivity.buildIntent()` by passing `MiSnapWorkflowStep`.
- Developers can pass multiple `MiSnapWorkflowStep`s to start multiple sessions
+2. Create an `Activity`-launch `Intent` by calling `MiSnapWorkflowActivity.buildIntent()` and passing the created `MiSnapWorkflowStep` from the previous step.  
+Developers can pass multiple `MiSnapWorkflowStep`s to start multiple sessions.
 
-3. Launch `MiSnapWorkflowActivity`
+3. Launch the `MiSnapWorkflowActivity` with the created `Intent` from the previous step.
 
-Please see `examples/activity/IntegrationActivity.kt` for full code.
+Please see `examples/activity/IntegrationActivity.kt` for the full code sample.
 
-Please see in-code documentation for more details.
+Please see the in-code documentation for more details and the full API.
 
 - - - -
 
-# Retrieve Results
+# Retrieving Results
 
-`MiSnapWorkflowActivity` returns the results in `MiSnapWorkflowActivityResult` singleton object. The results are published to this object at the end (successful or otherwise) of all of the sessions.
+`MiSnapWorkflowActivity` stores the results in the `MiSnapWorkflowActivity.Result` singleton object. 
+The results are published to this object at the end (successful or otherwise) of all of the sessions or up to the last executed session if the activity is finished abruptly.
 
-Results are returned in the order of `MiSnapWorkflowStep`s passed when starting `MiSnapWorkflowActivity`.
+The results are returned in the order in which the `MiSnapWorkflowStep`s were passed when creating the `Activity`-launch `Intent`.
 
-Please see `examples/activity/IntegrationActivity.kt` for full code.
+Please see `examples/activity/IntegrationActivity.kt` for the full code example.
 
 - - - -
 
@@ -77,17 +78,17 @@ Please see `examples/activity/IntegrationActivity.kt` for full code.
 
 ## Theme and Colors
 
-`workflow` defines `MiSnapTheme` which extends the `Material` theme (required to properly function). Developers can either colors to match the app's branding (recommended) or override `MiSnapTheme`. 
+The `workflow` module defines `MiSnapTheme` which extends the `Material` theme (required to properly function). Developers can either define colors to match the app's branding (recommended) or override `MiSnapTheme`. 
 
-Please see `res/example_theme_customizations.xml` for sample code.
+Please see `res/example_theme_customizations.xml` for the full code sample.
 
 Please see [Material Design Theming](https://github.com/material-components/material-components-android/tree/1.5.0/docs/theming) for more information on theme customizations.
 
 ## Drawables
 
 Developers can change the drawables in 2 ways by:
-1. overriding the existing drawables.
-2. passing drawable ids to `MiSnapSettings.workflow`.
+1. Overriding the existing drawables.
+2. Passing drawable resource IDs to `MiSnapSettings.Workflow`.
 
 ## Strings and Dimens
 
@@ -95,13 +96,15 @@ Developers can change strings and dimen values by overriding the existing resour
 
 ## Other Settings
 
-`MiSnapSettings.workflow` provides other settings to override existing behaviors. Please see in-code documentation for full API.
+`MiSnapSettings.Workflow` provides other settings to override existing behaviors.
 
-Please see `examples/settings/WorkflowSettings.kt` for sample code.
+Please see `examples/settings/WorkflowSettings.kt` for the full code sample.
+
+Please see the in-code documentation for more details and the full API.
 
 ## Custom Navigation Graphs
 
-Developers can optionally choose to create and pass a custom navigation graph for a session's flow. This can be done by passing the optional argument to `MiSnapWorkflowStep`.
+Developers can optionally choose to create and pass a custom navigation graph for a session's flow. This can be done by passing an optional argument to `MiSnapWorkflowStep`.
 
 Please see [Jetpack Navigation](https://developer.android.com/guide/navigation) for more information.
 
