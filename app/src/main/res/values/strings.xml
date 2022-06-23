@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- region GENERAL -->
-    <string name="misnapSampleAppLicense" translatable="false">eyJzaWduYXR1cmUiOiAicWppL3pYUThxTFVjd05BcFpTQytNU2dlQUZCNUk3RFNIMWQyWUovbWZzL005VExXdm1INlpmdWNPM0NBOVdBVUE3bUovQmczeS9SQytKd09JSGpUem9qRUwyemFMdWpRaWxweHlhaHlPZ1RvbUhoek5VYkhjUnFsTzJCN1FydVozOHVTWXFGaDM0T0RxRUU0anl5aWtQMXpUb1prZWRrSStjT2VVQ0JPQW8xdDhqVkZRdXNmUHh5Sm1nb0RTdjRMMXQrZ0hyQ0FmS1dSUncyZURuQ0E2NTJaSStnamthZ2ttM3VhZzRLdmFSWjd5U2l6MGlmbm0wc0N0Vy9FS2ViS3lpWmk4VDdxZVVQaVVZVHV2MzA5alpETnRHWVRPYlFycW9lSmJuMDh3WmZsSE5EMWVIeXdCSVpwcEkyUm42VUlXaDNEV01zV3FuL2NlS2lQTEt4Q3d3PT0iLCJvcmdhbml6YXRpb24iOiAiTWlTbmFwIFNhbXBsZSBBcHAiLCJzaWduZWQiOiB7ImZlYXR1cmVzIjpbImJhcmNvZGUiLCJkZXBvc2l0IiwiaWQiLCJuZmMiLCJmYWNlIiwiZ2VuZXJpYyJdLCJleHBpcnkiOiIyMDk5LTEyLTMxIDEyOjAwOjAwIiwiYXBwbGljYXRpb25JZGVudGlmaWVyIjp7ImFuZHJvaWQiOlsiY29tLm1pdGVrc3lzdGVtcy4qIl19fSwidmVyc2lvbiI6ICIxLjAifQ==
+    <string name="misnapSampleAppLicense" translatable="false">eyJzaWduYXR1cmUiOiJ1Sk1kSmJmODhxZE9nVGtmbk1XemZ6Mk8zc3lrWXpVRzdzTFZlT1E0eXBpUmUrbzdDeWtneWZrM01rTjJ3aE9ISVdwdk8reGlIYi8zenBXR3lRV0ErNWdlRzl2K3JWa3dSeCtoZjZqMnFnaXptWWhiMlNhTERzbEh5anRUWkM4aVdpNU1aWHR1MTRHNmpKWGJYQWNYeXRJZEJhSkE3cmZIbTBERmNkc010bW9YN1EyQjBJZmNLUDZvYWdLWnBOYVg0UjVTRFBNVGtEak82cEk4Y0Z1aWZPYUUvbFhvUGRPYUpRUjRTVW1Ka2RmTXpWVG9SNkFSUTdRbkY1NW40Y1dqQzdHa3JTUGFHRFhoZzJJd0o1QnBRWWRrbUFVSTVLMzRRVkM5V0lvOWMwQUdxSWFRdjlHc2xUdW1mTmE2R3VRVFlObXd0VUc0ZytSa0pKMnRXeUdKcGc9PSIsInNpZ25lZCI6eyJleHBpcnkiOiIyMDMxLTEyLTMxIiwiZmVhdHVyZXMiOlsiYmFyY29kZSIsImRlcG9zaXQiLCJmYWNlIiwiZ2VuZXJpYyIsImlkIiwibmZjIl0sImFwcGxpY2F0aW9uSWRlbnRpZmllciI6eyJhbmRyb2lkIjpbImNvbS5taXRla3N5c3RlbXMuKiJdfSwiZ3BvIjoiMTZkIiwib3JnYW5pemF0aW9uIjoiTWl0ZWsgU3lzdGVtcyBJbmMuIiwidmVyc2lvbiI6IjEuMCJ9fQ==
 </string>
     <string name="misnapSampleAppName" translatable="false">MiSnap Sample App</string>
 
@@ -112,18 +112,19 @@
 
     <!-- region DEMO FRAGMENT -->
 
-    <string name="misnapSampleAppDemoStartIdSessionButtonLabel" translatable="false">Start ID Session</string>
+    <string name="misnapSampleAppDemoStartIdFrontSessionButtonLabel" translatable="false">Start ID Front Session</string>
+    <string name="misnapSampleAppDemoStartIdBackSessionButtonLabel" translatable="false">Start ID Back Session</string>
     <string name="misnapSampleAppDemoStartPassportSessionButtonLabel" translatable="false">Start Passport Session</string>
-    <string name="misnapSampleAppDemoStartCheckBackSessionButtonLabel" translatable="false">Start Check Back Session</string>
     <string name="misnapSampleAppDemoStartCheckFrontSessionButtonLabel" translatable="false">Start Check Front Session</string>
+    <string name="misnapSampleAppDemoStartCheckBackSessionButtonLabel" translatable="false">Start Check Back Session</string>
     <string name="misnapSampleAppDemoStartBarcodeSessionButtonLabel" translatable="false">Start Barcode Session</string>
     <string name="misnapSampleAppDemoStartFaceSessionButtonLabel" translatable="false">Start Face Session</string>
     <string name="misnapSampleAppDemoStartNfcReadingButtonLabel" translatable="false">Start NFC Reading</string>
     <string name="misnapSampleAppDemoCombinedFlowsLabel" translatable="false">MiSnap Combined Flows</string>
     <string name="misnapSampleAppDemoStartNfcCombinedIdReadingButtonLabel" translatable="false">Start ID Session + NFC</string>
     <string name="misnapSampleAppDemoStartNfcCombinedPassportReadingButtonLabel" translatable="false">Start Passport Session + NFC</string>
-    <string name="misnapSampleAppDemoStartNfcCombinedIdFaceReadingButtonLabel" translatable="false">START ID + FACE SESSION + NFC</string>
-    <string name="misnapSampleAppDemoStartCombinedCheckReadingButtonLabel" translatable="false">START CHECK SESSION</string>
+    <string name="misnapSampleAppDemoStartNfcCombinedIdFaceReadingButtonLabel" translatable="false">Start ID Session + NFC + Face</string>
+    <string name="misnapSampleAppDemoStartCombinedCheckReadingButtonLabel" translatable="false">Start Check Session</string>
     <string name="misnapSampleAppDemoCustomFlowsButtonLabel" translatable="false">Custom Flows</string>
 
     <string name="misnapSampleAppDemoDocumentFlowsLabel" translatable="false">MiSnap Document Flows</string>

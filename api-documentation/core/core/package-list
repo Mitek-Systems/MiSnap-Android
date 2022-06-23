@@ -136,6 +136,7 @@ $dokka.location:com.miteksystems.misnap.core/LicenseException/LicenseException/#
 $dokka.location:com.miteksystems.misnap.core/LicenseException/message/#/PointingToDeclaration/core/com.miteksystems.misnap.core/-license-exception/message.html
 $dokka.location:com.miteksystems.misnap.core/LicenseUtil.Companion///PointingToDeclaration/core/com.miteksystems.misnap.core/-license-util/-companion/index.html
 $dokka.location:com.miteksystems.misnap.core/LicenseUtil.Companion/featureEnabled/#kotlin.String#kotlin.String/PointingToDeclaration/core/com.miteksystems.misnap.core/-license-util/-companion/feature-enabled.html
+$dokka.location:com.miteksystems.misnap.core/LicenseUtil.Companion/isExpired/#kotlin.String/PointingToDeclaration/core/com.miteksystems.misnap.core/-license-util/-companion/is-expired.html
 $dokka.location:com.miteksystems.misnap.core/LicenseUtil.Companion/libraryLoaded/#/PointingToDeclaration/core/com.miteksystems.misnap.core/-license-util/-companion/library-loaded.html
 $dokka.location:com.miteksystems.misnap.core/LicenseUtil///PointingToDeclaration/core/com.miteksystems.misnap.core/-license-util/index.html
 $dokka.location:com.miteksystems.misnap.core/LifecycleUtil///PointingToDeclaration/core/com.miteksystems.misnap.core/-lifecycle-util/index.html
@@ -399,12 +400,17 @@ $dokka.location:com.miteksystems.misnap.core/MibiData.PlatformPrivate/cameraInfo
 $dokka.location:com.miteksystems.misnap.core/MibiData.PlatformPrivate/finalSettings/#/PointingToDeclaration/core/com.miteksystems.misnap.core/-mibi-data/-platform-private/final-settings.html
 $dokka.location:com.miteksystems.misnap.core/MibiData.PlatformPrivate/originalSettings/#/PointingToDeclaration/core/com.miteksystems.misnap.core/-mibi-data/-platform-private/original-settings.html
 $dokka.location:com.miteksystems.misnap.core/MibiData.PlatformPrivate/uxp/#/PointingToDeclaration/core/com.miteksystems.misnap.core/-mibi-data/-platform-private/uxp.html
+$dokka.location:com.miteksystems.misnap.core/MibiData.SdkInfo.License///PointingToDeclaration/core/com.miteksystems.misnap.core/-mibi-data/-sdk-info/-license/index.html
+$dokka.location:com.miteksystems.misnap.core/MibiData.SdkInfo.License/License/#kotlin.String#kotlin.String/PointingToDeclaration/core/com.miteksystems.misnap.core/-mibi-data/-sdk-info/-license/-license.html
+$dokka.location:com.miteksystems.misnap.core/MibiData.SdkInfo.License/expiryDate/#/PointingToDeclaration/core/com.miteksystems.misnap.core/-mibi-data/-sdk-info/-license/expiry-date.html
+$dokka.location:com.miteksystems.misnap.core/MibiData.SdkInfo.License/gpo/#/PointingToDeclaration/core/com.miteksystems.misnap.core/-mibi-data/-sdk-info/-license/gpo.html
 $dokka.location:com.miteksystems.misnap.core/MibiData.SdkInfo.Module///PointingToDeclaration/core/com.miteksystems.misnap.core/-mibi-data/-sdk-info/-module/index.html
 $dokka.location:com.miteksystems.misnap.core/MibiData.SdkInfo.Module/Module/#kotlin.String#kotlin.String/PointingToDeclaration/core/com.miteksystems.misnap.core/-mibi-data/-sdk-info/-module/-module.html
 $dokka.location:com.miteksystems.misnap.core/MibiData.SdkInfo.Module/name/#/PointingToDeclaration/core/com.miteksystems.misnap.core/-mibi-data/-sdk-info/-module/name.html
 $dokka.location:com.miteksystems.misnap.core/MibiData.SdkInfo.Module/version/#/PointingToDeclaration/core/com.miteksystems.misnap.core/-mibi-data/-sdk-info/-module/version.html
 $dokka.location:com.miteksystems.misnap.core/MibiData.SdkInfo///PointingToDeclaration/core/com.miteksystems.misnap.core/-mibi-data/-sdk-info/index.html
-$dokka.location:com.miteksystems.misnap.core/MibiData.SdkInfo/SdkInfo/#kotlin.collections.List[com.miteksystems.misnap.core.MibiData.SdkInfo.Module]/PointingToDeclaration/core/com.miteksystems.misnap.core/-mibi-data/-sdk-info/-sdk-info.html
+$dokka.location:com.miteksystems.misnap.core/MibiData.SdkInfo/SdkInfo/#kotlin.collections.List[com.miteksystems.misnap.core.MibiData.SdkInfo.Module]#com.miteksystems.misnap.core.MibiData.SdkInfo.License?/PointingToDeclaration/core/com.miteksystems.misnap.core/-mibi-data/-sdk-info/-sdk-info.html
+$dokka.location:com.miteksystems.misnap.core/MibiData.SdkInfo/license/#/PointingToDeclaration/core/com.miteksystems.misnap.core/-mibi-data/-sdk-info/license.html
 $dokka.location:com.miteksystems.misnap.core/MibiData.SdkInfo/modules/#/PointingToDeclaration/core/com.miteksystems.misnap.core/-mibi-data/-sdk-info/modules.html
 $dokka.location:com.miteksystems.misnap.core/MibiData.Session///PointingToDeclaration/core/com.miteksystems.misnap.core/-mibi-data/-session/index.html
 $dokka.location:com.miteksystems.misnap.core/MibiData.Session/Session/#kotlin.Int?/PointingToDeclaration/core/com.miteksystems.misnap.core/-mibi-data/-session/-session.html
@@ -458,7 +464,7 @@ $dokka.location:com.miteksystems.misnap.core/ValidationUtil/containsIllegalMrzCh
 $dokka.location:com.miteksystems.misnap.core/ValidationUtil/isDobAfterDoe/#kotlin.String#kotlin.String/PointingToDeclaration/core/com.miteksystems.misnap.core/-validation-util/is-dob-after-doe.html
 $dokka.location:com.miteksystems.misnap.core/ValidationUtil/isDobInFuture/#kotlin.String/PointingToDeclaration/core/com.miteksystems.misnap.core/-validation-util/is-dob-in-future.html
 $dokka.location:com.miteksystems.misnap.core/ValidationUtil/isDocumentCodeLengthIncorrect/#kotlin.String/PointingToDeclaration/core/com.miteksystems.misnap.core/-validation-util/is-document-code-length-incorrect.html
-$dokka.location:com.miteksystems.misnap.core/ValidationUtil/isDocumentNumberLengthIncorrect/#kotlin.String/PointingToDeclaration/core/com.miteksystems.misnap.core/-validation-util/is-document-number-length-incorrect.html
+$dokka.location:com.miteksystems.misnap.core/ValidationUtil/isDocumentNumberLengthIncorrect/#kotlin.String#kotlin.String?/PointingToDeclaration/core/com.miteksystems.misnap.core/-validation-util/is-document-number-length-incorrect.html
 $dokka.location:com.miteksystems.misnap.core/ValidationUtil/isFieldLengthIncorrect/#kotlin.String#kotlin.ranges.IntRange/PointingToDeclaration/core/com.miteksystems.misnap.core/-validation-util/is-field-length-incorrect.html
 $dokka.location:com.miteksystems.misnap.core/ValidationUtil/isIssuingCountryLengthIncorrect/#kotlin.String/PointingToDeclaration/core/com.miteksystems.misnap.core/-validation-util/is-issuing-country-length-incorrect.html
 $dokka.location:com.miteksystems.misnap.core/ValidationUtil/isMrzLengthIncorrect/#kotlin.String/PointingToDeclaration/core/com.miteksystems.misnap.core/-validation-util/is-mrz-length-incorrect.html

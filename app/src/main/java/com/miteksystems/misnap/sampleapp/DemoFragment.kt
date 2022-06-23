@@ -49,20 +49,24 @@ class DemoFragment : Fragment(R.layout.fragment_demo) {
 
         val license = getString(R.string.misnapSampleAppLicense)
 
-        binding.idSessionButton.setOnClickListener {
-            startMiSnapSession(MiSnapWorkflowStep(MiSnapSettings(MiSnapSettings.UseCase.ID_FRONT, license)))
-        }
-
-        binding.passportSessionButton.setOnClickListener {
-            startMiSnapSession(MiSnapWorkflowStep(MiSnapSettings(MiSnapSettings.UseCase.PASSPORT, license)))
+        binding.checkFrontSessionButton.setOnClickListener {
+            startMiSnapSession(MiSnapWorkflowStep(MiSnapSettings(MiSnapSettings.UseCase.CHECK_FRONT, license)))
         }
 
         binding.checkBackSessionButton.setOnClickListener {
             startMiSnapSession(MiSnapWorkflowStep(MiSnapSettings(MiSnapSettings.UseCase.CHECK_BACK, license)))
         }
 
-        binding.checkFrontSessionButton.setOnClickListener {
-            startMiSnapSession(MiSnapWorkflowStep(MiSnapSettings(MiSnapSettings.UseCase.CHECK_FRONT, license)))
+        binding.idFrontSessionButton.setOnClickListener {
+            startMiSnapSession(MiSnapWorkflowStep(MiSnapSettings(MiSnapSettings.UseCase.ID_FRONT, license)))
+        }
+
+        binding.idBackSessionButton.setOnClickListener {
+            startMiSnapSession(MiSnapWorkflowStep(MiSnapSettings(MiSnapSettings.UseCase.ID_BACK, license)))
+        }
+
+        binding.passportSessionButton.setOnClickListener {
+            startMiSnapSession(MiSnapWorkflowStep(MiSnapSettings(MiSnapSettings.UseCase.PASSPORT, license)))
         }
 
         binding.barcodeSessionButton.setOnClickListener {
@@ -125,8 +129,8 @@ class DemoFragment : Fragment(R.layout.fragment_demo) {
                     analysis.document.documentExtractionRequirement =
                         MiSnapSettings.Analysis.Document.ExtractionRequirement.OPTIONAL
                 }),
-                MiSnapWorkflowStep(MiSnapSettings(MiSnapSettings.UseCase.FACE, license)),
-                MiSnapWorkflowStep(MiSnapSettings(MiSnapSettings.UseCase.NFC, license))
+                MiSnapWorkflowStep(MiSnapSettings(MiSnapSettings.UseCase.NFC, license)),
+                MiSnapWorkflowStep(MiSnapSettings(MiSnapSettings.UseCase.FACE, license))
             )
         }
     }
@@ -256,7 +260,8 @@ class DemoFragment : Fragment(R.layout.fragment_demo) {
             MiSnapWorkflowActivity.buildIntent(
                 requireContext(),
                 misnapWorkflowStep,
-                *misnapWorkflowSteps
+                *misnapWorkflowSteps,
+                disableScreenshots = false // allow screenshots only because this is used for demos
             )
         )
     }

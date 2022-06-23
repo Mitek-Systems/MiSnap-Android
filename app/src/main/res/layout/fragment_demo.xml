@@ -23,16 +23,10 @@
             android:text="@string/misnapSampleAppDemoDocumentFlowsLabel" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/idSessionButton"
+            android:id="@+id/checkFrontSessionButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/misnapSampleAppDemoStartIdSessionButtonLabel" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/passportSessionButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/misnapSampleAppDemoStartPassportSessionButtonLabel" />
+            android:text="@string/misnapSampleAppDemoStartCheckFrontSessionButtonLabel" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/checkBackSessionButton"
@@ -41,10 +35,22 @@
             android:text="@string/misnapSampleAppDemoStartCheckBackSessionButtonLabel" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/checkFrontSessionButton"
+            android:id="@+id/idFrontSessionButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/misnapSampleAppDemoStartCheckFrontSessionButtonLabel" />
+            android:text="@string/misnapSampleAppDemoStartIdFrontSessionButtonLabel" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/idBackSessionButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/misnapSampleAppDemoStartIdBackSessionButtonLabel" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/passportSessionButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/misnapSampleAppDemoStartPassportSessionButtonLabel" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/barcodeSessionButton"

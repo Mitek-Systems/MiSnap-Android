@@ -10,11 +10,11 @@ These sizes include the UI and represent an 'out of the box' integration.
 <!-- USECASE_SIZE_TABLE_START -->
 | Use Case                    | armeabi_v7a | arm64_v8a | All Arm ABIs | x86   | x86_64 | All x86 ABIs | All ABIs | 
 | :-------------------------- | ----------: | --------: | -----------: | ----: | -----: | -----------: | -------: |
-| Document                    | 5.04        | 5.18      | 5.94         | 5.23  | 5.3    | 6.24         | 7.9      | 
-| Document and Barcode        | 6.23        | 6.42      | 8.35         | 6.49  | 6.64   | 8.83         | 12.89    | 
-| Document and Face           | 11.36       | 11.95     | 15.09        | 12.54 | 12.54  | 16.86        | 23.73    | 
-| Document, Barcode, and Face | 12.55       | 13.18     | 17.5         | 13.79 | 13.88  | 19.45        | 28.72    | 
-| Document, Face, and NFC     | 14.37       | 15.13     | 19.68        | 15.73 | 15.82  | 21.72        | 31.57    | 
+| Document                    | 5.26        | 5.47      | 6.44         | 5.56  | 5.57   | 6.84         | 9.0      | 
+| Document and Barcode        | 6.47        | 6.73      | 8.91         | 6.86  | 6.93   | 9.49         | 14.1     | 
+| Document and Face           | 11.59       | 12.23     | 15.59        | 12.86 | 12.8   | 17.45        | 24.82    | 
+| Document, Barcode, and Face | 12.79       | 13.49     | 18.05        | 14.16 | 14.17  | 20.1         | 29.93    | 
+| Document, Face, and NFC     | 14.83       | 15.77     | 20.71        | 16.34 | 16.19  | 22.65        | 33.47    | 
 <!-- USECASE_SIZE_TABLE_END -->
 
 ### **Feature Sizes**
@@ -22,11 +22,10 @@ UI size listed separately from other features.
 <!-- SCIENCE_SIZE_TABLE_START -->
 | Feature       | armeabi_v7a | arm64_v8a | All Arm ABIs | x86  | x86_64 | All x86 ABIs | All ABIs | 
 | :------------ | ----------: | --------: | -----------: | ---: | -----: | -----------: | -------: |
-| Document      | 3.07        | 3.21      | 3.96         | 3.26 | 3.32   | 4.27         | 5.93     | 
-| Barcode       | 3.8         | 3.87      | 5.37         | 3.92 | 4.03   | 5.65         | 8.73     | 
-| Face          | 8.86        | 9.32      | 12.03        | 9.9  | 9.86   | 13.61        | 19.5     | 
-| NFC           | 4.03        | 4.07      | 4.53         | 4.13 | 4.16   | 4.71         | 5.67     | 
-| Combined NFC  | 6.11        | 6.44      | 8.59         | 6.49 | 6.64   | 9.17         | 13.81    | 
-| Workflow (UI) | 4.12        | 4.14      | 4.46         | 4.17 | 4.19   | 4.58         | 5.25     | 
+| Document      | 3.28        | 3.49      | 4.46         | 3.57 | 3.58   | 4.86         | 7.01     | 
+| Barcode       | 3.85        | 3.96      | 5.52         | 4.05 | 4.13   | 5.89         | 9.12     | 
+| Face          | 8.89        | 9.38      | 12.13        | 9.99 | 9.93   | 13.78        | 19.77    | 
+| NFC           | 4.12        | 4.2       | 4.69         | 4.28 | 4.3    | 4.94         | 6.0      | 
+| Combined NFC  | 6.57        | 7.07      | 9.62         | 7.09 | 7.01   | 10.09        | 15.71    | 
+| Workflow (UI) | 4.15        | 4.21      | 4.57         | 4.27 | 4.28   | 4.75         | 5.53     | 
 <!-- SCIENCE_SIZE_TABLE_END -->
-

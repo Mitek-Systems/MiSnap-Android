@@ -16,6 +16,8 @@
 
 [Third-Party Licenses](#third-party-licenses)
 
+[Terms and Conditions](#terms-and-conditions)
+
 - - - -
 
 # Getting Started
@@ -70,11 +72,11 @@ Please see [this page](documentation/download_sizes.md) for the in-depth size ta
 <!-- SIZE_TABLE_START -->
 | Use Case                    | Download Size (MiB) | 
 | :-------------------------- | ------------------: |
-| Document                    | 5.18                | 
-| Document and Barcode        | 6.42                | 
-| Document and Face           | 11.95               | 
-| Document, Barcode, and Face | 13.18               | 
-| Document, Face, and NFC     | 15.13               | 
+| Document                    | 5.47                | 
+| Document and Barcode        | 6.73                | 
+| Document and Face           | 12.23               | 
+| Document, Barcode, and Face | 13.49               | 
+| Document, Face, and NFC     | 15.77               |  
 <!-- SIZE_TABLE_END -->
 
 ## System Requirements
@@ -122,24 +124,20 @@ To use MiSnap's base processing without any UI/UX provided in the MiSnap SDK, pl
 ### How to integrate the MiSnap SDK using Maven?
 Please follow these steps:
 
-1. Create a Personal Access Token (PAT) on https://www.github.com  
-   Please follow [this guide](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token#creating-a-token) to create PAT.
-2. Add the following to the **project level** `build.gradle`:
+1. Add the following to the **project level** `build.gradle`:
     ```groovy
     allProjects {
       repositories {
         ...
         maven {
-          url 'https://maven.pkg.github.com/mitek-systems/misnap-android'
-          credentials {
-            username = 'your-github-username'
-            password = 'personal-access-token' // created in Step 1.
-          }
+          url '' // coming soon
+          username '' // coming soon
+          password '' // coming soon
         }
       }
     }
     ```
-3. Add the required dependencies as per the [Integration Guides](#integration-guides).
+2. Add the required dependencies as per the [Integration Guides](#integration-guides).
 
 ### How to integrate the MiSnap SDK without having access to a remote Maven repository?
 The MiSnap SDK provides the `Library_Modules/maven-local-manager.sh` script for Linux/MacOS and the `Library_Modules/maven-local-manager.bat` script for Windows in the release package. Please follow the below steps:
@@ -199,5 +197,19 @@ or by using [Apk Splits](https://developer.android.com/studio/build/configure-ap
 ### [GNU Lesser General Public License](https://www.gnu.org/licenses/lgpl-3.0.en.html)
 * #### [jMRTD](https://jmrtd.org/license.shtml)
 * #### [Smart Card Utilities for Better Access (SCUBA) for Android](https://www.gnu.org/licenses/lgpl-3.0.en.html)
+
+- - - -
+
+# Terms and Conditions
+
+By you accessing this SDK and/or any related documentation, sample apps and libraries (collectively, the “SDK”) you acknowledge that either (i) you currently are a party to a  contract/license with Mitek Systems, Inc. (“Mitek”) which governs access to and use of the SDK (in which case, the terms and conditions of that contract govern your use of the SDK) or (ii) you agree to the following terms and conditions:
+
+You will use the SDK solely to evaluate the SDK for the purpose of internal development of software and applications to the extent necessary for such applications to transfer data to Mitek.  You have no right to receive any underlying software or a copy of the object code or source code to the SDK.   You will not make copies of the SDK. You will not make the SDK available to any third party.   Mitek shall own all modifications, revisions, or derivative works of the code contained in its SDK.
+
+Your right to use the SDK is conditional upon the following. You may not: (i) sell, rent, lease or otherwise distribute or share the SDK; (ii) disassemble, decompile, reverse engineer the SDK or output from the foregoing or otherwise attempt to derive the source code (or the underlying ideas, algorithms, structure or organization); (iii) provide access to the SDK to any third party; (iv) create any derivative works based upon the SDK;  (v) access the SDK in order to build a competitive solution or gather competitive intelligence or to assist someone else to build a competitive solution or gather competitive intelligence; (vi) use the SDK in a way that violates any applicable law; (vii) interfere with or disrupt the integrity or performance of the SDK, or (viii) attempt to gain unauthorized access to Mitek’s related systems or networks.
+
+Mitek is giving permission to you to use the SDK solely in accordance with these terms and conditions.  The SDK is not being sold. Mitek and/or its licensors retain the exclusive ownership of all rights, title and interest, including all intellectual property rights, in and to the SDK(s) and associated documentation, including but not limited (i) any components, corrections, updates, upgrades, methodologies, derivative works and associated documentation thereof and (ii) all trademarks, trade names, trade secrets and other proprietary information of Mitek related thereto. Mitek also owns all suggestions, ideas, enhancement requests, or feedback related to the SDK.
+
+All rights not expressly granted to you are reserved by Mitek and its licensors, and you shall have no rights which arise by implication or estoppel. 
 
 - - - -

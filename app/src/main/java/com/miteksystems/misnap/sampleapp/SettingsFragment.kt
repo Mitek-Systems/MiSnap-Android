@@ -1669,7 +1669,8 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
                     registerForActivityResult.launch(
                         MiSnapWorkflowActivity.buildIntent(
                             requireContext(),
-                            misnapWorkflowStep
+                            misnapWorkflowStep,
+                            disableScreenshots = false // allow screenshots only because this is used for demos
                         )
                     )
                 }

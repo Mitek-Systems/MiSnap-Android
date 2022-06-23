@@ -136,8 +136,9 @@ $dokka.location:com.miteksystems.misnap.nfc/NfcReader.Event.NfcDataGroupReadStar
 $dokka.location:com.miteksystems.misnap.nfc/NfcReader.Event.NfcDataGroupReadStart/toString/#/PointingToDeclaration/nfc-reader/com.miteksystems.misnap.nfc/-nfc-reader/-event/-nfc-data-group-read-start/to-string.html
 $dokka.location:com.miteksystems.misnap.nfc/NfcReader.Event///PointingToDeclaration/nfc-reader/com.miteksystems.misnap.nfc/-nfc-reader/-event/index.html
 $dokka.location:com.miteksystems.misnap.nfc/NfcReader.Result///PointingToDeclaration/nfc-reader/com.miteksystems.misnap.nfc/-nfc-reader/-result/index.html
-$dokka.location:com.miteksystems.misnap.nfc/NfcReader.Result/Result/#com.miteksystems.misnap.nfc.NfcReader.ChipData#kotlin.String/PointingToDeclaration/nfc-reader/com.miteksystems.misnap.nfc/-nfc-reader/-result/-result.html
+$dokka.location:com.miteksystems.misnap.nfc/NfcReader.Result/Result/#com.miteksystems.misnap.nfc.NfcReader.ChipData#kotlin.String#kotlin.Boolean/PointingToDeclaration/nfc-reader/com.miteksystems.misnap.nfc/-nfc-reader/-result/-result.html
 $dokka.location:com.miteksystems.misnap.nfc/NfcReader.Result/chipData/#/PointingToDeclaration/nfc-reader/com.miteksystems.misnap.nfc/-nfc-reader/-result/chip-data.html
+$dokka.location:com.miteksystems.misnap.nfc/NfcReader.Result/licenseExpired/#/PointingToDeclaration/nfc-reader/com.miteksystems.misnap.nfc/-nfc-reader/-result/license-expired.html
 $dokka.location:com.miteksystems.misnap.nfc/NfcReader.Result/mibiData/#/PointingToDeclaration/nfc-reader/com.miteksystems.misnap.nfc/-nfc-reader/-result/mibi-data.html
 $dokka.location:com.miteksystems.misnap.nfc/NfcReader.Result/toServerResult/#/PointingToDeclaration/nfc-reader/com.miteksystems.misnap.nfc/-nfc-reader/-result/to-server-result.html
 $dokka.location:com.miteksystems.misnap.nfc/NfcReader///PointingToDeclaration/nfc-reader/com.miteksystems.misnap.nfc/-nfc-reader/index.html

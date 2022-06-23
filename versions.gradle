@@ -11,7 +11,7 @@ project.ext {
     buildToolsVersion = "31.0.0"
 
     jdkVersion = JavaVersion.VERSION_1_8
-    ndkVersion = "17.2.4988734"
+    ndkVersion = "23.2.8568313"
 
     agpVersion = '4.2.2'
 
