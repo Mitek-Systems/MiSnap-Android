@@ -1,0 +1,16 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="70dp"
+    android:height="105dp"
+    android:viewportWidth="70"
+    android:viewportHeight="70">
+
+    <!-- Outside vignette for non squared shapes -->
+    <path
+        android:fillColor="#59FFFFFF"
+        android:pathData="M0,35 l4.8,0 a30.2,30.2 0 1,0 30.2,-30.2 v-4.8 h35 v70 h-70 z" />
+
+    <path
+        android:fillColor="#59FFFFFF"
+        android:pathData="M0,35 l4.8,0 a30.2,30.2 0 0,1 30.2,-30.2 v-4.8 h-35" />
+
+</vector>

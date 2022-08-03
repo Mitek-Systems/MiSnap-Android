@@ -28,29 +28,29 @@ The easiest way to integrate the MiSnap SDK is to add the following to the integ
 ```groovy
 dependencies {
     // Use this for check + id sessions
-    implementation "com.miteksystems.misnap:document:5.0.0-beta3"
+    implementation "com.miteksystems.misnap:document:5.0.0"
 
     // Use this for barcode sessions
-    implementation "com.miteksystems.misnap:barcode:5.0.0-beta3"
+    implementation "com.miteksystems.misnap:barcode:5.0.0"
 
     // Use this for selfie sessions
-    implementation "com.miteksystems.misnap:face:5.0.0-beta3"
+    implementation "com.miteksystems.misnap:face:5.0.0"
 
     // Use this for automatically getting the nfc credentials and then reading the chip
-    implementation "com.miteksystems.misnap:combined-nfc:5.0.0-beta3"
+    implementation "com.miteksystems.misnap:combined-nfc:5.0.0"
 
     // Use this for only reading the nfc chip
-    implementation "com.miteksystems.misnap:nfc:5.0.0-beta3"
+    implementation "com.miteksystems.misnap:nfc:5.0.0"
 }
 ```
 
-To integrate the MiSnap SDK without having access to an external Maven server, please see [this FAQ](../README.md#how-to-integrate-misnap-sdk-without-having-access-to-maven).
+To integrate the MiSnap SDK without having access to an external Maven server, please see [this FAQ](../README.md#how-to-integrate-the-misnap-sdk-without-having-access-to-a-remote-maven-repository).
 
 - - - -
 
 # Starting a Session
 
-1. Instantiate a `MiSnapWorkflowStep`.
+1. Instantiate a `MiSnapWorkflowStep` with `MiSnapSettings` containing a valid MiSnap license.
 
 2. Create an `Activity`-launch `Intent` by calling `MiSnapWorkflowActivity.buildIntent()` and passing the created `MiSnapWorkflowStep` from the previous step.  
 Developers can pass multiple `MiSnapWorkflowStep`s to start multiple sessions.

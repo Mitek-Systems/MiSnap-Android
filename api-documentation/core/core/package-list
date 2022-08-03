@@ -123,10 +123,12 @@ $dokka.location:com.miteksystems.misnap.core/FrameImage/planes/#/PointingToDecla
 $dokka.location:com.miteksystems.misnap.core/FrameImage/width/#/PointingToDeclaration/core/com.miteksystems.misnap.core/-frame-image/width.html
 $dokka.location:com.miteksystems.misnap.core/FrameUtil///PointingToDeclaration/core/com.miteksystems.misnap.core/-frame-util/index.html
 $dokka.location:com.miteksystems.misnap.core/FrameUtil/bitmapToJpg/#android.graphics.Bitmap#kotlin.Int/PointingToDeclaration/core/com.miteksystems.misnap.core/-frame-util/bitmap-to-jpg.html
+$dokka.location:com.miteksystems.misnap.core/FrameUtil/decodeJpgFrame/#com.miteksystems.misnap.core.Frame#kotlin.Boolean/PointingToDeclaration/core/com.miteksystems.misnap.core/-frame-util/decode-jpg-frame.html
 $dokka.location:com.miteksystems.misnap.core/FrameUtil/decodeJpgFrame/#kotlin.ByteArray#kotlin.Boolean/PointingToDeclaration/core/com.miteksystems.misnap.core/-frame-util/decode-jpg-frame.html
 $dokka.location:com.miteksystems.misnap.core/FrameUtil/grayscaleFrameToRgba/#com.miteksystems.misnap.core.Frame/PointingToDeclaration/core/com.miteksystems.misnap.core/-frame-util/grayscale-frame-to-rgba.html
 $dokka.location:com.miteksystems.misnap.core/FrameUtil/libraryLoaded/#/PointingToDeclaration/core/com.miteksystems.misnap.core/-frame-util/library-loaded.html
 $dokka.location:com.miteksystems.misnap.core/FrameUtil/nv21FrameToJpeg/#com.miteksystems.misnap.core.Frame#kotlin.Int/PointingToDeclaration/core/com.miteksystems.misnap.core/-frame-util/nv21-frame-to-jpeg.html
+$dokka.location:com.miteksystems.misnap.core/FrameUtil/rgbaFrameToGrayscale/#com.miteksystems.misnap.core.Frame/PointingToDeclaration/core/com.miteksystems.misnap.core/-frame-util/rgba-frame-to-grayscale.html
 $dokka.location:com.miteksystems.misnap.core/FrameUtil/rotateAndCompressJpgFrame/#com.miteksystems.misnap.core.Frame#kotlin.Int#kotlin.Int/PointingToDeclaration/core/com.miteksystems.misnap.core/-frame-util/rotate-and-compress-jpg-frame.html
 $dokka.location:com.miteksystems.misnap.core/FrameUtil/stripChannelPadding/#java.nio.ByteBuffer#kotlin.Int#kotlin.Int#kotlin.Int#kotlin.Int/PointingToDeclaration/core/com.miteksystems.misnap.core/-frame-util/strip-channel-padding.html
 $dokka.location:com.miteksystems.misnap.core/FrameUtil/stripChannelPadding/#kotlin.ByteArray#kotlin.Int#kotlin.Int#kotlin.Int#kotlin.Int#kotlin.Int#kotlin.Int/PointingToDeclaration/core/com.miteksystems.misnap.core/-frame-util/strip-channel-padding.html

@@ -24,27 +24,27 @@ Developers can, however, choose to integrate the science modules alone, but in d
 The easiest way to integrate document, face, or barcode analysis is to add the following to the integrating module's `build.gradle`:
 ```groovy
 dependencies {
-    implementation "com.miteksystems.misnap:controller:5.0.0-beta3"
+    implementation "com.miteksystems.misnap:controller:5.0.0"
 
     // Optional barcode analysis dependency
-    implementation "com.miteksystems.misnap:barcode-analysis:5.0.0-beta3"
+    implementation "com.miteksystems.misnap:barcode-analysis:5.0.0"
 
     // Optional document analysis dependency
-    implementation "com.miteksystems.misnap:document-analysis:5.0.0-beta3"
+    implementation "com.miteksystems.misnap:document-analysis:5.0.0"
 
     // Optional face analysis dependency
-    implementation "com.miteksystems.misnap:face-analysis:5.0.0-beta3"
+    implementation "com.miteksystems.misnap:face-analysis:5.0.0"
 
     // Optional MRZ detector dependency
-    implementation "com.miteksystems.misnap:feature-detector:5.0.0-beta3"
+    implementation "com.miteksystems.misnap:feature-detector:5.0.0"
 }
 ```
 
-To integrate the MiSnap SDK without having access to an external Maven server, please see [this FAQ](../README.md#how-to-integrate-misnap-sdk-without-having-access-to-maven).
+To integrate the MiSnap SDK without having access to an external Maven server, please see [this FAQ](../README.md#how-to-integrate-the-misnap-sdk-without-having-access-to-a-remote-maven-repository).
 
 ## Starting Image Analysis
 
-1. Create a `MiSnapSettings` instance with the appropriate `MiSnapSettings.UseCase`; for example `MiSnapSettings.UseCase.CHECK_FRONT` to analyze the front side of a check or `MiSnapSettings.UseCase.FACE` to analyze a face.
+1. Create a `MiSnapSettings` instance with the appropriate `MiSnapSettings.UseCase` and a valid MiSnap license; for example `MiSnapSettings.UseCase.CHECK_FRONT` to analyze the front side of a check or `MiSnapSettings.UseCase.FACE` to analyze a face.
 
 2. Create a `MiSnapController` instance with the `MiSnapSettings` from the previous step.
 
@@ -67,15 +67,15 @@ NFC sessions don't go through the `MiSnapController` as it doesn't require a cam
 The easiest way to integrate NFC reading is to add the following to the integrating module's `build.gradle`:
 ```groovy
 dependencies {
-    implementation "com.miteksystems.misnap:nfc-reader:5.0.0-beta3"
+    implementation "com.miteksystems.misnap:nfc-reader:5.0.0"
 }
 ```
 
-To integrate the MiSnap SDK without having access to an external Maven server, please see [this FAQ](../README.md#how-to-integrate-misnap-sdk-without-having-access-to-maven).
+To integrate the MiSnap SDK without having access to an external Maven server, please see [this FAQ](../README.md#how-to-integrate-the-misnap-sdk-without-having-access-to-a-remote-maven-repository).
 
 ## Start Reading NFC
 
-1. Create a `MiSnapSettings` instance with the use case `UseCase.NFC` and configure it with the appropriate `Mrz`; use `MrzData` for Passports and ID cards (including Resident Permits), use `Mrz1Line` for European Union Driver's Licenses.
+1. Create a `MiSnapSettings` instance with the use case `UseCase.NFC` and a valid MiSnap license, and configure it with the appropriate `Mrz`; use `MrzData` for Passports and ID cards (including Resident Permits), use `Mrz1Line` for European Union Driver's Licenses.
 
 2. Create an `NfcReader` instance with the `MiSnapSettings` from the previous step.
 

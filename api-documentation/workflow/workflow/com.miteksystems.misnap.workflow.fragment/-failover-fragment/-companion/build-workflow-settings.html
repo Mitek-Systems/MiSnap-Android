@@ -29,39 +29,60 @@
   <div>
     <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":workflow:dokkaHtmlPartial/release"><div class="symbol monospace"><div class="block"><div class="block">@<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.jvm/-jvm-static/index.html">JvmStatic</a>()</div><div class="block">@<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.jvm/-jvm-overloads/index.html">JvmOverloads</a>()</div></div>fun <a href="build-workflow-settings.html">buildWorkflowSettings</a>(<span>@<a href="https://developer.android.com/reference/kotlin/androidx/annotation/LayoutRes.html">LayoutRes</a>()&nbsp;</span>headerLayoutId: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>? = null, handleOrientation: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a>? = null, maxReasons: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>? = null, minReasonPercentage: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>? = null): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
   </div>
-<p class="paragraph">Formats an encoded workflow settings JSON string for this fragment to use with <a href="../../../../../core/core/com.miteksystems.misnap.core/-mi-snap-settings/-workflow/add.html">MiSnapSettings.Workflow.add</a>.</p><h4 class="">Return</h4><p class="paragraph"><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> with the relevant settings, pass it into <a href="../../../../../core/core/com.miteksystems.misnap.core/-mi-snap-settings/-workflow/add.html">MiSnapSettings.Workflow.add</a> along with the Fragment's label to apply the settings.</p><h2 class="">Samples</h2><div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Samples"><div class="content sourceset-depenent-content" data-active="" data-togglable=":workflow:dokkaHtmlPartial/release"><div class="sample-container"><code class="runnablesample monospace" theme="idea"><pre>import androidx.appcompat.app.AppCompatActivity
+<p class="paragraph">Formats an encoded workflow settings JSON string for this fragment to use with <a href="../../../../../core/core/com.miteksystems.misnap.core/-mi-snap-settings/-workflow/add.html">MiSnapSettings.Workflow.add</a>.</p><h4 class="">Return</h4><p class="paragraph"><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> with the relevant settings, pass it into <a href="../../../../../core/core/com.miteksystems.misnap.core/-mi-snap-settings/-workflow/add.html">MiSnapSettings.Workflow.add</a> along with the Fragment's label to apply the settings.</p><h2 class="">Samples</h2><div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Samples"><div class="content sourceset-depenent-content" data-active="" data-togglable=":workflow:dokkaHtmlPartial/release"><div class="sample-container"><code class="runnablesample monospace" theme="idea"><pre>import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import com.miteksystems.misnap.R
 import com.miteksystems.misnap.core.MiSnapSettings
 import com.miteksystems.misnap.workflow.fragment.DocumentAnalysisFragment
 import com.miteksystems.misnap.workflow.fragment.DocumentAnalysisFragment.ReviewCondition
 import com.miteksystems.misnap.workflow.fragment.HelpFragment
-import com.miteksystems.misnap.R
 fun main() { 
    //sampleStart 
-   class WorkflowSettings : AppCompatActivity() {
+   /**
+ * This example demonstrates the customization of the MiSnap SDK UI and behavior through the use
+ * of a [MiSnapSettings] object. This is the most straight-forward way of customizing the workflow
+ * as it uses the main configuration object.
+ *
+ * Please refer to the "buildWorkflowSettings" method of the fragment you want to customize for the
+ * full list of customization options.
+ *
+ * @see com.miteksystems.misnap.examples.settings.FragmentArguments for an example on how to customize
+ * the UI and behavior using [Bundle]s instead.
+ */
+class WorkflowSettings : AppCompatActivity() {
     private val license = "your_sdk_license"
 
     override fun onStart() {
         super.onStart()
 
-        // Use the method "buildWorkflowSettings" from the workflow fragments to build
-        // a preformatted JSON string with the applicable settings, the method provides information
-        // on the available settings and the expected inputs.
+        /**
+         * Use the method "buildWorkflowSettings" from the workflow fragment you want to customize to
+         * create a JSON string that can be added to [MiSnapSettings.workflow] to apply your customizations.
+         */
         val helpFragmentWorkflowSettings =
             HelpFragment.buildWorkflowSettings(showSkipCheckBox = false)
-        val documentAnalysisFragmentWorkflowSettings = DocumentAnalysisFragment.buildWorkflowSettings(
-            timeoutDuration = 15_000,
-            manualButtonDrawableId = android.R.drawable.ic_menu_camera,
-            guideViewShowVignette = true,
-            hintViewShouldShowBackground = true,
-            successViewShouldVibrate = true,
-            reviewCondition = ReviewCondition.ALWAYS
-        )
+        val documentAnalysisFragmentWorkflowSettings =
+            DocumentAnalysisFragment.buildWorkflowSettings(
+                timeoutDuration = 15_000,
+                manualButtonDrawableId = android.R.drawable.ic_menu_camera,
+                guideViewShowVignette = true,
+                hintViewShouldShowBackground = true,
+                successViewShouldVibrate = true,
+                reviewCondition = ReviewCondition.ALWAYS
+            )
 
-        // Create a settings object and add the preformatted workflow settings per fragment
+        /**
+         * Identify the label of the fragment you want to customize from the strings, then use it along the
+         * JSON formatted workflow settings from the "buildWorkflowSettings" method to add them to the
+         * [MiSnapSettings.workflow] map.
+         * The label corresponds to the one used in the fragment element of the navigation graph in
+         * which is included.
+         * Use the built settings with your preferred integration type.
+         *
+         * NOTE: See the different navgraphs included in the Workflow module for the full list of fragment
+         *  labels used.
+         */
         val settings = MiSnapSettings(MiSnapSettings.UseCase.ID_FRONT, license).apply {
-            // Link the fragment label identifier to the preformatted settings using the "add" function
-            // of MiSnapSettings.workflow, the label should correspond to the one used in the fragment
-            // element in the navigation graph.
             workflow.add(
                 getString(R.string.misnapWorkflowDocumentAnalysisFlowHelpFragmentLabel),
                 helpFragmentWorkflowSettings
@@ -71,8 +92,6 @@ fun main() {
                 documentAnalysisFragmentWorkflowSettings
             )
         }
-
-        // Apply the built settings as per your preferred integration type
     }
 } 
    //sampleEnd

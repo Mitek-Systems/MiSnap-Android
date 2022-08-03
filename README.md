@@ -12,6 +12,8 @@
 
 [Integration Guides](#integration-guides)
 
+[Code Examples](#code-examples)
+
 [Frequently Asked Questions (FAQs)](#frequently-asked-questions-faqs)
 
 [Third-Party Licenses](#third-party-licenses)
@@ -35,34 +37,34 @@ Additionally, the MiSnap SDK for Android is now available as a **maven/gradle de
 Starting with v5.0.0, the MiSnap SDK does not provide any module as source.
 
 #### **Added**
-* Support to extract BSN (burgerservicenummer) from newer Netherlands passport templates.
-* x86_64 support for the barcode scanning use case.
-* Support for mandatory barcode extraction in addition to a good quality image.
-* Support to record a video of the session.
-* Support to seamlessly start multiple sessions.
-* Support to query the camera capabilities before starting a session.
-* Support for 1080p selfie images.
-* Support for generic documents analysis sessions.
-* Support to show a manual review screen to users.
-* Dutch (nl) string translations.
-* Support for Jetpack Navigation to create custom flows.
-* Android Views for creating custom screens.
+* [Common] Support to record a video of the session.
+* [Common] Support to seamlessly start multiple sessions.
+* [Common] Support to query the camera capabilities before starting a session.
+* [Common] Support for 1080p selfie images.
+* [Common]Support to show a manual review screen to users.
+* [Common] Dutch (nl) string translations.
+* [Common] Support for Jetpack Navigation to create custom flows.
+* [Common] Android Views for creating custom screens.
+* [Document] Support for generic documents analysis sessions.
+* [Document] Support to extract BSN (burgerservicenummer) from newer Netherlands passport templates.
+* [Barcode] x86_64 support for the barcode scanning use case.
+* [Barcode] Support for mandatory barcode extraction in addition to a good quality image.
 
 #### **Modified**
-* Changed the minimum API level to 23 (Android Marshmallow).
-* Dropped the use of deprecated camera APIs in favor of CameraX.
-* Reduced the SDK footprint for face and NFC use cases.
-* Reduced the memory footprint of the SDK by roughly 15%.
-* MiSnap SDK now runs in the same process as the host app.
-* Improved the organization and discoverability of the SDK configuration options.
-* Improved the document orientation handling.
-* Improved the SDK theming (including support for light and dark themes).
-* Improved messaging when accessibility services are enabled.
-* Various non-ID documents were folded into the generic document use case.
+* [Common] Changed the minimum API level to 23 (Android Marshmallow).
+* [Common] Dropped the use of deprecated camera APIs in favor of CameraX.
+* [Common] Reduced the memory footprint of the SDK by roughly 15%.
+* [Common] MiSnap SDK now runs in the same process as the host app.
+* [Common] Improved the organization and discoverability of the SDK configuration options.
+* [Common] Improved the document orientation handling.
+* [Common] Improved the SDK theming (including support for light and dark themes).
+* [Common] Improved messaging when accessibility services are enabled.
+* [Document] Various non-ID documents were folded into the generic document use case.
+* [Face & NFC] Reduced the SDK footprint for face and NFC use cases.
 
 #### **Removed**
-* MiSnapWorkflow UX1 and UX2 in favor of a new, unified style.
-* Support for credit cards.
+* [Common] MiSnapWorkflow UX1 and UX2 in favor of a new, unified style.
+* [Document] Support for credit cards.
 
 Please see [this page](documentation/nfc_regions_documents_supported.md) for the full list of regions and documents supported by the MiSnap SDK NFC Reader.
 
@@ -76,7 +78,7 @@ Please see [this page](documentation/download_sizes.md) for the in-depth size ta
 | Document and Barcode        | 6.73                | 
 | Document and Face           | 12.23               | 
 | Document, Barcode, and Face | 13.49               | 
-| Document, Face, and NFC     | 15.77               |  
+| Document, Face, and NFC     | 15.77               | 
 <!-- SIZE_TABLE_END -->
 
 ## System Requirements
@@ -98,6 +100,8 @@ Please see the [devices tested](documentation/devices_tested.md) page for more d
 
 ## Known Issues
 * As the `face-analysis` module uses `Google’s MLKit` for face detection, please follow [this link](https://developers.google.com/ml-kit/known-issues) for known issues.
+* The MiSnap SDK supports `CameraX v1.0.x` and it is not compatible with higher minor versions.
+* The `minSdkVersion` used in the MiSnap SDK is not compatible with higher `jmrtd` versions. 
 
 - - - -
 
@@ -119,25 +123,37 @@ To use MiSnap's base processing without any UI/UX provided in the MiSnap SDK, pl
 
 - - - -
 
+# Code Examples
+
+The MiSnap SDK provides a set of [code examples](documentation/code_examples.md) that can be used as reference along with the integration guides to assist you with the SDK integration.
+
+We highly recommend to use them as they provide key best practices for an optimal MiSnap SDK integration.
+
+- - - -
+
 # Frequently Asked Questions (FAQs)
 
 ### How to integrate the MiSnap SDK using Maven?
 Please follow these steps:
 
-1. Add the following to the **project level** `build.gradle`:
+1. Create a Personal Access Token (PAT) on https://www.github.com.  
+   Please follow [this guide](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token#creating-a-token) to create a PAT and make sure to select the `read:packages` scope.
+2. Add the following to the **project level** `build.gradle`:
     ```groovy
     allProjects {
       repositories {
         ...
         maven {
-          url '' // coming soon
-          username '' // coming soon
-          password '' // coming soon
+          url = uri('https://maven.pkg.github.com/mitek-systems/misnap-android')
+          credentials {
+            username = 'your-github-username'
+            password = 'personal-access-token' // created in Step 1.
+          }
         }
       }
     }
     ```
-2. Add the required dependencies as per the [Integration Guides](#integration-guides).
+3. Add the required dependencies as per the [Integration Guides](#integration-guides).
 
 ### How to integrate the MiSnap SDK without having access to a remote Maven repository?
 The MiSnap SDK provides the `Library_Modules/maven-local-manager.sh` script for Linux/MacOS and the `Library_Modules/maven-local-manager.bat` script for Windows in the release package. Please follow the below steps:
@@ -166,6 +182,12 @@ Yes, MiSnap now requires a valid license to be provided to function. Please foll
 
 ### Where can I get a license?
 Please reach out to your Mitek support team to obtain a license.
+
+### How should I provision the license to the MiSnap SDK?
+Avoid hard-coding the license in your application. Instead, fetch it from your application server before invoking the MiSnap SDK. This will allow you to easily switch the license in the future without requiring you to roll out a new version of your app.
+
+### Can I know in advance the device's camera capabilities before starting a session?
+Yes, when invoking the MiSnap SDK, it is a best practice to first query the camera support and set the `MiSnapSettings` capture mode according to the device's camera capabilities. This helps the asset selection of the `HelpFragment` be faster providing a smoother user experience. Look into `examples/camera/CameraSupport.Kt` for a code example on how to query the camera support.
 
 ### Which regions and documents are supported by the MiSnap SDK for NFC?
 Please see the [regions and documents page](documentation/nfc_regions_documents_supported.md) for the full list of supported regions and documents.

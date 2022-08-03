@@ -1,25 +1,48 @@
 package com.miteksystems.misnap.examples.activity
 
+import android.content.Intent
 import android.os.Bundle
+import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import com.miteksystems.misnap.core.MiSnapSettings
+import com.miteksystems.misnap.databinding.ExampleActivityIntegrationBinding
 import com.miteksystems.misnap.workflow.MiSnapFinalResult
 import com.miteksystems.misnap.workflow.MiSnapWorkflowActivity
 import com.miteksystems.misnap.workflow.MiSnapWorkflowError
 import com.miteksystems.misnap.workflow.MiSnapWorkflowStep
-import com.miteksystems.misnap.databinding.ExampleActivityIntegrationBinding
 
+/**
+ * This sample is the easiest way of integrating the MiSnap SDK and it's best suited for applications
+ * with a multi-activity architecture.
+ *
+ * This integration method uses [ActivityResultContracts] and [registerForActivityResult] to launch
+ * a new [MiSnapWorkflowActivity] that handles the session.
+ *
+ * @see com.miteksystems.misnap.examples.fragment for examples on how to integrate the MiSnap SDK
+ * using your own activity.
+ */
 class IntegrationActivity : AppCompatActivity() {
     private val license = "your_sdk_license"
     private lateinit var binding: ExampleActivityIntegrationBinding
 
+    /**
+     * Register a request to start an activity along with a callback to handle the results of
+     * the launched activity once they're available.
+     */
     private val registerForActivityResult =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-            MiSnapWorkflowActivity.Result.results.forEach {
-                when (it) {
+            /**
+             * Once the [ActivityResult] is available, get the available session results from
+             * [MiSnapWorkflowActivity.Result.results] and handle them accordingly.
+             *
+             * The list of results will match the order in which the [MiSnapWorkflowStep]s
+             * were defined at the time of creating the launch [Intent].
+             */
+            MiSnapWorkflowActivity.Result.results.forEachIndexed { index, stepResult ->
+                when (stepResult) {
                     is MiSnapWorkflowStep.Result.Success -> {
-                        when (it.result) {
+                        when (val result = stepResult.result) {
                             is MiSnapFinalResult.DocumentSession -> {
                             }
                             is MiSnapFinalResult.FaceSession -> {
@@ -27,7 +50,7 @@ class IntegrationActivity : AppCompatActivity() {
                         }
                     }
                     is MiSnapWorkflowStep.Result.Error -> {
-                        when (it.errorResult.error) {
+                        when (val errorResult = stepResult.errorResult.error) {
                             is MiSnapWorkflowError.Permission -> {
                             }
                             is MiSnapWorkflowError.Camera -> {
@@ -38,7 +61,8 @@ class IntegrationActivity : AppCompatActivity() {
                     }
                 }
             }
-            // When finished with the SDK results, clear them to free up space
+
+            // Once you're done handling the results, clear them before invoking a new session.
             MiSnapWorkflowActivity.Result.clearResults()
         }
 
@@ -53,8 +77,12 @@ class IntegrationActivity : AppCompatActivity() {
         super.onStart()
 
         binding.startSession.setOnClickListener {
-            // It is best practice to query the camera's support before starting the session.
-            // See the sample app for how to handle it
+            /**
+             * Create an [Intent] to launch the [MiSnapWorkflowActivity] by calling [MiSnapWorkflowActivity.buildIntent]
+             * and passing the list of [MiSnapWorkflowStep]s with your custom configurations.
+             *
+             * If multiple steps are defined these will be handled in the order they were submitted.
+             */
             registerForActivityResult.launch(
                 MiSnapWorkflowActivity.buildIntent(
                     this,

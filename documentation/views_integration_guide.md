@@ -28,35 +28,35 @@ Part of the `workflow` module, `MiSnapView` combines the functionality of the `C
 The easiest way to integrate the `MiSnapView` is to add the following to the integrating module's `build.gradle`:
 ```groovy
 dependencies {
-    implementation "com.miteksystems.misnap:workflow:5.0.0-beta3"
-    implementation "com.miteksystems.misnap:controller:5.0.0-beta3"
-    implementation "com.miteksystems.misnap:camera:5.0.0-beta3"
+    implementation "com.miteksystems.misnap:workflow:5.0.0"
+    implementation "com.miteksystems.misnap:controller:5.0.0"
+    implementation "com.miteksystems.misnap:camera:5.0.0"
 
     // Optional barcode analysis dependency
-    implementation "com.miteksystems.misnap:barcode-analysis:5.0.0-beta3"
+    implementation "com.miteksystems.misnap:barcode-analysis:5.0.0"
 
     // Optional document analysis dependency
-    implementation "com.miteksystems.misnap:document-analysis:5.0.0-beta3"
+    implementation "com.miteksystems.misnap:document-analysis:5.0.0"
 
     // Optional face analysis dependency
-    implementation "com.miteksystems.misnap:face-analysis:5.0.0-beta3"
+    implementation "com.miteksystems.misnap:face-analysis:5.0.0"
 
     // Optional MRZ detector dependency
-    implementation "com.miteksystems.misnap:feature-detector:5.0.0-beta3"
+    implementation "com.miteksystems.misnap:feature-detector:5.0.0"
 }
 ```
 
-To integrate the MiSnap SDK without having access to an external Maven server, please see [this FAQ](../README.md#how-to-integrate-misnap-sdk-without-having-access-to-maven).
+To integrate the MiSnap SDK without having access to an external Maven server, please see [this FAQ](../README.md#how-to-integrate-the-misnap-sdk-without-having-access-to-a-remote-maven-repository).
 
 ## Starting a Session
 
-1. Create a `MiSnapSettings` instance with the appropriate `MiSnapSettings.UseCase`.
+1. Create a `MiSnapSettings` instance with the appropriate `MiSnapSettings.UseCase` and a valid MiSnap license.
 
 2. Create (or find in the current view hierarchy) the `MiSnapView` and register for `LiveData` updates from events like `feedbackResult`, `finalFrame`, and `controllerErrors`. 
 
 3. Call `MiSnapView.startMiSnapSession(...)` to start a session by passing the `MiSnapSettings` from step 1.
 
-Please see `examples/misnapview/MiSnapViewXml.kt` for the full code sample.
+Please see `examples/misnapview/MiSnapViewXml.kt` and `examples/misnapview/MiSnapViewCode.kt` for the full code sample.
 
 Please see the in-code documentation for more details and the full API.
 
@@ -71,15 +71,15 @@ Part of the `camera` module, the `CameraView` allows developers to add a camera 
 The easiest way to integrate the `CameraView` is to add the following to the integrating module's `build.gradle`:
 ```groovy
 dependencies {
-    implementation "com.miteksystems.misnap:camera:5.0.0-beta3"
+    implementation "com.miteksystems.misnap:camera:5.0.0"
 }
 ```
 
-To integrate the MiSnap SDK without having access to an external Maven server, please see [this FAQ](../README.md#how-to-integrate-misnap-sdk-without-having-access-to-maven).
+To integrate the MiSnap SDK without having access to an external Maven server, please see [this FAQ](../README.md#how-to-integrate-the-misnap-sdk-without-having-access-to-a-remote-maven-repository).
 
 ## Starting the Camera Preview
 
-1. Create a `MiSnapSettings` instance with the appropriate `MiSnapSettings.UseCase` and set the required camera configurations in `MiSnapSettings.Camera`.
+1. Create a `MiSnapSettings` instance with the appropriate `MiSnapSettings.UseCase` and a valid MiSnap license, and set the required camera configurations in `MiSnapSettings.Camera`.
 
 2. Create (or find in the current view hierarchy) the `CameraView` and register for `LiveData` updates from events like `previewFrames`, `pictureFrames`, and `cameraEvents`.
 
@@ -104,11 +104,11 @@ Please see `/examples/views/AnalysisFragment.kt` for the full code sample.
 The easiest way to integrate these views is to add the following to the integrating module's `build.gradle`:
 ```groovy
 dependencies {
-    implementation "com.miteksystems.misnap:workflow:5.0.0-beta3"
+    implementation "com.miteksystems.misnap:workflow:5.0.0"
 }
 ```
 
-To integrate the MiSnap SDK without having access to an external Maven server, please see [this FAQ](../README.md#how-to-integrate-misnap-sdk-without-having-access-to-maven).
+To integrate the MiSnap SDK without having access to an external Maven server, please see [this FAQ](../README.md#how-to-integrate-the-misnap-sdk-without-having-access-to-a-remote-maven-repository).
 
 - - - -
 
@@ -128,7 +128,7 @@ The following list is a collection of things to look out for while using these v
   * Of the same aspect ratio as the target document.
   * Large enough to fit the target document but not too large that it's closer to the edges of the device.
 
-* When enabling the vignette effect in a `GuideView` whose drawable is not rectangle-shaped, ensure that the drawable design includes the vignette. Please see `workflow/drawable/misnap_guide_face.xml` for reference.
+* When enabling the vignette effect in a `GuideView` whose drawable is not rectangle-shaped, ensure that the drawable design includes the vignette. Please see `drawable/example_guideview_oval.xml` for reference.
 
 * Keeping hint messages concise will ensure that the messages are easier to understand.
 

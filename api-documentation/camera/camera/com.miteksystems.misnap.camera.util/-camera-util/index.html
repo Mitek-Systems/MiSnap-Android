@@ -36,7 +36,9 @@ import com.miteksystems.misnap.core.MiSnapSettings
 fun main() { 
    //sampleStart 
    /**
- * Demonstrates how to pre query the device's camera support.
+ * This example demonstrates how to query the device's camera support in advance before invoking the
+ * MiSnap SDK. This is a recommended best practice for every MiSnap SDK integration as it makes the
+ * help screen asset selection faster.
  */
 class CameraSupport : Fragment() {
     private val license = "your_sdk_license"
@@ -44,12 +46,20 @@ class CameraSupport : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        /**
+         * Keep in mind that the camera requirements may be different depending on the [MiSnapSettings.UseCase];
+         * a standard face session would evaluate front facing cameras while a document session would
+         * evaluate back facing cameras.
+         * If you plan to integrate a combined workflow that uses both front and back facing cameras
+         * make sure to query the support for both.
+         */
         val settings = MiSnapSettings(MiSnapSettings.UseCase.ID_FRONT, license)
 
+        // Request the camera support and register a listener to get the results.
         CameraUtil.findSupportedCamera(requireContext(), viewLifecycleOwner, settings.camera) {
             when (it) {
                 is CameraUtil.CameraSupportResult.Success -&gt; {
-                    // Preset the trigger mode to smooth over help screen asset selection
+                    // Preset the trigger mode to simplify the help screen asset selection.
                     settings.analysis.document.trigger =
                         if (it.cameraInfo.supportsAutoAnalysis) {
                             MiSnapSettings.Analysis.Document.Trigger.AUTO
@@ -58,7 +68,9 @@ class CameraSupport : Fragment() {
                         }
                 }
                 is CameraUtil.CameraSupportResult.Error -&gt; {
-                    // Device's camera is not supported
+                    /**
+                     * The device's camera is not supported for the requested [MiSnapSettings.UseCase].
+                     */
                 }
             }
         }

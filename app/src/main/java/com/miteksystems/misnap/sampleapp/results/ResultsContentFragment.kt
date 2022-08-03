@@ -102,6 +102,13 @@ class ResultsContentFragment : Fragment(R.layout.fragment_result_content) {
                                     )
                                 }
 
+                                if (misnapResult.warnings.isNotEmpty()) {
+                                    adapter.addView(
+                                        getWarningsView(misnapResult.warnings),
+                                        getString(R.string.misnapSampleAppResultsWarningsTabTitle)
+                                    )
+                                }
+
                                 misnapResult.barcode?.let {
                                     adapter.addView(
                                         getBarcodeView(it),

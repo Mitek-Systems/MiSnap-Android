@@ -270,8 +270,8 @@
     </string-array>
 
     <string-array name="barcodeOrientationsArray">
-        <item>Portrait</item>
         <item>Landscape</item>
+        <item>Portrait</item>
         <item>Device</item>
     </string-array>
 
@@ -282,10 +282,17 @@
     </string-array>
 
     <!-- Barcode Workflow Settings Tab -->
+    <string name="misnapSampleAppSettingsBarcodeWorkflowReviewConditionLabel" translatable="false">Manual Review Condition</string>
     <string name="misnapSampleAppSettingsBarcodeWorkflowGuideViewAlignedScalePercentageLabel" translatable="false">GuideView Aligned Scale Percentage</string>
     <string name="misnapSampleAppSettingsBarcodeWorkflowGuideViewUnalignedScalePercentageLabel" translatable="false">GuideView Unaligned Scale Percentage</string>
     <string name="misnapSampleAppSettingsBarcodeWorkflowShowVignetteLabel" translatable="false">GuideView Show Vignette</string>
     <string name="misnapSampleAppSettingsBarcodeWorkflowSuccessViewShouldVibrateLabel" translatable="false">SuccessView Should Vibrate</string>
+
+    <string-array name="barcodeReviewConditionsArray">
+        <item>Always</item>
+        <item>Manual</item>
+        <item>IQA Warnings Only</item>
+    </string-array>
 
     <!-- Face Settings Tab -->
     <string name="misnapSampleAppSettingsFaceTabTitle" translatable="false">Face</string>

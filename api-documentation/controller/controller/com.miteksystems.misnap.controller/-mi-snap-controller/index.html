@@ -32,15 +32,23 @@
               <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Samples"><div class="content sourceset-depenent-content" data-active="" data-togglable=":controller:dokkaHtmlPartial/release"><div class="sample-container"><code class="runnablesample monospace" theme="idea"><pre>import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LiveData
 import com.miteksystems.misnap.controller.MiSnapController
 import com.miteksystems.misnap.controller.MiSnapController.ErrorResult
 import com.miteksystems.misnap.controller.MiSnapController.FrameResult
 import com.miteksystems.misnap.core.Frame
 import com.miteksystems.misnap.core.MiSnapSettings
-import com.miteksystems.misnap.core.MibiData
 fun main() { 
    //sampleStart 
-   private class DocumentAnalysis : Fragment() {
+   /**
+ * This example demonstrates a direct integration with MiSnap SDK's document analysis science through
+ * the [MiSnapController], this type of integration is best suited for developers that want to
+ * interface with the science directly and that will take care of supplying the frames themselves.
+ *
+ * @see com.miteksystems.misnap.examples.science for examples on how to directly interface with other
+ * MiSnap SDK sciences.
+ */
+private class DocumentAnalysis : Fragment() {
     private val license = "your_sdk_license"
     private lateinit var misnapController: MiSnapController
 
@@ -49,43 +57,69 @@ fun main() {
 
         misnapController = initDocumentAnalysis()
 
-        // when you get a frame from camera, call
-        // startAnalysis()
+        /**
+         * Call [startAnalysis] once the controller is ready to analyze [Frame]s.
+         */
     }
 
     private fun startAnalysis(frame: Frame) {
         misnapController.analyzeFrame(frame, forceFrameResult = false)
     }
 
+    /**
+     * Create a [MiSnapController] capable of analyzing frames for a Document session, then observe
+     * the different [LiveData] objects to get notified about feedback results, final results, errors,
+     * etc.
+     * Once the controller is ready and initialized create a [Frame] object and use the [MiSnapController.analyzeFrame]
+     * method to analyze the frame.
+     *
+     * @see com.miteksystems.misnap.examples.science.FrameFromNativeCamera for examples on how to
+     * build a [Frame] object from different camera APIs.
+     */
     private fun initDocumentAnalysis(): MiSnapController {
+
         val misnapSettings = MiSnapSettings(MiSnapSettings.UseCase.CHECK_FRONT, license).apply {
             analysis.document.check.geo = MiSnapSettings.Analysis.Document.Check.Geo.US
 
-            // optionally enable Barcode Extraction
-            analysis.document.barcodeExtractionRequirement = MiSnapSettings.Analysis.Document.ExtractionRequirement.OPTIONAL
+            analysis.document.trigger = MiSnapSettings.Analysis.Document.Trigger.AUTO
+
+            // Optionally enable barcode extraction.
+            analysis.document.barcodeExtractionRequirement =
+                MiSnapSettings.Analysis.Document.ExtractionRequirement.OPTIONAL
         }
 
-        // Optionally define a Mibi session outside of the controller's lifecycle
-        MibiData.startSession(this::class.java.name, misnapSettings)
-
         return MiSnapController(requireContext(), misnapSettings).apply {
-            feedbackResult.observe(viewLifecycleOwner) { result -&gt;
-                // Show hints corresponding to result.userAction
-                // Optionally show detected document corners using result.fourCorners
-                // Optionally show detected glare boxes using result.glareCorners
+            /**
+             * Observe the [MiSnapController.feedbackResult] [LiveData] to handle the feedback from
+             * the analyzed frames and handle them accordingly, e.g. by showing the corresponding
+             * instructions on screen based on the [MiSnapController.FeedbackResult.userAction],
+             * showing the detected document corners using [MiSnapController.FeedbackResult.corners]
+             * or the detected glare corners in [MiSnapController.FeedbackResult.glareCorners].
+             */
+            feedbackResult.observe(viewLifecycleOwner) { feedbackResult -&gt;
+
             }
 
+            /**
+             * Observe the [MiSnapController.frameResult] [LiveData] to handle the successful results
+             * of a session, e.g. by collecting the frame data in [FrameResult.DocumentAnalysis.frame]
+             * to send it to the server.
+             */
             frameResult.observe(viewLifecycleOwner) { result -&gt;
                 when (result) {
                     is FrameResult.DocumentAnalysis -&gt; {
-                        // Session complete. Use result.frame to send the image to server
-                        // Use result.barcode to send to server
+
                     }
                 }
             }
 
+            /**
+             * Observe the [MiSnapController.errorResult] [LiveData] to handle errors during the
+             * analysis of frames.
+             *
+             * @see [ErrorResult] for all the possible error types emitted.
+             */
             errorResult.observe(viewLifecycleOwner) { result -&gt;
-                // Handle errors received for frame
                 when (result) {
                     is ErrorResult.DocumentDetection -&gt; {
                     }
@@ -99,27 +133,28 @@ fun main() {
             }
         }
     }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-
-        // Optionally end the Mibi session outside of the controller's lifecycle
-        MibiData.releaseSession(this::class.java.name)
-    }
 } 
    //sampleEnd
 }</pre></code></div><div class="sample-container"><code class="runnablesample monospace" theme="idea"><pre>import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LiveData
 import com.miteksystems.misnap.controller.MiSnapController
 import com.miteksystems.misnap.controller.MiSnapController.ErrorResult
 import com.miteksystems.misnap.controller.MiSnapController.FrameResult
 import com.miteksystems.misnap.core.Frame
 import com.miteksystems.misnap.core.MiSnapSettings
-import com.miteksystems.misnap.core.MibiData
 fun main() { 
    //sampleStart 
-   private class BarcodeAnalysis : Fragment() {
+   /**
+ * This example demonstrates a direct integration with MiSnap SDK's barcode analysis science through
+ * the [MiSnapController], this type of integration is best suited for developers that want to
+ * interface with the science directly and that will take care of supplying the frames themselves.
+ *
+ * @see com.miteksystems.misnap.examples.science for examples on how to directly interface with other
+ * MiSnap SDK sciences.
+ */
+private class BarcodeAnalysis : Fragment() {
     private val license = "your_sdk_license"
     private lateinit var misnapController: MiSnapController
 
@@ -128,35 +163,60 @@ fun main() {
 
         misnapController = initBarcodeAnalysis()
 
-        // when you get a frame from camera,
-        // call startAnalysis()
+        /**
+         * Call [startAnalysis] once the controller is ready to analyze [Frame]s.
+         */
     }
 
     private fun startAnalysis(frame: Frame) {
         misnapController.analyzeFrame(frame)
     }
 
+    /**
+     * Create a [MiSnapController] capable of analyzing frames for a Barcode session, then observe
+     * the different [LiveData] objects to get notified about feedback results, final results, errors,
+     * etc.
+     * Once the controller is ready and initialized create a [Frame] object and use the [MiSnapController.analyzeFrame]
+     * method to analyze the frame.
+     *
+     * @see com.miteksystems.misnap.examples.science.FrameFromNativeCamera for examples on how to
+     * build a [Frame] object from different camera APIs.
+     */
     private fun initBarcodeAnalysis(): MiSnapController {
         val misnapSettings = MiSnapSettings(MiSnapSettings.UseCase.BARCODE, license)
 
-        // Optionally define a Mibi session outside of the controller's lifecycle
-        MibiData.startSession(this::class.java.name, misnapSettings)
-
         return MiSnapController(requireContext(), misnapSettings).apply {
-            feedbackResult.observe(viewLifecycleOwner) { result -&gt;
-                // Show hints corresponding to result.userAction
+            /**
+             * Observe the [MiSnapController.feedbackResult] [LiveData] to handle the feedback from
+             * the analyzed frames and handle them accordingly, e.g. by showing the corresponding
+             * instructions on screen based on the [MiSnapController.FeedbackResult.userAction],
+             * showing the detected document corners using [MiSnapController.FeedbackResult.corners]
+             * or the detected glare corners in [MiSnapController.FeedbackResult.glareCorners].
+             */
+            feedbackResult.observe(viewLifecycleOwner) { feedbackResult -&gt;
+
             }
 
+            /**
+             * Observe the [MiSnapController.frameResult] [LiveData] to handle the successful results
+             * of a session, e.g. by collecting the barcode data in [FrameResult.BarcodeAnalysis.barcode]
+             * to send it to the server.
+             */
             frameResult.observe(viewLifecycleOwner) { result -&gt;
                 when (result) {
                     is FrameResult.BarcodeAnalysis -&gt; {
-                        // Session complete. Use result.encodedBarcode to send to server
+
                     }
                 }
             }
 
+            /**
+             * Observe the [MiSnapController.errorResult] [LiveData] to handle errors during the
+             * analysis of frames.
+             *
+             * @see [ErrorResult] for all the possible error types emitted.
+             */
             errorResult.observe(viewLifecycleOwner) { result -&gt;
-                // Handle errors received for frame
                 when (result) {
                     is ErrorResult.BarcodeAnalysis -&gt; {
                     }
@@ -164,27 +224,28 @@ fun main() {
             }
         }
     }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-
-        // Optionally end the Mibi session outside of the controller's lifecycle
-        MibiData.releaseSession(this::class.java.name)
-    }
 } 
    //sampleEnd
 }</pre></code></div><div class="sample-container"><code class="runnablesample monospace" theme="idea"><pre>import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LiveData
 import com.miteksystems.misnap.controller.MiSnapController
 import com.miteksystems.misnap.controller.MiSnapController.ErrorResult
 import com.miteksystems.misnap.controller.MiSnapController.FrameResult
 import com.miteksystems.misnap.core.Frame
 import com.miteksystems.misnap.core.MiSnapSettings
-import com.miteksystems.misnap.core.MibiData
 fun main() { 
    //sampleStart 
-   private class FaceAnalysis : Fragment() {
+   /**
+ * This example demonstrates a direct integration with MiSnap SDK's face analysis science through
+ * the [MiSnapController], this type of integration is best suited for developers that want to
+ * interface with the science directly and that will take care of supplying the frames themselves.
+ *
+ * @see com.miteksystems.misnap.examples.science for examples on how to directly interface with other
+ * MiSnap SDK sciences.
+ */
+private class FaceAnalysis : Fragment() {
     private val license = "your_sdk_license"
     private lateinit var misnapController: MiSnapController
 
@@ -193,51 +254,67 @@ fun main() {
 
         misnapController = initFaceAnalysis()
 
-        // when you get a frame from camera,
-        // call startAnalysis()
+        /**
+         * Call [startAnalysis] once the controller is ready to analyze [Frame]s.
+         */
     }
 
     private fun startAnalysis(frame: Frame) {
         misnapController.analyzeFrame(frame)
     }
 
+    /**
+     * Create a [MiSnapController] capable of analyzing frames for a selfie session, then observe
+     * the different [LiveData] objects to get notified about feedback results, final results, errors,
+     * etc.
+     * Once the controller is ready and initialized create a [Frame] object and use the [MiSnapController.analyzeFrame]
+     * method to analyze the frame.
+     *
+     * @see com.miteksystems.misnap.examples.science.FrameFromNativeCamera for examples on how to
+     * build a [Frame] object from different camera APIs.
+     */
     private fun initFaceAnalysis(): MiSnapController {
         val misnapSettings = MiSnapSettings(MiSnapSettings.UseCase.FACE, license).apply {
             analysis.face.trigger = MiSnapSettings.Analysis.Face.Trigger.AUTO
         }
 
-        // Optionally define a Mibi session outside of the controller's lifecycle
-        MibiData.startSession(this::class.java.name, misnapSettings)
-
         return MiSnapController(requireContext(), misnapSettings).apply {
-            feedbackResult.observe(viewLifecycleOwner) { result -&gt;
-                // Show hints corresponding to result.userAction
-                // Optionally show detected face bounding box using result.fourCorners
+            /**
+             * Observe the [MiSnapController.feedbackResult] [LiveData] to handle the feedback from
+             * the analyzed frames and handle them accordingly, e.g. by showing the corresponding
+             * instructions on screen based on the [MiSnapController.FeedbackResult.userAction] or
+             * showing the detected face bounding box corners using [MiSnapController.FeedbackResult.corners].
+             */
+            feedbackResult.observe(viewLifecycleOwner) { feedbackResult -&gt;
+
             }
 
+            /**
+             * Observe the [MiSnapController.frameResult] [LiveData] to handle the successful results
+             * of a session, e.g. by collecting the frame data in [FrameResult.FaceAnalysis.frame]
+             * to send it to the server.
+             */
             frameResult.observe(viewLifecycleOwner) { result -&gt;
                 when (result) {
                     is FrameResult.FaceAnalysis -&gt; {
-                        // Session complete. Use result.frame to send the image to server
+
                     }
                 }
             }
 
+            /**
+             * Observe the [MiSnapController.errorResult] [LiveData] to handle errors during the
+             * analysis of frames.
+             *
+             * @see [ErrorResult] for all the possible error types emitted.
+             */
             errorResult.observe(viewLifecycleOwner) { result -&gt;
-                // Handle errors received for frame
                 when (result) {
                     is ErrorResult.FaceAnalysis -&gt; {
                     }
                 }
             }
         }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-
-        // Optionally end the Mibi session outside of the controller's lifecycle
-        MibiData.releaseSession(this::class.java.name)
     }
 } 
    //sampleEnd

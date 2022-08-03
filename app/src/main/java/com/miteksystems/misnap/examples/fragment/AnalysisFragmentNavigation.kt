@@ -2,37 +2,71 @@ package com.miteksystems.misnap.examples.fragment
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.FragmentContainerView
+import androidx.fragment.app.FragmentTransaction
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModelProvider
+import com.miteksystems.misnap.R
 import com.miteksystems.misnap.core.MiSnapSettings
+import com.miteksystems.misnap.workflow.MiSnapErrorResult
 import com.miteksystems.misnap.workflow.MiSnapFinalResult
 import com.miteksystems.misnap.workflow.fragment.MiSnapWorkflowViewModel
-import com.miteksystems.misnap.R
 
+/**
+ * This example demonstrates an activity-less integration of the MiSnap SDK using Jetpack Navigation
+ * navgraphs that is best suited for developers that follow the single-activity architecture and
+ * don't want to launch another activity to invoke the MiSnap SDK.
+ *
+ * This example uses a [FragmentContainerView] that hosts a navgraph that in turn includes the built-in
+ * [R.navigation.barcode_session_flow] navgraph to take care of the navigation for a barcode session
+ * while making use of the [MiSnapWorkflowViewModel] to configure the session.
+ *
+ * @see com.miteksystems.misnap.examples.fragment.AnalysisFragmentTransaction for an activity-less
+ * integration that doesn't use Jetpack Navigation and drives the navigation with [FragmentTransaction]s.
+ */
 class AnalysisFragmentNavigation : AppCompatActivity(R.layout.example_fragment_navigation) {
     private val license = "your_sdk_license"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // call MiSnapViewModel.applySettings() before navigating to graph's startDestination
+        /**
+         * Build a [MiSnapSettings] object and apply it to the [MiSnapWorkflowViewModel] to use it
+         * during the session.
+         * The navigation in this example is handled by the [FragmentContainerView] in the XML layout
+         * of this activity, it is important to apply the settings before navigating to the start
+         * destination of the navgraph.
+         */
         val settings = MiSnapSettings(MiSnapSettings.UseCase.BARCODE, license)
 
         ViewModelProvider(this)[MiSnapWorkflowViewModel::class.java].also { viewModel ->
             viewModel.applySettings(settings)
 
+            /**
+             * Observe the [MiSnapWorkflowViewModel.results] [LiveData] to receive the [MiSnapFinalResult]s
+             * and handle them accordingly, e.g. by collecting the results or re-configuring the
+             * [MiSnapWorkflowViewModel] for another session.
+             */
             viewModel.results.observe(this) {
                 it?.let { result ->
                     when (result) {
                         is MiSnapFinalResult.BarcodeSession -> {
-                            // Session complete. Continue your flow.
+
                         }
                     }
+
+                    // Once you're done handling the results, clear them before invoking a new session.
+                    viewModel.clearResults()
                 }
             }
 
+            /**
+             * Observe the [MiSnapWorkflowViewModel.error] [LiveData] to receive [MiSnapErrorResult]s
+             * and handle them accordingly.
+             */
             viewModel.error.observe(this) {
                 it?.let {
-                    // Handle errors
+
                 }
             }
         }

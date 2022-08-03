@@ -5,10 +5,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LiveData
 import com.miteksystems.misnap.camera.frameproducers.FrameProducer.Event
 import com.miteksystems.misnap.camera.view.CameraView
+import com.miteksystems.misnap.controller.MiSnapController
+import com.miteksystems.misnap.core.Frame
 import com.miteksystems.misnap.core.MiSnapSettings
 
+/**
+ * This example demonstrates how to programmatically use a [CameraView] to get access to the device's
+ * hardware camera and interact with various camera APIs such as preview frames, picture frames, torch
+ * controls, focus controls, video recording, etc.
+ *
+ * @see com.miteksystems.misnap.examples.camera.CameraViewXml for an example on how to use the [CameraView]
+ * from an XML layout.
+ */
 class CameraViewCode : Fragment() {
     private val license = "your_sdk_license"
 
@@ -17,49 +28,79 @@ class CameraViewCode : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        /**
+         * The [CameraView] needs a [MiSnapSettings.Camera.Profile] to select the correct camera which
+         * is defined based on the [MiSnapSettings.UseCase], you can also set it explicitly to match your
+         * specific needs.
+         */
         val settings = MiSnapSettings(MiSnapSettings.UseCase.ID_FRONT, license).apply {
             camera.profile = MiSnapSettings.Camera.Profile.DOCUMENT_BACK_CAMERA
         }
 
+        /**
+         * Instantiate a [CameraView] and observe the various [LiveData]s to get preview frames, picture
+         * frames, recorded videos, camera events etc.
+         */
         return CameraView(requireContext())
             .apply {
+                /**
+                 * Observe the [CameraView.previewFrames] [LiveData] to handle the camera preview [Frame]s,
+                 * e.g. by analyzing them using the [MiSnapController.analyzeFrame] method.
+                 *
+                 * @see com.miteksystems.misnap.examples.science for examples on how to analyze [Frame]s
+                 * with different sciences.
+                 */
                 previewFrames.observe(viewLifecycleOwner) {
-                    // Preview frames from camera.
-                    // Send these to MiSnapController.analyzeFrame()
-                    // Please see /examples/science/ for full MiSnapController integration code
+
                 }
 
+                /**
+                 * Observe the [CameraView.pictureFrames] [LiveData] to handle the camera pictures
+                 * produced by the [CameraView.takePicture] method.
+                 */
                 pictureFrames.observe(viewLifecycleOwner) {
-                    // Frames from camera for takePicture() call
+
                 }
 
+                /**
+                 * Observe the [CameraView.cameraEvents] [LiveData] to handle the various camera
+                 * related [Event]s.
+                 *
+                 * @see com.miteksystems.misnap.camera.frameproducers.FrameProducer.Event for the
+                 * full list of emitted events.
+                 */
                 cameraEvents.observe(viewLifecycleOwner) { event ->
-                    // This is only a subset of events emitted by CameraView.
-                    // Please see javadocs for full list of emitted events.
                     when (event) {
                         is Event.CameraInitialized -> {
-                            // Camera initialized but not quite ready to use yet
+
                         }
-                        Event.CameraReady -> {
-                            // Camera is ready to use now
+                        is Event.CameraReady -> {
+
                         }
                         is Event.InitializationError.InsufficientCamera -> {
-                            // Device doesn't have camera with the requested parameters
+
                         }
                         is Event.InitializationError.CameraNotAvailable -> {
-                            // Device doesn't have camera or camera is already in use by other process
+
                         }
                     }
                 }
 
+                /**
+                 * Observe the [CameraView.recordedVideo] [LiveData] to receive a [ByteArray] with
+                 * the contents of the recorded video if requested in [MiSnapSettings].
+                 */
                 recordedVideo.observe(viewLifecycleOwner) { videoBytes ->
-                    // non-empty video bytes if recording was requested in MiSnapSettings
+
                 }
             }
             .also { cameraView ->
-                // actually start camera preview
+                /**
+                 * Start the camera preview and register a callback to know when the preview has
+                 * started.
+                 */
                 cameraView.startCamera(settings.camera, viewLifecycleOwner) {
-                    // camera preview started
+
                 }
             }
     }

@@ -156,6 +156,7 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
                     getUseCaseSettingsPrefsKey(settings.useCase),
                     Json.encodeToString(settings)
                 )
+                putInt(SHARED_PREFS_LAST_SELECTED_USECASE_INDEX, useCaseIndex)
                 apply()
             }
 
@@ -370,6 +371,7 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
         barcodeWorkflowSettingsBinding?.let {
             val defaultWorkflowSettings = BarcodeAnalysisFragment.getDefaultWorkflowSettings(settings)
             val workflowSettings = BarcodeAnalysisFragment.buildWorkflowSettings(
+                reviewCondition = getBarcodeReviewConditionAt(it.barcodeWorkflowSettingsReviewConditionSpinner.selectedItemPosition),
                 guideViewAlignedScalePercentage = kotlin.runCatching {
                     it.barcodeWorkflowSettingsGuideViewAlignedScalePercentage.text.toString()
                         .toFloat()
@@ -932,6 +934,13 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
                     }
             val defaultWorkflowSettings = BarcodeAnalysisFragment.getDefaultWorkflowSettings(settings)
 
+            (workflowSettings?.reviewCondition
+                ?: defaultWorkflowSettings.reviewCondition)?.let {
+                binding.barcodeWorkflowSettingsReviewConditionSpinner.setSelection(
+                    getBarcodeReviewConditionIndex(it)
+                )
+            }
+
             (workflowSettings?.guideViewAlignedScalePercentage
                 ?: defaultWorkflowSettings.guideViewAlignedScalePercentage)?.let {
                 binding.barcodeWorkflowSettingsGuideViewAlignedScalePercentage.setText(it.toString())
@@ -1254,12 +1263,29 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
 
     private fun getBarcodeOrientationAt(index: Int) =
         when (index) {
-            1 -> MiSnapSettings.Analysis.Barcode.Orientation.LANDSCAPE
-            0 -> MiSnapSettings.Analysis.Barcode.Orientation.PORTRAIT
+            0 -> MiSnapSettings.Analysis.Barcode.Orientation.LANDSCAPE
+            1 -> MiSnapSettings.Analysis.Barcode.Orientation.PORTRAIT
             2 -> MiSnapSettings.Analysis.Barcode.Orientation.DEVICE
             else -> null
         }
 
+    // endregion
+
+    // region barcode workflow settings tab
+    private fun getBarcodeReviewConditionAt(index: Int) =
+        when (index) {
+            2 -> BarcodeAnalysisFragment.ReviewCondition.WARNINGS
+            1 -> BarcodeAnalysisFragment.ReviewCondition.MANUAL
+            0 -> BarcodeAnalysisFragment.ReviewCondition.ALWAYS
+            else -> null
+        }
+
+    private fun getBarcodeReviewConditionIndex(reviewCondition: BarcodeAnalysisFragment.ReviewCondition) =
+        when (reviewCondition) {
+            BarcodeAnalysisFragment.ReviewCondition.ALWAYS -> 0
+            BarcodeAnalysisFragment.ReviewCondition.MANUAL -> 1
+            BarcodeAnalysisFragment.ReviewCondition.WARNINGS -> 2
+        }
     // endregion
 
     // region face settings tab
@@ -1356,11 +1382,6 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
                         position: Int,
                         id: Long,
                     ) {
-                        sharedPrefs.edit().apply {
-                            putInt(SHARED_PREFS_LAST_SELECTED_USECASE_INDEX, position)
-                            apply()
-                        }
-
                         useCaseIndex = position
                         val useCase = getUseCaseAt(position)
                         val settings =

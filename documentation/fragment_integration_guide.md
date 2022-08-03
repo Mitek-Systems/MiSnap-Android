@@ -24,23 +24,23 @@ The easiest way to integrate the MiSnap SDK is to add the following to the integ
 ```groovy
 dependencies {
     // Use this for check + id sessions
-    implementation "com.miteksystems.misnap:document:5.0.0-beta3"
+    implementation "com.miteksystems.misnap:document:5.0.0"
 
     // Use this for barcode sessions
-    implementation "com.miteksystems.misnap:barcode:5.0.0-beta3"
+    implementation "com.miteksystems.misnap:barcode:5.0.0"
 
     // Use this for selfie sessions
-    implementation "com.miteksystems.misnap:face:5.0.0-beta3"
+    implementation "com.miteksystems.misnap:face:5.0.0"
 
     // Use this for automatically getting the nfc credentials and then reading the chip
-    implementation "com.miteksystems.misnap:combined-nfc:5.0.0-beta3"
+    implementation "com.miteksystems.misnap:combined-nfc:5.0.0"
 
     // Use this for only reading the nfc chip
-    implementation "com.miteksystems.misnap:nfc:5.0.0-beta3"
+    implementation "com.miteksystems.misnap:nfc:5.0.0"
 }
 ```
 
-To integrate the MiSnap SDK without having access to an external Maven server, please see [this FAQ](../README.md#how-to-integrate-misnap-sdk-without-having-access-to-maven).
+To integrate the MiSnap SDK without having access to an external Maven server, please see [this FAQ](../README.md#how-to-integrate-the-misnap-sdk-without-having-access-to-a-remote-maven-repository).
 
 - - - -
 
@@ -59,7 +59,7 @@ The MiSnap SDK provides out-of-the-box support for `Jetpack Navigation`. The `wo
 
 1. Include the existing navigation graphs.
 
-2. Create a `MiSnapSettings` instance and apply it to the `MiSnapWorkflowViewModel`.
+2. Create a `MiSnapSettings` instance containing a valid MiSnap license and apply it to the `MiSnapWorkflowViewModel`.
 
 3. Register to observe `LiveData` updates from `results` and `errors` from the `MiSnapWorkflowViewModel`.
 
@@ -110,7 +110,7 @@ Although it is recommended to integrate the MiSnap SDK with `Jetpack Navigation`
 Internally, the MiSnap SDK uses navigation graphs to conduct the fragments navigation. When a navigation fails, the MiSnap SDK produces a `NavigationError` event which can be observed to drive the navigation manually.
 
 ## Integration
-1. Create a `MiSnapSettings` instance and apply it to the `MiSnapWorkflowViewModel`.
+1. Create a `MiSnapSettings` instance containing a valid MiSnap license and apply it to the `MiSnapWorkflowViewModel`.
 
 2. Register to observe `LiveData` updates from `navigationErrors`, `results`, and `errors` from the `MiSnapWorkflowViewModel`.
 
