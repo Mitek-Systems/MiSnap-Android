@@ -1,22 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- region GENERAL -->
-    <string name="misnapSampleAppLicense" translatable="false">eyJzaWduYXR1cmUiOiJ1Sk1kSmJmODhxZE9nVGtmbk1XemZ6Mk8zc3lrWXpVRzdzTFZlT1E0eXBpUmUrbzdDeWtneWZrM01rTjJ3aE9ISVdwdk8reGlIYi8zenBXR3lRV0ErNWdlRzl2K3JWa3dSeCtoZjZqMnFnaXptWWhiMlNhTERzbEh5anRUWkM4aVdpNU1aWHR1MTRHNmpKWGJYQWNYeXRJZEJhSkE3cmZIbTBERmNkc010bW9YN1EyQjBJZmNLUDZvYWdLWnBOYVg0UjVTRFBNVGtEak82cEk4Y0Z1aWZPYUUvbFhvUGRPYUpRUjRTVW1Ka2RmTXpWVG9SNkFSUTdRbkY1NW40Y1dqQzdHa3JTUGFHRFhoZzJJd0o1QnBRWWRrbUFVSTVLMzRRVkM5V0lvOWMwQUdxSWFRdjlHc2xUdW1mTmE2R3VRVFlObXd0VUc0ZytSa0pKMnRXeUdKcGc9PSIsInNpZ25lZCI6eyJleHBpcnkiOiIyMDMxLTEyLTMxIiwiZmVhdHVyZXMiOlsiYmFyY29kZSIsImRlcG9zaXQiLCJmYWNlIiwiZ2VuZXJpYyIsImlkIiwibmZjIl0sImFwcGxpY2F0aW9uSWRlbnRpZmllciI6eyJhbmRyb2lkIjpbImNvbS5taXRla3N5c3RlbXMuKiJdfSwiZ3BvIjoiMTZkIiwib3JnYW5pemF0aW9uIjoiTWl0ZWsgU3lzdGVtcyBJbmMuIiwidmVyc2lvbiI6IjEuMCJ9fQ==
+    <string name="misnapSampleAppLicense" translatable="false">eyJzaWduYXR1cmUiOiJldXJBRkZiOHhRekdjcEl6emEzM2pwS2lqQ1hBYVlIZ09SdktpcXdQb2pEVm16YnNpbXp6QjJNUHkzekpCRWJoU2dySG15T1JQNW5nLzQzSml3TWhKTHA4WGlKcTZ2RXFROHdoczN0SEJFRU1POXhiS1N3R2pDNk9YUjMxcUVudEp4NmUxTmNJK2N1bXFsRXpZMnZOUDErRTErRkV1aWoyQjQxRVVDWVNwdXdoamlWdGZkby9JUkh2SmpNaXBYU0Z1ajlwU1AvcnZlaE9icTNmY1FkYXhDOFoxbFk3UG1WSWNpNmxrQ2hyUEFCMXdiT2Iyd0pITGoyNk5TMittMkZ3MG00cWRmN2Y2RzRUdkQ5cVhzY0tSRU9tWXRzKzNXUEMwdEk0MTBRcjcxWmtJVnhoekVSK2plVWlxblduV1ZjQUVMb3BHM2l4aXBYVmZUMVF1ZWJ4Q2c9PSIsInNpZ25lZCI6eyJleHBpcnkiOiIyMDMyLTAxLTAxIiwiZmVhdHVyZXMiOlsiYmFyY29kZSIsImRlcG9zaXQiLCJmYWNlIiwiZ2VuZXJpYyIsImlkIiwibmZjIiwidm9pY2UiXSwiYXBwbGljYXRpb25JZGVudGlmaWVyIjp7ImFuZHJvaWQiOlsiY29tLm1pdGVrc3lzdGVtcyoiXX0sImdwbyI6IjE2ZCIsIm9yZ2FuaXphdGlvbiI6Ik1pdGVrIFN5c3RlbXMgSW5jLiIsInZlcnNpb24iOiIxLjAifX0=
 </string>
     <string name="misnapSampleAppName" translatable="false">MiSnap Sample App</string>
 
     <string name="misnapSampleAppCameraErrorMessage" translatable="false">Error Initializing Camera</string>
     <string name="misnapSampleAppBackCameraErrorMessage" translatable="false">Error Initializing Back Camera</string>
     <string name="misnapSampleAppFrontCameraErrorMessage" translatable="false">Error Initializing Front Camera</string>
+    <string name="misnapSampleAppMicrophoneErrorMessage" translatable="false">Error Initializing Microphone</string>
     <string name="misnapSampleAppAnalysisErrorMessage" translatable="false">Error Analyzing Image</string>
     <string name="misnapSampleAppSettingsErrorMessage" translatable="false">Invalid settings</string>
     <string name="misnapSampleAppCameraPermissionErrorMessage" translatable="false">Error Acquiring Permissions</string>
     <string name="misnapSampleAppCameraPermissionRationaleTitle" translatable="false">Permission reason</string>
     <string name="misnapSampleAppCameraPermissionRationaleMessage" translatable="false">Camera access is required to snap a photo</string>
+    <string name="misnapSampleAppAudioRecordPermissionRationaleTitle" translatable="false">Permission reason</string>
+    <string name="misnapSampleAppAudioRecordPermissionRationaleMessage" translatable="false">Microphone access is required to record your voice</string>
     <string name="misnapSampleAppNfcDeviceErrorMessage" translatable="false">Device does not support NFC</string>
     <string name="misnapSampleAppNfcDocumentErrorMessage" translatable="false">Document does not support NFC</string>
     <string name="misnapSampleAppNfcSkippedErrorMessage" translatable="false">NFC session skipped</string>
     <string name="misnapSampleAppNfcCredentialsErrorMessage" translatable="false">Invalid NFC credentials</string>
+    <string name="misnapSampleAppVoiceSkippedErrorMessage" translatable="false">Voice session skipped</string>
+    <string name="misnapSampleAppVoiceExecutionErrorMessage" translatable="false">Error Executing Voice Engines</string>
+    <string name="misnapSampleAppVoiceInitializationErrorMessage" translatable="false">Error Initializing Voice Engines</string>
+    <string name="misnapSampleAppVoiceInputFormatErrorMessage" translatable="false">Error Unsupported Input Format</string>
+    <string name="misnapSampleAppVoiceMicrophoneMutedErrorMessage" translatable="false">Error UnMuting microphone</string>
+    <string name="misnapSampleAppVoiceMissingRequirementErrorMessage" translatable="false">Missing Flow / Verification Phrase</string>
     <string name="misnapSampleAppCancelledErrorMessage" translatable="false">Session Cancelled</string>
     <string name="misnapSampleAppCombinedWorkflowCancelledErrorMessage" translatable="false">Session Cancelled</string>
     <string name="misnapSampleAppCombinedWorkflowSkippedStepErrorMessage" translatable="false">Skipped Workflow Step</string>
@@ -44,6 +53,7 @@
     <string name="misnapSampleAppResultsUseCaseBarcodeTabTitle" translatable="false">Barcode</string>
     <string name="misnapSampleAppResultsUseCaseFaceTabTitle" translatable="false">Face</string>
     <string name="misnapSampleAppResultsUseCaseNfcTabTitle" translatable="false">NFC</string>
+    <string name="misnapSampleAppResultsUseCaseVoiceTabTitle" translatable="false">Voice</string>
     <string name="misnapSampleAppResultsUseCaseUnknownTabTitle" translatable="false">Unknown</string>
 
     <string name="misnapSampleAppResultsFrameTabTitle" translatable="false">Final Frame</string>
@@ -54,6 +64,8 @@
     <string name="misnapSampleAppResultsMibiTabTitle" translatable="false">MiBi</string>
     <string name="misnapSampleAppResultsErrorTabTitle" translatable="false">Error</string>
     <string name="misnapSampleAppResultsNfcResultsTabTitle" translatable="false">NFC Results</string>
+    <string name="misnapSampleAppResultsVoiceAudioTabTitle" translatable="false">Recorded Audio</string>
+    <string name="misnapSampleAppResultsVoiceTabTitle" translatable="false">Recording %1$d</string>
 
     <string name="misnapSampleAppResultsMrzData" translatable="false">
         <![CDATA[<b>Document Number:</b>]]> %1$s <![CDATA[<br>]]>
@@ -120,6 +132,8 @@
     <string name="misnapSampleAppDemoStartBarcodeSessionButtonLabel" translatable="false">Start Barcode Session</string>
     <string name="misnapSampleAppDemoStartFaceSessionButtonLabel" translatable="false">Start Face Session</string>
     <string name="misnapSampleAppDemoStartNfcReadingButtonLabel" translatable="false">Start NFC Reading</string>
+    <string name="misnapSampleAppDemoStartVoiceEnrollmentSessionButtonLabel" translatable="false">Start Voice Enrollment Session</string>
+    <string name="misnapSampleAppDemoStartVoiceVerificationSessionButtonLabel" translatable="false">Start Voice Verification Session</string>
     <string name="misnapSampleAppDemoCombinedFlowsLabel" translatable="false">MiSnap Combined Flows</string>
     <string name="misnapSampleAppDemoStartNfcCombinedIdReadingButtonLabel" translatable="false">Start ID Session + NFC</string>
     <string name="misnapSampleAppDemoStartNfcCombinedPassportReadingButtonLabel" translatable="false">Start Passport Session + NFC</string>
@@ -130,6 +144,7 @@
     <string name="misnapSampleAppDemoDocumentFlowsLabel" translatable="false">MiSnap Document Flows</string>
     <string name="misnapSampleAppDemoFaceFlowsLabel" translatable="false">MiSnap Face Flows</string>
     <string name="misnapSampleAppDemoNfcFlowsLabel" translatable="false">MiSnap NFC Flows</string>
+    <string name="misnapSampleAppDemoVoiceFlowsLabel" translatable="false">MiSnap Voice Flows</string>
     <string name="misnapSampleAppDemoCustomLabel" translatable="false">Custom</string>
 
     <!-- end region -->
@@ -154,6 +169,7 @@
         <item>Barcode</item>
         <item>Face</item>
         <item>NFC</item>
+        <item>Voice</item>
     </string-array>
 
     <string-array name="deviceOrientationsArray">
@@ -348,6 +364,30 @@
     <!-- NFC Workflow Settings Tab -->
     <string name="misnapSampleAppSettingsNfcWorkflowShowFailoverPopUpLabel" translatable="false">Show Failover Popup</string>
     <string name="misnapSampleAppSettingsNfcWorkflowSkipVisibilityTimeoutDurationLabel" translatable="false">Skip Visibility Timeout Duration</string>
+
+    <!-- endregion -->
+
+    <!-- Voice Settings Tab -->
+
+    <string name="misnapSampleAppSettingsVoiceTabTitle" translatable="false">Voice</string>
+    <string name="misnapSampleAppSettingsVoiceStepLabel" translatable="false">Step</string>
+    <string name="misnapSampleAppSettingsVoicePhraseLabel" translatable="false">Phrase</string>
+    <string name="misnapSampleAppSettingsVoiceMinSpeechLengthLabel" translatable="false">Min Speech Length</string>
+    <string name="misnapSampleAppSettingsVoiceMinSNRLabel" translatable="false">Min SNR</string>
+    <string name="misnapSampleAppSettingsVoiceMaxSilenceLengthLabel" translatable="false">Max Silence Length</string>
+    <string name="misnapSampleAppSettingsVoiceCustomPhrase" translatable="false"> Custom Phrase</string>
+    <string name="misnapSampleAppSettingsVoiceCustomPhraseErrorEmptyField">This field cannot be empty</string>
+
+    <string-array name="voiceFlowsArray">
+        <item>Enrollment</item>
+        <item>Verification</item>
+    </string-array>
+
+    <!-- endregion -->
+
+    <!-- Voice Workflow Settings Tab -->
+
+    <string name="misnapSampleAppSettingsVoiceWorkflowSessionTimeoutDurationLabel" translatable="false">Session Timeout Duration</string>
 
     <!-- endregion -->
 

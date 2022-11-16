@@ -1,0 +1,129 @@
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>CameraUtil</title>
+</head><body><link href="../../../../../../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../../../";</script><script src="https://unpkg.com/kotlin-playground@1" data-selector="code.runnablesample"></script><script type="text/javascript" src="../../../../scripts/sourceset_dependencies.js" async></script><link href="../../../../styles/style.css" rel="Stylesheet"><link href="../../../../styles/logo-styles.css" rel="Stylesheet"><link href="../../../../styles/jetbrains-mono.css" rel="Stylesheet"><link href="../../../../styles/main.css" rel="Stylesheet"><script type="text/javascript" src="../../../../scripts/clipboard.js" async></script><script type="text/javascript" src="../../../../scripts/navigation-loader.js" async></script><script type="text/javascript" src="../../../../scripts/platform-content-handler.js" async></script><script type="text/javascript" src="../../../../scripts/main.js" async></script>
+  
+    <div id="container">
+      <div id="leftColumn"><a href="../../../../index.html">
+            <div id="logo"></div>
+          </a>
+        <div id="paneSearch"></div>
+        <div id="sideMenu"></div>
+      </div>
+      <div id="main">
+        <script type="text/javascript" src="../../../../scripts/main.js"></script><div id="leftToggler"><span class="icon-toggler"></span></div>
+
+        <div class="main-content" id="content" pageids="camera::com.miteksystems.misnap.camera.util/CameraUtil///PointingToDeclaration//722615118">
+          <div class="navigation-wrapper" id="navigation-wrapper">
+            <div class="breadcrumbs"><a href="../../../index.html">camera</a>/<a href="../index.html">com.miteksystems.misnap.camera.util</a>/<a href="index.html">CameraUtil</a></div>
+            <div class="pull-right d-flex">
+              <div id="searchBar"></div>
+            </div>
+          </div>
+          <div class="cover ">
+            <h1 class="cover"><span>Camera</span><wbr><span>Util</span></h1>
+            <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":camera:dokkaHtmlPartial/release"><div class="symbol monospace">object <a href="index.html">CameraUtil</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><p class="paragraph">Utility class for querying the camera's support.</p></div></div>
+          </div>
+          <div class="tabbedcontent">
+            <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="Types">Types</button><button class="section-tab" data-togglable="Functions">Functions</button><button class="section-tab" data-togglable="Samples">Samples</button></div>
+            <div class="tabs-section-body">
+              <h2 class="">Samples</h2>
+              <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Samples"><div class="content sourceset-depenent-content" data-active="" data-togglable=":camera:dokkaHtmlPartial/release"><div class="sample-container"><code class="runnablesample monospace" theme="idea"><pre>import android.os.Bundle
+import android.view.View
+import androidx.fragment.app.Fragment
+import com.miteksystems.misnap.camera.util.CameraUtil
+import com.miteksystems.misnap.core.MiSnapSettings
+fun main() { 
+   //sampleStart 
+   /**
+ * This example demonstrates how to query the device's camera support in advance before invoking the
+ * MiSnap SDK. This is a recommended best practice for every MiSnap SDK integration as it makes the
+ * help screen asset selection faster.
+ */
+class CameraSupport : Fragment() {
+    private val license = "your_sdk_license"
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        /**
+         * Keep in mind that the camera requirements may be different depending on the [MiSnapSettings.UseCase];
+         * a standard face session would evaluate front facing cameras while a document session would
+         * evaluate back facing cameras.
+         * If you plan to integrate a combined workflow that uses both front and back facing cameras
+         * make sure to query the support for both.
+         */
+        val settings = MiSnapSettings(MiSnapSettings.UseCase.ID_FRONT, license)
+
+        // Request the camera support and register a listener to get the results.
+        CameraUtil.findSupportedCamera(requireContext(), viewLifecycleOwner, settings.camera) {
+            when (it) {
+                is CameraUtil.CameraSupportResult.Success -&gt; {
+                    // Preset the trigger mode to simplify the help screen asset selection.
+                    settings.analysis.document.trigger =
+                        if (it.cameraInfo.supportsAutoAnalysis) {
+                            MiSnapSettings.Analysis.Document.Trigger.AUTO
+                        } else {
+                            MiSnapSettings.Analysis.Document.Trigger.MANUAL
+                        }
+                }
+                is CameraUtil.CameraSupportResult.Error -&gt; {
+                    /**
+                     * The device's camera is not supported for the requested [MiSnapSettings.UseCase].
+                     */
+                }
+            }
+        }
+    }
+} 
+   //sampleEnd
+}</pre></code></div></div></div>
+              <h2 class="">Types</h2>
+              <div class="table" data-togglable="Types"><a data-name="-521021216%2FClasslikes%2F722615118" anchor-label="CameraSupportResult" id="-521021216%2FClasslikes%2F722615118" data-filterable-set=":camera:dokkaHtmlPartial/release"></a>
+                <div class="table-row" data-filterable-current=":camera:dokkaHtmlPartial/release" data-filterable-set=":camera:dokkaHtmlPartial/release">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="-camera-support-result/index.html">CameraSupportResult</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-521021216%2FClasslikes%2F722615118"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":camera:dokkaHtmlPartial/release" data-filterable-set=":camera:dokkaHtmlPartial/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":camera:dokkaHtmlPartial/release"><div class="symbol monospace">sealed class <a href="-camera-support-result/index.html">CameraSupportResult</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+<a data-name="-521021216%2FClasslikes%2F722615118" anchor-label="CameraSupportResult" id="-521021216%2FClasslikes%2F722615118" data-filterable-set=":camera:dokkaHtmlPartial/release"></a><div class="brief "><a data-name="-521021216%2FClasslikes%2F722615118" anchor-label="CameraSupportResult" id="-521021216%2FClasslikes%2F722615118" data-filterable-set=":camera:dokkaHtmlPartial/release"></a>Results returned by <a href="find-supported-camera.html">findSupportedCamera</a> when <a href="index.html">CameraUtil</a> is used to pre select a camera.</div></div>
+</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <h2 class="">Functions</h2>
+              <div class="table" data-togglable="Functions"><a data-name="-1047299603%2FFunctions%2F722615118" anchor-label="findSupportedCamera" id="-1047299603%2FFunctions%2F722615118" data-filterable-set=":camera:dokkaHtmlPartial/release"></a>
+                <div class="table-row" data-filterable-current=":camera:dokkaHtmlPartial/release" data-filterable-set=":camera:dokkaHtmlPartial/release">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="find-supported-camera.html">findSupportedCamera</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1047299603%2FFunctions%2F722615118"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":camera:dokkaHtmlPartial/release" data-filterable-set=":camera:dokkaHtmlPartial/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":camera:dokkaHtmlPartial/release"><div class="symbol monospace"><div class="block"><div class="block">@<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.jvm/-jvm-static/index.html">JvmStatic</a>()</div><div class="block">@<a href="https://developer.android.com/reference/kotlin/androidx/annotation/MainThread.html">MainThread</a>()</div></div>fun <a href="find-supported-camera.html">findSupportedCamera</a>(context: <a href="https://developer.android.com/reference/kotlin/android/content/Context.html">Context</a>, lifecycleOwner: <a href="https://developer.android.com/reference/kotlin/androidx/lifecycle/LifecycleOwner.html">LifecycleOwner</a>, cameraSettings: <a href="../../../../core/core/com.miteksystems.misnap.core/-mi-snap-settings/-camera/index.html">MiSnapSettings.Camera</a>, cameraSupportResultListener: (result: <a href="-camera-support-result/index.html">CameraUtil.CameraSupportResult</a>) -&gt; <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a>)<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+<a data-name="-1047299603%2FFunctions%2F722615118" anchor-label="findSupportedCamera" id="-1047299603%2FFunctions%2F722615118" data-filterable-set=":camera:dokkaHtmlPartial/release"></a><div class="brief "><a data-name="-1047299603%2FFunctions%2F722615118" anchor-label="findSupportedCamera" id="-1047299603%2FFunctions%2F722615118" data-filterable-set=":camera:dokkaHtmlPartial/release"></a>Tries to find a camera to use according to the requirements of the supplied filter.</div></div>
+</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="footer"><span class="go-to-top-icon"><a href="#content"></a></span><span>© 2022 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span></div>
+      </div>
+    </div>
+  
+</body></html>
+
+

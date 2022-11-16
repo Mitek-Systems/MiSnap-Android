@@ -46,15 +46,15 @@ class MobileVerifyV2RequestActivity : AppCompatActivity() {
                         when (it.result) {
                             is MiSnapFinalResult.DocumentSession, is MiSnapFinalResult.BarcodeSession -> {
                                 // Add the barcode and/or document session results.
-                                request.addDocumentResult(it.result.toServerResult())
+                                request.addDocumentResult(it.result.toServerResult() as MiSnapTransactionResult.DocumentResult)
                             }
                             is MiSnapFinalResult.FaceSession -> {
                                 // Add the face session results.
-                                request.setFaceResult(it.result.toServerResult())
+                                request.setFaceResult(it.result.toServerResult() as MiSnapTransactionResult.FaceResult)
                             }
                             is MiSnapFinalResult.NfcSession -> {
                                 // Add the NFC reading session results.
-                                request.setNfcResult(it.result.toServerResult())
+                                request.setNfcResult(it.result.toServerResult() as MiSnapTransactionResult.NfcResult)
                             }
                         }
                     }

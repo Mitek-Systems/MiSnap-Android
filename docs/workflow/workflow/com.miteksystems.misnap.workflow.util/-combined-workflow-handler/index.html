@@ -1,0 +1,322 @@
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>CombinedWorkflowHandler</title>
+</head><body><link href="../../../../../../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../../../";</script><script src="https://unpkg.com/kotlin-playground@1" data-selector="code.runnablesample"></script><script type="text/javascript" src="../../../../scripts/sourceset_dependencies.js" async></script><link href="../../../../styles/style.css" rel="Stylesheet"><link href="../../../../styles/logo-styles.css" rel="Stylesheet"><link href="../../../../styles/jetbrains-mono.css" rel="Stylesheet"><link href="../../../../styles/main.css" rel="Stylesheet"><script type="text/javascript" src="../../../../scripts/clipboard.js" async></script><script type="text/javascript" src="../../../../scripts/navigation-loader.js" async></script><script type="text/javascript" src="../../../../scripts/platform-content-handler.js" async></script><script type="text/javascript" src="../../../../scripts/main.js" async></script>
+  
+    <div id="container">
+      <div id="leftColumn"><a href="../../../../index.html">
+            <div id="logo"></div>
+          </a>
+        <div id="paneSearch"></div>
+        <div id="sideMenu"></div>
+      </div>
+      <div id="main">
+        <script type="text/javascript" src="../../../../scripts/main.js"></script><div id="leftToggler"><span class="icon-toggler"></span></div>
+
+        <div class="main-content" id="content" pageids="workflow::com.miteksystems.misnap.workflow.util/CombinedWorkflowHandler///PointingToDeclaration//1506957492">
+          <div class="navigation-wrapper" id="navigation-wrapper">
+            <div class="breadcrumbs"><a href="../../../index.html">workflow</a>/<a href="../index.html">com.miteksystems.misnap.workflow.util</a>/<a href="index.html">CombinedWorkflowHandler</a></div>
+            <div class="pull-right d-flex">
+              <div id="searchBar"></div>
+            </div>
+          </div>
+          <div class="cover ">
+            <h1 class="cover"><span>Combined</span><wbr><span>Workflow</span><wbr><span>Handler</span></h1>
+            <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":workflow:dokkaHtmlPartial/release"><div class="symbol monospace">class <a href="index.html">CombinedWorkflowHandler</a>(activity: <a href="https://developer.android.com/reference/kotlin/androidx/appcompat/app/AppCompatActivity.html">AppCompatActivity</a>, fragmentContainerId: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>) : <a href="https://developer.android.com/reference/kotlin/androidx/lifecycle/DefaultLifecycleObserver.html">DefaultLifecycleObserver</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><p class="paragraph">Allows to configure and start a combined workflow by coordinating the sessions configuration, navigation, errors and results.</p><p class="paragraph">NOTE: It is responsibility of the integrator to handle <a href="https://developer.android.com/reference/kotlin/androidx/appcompat/app/AppCompatActivity.html#onbackpressed">AppCompatActivity.onBackPressed</a> and to clean the handler by calling <a href="clean.html">clean</a>.</p></div></div>
+          </div>
+          <div class="tabbedcontent">
+            <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="Types">Types</button><button class="section-tab" data-togglable="Constructors">Constructors</button><button class="section-tab" data-togglable="Functions">Functions</button><button class="section-tab" data-togglable="Properties">Properties</button><button class="section-tab" data-togglable="Parameters">Parameters</button><button class="section-tab" data-togglable="Samples">Samples</button></div>
+            <div class="tabs-section-body">
+              <h2 class="">Samples</h2>
+              <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Samples"><div class="content sourceset-depenent-content" data-active="" data-togglable=":workflow:dokkaHtmlPartial/release"><div class="sample-container"><code class="runnablesample monospace" theme="idea"><pre>import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.Observer
+import com.miteksystems.misnap.R
+import com.miteksystems.misnap.core.MiSnapSettings
+import com.miteksystems.misnap.databinding.ExampleActivityCombinedWorkflowHandlerBinding
+import com.miteksystems.misnap.workflow.MiSnapFinalResult
+import com.miteksystems.misnap.workflow.MiSnapWorkflowError
+import com.miteksystems.misnap.workflow.MiSnapWorkflowStep
+import com.miteksystems.misnap.workflow.util.CombinedWorkflowHandler
+fun main() { 
+   //sampleStart 
+   /**
+ * This is an advanced combined workflow integration example, it is strongly recommended to follow
+ * the most simple and easiest combined workflow integration instead:
+ * @see com.miteksystems.misnap.examples.activity.IntegrationActivity
+ *
+ * This example is best suited for developers that have an application following the single-activity
+ * architecture pattern and that want to create a combined workflow in their own activity while handing
+ * over the control of the navigation to the MiSnap SDK.
+ *
+ * @see com.miteksystems.misnap.examples.advanced.CombinedWorkflowIntegrationActivity for a more
+ * advanced combined workflow integration that allows to retain control on the navigation.
+ */
+class CombinedWorkflowHandlerActivity : AppCompatActivity() {
+    private val license = "your_sdk_license"
+    private lateinit var binding: ExampleActivityCombinedWorkflowHandlerBinding
+
+    private val combinedWorkflowHandler: CombinedWorkflowHandler by lazy {
+        CombinedWorkflowHandler(this, R.id.fragmentContainer)
+    }
+
+    /**
+     * Register an [Observer] to handle the full list of results once all the steps in a combined
+     * workflow have finished.
+     * Under normal circumstances the results list should contain exactly one [MiSnapWorkflowStep.Result]
+     * per configured [MiSnapWorkflowStep] and the indexes of the results list would match the configured
+     * steps list, however, if the workflow ends due to an unrecoverable error, the results list will
+     * be incomplete.
+     *
+     * The results of each session can be either successful or result in an error and both should
+     * be handled accordingly.
+     */
+    private val combinedWorkflowResultsObserver =
+        Observer&lt;List&lt;MiSnapWorkflowStep.Result&gt;&gt; { resultsList -&gt;
+            resultsList?.let { result -&gt;
+                result.forEach {
+                    when (it) {
+                        is MiSnapWorkflowStep.Result.Success -&gt; {
+                            // Access the results if the step was successful.
+                            when (it.result) {
+                                is MiSnapFinalResult.FaceSession -&gt; {
+                                }
+                                is MiSnapFinalResult.DocumentSession -&gt; {
+                                }
+                                is MiSnapFinalResult.BarcodeSession -&gt; {
+                                }
+                            }
+                        }
+                        is MiSnapWorkflowStep.Result.Error -&gt; {
+                            // Access the specific error if the step failed.
+                            when (it.errorResult.error) {
+                                is MiSnapWorkflowError.CombinedWorkflow -&gt; {
+                                }
+                                is MiSnapWorkflowError.CombinedWorkflowSkippedStep -&gt; {
+                                }
+                                is MiSnapWorkflowError.Permission -&gt; {
+                                }
+                            }
+                        }
+                    }
+                }
+                // All sessions done, continue with your flow.
+            }
+        }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        binding = ExampleActivityCombinedWorkflowHandlerBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+        /**
+         * Create the list of [MiSnapWorkflowStep]s in the order you want them to appear in the
+         * combined workflow.
+         */
+        val stepsList = listOf&lt;MiSnapWorkflowStep&gt;(
+            MiSnapWorkflowStep(MiSnapSettings(MiSnapSettings.UseCase.FACE, license)),
+            MiSnapWorkflowStep(MiSnapSettings(MiSnapSettings.UseCase.PASSPORT, license)),
+            MiSnapWorkflowStep(MiSnapSettings(MiSnapSettings.UseCase.BARCODE, license).apply {
+                analysis.barcode.type = MiSnapSettings.Analysis.Barcode.Type.QR_CODE
+                analysis.document.barcodeExtractionRequirement =
+                    MiSnapSettings.Analysis.Document.ExtractionRequirement.REQUIRED
+            })
+        )
+
+        /**
+         * Observe the [CombinedWorkflowHandler.combinedWorkflowResults] [LiveData] to get notified when
+         * the combined workflow has finished.
+         */
+        combinedWorkflowHandler.combinedWorkflowResults.observe(
+            this,
+            combinedWorkflowResultsObserver
+        )
+
+        /**
+         * Optionally observe the [CombinedWorkflowHandler.combinedWorkflowNextStep] [LiveData] to get
+         * notified each time the combined workflow moves from one step to another.
+         */
+        combinedWorkflowHandler.combinedWorkflowNextStep.observe(this) {
+
+        }
+
+        /**
+         * Start the combined workflow with the list of steps using [CombinedWorkflowHandler.startCombinedWorkflow],
+         * the method's return value indicates if the combined workflow was started successfully or not.
+         */
+        if (!combinedWorkflowHandler.startCombinedWorkflow(stepsList)) {
+
+        }
+    }
+
+    /**
+     * The [CombinedWorkflowHandler] will notify through the [CombinedWorkflowHandler.combinedWorkflowResults]
+     * [LiveData] that the combined workflow has finished and provide the list of results, however, if
+     * a user presses the back button, it's the developer's responsibility to collect the partial
+     * results with [CombinedWorkflowHandler.getCollectedResults].
+     */
+    override fun onBackPressed() {
+        super.onBackPressed()
+
+        // Retrieve the collected results if the user aborts.
+        val resultsList = combinedWorkflowHandler.getCollectedResults()
+
+        // Clean the combined workflow handler and the view models.
+        combinedWorkflowHandler.clean()
+    }
+} 
+   //sampleEnd
+}</pre></code></div></div></div>
+              <h2 class="">Parameters</h2>
+              <div data-togglable="Parameters">
+                <div class="platform-hinted WithExtraAttributes" data-platform-hinted="data-platform-hinted" data-togglable="Parameters"><div class="content sourceset-depenent-content" data-active="" data-togglable=":workflow:dokkaHtmlPartial/release"><div data-togglable="Parameters"><div class="table" data-togglable="Parameters"><div class="table-row" data-filterable-current=":workflow:dokkaHtmlPartial/release" data-filterable-set=":workflow:dokkaHtmlPartial/release"><div class="main-subrow keyValue WithExtraAttributes"><div class=""><span class="inline-flex">activity</span></div><div><div class="title"><div data-togglable="Parameters"><p class="paragraph">A reference to an <a href="https://developer.android.com/reference/kotlin/androidx/appcompat/app/AppCompatActivity.html">AppCompatActivity</a>.</p></div></div></div></div></div><div class="table-row" data-filterable-current=":workflow:dokkaHtmlPartial/release" data-filterable-set=":workflow:dokkaHtmlPartial/release"><div class="main-subrow keyValue WithExtraAttributes"><div class=""><span class="inline-flex">fragmentContainerId</span></div><div><div class="title"><div data-togglable="Parameters"><p class="paragraph">The id of the view that will act as a <a href="https://developer.android.com/reference/kotlin/androidx/fragment/app/FragmentContainerView.html">FragmentContainerView</a> for the combined workflow in the activity layout. This view will be set as the default NavHost for the workflow navigation overriding any existing configuration.</p></div></div></div></div></div></div></div></div></div>
+              </div>
+              <h2 class="tabbedcontent">Constructors</h2>
+              <div class="table" data-togglable="Constructors"><a data-name="348099527%2FConstructors%2F1506957492" anchor-label="CombinedWorkflowHandler" id="348099527%2FConstructors%2F1506957492" data-filterable-set=":workflow:dokkaHtmlPartial/release"></a>
+                <div class="table-row" data-filterable-current=":workflow:dokkaHtmlPartial/release" data-filterable-set=":workflow:dokkaHtmlPartial/release">
+                  <div class="main-subrow keyValue TabbedContent">
+                    <div class=""><span class="inline-flex"><a href="-combined-workflow-handler.html">CombinedWorkflowHandler</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="348099527%2FConstructors%2F1506957492"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title">
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":workflow:dokkaHtmlPartial/release"><div class="symbol monospace">fun <a href="-combined-workflow-handler.html">CombinedWorkflowHandler</a>(activity: <a href="https://developer.android.com/reference/kotlin/androidx/appcompat/app/AppCompatActivity.html">AppCompatActivity</a>, fragmentContainerId: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>)<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief ">A reference to an <a href="https://developer.android.com/reference/kotlin/androidx/appcompat/app/AppCompatActivity.html">AppCompatActivity</a>.</div></div></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <h2 class="">Types</h2>
+              <div class="table" data-togglable="Types"><a data-name="-880841019%2FClasslikes%2F1506957492" anchor-label="CombinedViewModel" id="-880841019%2FClasslikes%2F1506957492" data-filterable-set=":workflow:dokkaHtmlPartial/release"></a>
+                <div class="table-row" data-filterable-current=":workflow:dokkaHtmlPartial/release" data-filterable-set=":workflow:dokkaHtmlPartial/release">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="-combined-view-model/index.html">CombinedViewModel</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-880841019%2FClasslikes%2F1506957492"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":workflow:dokkaHtmlPartial/release" data-filterable-set=":workflow:dokkaHtmlPartial/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":workflow:dokkaHtmlPartial/release"><div class="symbol monospace">class <a href="-combined-view-model/index.html">CombinedViewModel</a> : <a href="https://developer.android.com/reference/kotlin/androidx/lifecycle/ViewModel.html">ViewModel</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+<a data-name="-880841019%2FClasslikes%2F1506957492" anchor-label="CombinedViewModel" id="-880841019%2FClasslikes%2F1506957492" data-filterable-set=":workflow:dokkaHtmlPartial/release"></a><div class="brief "><a data-name="-880841019%2FClasslikes%2F1506957492" anchor-label="CombinedViewModel" id="-880841019%2FClasslikes%2F1506957492" data-filterable-set=":workflow:dokkaHtmlPartial/release"></a>Holds the configuration for combined workflows, providing access to the configuration and the state machine that drives the flow as well as the collected results.</div></div>
+</div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="-939787544%2FClasslikes%2F1506957492" anchor-label="StateMachine" id="-939787544%2FClasslikes%2F1506957492" data-filterable-set=":workflow:dokkaHtmlPartial/release"></a>
+                <div class="table-row" data-filterable-current=":workflow:dokkaHtmlPartial/release" data-filterable-set=":workflow:dokkaHtmlPartial/release">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="-state-machine/index.html">StateMachine</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-939787544%2FClasslikes%2F1506957492"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":workflow:dokkaHtmlPartial/release" data-filterable-set=":workflow:dokkaHtmlPartial/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":workflow:dokkaHtmlPartial/release"><div class="symbol monospace">class <a href="-state-machine/index.html">StateMachine</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+<a data-name="-939787544%2FClasslikes%2F1506957492" anchor-label="StateMachine" id="-939787544%2FClasslikes%2F1506957492" data-filterable-set=":workflow:dokkaHtmlPartial/release"></a><div class="brief "><a data-name="-939787544%2FClasslikes%2F1506957492" anchor-label="StateMachine" id="-939787544%2FClasslikes%2F1506957492" data-filterable-set=":workflow:dokkaHtmlPartial/release"></a>A simple state machine to handle combined workflow steps in a sequential order.</div></div>
+</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <h2 class="">Functions</h2>
+              <div class="table" data-togglable="Functions"><a data-name="1398290408%2FFunctions%2F1506957492" anchor-label="clean" id="1398290408%2FFunctions%2F1506957492" data-filterable-set=":workflow:dokkaHtmlPartial/release"></a>
+                <div class="table-row" data-filterable-current=":workflow:dokkaHtmlPartial/release" data-filterable-set=":workflow:dokkaHtmlPartial/release">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="clean.html">clean</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1398290408%2FFunctions%2F1506957492"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":workflow:dokkaHtmlPartial/release" data-filterable-set=":workflow:dokkaHtmlPartial/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":workflow:dokkaHtmlPartial/release"><div class="symbol monospace">fun <a href="clean.html">clean</a>()<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+<a data-name="1398290408%2FFunctions%2F1506957492" anchor-label="clean" id="1398290408%2FFunctions%2F1506957492" data-filterable-set=":workflow:dokkaHtmlPartial/release"></a><div class="brief "><a data-name="1398290408%2FFunctions%2F1506957492" anchor-label="clean" id="1398290408%2FFunctions%2F1506957492" data-filterable-set=":workflow:dokkaHtmlPartial/release"></a>Reset all MiSnap's view models.</div></div>
+</div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="-1683353458%2FFunctions%2F1506957492" anchor-label="getCollectedResults" id="-1683353458%2FFunctions%2F1506957492" data-filterable-set=":workflow:dokkaHtmlPartial/release"></a>
+                <div class="table-row" data-filterable-current=":workflow:dokkaHtmlPartial/release" data-filterable-set=":workflow:dokkaHtmlPartial/release">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="get-collected-results.html">getCollectedResults</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1683353458%2FFunctions%2F1506957492"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":workflow:dokkaHtmlPartial/release" data-filterable-set=":workflow:dokkaHtmlPartial/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":workflow:dokkaHtmlPartial/release"><div class="symbol monospace">fun <a href="get-collected-results.html">getCollectedResults</a>(): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a>&lt;<a href="../../com.miteksystems.misnap.workflow/-mi-snap-workflow-step/-result/index.html">MiSnapWorkflowStep.Result</a>&gt;<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+<a data-name="-1683353458%2FFunctions%2F1506957492" anchor-label="getCollectedResults" id="-1683353458%2FFunctions%2F1506957492" data-filterable-set=":workflow:dokkaHtmlPartial/release"></a><div class="brief "><a data-name="-1683353458%2FFunctions%2F1506957492" anchor-label="getCollectedResults" id="-1683353458%2FFunctions%2F1506957492" data-filterable-set=":workflow:dokkaHtmlPartial/release"></a>Gets the list of results collected so far.</div></div>
+</div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="423465994%2FFunctions%2F1506957492" anchor-label="startCombinedWorkflow" id="423465994%2FFunctions%2F1506957492" data-filterable-set=":workflow:dokkaHtmlPartial/release"></a>
+                <div class="table-row" data-filterable-current=":workflow:dokkaHtmlPartial/release" data-filterable-set=":workflow:dokkaHtmlPartial/release">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="start-combined-workflow.html">startCombinedWorkflow</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="423465994%2FFunctions%2F1506957492"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":workflow:dokkaHtmlPartial/release" data-filterable-set=":workflow:dokkaHtmlPartial/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":workflow:dokkaHtmlPartial/release"><div class="symbol monospace">fun <a href="start-combined-workflow.html">startCombinedWorkflow</a>(steps: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a>&lt;<a href="../../com.miteksystems.misnap.workflow/-mi-snap-workflow-step/index.html">MiSnapWorkflowStep</a>&gt;): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+<a data-name="423465994%2FFunctions%2F1506957492" anchor-label="startCombinedWorkflow" id="423465994%2FFunctions%2F1506957492" data-filterable-set=":workflow:dokkaHtmlPartial/release"></a><div class="brief "><a data-name="423465994%2FFunctions%2F1506957492" anchor-label="startCombinedWorkflow" id="423465994%2FFunctions%2F1506957492" data-filterable-set=":workflow:dokkaHtmlPartial/release"></a>Configures and starts a combined workflow using the provided list of steps.</div></div>
+</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <h2 class="">Properties</h2>
+              <div class="table" data-togglable="Properties"><a data-name="1566614502%2FProperties%2F1506957492" anchor-label="combinedWorkflowNextStep" id="1566614502%2FProperties%2F1506957492" data-filterable-set=":workflow:dokkaHtmlPartial/release"></a>
+                <div class="table-row" data-filterable-current=":workflow:dokkaHtmlPartial/release" data-filterable-set=":workflow:dokkaHtmlPartial/release">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="combined-workflow-next-step.html">combinedWorkflowNextStep</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1566614502%2FProperties%2F1506957492"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title">
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable=":workflow:dokkaHtmlPartial/release"><a data-name="1566614502%2FProperties%2F1506957492" anchor-label="combinedWorkflowNextStep" id="1566614502%2FProperties%2F1506957492" data-filterable-set=":workflow:dokkaHtmlPartial/release"></a><div class="symbol monospace">val <a href="combined-workflow-next-step.html">combinedWorkflowNextStep</a>: <a href="https://developer.android.com/reference/kotlin/androidx/lifecycle/LiveData.html">LiveData</a>&lt;<a href="../../com.miteksystems.misnap.workflow/-mi-snap-workflow-step/index.html">MiSnapWorkflowStep</a>&gt;<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><a data-name="1566614502%2FProperties%2F1506957492" anchor-label="combinedWorkflowNextStep" id="1566614502%2FProperties%2F1506957492" data-filterable-set=":workflow:dokkaHtmlPartial/release"></a>LiveData object that emits the next step that the workflow is about to start.</div></div></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="-865757217%2FProperties%2F1506957492" anchor-label="combinedWorkflowResults" id="-865757217%2FProperties%2F1506957492" data-filterable-set=":workflow:dokkaHtmlPartial/release"></a>
+                <div class="table-row" data-filterable-current=":workflow:dokkaHtmlPartial/release" data-filterable-set=":workflow:dokkaHtmlPartial/release">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="combined-workflow-results.html">combinedWorkflowResults</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-865757217%2FProperties%2F1506957492"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title">
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable=":workflow:dokkaHtmlPartial/release"><a data-name="-865757217%2FProperties%2F1506957492" anchor-label="combinedWorkflowResults" id="-865757217%2FProperties%2F1506957492" data-filterable-set=":workflow:dokkaHtmlPartial/release"></a><div class="symbol monospace">val <a href="combined-workflow-results.html">combinedWorkflowResults</a>: <a href="https://developer.android.com/reference/kotlin/androidx/lifecycle/LiveData.html">LiveData</a>&lt;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a>&lt;<a href="../../com.miteksystems.misnap.workflow/-mi-snap-workflow-step/-result/index.html">MiSnapWorkflowStep.Result</a>&gt;&gt;<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><a data-name="-865757217%2FProperties%2F1506957492" anchor-label="combinedWorkflowResults" id="-865757217%2FProperties%2F1506957492" data-filterable-set=":workflow:dokkaHtmlPartial/release"></a>LiveData object that emits the list of results from the combined workflow once its done, each entry in the list corresponds to the results of a step.</div></div></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="footer"><span class="go-to-top-icon"><a href="#content"></a></span><span>© 2022 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span></div>
+      </div>
+    </div>
+  
+</body></html>
+
+

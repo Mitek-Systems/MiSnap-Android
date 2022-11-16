@@ -1,4 +1,11 @@
-# MiSnap Migration Guide
+# MiSnap SDK v5.1.0 Migration Guide
+
+## Upgrading the MiSnap SDK from v5.0.0 to v5.1.0
+
+### API Changes
+* The `com.miteksystems.misnap.nfc.NfcReader` was renamed to `com.miteksystems.misnap.nfc.MiSnapNfcReader`. 
+* The `com.miteksystems.misnap.controller.MiSnapController` constructor has been removed and now the instances of this class must be created through the factory method `MiSnapController.create`.
+* The server transaction utilities `com.miteksystems.misnap.core.serverconnection.FaceComparisonV3Request`, `com.miteksystems.misnap.examples.serverconnection.MobileVerifyV2Request` and `com.miteksystems.misnap.examples.serverconnection.MobileVerifyV3Request` APIs were updated to work with concrete implementations of `com.miteksystems.misnap.core.serverconnection.MiSnapTransactionResult`.
 
 ## Upgrading the MiSnap SDK from v4.x to v5.0.0
 This new version of the MiSnap SDK introduces a variety of improvements over past versions, and it comes with a long list of breaking changes. For this reason, this is not a step-by-step guide on how to migrate your existing integration, but a collection of important differences to consider while upgrading.
@@ -22,7 +29,7 @@ The MiSnap SDK doesn't expose any module as source code for customizations and n
 
 Please look into the `Dependencies` section of your preferred [integration guide](activity_integration_guide.md) for more information on the available modules and how to integrate them into your project.
 
-### I/O API changes
+### I/O API Changes
 This version of the MiSnap SDK introduces changes the way a session is started and how the results are retrieved. The most relevant changes are:
 * Previous API classes such as `MiSnapApi` and `ScienceApi` and parameter manager classes such as `ScienceParamMgr` and `BarcodeParamMgr` were all replaced with `MiSnapSettings`, the latter being the single source of truth for specifying a session configuration.
 * The `Activity` classes in `misnapworkflow` and `misnapworkflow_UX2` modules were replaced by the `MiSnapWorkflowActivity` in `workflow`'s module.

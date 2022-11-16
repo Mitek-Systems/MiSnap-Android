@@ -44,11 +44,11 @@ class FaceComparisonV3RequestActivity : AppCompatActivity() {
                         when (it.result) {
                             is MiSnapFinalResult.DocumentSession, is MiSnapFinalResult.BarcodeSession -> {
                                 // Add the barcode and/or document session results.
-                                request.addDocumentResult(it.result.toServerResult())
+                                request.addDocumentResult(it.result.toServerResult() as MiSnapTransactionResult.DocumentResult)
                             }
                             is MiSnapFinalResult.FaceSession -> {
                                 // Add the face session results.
-                                request.addFaceResult(it.result.toServerResult())
+                                request.addFaceResult(it.result.toServerResult() as MiSnapTransactionResult.FaceResult)
                             }
                         }
                     }

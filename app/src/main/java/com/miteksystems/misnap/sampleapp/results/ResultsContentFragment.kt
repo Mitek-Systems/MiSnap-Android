@@ -9,13 +9,19 @@ import android.util.TypedValue
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.MediaController
+import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.text.HtmlCompat
+import androidx.core.view.children
 import androidx.core.widget.TextViewCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager.widget.ViewPager
+import androidx.viewpager.widget.ViewPager.SimpleOnPageChangeListener
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textview.MaterialTextView
 import com.miteksystems.misnap.R
@@ -25,8 +31,9 @@ import com.miteksystems.misnap.core.Mrz
 import com.miteksystems.misnap.core.Mrz1Line
 import com.miteksystems.misnap.core.MrzData
 import com.miteksystems.misnap.databinding.FragmentResultContentBinding
-import com.miteksystems.misnap.nfc.NfcReader
-import com.miteksystems.misnap.nfc.NfcReader.ChipData.AuthenticationData
+import com.miteksystems.misnap.nfc.MiSnapNfcReader
+import com.miteksystems.misnap.nfc.MiSnapNfcReader.ChipData.AuthenticationData
+import com.miteksystems.misnap.voice.AudioUtil
 import com.miteksystems.misnap.workflow.MiSnapFinalResult
 import com.miteksystems.misnap.workflow.MiSnapWorkflowStep
 import com.miteksystems.misnap.workflow.util.ViewBindingUtil
@@ -157,6 +164,50 @@ class ResultsContentFragment : Fragment(R.layout.fragment_result_content) {
                                     getString(R.string.misnapSampleAppResultsMibiTabTitle)
                                 )
                             }
+                            is MiSnapFinalResult.VoiceSession -> {
+                                misnapResult.voiceSamples.forEachIndexed { index, audio ->
+                                    val voiceLayoutBinding =
+                                        FragmentResultContentBinding.inflate(layoutInflater)
+
+                                    voiceLayoutBinding.viewPager.also { pager ->
+                                        pager.adapter = ViewPageAdapter().also { adapter ->
+                                            adapter.addView(
+                                                getMiSnapAudioView(
+                                                    // NOTE: This is for demo purposes only. Please do not boost wav file audio before sending to MobileVerify server.
+                                                    AudioUtil.boostWavVolume(audio, 25, misnapResult.mibiData[index])
+                                                ),
+                                                getString(R.string.misnapSampleAppResultsVoiceAudioTabTitle)
+                                            )
+                                            adapter.addView(
+                                                getMiBiDataView(misnapResult.mibiData[index]),
+                                                getString(R.string.misnapSampleAppResultsMibiTabTitle)
+                                            )
+                                        }
+
+                                        pager.addOnPageChangeListener(
+                                            object : SimpleOnPageChangeListener() {
+                                                override fun onPageSelected(position: Int) {
+                                                    super.onPageSelected(position)
+
+                                                    onPageSelected(pager, position)
+                                                }
+                                            }
+                                        )
+                                    }
+
+                                    voiceLayoutBinding.tabLayout.setupWithViewPager(
+                                        voiceLayoutBinding.viewPager
+                                    )
+
+                                    adapter.addView(
+                                        voiceLayoutBinding.root,
+                                        String.format(
+                                            getString(R.string.misnapSampleAppResultsVoiceTabTitle),
+                                            index + 1
+                                        )
+                                    )
+                                }
+                            }
                         }
                     }
                     is MiSnapWorkflowStep.Result.Error -> {
@@ -175,41 +226,99 @@ class ResultsContentFragment : Fragment(R.layout.fragment_result_content) {
                 }
             }
 
+        binding.viewPager.offscreenPageLimit = 2
         binding.viewPager.adapter = adapter
-        binding.viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
-            override fun onPageScrolled(
-                position: Int,
-                positionOffset: Float,
-                positionOffsetPixels: Int
-            ) {
-            }
+        binding.viewPager.addOnPageChangeListener(
+            object : SimpleOnPageChangeListener() {
+                override fun onPageSelected(position: Int) {
+                    super.onPageSelected(position)
 
-            override fun onPageSelected(position: Int) {
-                binding.viewPager.getChildAt(position)
-                    ?.findViewById<LinearLayout>(ViewPageAdapter.CONTENT_VIEW_ID)
-                    ?.getChildAt(0)?.let {
-                        if (it is MiSnapVideoView) {
-                            it.start()
-                        }
-                    }
+                    onPageSelected(binding.viewPager, position)
+                }
             }
-
-            override fun onPageScrollStateChanged(state: Int) {
-            }
-
-        })
+        )
         binding.tabLayout.setupWithViewPager(binding.viewPager)
 
+        binding.viewPager.post {
+            onPageSelected(binding.viewPager, 0)
+        }
     }
 
-    private fun getNfcResultsView(nfcResult: NfcReader.ChipData): View {
+    private fun onPageSelected(viewPager: ViewPager, position: Int) {
+        viewPager.children.forEach { page ->
+            page.findViewById<LinearLayout>(ViewPageAdapter.CONTENT_VIEW_ID)
+                ?.getChildAt(0)
+                ?.let { view ->
+                    when (view) {
+                        is MiSnapVideoView -> {
+                            if (view.isPlaying) {
+                                view.pause()
+                            }
+                        }
+                        is MiSnapAudioView -> {
+                            if (view.isPlaying) {
+                                view.pause()
+                            }
+                            view.hideMediaControls()
+                        }
+                        else -> {
+                            // search for inner viewpager and look for MiSnapVideoView to pause
+                            view.findViewById<ViewPager>(R.id.viewPager)
+                                ?.children?.forEach { viewPagerPage ->
+                                    viewPagerPage.findViewById<LinearLayout>(ViewPageAdapter.CONTENT_VIEW_ID)
+                                        ?.getChildAt(0)
+                                        ?.let {
+                                            if (it is MiSnapVideoView && it.isPlaying) {
+                                                it.pause()
+                                            } else if (it is MiSnapAudioView) {
+                                                if (it.isPlaying) {
+                                                    it.pause()
+                                                }
+                                                it.hideMediaControls()
+                                            }
+                                        }
+                                }
+                        }
+                    }
+                }
+        }
+
+        viewPager.getChildAt(position)
+            ?.findViewById<LinearLayout>(ViewPageAdapter.CONTENT_VIEW_ID)
+            ?.getChildAt(0)
+            ?.let { view ->
+                when (view) {
+                    is MiSnapVideoView -> {
+                        view.start()
+                    }
+                    is MiSnapAudioView -> {
+                        view.start()
+                        view.showMediaControls()
+                    }
+                    is ViewGroup -> {
+                        // search for inner viewpager and look for MiSnapVideoView to play
+                        view.children.filterIsInstance<ViewPager>().toList()
+                            .firstOrNull()?.let {
+                                if (it.currentItem == 0) {
+                                    onPageSelected(it, 0)
+                                }
+                            }
+                    }
+                    else -> {
+                        // Do nothing
+                    }
+                }
+            }
+    }
+
+    private fun getNfcResultsView(nfcResult: MiSnapNfcReader.ChipData): View {
         val nfcResultsView = layoutInflater.inflate(R.layout.nfc_results_page, null)
 
         when (nfcResult) {
-            is NfcReader.ChipData.Icao -> {
+            is MiSnapNfcReader.ChipData.Icao -> {
                 setIcaoResults(nfcResult, nfcResultsView)
             }
-            is NfcReader.ChipData.EuDl -> {
+            is MiSnapNfcReader.ChipData.EuDl -> {
                 setEuDlResults(nfcResult, nfcResultsView)
             }
         }
@@ -217,7 +326,7 @@ class ResultsContentFragment : Fragment(R.layout.fragment_result_content) {
         return nfcResultsView
     }
 
-    private fun setIcaoResults(nfcData: NfcReader.ChipData.Icao, nfcResultsView: View) {
+    private fun setIcaoResults(nfcData: MiSnapNfcReader.ChipData.Icao, nfcResultsView: View) {
         //Set the name and photo
         nfcResultsView.findViewById<TextView>(R.id.fullName).apply {
             text = "${nfcData.firstName} ${nfcData.lastName}"
@@ -367,7 +476,7 @@ class ResultsContentFragment : Fragment(R.layout.fragment_result_content) {
         }
     }
 
-    private fun setEuDlResults(nfcData: NfcReader.ChipData.EuDl, nfcResultsView: View) {
+    private fun setEuDlResults(nfcData: MiSnapNfcReader.ChipData.EuDl, nfcResultsView: View) {
         //Set the name and photo
         nfcResultsView.findViewById<TextView>(R.id.fullName).apply {
             text = "${nfcData.firstName} ${nfcData.lastName}"
@@ -513,7 +622,6 @@ class ResultsContentFragment : Fragment(R.layout.fragment_result_content) {
         layout.addView(contentView)
     }
 
-
     private fun getTouchImageView(byteImage: ByteArray) =
         TouchImageView(requireActivity()).apply {
             layoutParams = ViewGroup.LayoutParams(
@@ -529,17 +637,31 @@ class ResultsContentFragment : Fragment(R.layout.fragment_result_content) {
             setImageBitmap(BitmapFactory.decodeByteArray(byteImage, 0, byteImage.size, options))
         }
 
-
     private fun getMiSnapVideoView(data: ByteArray) =
         MiSnapVideoView(requireActivity()).apply {
             layoutParams = ViewGroup.LayoutParams(
                 ViewGroup.LayoutParams.WRAP_CONTENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT
             )
-            val mediaController = MediaController(requireContext())
-            mediaController.setAnchorView(this)
-            setVideoData(data)
-            setMediaController(mediaController)
+
+            MediaController(requireContext()).also {
+                it.setAnchorView(this)
+                setVideoData(data)
+                setMediaController(it)
+            }
+        }
+
+    private fun getMiSnapAudioView(data: ByteArray) =
+        MiSnapAudioView(requireContext()).apply {
+            layoutParams = ViewGroup.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT
+            )
+
+            MediaController(requireContext(), false).also {
+                setAudioData(data)
+                setMediaController(it)
+            }
         }
 
     private fun getMrzTextView(mrz: Mrz) =
@@ -587,7 +709,8 @@ class ResultsContentFragment : Fragment(R.layout.fragment_result_content) {
                 val activityMarginVertical =
                     resources.getDimension(R.dimen.misnapSampleAppLayoutVerticalMargin).toInt()
                 val activityMarginHorizontal =
-                    resources.getDimension(R.dimen.misnapSampleAppLayoutHorizontalMargin).toInt()
+                    resources.getDimension(R.dimen.misnapSampleAppLayoutHorizontalMargin)
+                        .toInt()
                 setMargins(
                     activityMarginHorizontal,
                     activityMarginVertical,
@@ -635,7 +758,8 @@ class ResultsContentFragment : Fragment(R.layout.fragment_result_content) {
                 val activityMarginVertical =
                     resources.getDimension(R.dimen.misnapSampleAppLayoutVerticalMargin).toInt()
                 val activityMarginHorizontal =
-                    resources.getDimension(R.dimen.misnapSampleAppLayoutHorizontalMargin).toInt()
+                    resources.getDimension(R.dimen.misnapSampleAppLayoutHorizontalMargin)
+                        .toInt()
                 setMargins(
                     activityMarginHorizontal,
                     activityMarginVertical,
@@ -652,7 +776,8 @@ class ResultsContentFragment : Fragment(R.layout.fragment_result_content) {
                             ViewGroup.LayoutParams.MATCH_PARENT
                         ).apply {
                             val defaultMargin =
-                                resources.getDimension(R.dimen.misnapSampleAppSpaceDefault).toInt()
+                                resources.getDimension(R.dimen.misnapSampleAppSpaceDefault)
+                                    .toInt()
                             setMargins(0, 0, 0, defaultMargin)
                         }
 
@@ -727,6 +852,19 @@ class ResultsContentFragment : Fragment(R.layout.fragment_result_content) {
                 this.setJson(mibiData)
             })
         }
+
+    override fun onStop() {
+        super.onStop()
+        cleanup()
+    }
+
+    private fun cleanup() {
+        binding.viewPager.removeAllViews()
+        binding.tabLayout.removeAllTabs()
+        binding.tabLayout.setOnClickListener(null)
+        binding.viewPager.setOnClickListener(null)
+        binding.viewPager.clearOnPageChangeListeners()
+    }
 
     companion object {
         const val RESULTS_INDEX = "RESULTS_INDEX"

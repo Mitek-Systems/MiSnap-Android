@@ -51,7 +51,7 @@ private class FaceAnalysis : Fragment() {
             analysis.face.trigger = MiSnapSettings.Analysis.Face.Trigger.AUTO
         }
 
-        return MiSnapController(requireContext(), misnapSettings).apply {
+        return MiSnapController.create(requireContext(), misnapSettings).apply {
             /**
              * Observe the [MiSnapController.feedbackResult] [LiveData] to handle the feedback from
              * the analyzed frames and handle them accordingly, e.g. by showing the corresponding

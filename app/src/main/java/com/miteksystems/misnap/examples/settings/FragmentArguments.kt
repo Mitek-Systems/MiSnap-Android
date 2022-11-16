@@ -35,6 +35,7 @@ class FragmentArguments : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ExampleFragmentTransactionBinding.inflate(layoutInflater)
+        setContentView(binding.root)
     }
 
     override fun onStart() {

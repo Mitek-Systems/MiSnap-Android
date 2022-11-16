@@ -1,6 +1,7 @@
 package com.miteksystems.misnap.examples.camera
 
 import android.os.Bundle
+import android.view.View
 import androidx.fragment.app.Fragment
 import com.miteksystems.misnap.camera.util.CameraUtil
 import com.miteksystems.misnap.core.MiSnapSettings
@@ -13,8 +14,8 @@ import com.miteksystems.misnap.core.MiSnapSettings
 class CameraSupport : Fragment() {
     private val license = "your_sdk_license"
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         /**
          * Keep in mind that the camera requirements may be different depending on the [MiSnapSettings.UseCase];

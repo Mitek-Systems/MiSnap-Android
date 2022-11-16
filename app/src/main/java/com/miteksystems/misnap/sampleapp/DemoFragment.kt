@@ -16,13 +16,14 @@ import com.miteksystems.misnap.camera.requireProfile
 import com.miteksystems.misnap.camera.util.CameraUtil
 import com.miteksystems.misnap.camera.util.CameraUtil.CameraSupportResult
 import com.miteksystems.misnap.core.MiSnapSettings
+import com.miteksystems.misnap.databinding.FragmentDemoBinding
 import com.miteksystems.misnap.face.default
+import com.miteksystems.misnap.sampleapp.results.SampleAppViewModel
+import com.miteksystems.misnap.voice.MicrophoneUtil
 import com.miteksystems.misnap.workflow.MiSnapWorkflowActivity
 import com.miteksystems.misnap.workflow.MiSnapWorkflowStep
 import com.miteksystems.misnap.workflow.util.PermissionsUtil
 import com.miteksystems.misnap.workflow.util.ViewBindingUtil
-import com.miteksystems.misnap.databinding.FragmentDemoBinding
-import com.miteksystems.misnap.sampleapp.results.SampleAppViewModel
 
 class DemoFragment : Fragment(R.layout.fragment_demo) {
     private val binding by ViewBindingUtil.viewBinding(
@@ -41,44 +42,121 @@ class DemoFragment : Fragment(R.layout.fragment_demo) {
             findNavController().navigate(R.id.documentResultsFragment)
         }
 
+    private val permissions = arrayOf(Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO)
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         displayVersionCode(view)
 
-        requestCameraPermission()
+        checkPermissions()
 
         val license = getString(R.string.misnapSampleAppLicense)
 
         binding.checkFrontSessionButton.setOnClickListener {
-            startMiSnapSession(MiSnapWorkflowStep(MiSnapSettings(MiSnapSettings.UseCase.CHECK_FRONT, license)))
+            startMiSnapSession(
+                MiSnapWorkflowStep(
+                    MiSnapSettings(
+                        MiSnapSettings.UseCase.CHECK_FRONT,
+                        license
+                    )
+                )
+            )
         }
 
         binding.checkBackSessionButton.setOnClickListener {
-            startMiSnapSession(MiSnapWorkflowStep(MiSnapSettings(MiSnapSettings.UseCase.CHECK_BACK, license)))
+            startMiSnapSession(
+                MiSnapWorkflowStep(
+                    MiSnapSettings(
+                        MiSnapSettings.UseCase.CHECK_BACK,
+                        license
+                    )
+                )
+            )
         }
 
         binding.idFrontSessionButton.setOnClickListener {
-            startMiSnapSession(MiSnapWorkflowStep(MiSnapSettings(MiSnapSettings.UseCase.ID_FRONT, license)))
+            startMiSnapSession(
+                MiSnapWorkflowStep(
+                    MiSnapSettings(
+                        MiSnapSettings.UseCase.ID_FRONT,
+                        license
+                    )
+                )
+            )
         }
 
         binding.idBackSessionButton.setOnClickListener {
-            startMiSnapSession(MiSnapWorkflowStep(MiSnapSettings(MiSnapSettings.UseCase.ID_BACK, license)))
+            startMiSnapSession(
+                MiSnapWorkflowStep(
+                    MiSnapSettings(
+                        MiSnapSettings.UseCase.ID_BACK,
+                        license
+                    )
+                )
+            )
         }
 
         binding.passportSessionButton.setOnClickListener {
-            startMiSnapSession(MiSnapWorkflowStep(MiSnapSettings(MiSnapSettings.UseCase.PASSPORT, license)))
+            startMiSnapSession(
+                MiSnapWorkflowStep(
+                    MiSnapSettings(
+                        MiSnapSettings.UseCase.PASSPORT,
+                        license
+                    )
+                )
+            )
         }
 
         binding.barcodeSessionButton.setOnClickListener {
-            startMiSnapSession(MiSnapWorkflowStep(MiSnapSettings(MiSnapSettings.UseCase.BARCODE, license)))
+            startMiSnapSession(
+                MiSnapWorkflowStep(
+                    MiSnapSettings(
+                        MiSnapSettings.UseCase.BARCODE,
+                        license
+                    )
+                )
+            )
         }
 
         binding.faceSessionButton.setOnClickListener {
-            startMiSnapSession(MiSnapWorkflowStep(MiSnapSettings(MiSnapSettings.UseCase.FACE, license)))
+            startMiSnapSession(
+                MiSnapWorkflowStep(
+                    MiSnapSettings(
+                        MiSnapSettings.UseCase.FACE,
+                        license
+                    )
+                )
+            )
         }
 
         binding.nfcSessionButton.setOnClickListener {
-            startMiSnapSession(MiSnapWorkflowStep(MiSnapSettings(MiSnapSettings.UseCase.NFC, license)))
+            startMiSnapSession(
+                MiSnapWorkflowStep(
+                    MiSnapSettings(
+                        MiSnapSettings.UseCase.NFC,
+                        license
+                    )
+                )
+            )
+        }
+
+        binding.voiceSessionEnrollmentButton.setOnClickListener {
+            val settings = MiSnapSettings(MiSnapSettings.UseCase.VOICE, license).apply {
+                voice.flow = MiSnapSettings.Voice.Flow.ENROLLMENT
+            }
+
+            startMiSnapSession(MiSnapWorkflowStep(settings))
+        }
+
+        binding.voiceSessionVerificationButton.setOnClickListener {
+            val settings = MiSnapSettings(MiSnapSettings.UseCase.VOICE, license).apply {
+                voice.flow = MiSnapSettings.Voice.Flow.VERIFICATION
+                voice.phrase =
+                    resources.getStringArray(R.array.misnapWorkflowVoicePhraseSelectionFragmentPhrases)
+                        .firstOrNull()
+            }
+
+            startMiSnapSession(MiSnapWorkflowStep(settings))
         }
 
         binding.advancedSettingsButton.setOnClickListener {
@@ -135,32 +213,73 @@ class DemoFragment : Fragment(R.layout.fragment_demo) {
         }
     }
 
+    private fun checkPermissions() {
+        val missingPermissions =
+            permissions.filter { !PermissionsUtil.hasPermission(requireContext(), it) }
+
+        if (!missingPermissions.contains(Manifest.permission.CAMERA)) {
+            queryCameraSupport()
+        }
+
+        if (!missingPermissions.contains(Manifest.permission.RECORD_AUDIO)) {
+            queryMicrophoneSupport()
+        }
+
+        requestPermissions(missingPermissions.toTypedArray())
+    }
+
     /**
      * The SDK will automatically request the permissions it needs at runtime if needed,
-     * but if you want to pre-query the camera's capabilities you will need to get the camera permissions first
+     * but if you want to pre-query the camera or microphone capabilities you will need to
+     * request the permissions first.
      */
-    private fun requestCameraPermission() {
-        if (!PermissionsUtil.hasPermission(requireContext(), Manifest.permission.CAMERA)) {
-            if (shouldShowRequestPermissionRationale(Manifest.permission.CAMERA)) {
+    private fun requestPermissions(permissions: Array<String>) {
+        val nonRationalePermissions = mutableListOf<String>()
+
+        permissions.forEach { permission ->
+            if (shouldShowRequestPermissionRationale(permission)) {
                 AlertDialog.Builder(requireContext()).apply {
-                    setTitle(R.string.misnapSampleAppCameraPermissionRationaleTitle)
-                    setMessage(R.string.misnapSampleAppCameraPermissionRationaleMessage)
+                    setTitle(getPermissionRationaleTitle(permission))
+                    setMessage(getPermissionRationaleMessage(permission))
                     setOnDismissListener {
                         requestPermissions(
-                            arrayOf(Manifest.permission.CAMERA),
-                            PERMISSION_REQUEST_CAMERA
+                            arrayOf(permission),
+                            getPermissionRequestCode(permission)
                         )
                     }
                     setPositiveButton(android.R.string.ok, null)
                     show()
                 }
             } else {
-                requestPermissions(arrayOf(Manifest.permission.CAMERA), PERMISSION_REQUEST_CAMERA)
+                nonRationalePermissions.add(permission)
             }
-        } else {
-            queryCameraSupport()
+        }
+
+        if (nonRationalePermissions.isNotEmpty()) {
+            requestPermissions(nonRationalePermissions.toTypedArray(), PERMISSION_REQUEST_ALL)
         }
     }
+
+    private fun getPermissionRationaleTitle(permission: String) =
+        when (permission) {
+            Manifest.permission.CAMERA -> R.string.misnapSampleAppCameraPermissionRationaleTitle
+            Manifest.permission.RECORD_AUDIO -> R.string.misnapSampleAppAudioRecordPermissionRationaleTitle
+            else -> 0
+        }
+
+    private fun getPermissionRationaleMessage(permission: String) =
+        when (permission) {
+            Manifest.permission.CAMERA -> R.string.misnapSampleAppCameraPermissionRationaleMessage
+            Manifest.permission.RECORD_AUDIO -> R.string.misnapSampleAppAudioRecordPermissionRationaleMessage
+            else -> 0
+        }
+
+    private fun getPermissionRequestCode(permission: String) =
+        when (permission) {
+            Manifest.permission.CAMERA -> PERMISSION_REQUEST_CAMERA
+            Manifest.permission.RECORD_AUDIO -> PERMISSION_REQUEST_RECORD_AUDIO
+            else -> PERMISSION_REQUEST_ALL
+        }
 
     /**
      * Callback for handling permissions.
@@ -172,12 +291,35 @@ class DemoFragment : Fragment(R.layout.fragment_demo) {
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
 
-        if (requestCode == PERMISSION_REQUEST_CAMERA) {
+        if (requestCode and PERMISSION_REQUEST_CAMERA == PERMISSION_REQUEST_CAMERA) {
             if (grantResults.isEmpty() || PackageManager.PERMISSION_GRANTED != grantResults.first()) {
-                // Permission denied, MiSnap SDK will not be usable until permissions are granted
+                // Permission denied, MiSnap SDK will not be usable for usecases that depend on this permission
             } else {
                 queryCameraSupport()
             }
+        }
+
+        if (requestCode and PERMISSION_REQUEST_RECORD_AUDIO == PERMISSION_REQUEST_RECORD_AUDIO) {
+            if (grantResults.isEmpty() || PackageManager.PERMISSION_GRANTED != grantResults.first()) {
+                // Permission denied, MiSnap SDK will not be usable for usecases that depend on this permission
+            } else {
+                queryMicrophoneSupport()
+            }
+        }
+    }
+
+    /**
+     * Pre queries the microphones capabilities before starting a session.
+     * This is optional, as the SDK can detect the microphone support at runtime and will post an
+     * error if there's not a sufficient microphone or its unusable.
+     * If the microphone is insufficient for your purposes, consider skipping the MiSnap flow.
+     */
+    private fun queryMicrophoneSupport() {
+        val supportedMicrophoneSupportResult =
+            MicrophoneUtil.findSupportedMicrophone(requireContext())
+
+        if (supportedMicrophoneSupportResult is MicrophoneUtil.MicrophoneSupportResult.Error) {
+            displayError(R.string.misnapSampleAppMicrophoneErrorMessage)
         }
     }
 
@@ -339,6 +481,9 @@ class DemoFragment : Fragment(R.layout.fragment_demo) {
     }
 
     companion object {
-        const val PERMISSION_REQUEST_CAMERA = 1
+        //Bit flags
+        private const val PERMISSION_REQUEST_CAMERA = 1
+        private const val PERMISSION_REQUEST_RECORD_AUDIO = 2
+        private const val PERMISSION_REQUEST_ALL = 15
     }
 }

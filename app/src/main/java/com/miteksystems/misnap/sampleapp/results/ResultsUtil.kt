@@ -30,6 +30,9 @@ fun getErrorMessageId(stepResult: MiSnapWorkflowStep.Result.Error) =
         is MiSnapWorkflowError.Nfc.Skipped -> {
             R.string.misnapSampleAppNfcSkippedErrorMessage
         }
+        is MiSnapWorkflowError.Voice.Skipped -> {
+            R.string.misnapSampleAppVoiceSkippedErrorMessage
+        }
         is MiSnapWorkflowError.Cancelled -> {
             R.string.misnapSampleAppCancelledErrorMessage
         }
@@ -42,4 +45,9 @@ fun getErrorMessageId(stepResult: MiSnapWorkflowStep.Result.Error) =
         is MiSnapWorkflowError.License -> {
             R.string.misnapSampleAppCombinedWorkflowLicenseErrorMessage
         }
+        is MiSnapWorkflowError.Voice.Execution -> R.string.misnapSampleAppVoiceExecutionErrorMessage
+        is MiSnapWorkflowError.Voice.Initialization -> R.string.misnapSampleAppVoiceInitializationErrorMessage
+        is MiSnapWorkflowError.Voice.InputFormat -> R.string.misnapSampleAppVoiceInputFormatErrorMessage
+        is MiSnapWorkflowError.Voice.MicrophoneMuted -> R.string.misnapSampleAppVoiceMicrophoneMutedErrorMessage
+        is MiSnapWorkflowError.Voice.MissingRequirement -> R.string.misnapSampleAppVoiceMissingRequirementErrorMessage
     }

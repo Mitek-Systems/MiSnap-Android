@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.util.Size
 import android.view.View
 import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.widget.TooltipCompat
@@ -18,25 +19,62 @@ import androidx.navigation.fragment.findNavController
 import com.miteksystems.misnap.R
 import com.miteksystems.misnap.barcode.default
 import com.miteksystems.misnap.barcode.getScanSpeed
-import com.miteksystems.misnap.camera.*
+import com.miteksystems.misnap.camera.getTorchMode
+import com.miteksystems.misnap.camera.getVideoBitrate
+import com.miteksystems.misnap.camera.getVideoResolution
+import com.miteksystems.misnap.camera.requireProfile
+import com.miteksystems.misnap.camera.shouldRecordSession
 import com.miteksystems.misnap.camera.util.CameraUtil
 import com.miteksystems.misnap.core.MiSnapSettings
-import com.miteksystems.misnap.document.*
-import com.miteksystems.misnap.face.*
+import com.miteksystems.misnap.databinding.BarcodeSettingsBinding
+import com.miteksystems.misnap.databinding.BarcodeWorkflowSettingsBinding
+import com.miteksystems.misnap.databinding.CameraSettingsBinding
+import com.miteksystems.misnap.databinding.DocumentSettingsBinding
+import com.miteksystems.misnap.databinding.DocumentWorkflowSettingsBinding
+import com.miteksystems.misnap.databinding.FaceSettingsBinding
+import com.miteksystems.misnap.databinding.FaceWorkflowSettingsBinding
+import com.miteksystems.misnap.databinding.FragmentSettingsRootBinding
+import com.miteksystems.misnap.databinding.GeneralSettingsBinding
+import com.miteksystems.misnap.databinding.NfcSettingsBinding
+import com.miteksystems.misnap.databinding.NfcWorkflowSettingsBinding
+import com.miteksystems.misnap.databinding.VoiceSettingsBinding
+import com.miteksystems.misnap.databinding.VoiceWorkflowSettingsBinding
+import com.miteksystems.misnap.document.default
+import com.miteksystems.misnap.document.getBarcodeExtractionRequirement
+import com.miteksystems.misnap.document.getCornerConfidence
+import com.miteksystems.misnap.document.getDocumentExtractionRequirement
+import com.miteksystems.misnap.document.getGeo
+import com.miteksystems.misnap.document.getMaxAngle
+import com.miteksystems.misnap.document.getMaxBrightness
+import com.miteksystems.misnap.document.getMinBrightness
+import com.miteksystems.misnap.document.getMinBusyBackground
+import com.miteksystems.misnap.document.getMinContrast
+import com.miteksystems.misnap.document.getMinHorizontalFillAligned
+import com.miteksystems.misnap.document.getMinHorizontalFillUnaligned
+import com.miteksystems.misnap.document.getMinNoGlare
+import com.miteksystems.misnap.document.getMinPadding
+import com.miteksystems.misnap.document.getMinSharpness
+import com.miteksystems.misnap.document.getMrzConfidence
+import com.miteksystems.misnap.document.requireDocType
+import com.miteksystems.misnap.face.default
+import com.miteksystems.misnap.face.getMaxAngle
+import com.miteksystems.misnap.face.getMinEyesOpenConfidence
+import com.miteksystems.misnap.face.getMinHorizontalFill
+import com.miteksystems.misnap.face.getMinPadding
+import com.miteksystems.misnap.face.getMinSmileConfidence
+import com.miteksystems.misnap.face.getTriggerDelay
+import com.miteksystems.misnap.face.requireTrigger
 import com.miteksystems.misnap.nfc.default
+import com.miteksystems.misnap.sampleapp.results.SampleAppViewModel
+import com.miteksystems.misnap.sampleapp.results.ViewPageAdapter
+import com.miteksystems.misnap.voice.*
 import com.miteksystems.misnap.workflow.MiSnapWorkflowActivity
 import com.miteksystems.misnap.workflow.MiSnapWorkflowStep
-import com.miteksystems.misnap.workflow.fragment.BarcodeAnalysisFragment
-import com.miteksystems.misnap.workflow.fragment.DocumentAnalysisFragment
-import com.miteksystems.misnap.workflow.fragment.FaceAnalysisFragment
-import com.miteksystems.misnap.workflow.fragment.NfcReaderFragment
+import com.miteksystems.misnap.workflow.fragment.*
+import com.miteksystems.misnap.workflow.getForcedOrientation
 import com.miteksystems.misnap.workflow.util.PermissionsUtil
 import com.miteksystems.misnap.workflow.util.SharedPrefsUtil
 import com.miteksystems.misnap.workflow.util.ViewBindingUtil
-import com.miteksystems.misnap.databinding.*
-import com.miteksystems.misnap.sampleapp.results.SampleAppViewModel
-import com.miteksystems.misnap.sampleapp.results.ViewPageAdapter
-import com.miteksystems.misnap.workflow.getForcedOrientation
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
@@ -62,6 +100,7 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
     )
     private val adapter = ViewPageAdapter()
     private var useCaseIndex = 0
+    private var voiceFlowIndex = 0
     private var barcodeExtractionRequirementIndex = 0
     private val license by lazy { requireContext().getString(R.string.misnapSampleAppLicense) }
     private val sharedPrefs by lazy {
@@ -77,6 +116,8 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
             findNavController().navigate(R.id.documentResultsFragment)
         }
 
+    private val permissions = arrayOf(Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO)
+
     //Tabs config content layout bindings
     private var generalSettingsBinding: GeneralSettingsBinding? = null
     private var documentSettingsBinding: DocumentSettingsBinding? = null
@@ -88,9 +129,20 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
     private var faceWorkflowSettingsBinding: FaceWorkflowSettingsBinding? = null
     private var nfcSettingsBinding: NfcSettingsBinding? = null
     private var nfcWorkflowSettingsBinding: NfcWorkflowSettingsBinding? = null
+    private var voiceSettingsBinding: VoiceSettingsBinding? = null
+    private var voiceWorkflowSettingsBinding: VoiceWorkflowSettingsBinding? = null
+
+    private val voicePhrases by lazy {
+        listOf(
+            *resources.getStringArray(R.array.misnapWorkflowVoicePhraseSelectionFragmentPhrases),
+            "Custom"
+        )
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        checkPermissions()
 
         //Setup the viewpager + tabs
         binding.settingsViewPager.adapter = adapter
@@ -126,6 +178,10 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
                         //NFCSettingsInput
                         applyNfcTabUiInputToSettings(it)
                     }
+                    MiSnapSettings.UseCase.VOICE -> {
+                        //VoiceSettingsInput
+                        applyVoiceTabUiInputToSettings(it)
+                    }
                     else -> {
                         //Document Settings Tab
                         applyDocumentTabUiInputToSettings(it)
@@ -145,61 +201,117 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
                     MiSnapSettings.UseCase.NFC -> {
                         applyNfcWorkflowTabUiInputToSettings(it)
                     }
+                    MiSnapSettings.UseCase.VOICE -> {
+                        applyVoiceWorkflowTabUiInputToSettings(it)
+                    }
                     else -> {
                         applyDocumentWorkflowTabUiInputToSettings(it)
                     }
                 }
             }
 
-            sharedPrefs.edit().apply {
-                putString(
-                    getUseCaseSettingsPrefsKey(settings.useCase),
-                    Json.encodeToString(settings)
-                )
-                putInt(SHARED_PREFS_LAST_SELECTED_USECASE_INDEX, useCaseIndex)
-                apply()
-            }
+            if (settings.useCase == MiSnapSettings.UseCase.VOICE && getVoiceFlowAt(voiceFlowIndex) == MiSnapSettings.Voice.Flow.VERIFICATION &&
+                (settings.voice.phrase.isNullOrEmpty() || settings.voice.phrase!!.isBlank())
+            ) {
+                voiceSettingsBinding?.let { showErrorForInvalidCustomPhrase(it) }
 
-            startMiSnapSession(MiSnapWorkflowStep(settings))
+            } else {
+                sharedPrefs.edit().apply {
+                    if (settings.useCase == MiSnapSettings.UseCase.VOICE) {
+                        putString(
+                            getUseCaseSettingsPrefsKey(settings.useCase, settings.voice.flow),
+                            Json.encodeToString(settings)
+                        )
+                        putInt(SHARED_PREFS_LAST_SELECTED_VOICE_FLOW_INDEX, voiceFlowIndex)
+                    } else {
+                        putString(
+                            getUseCaseSettingsPrefsKey(settings.useCase),
+                            Json.encodeToString(settings)
+                        )
+                    }
+
+                    putInt(SHARED_PREFS_LAST_SELECTED_USECASE_INDEX, useCaseIndex)
+                    apply()
+                }
+
+                startMiSnapSession(MiSnapWorkflowStep(settings))
+            }
         }
     }
 
     override fun onResume() {
         super.onResume()
 
-        requestCameraPermission()
         //Clean any leftover and add the General Settings Tab
         adapter.clearViews()
         addGeneralSettingsTab()
     }
 
+    private fun checkPermissions() {
+        val missingPermissions =
+            permissions.filter { !PermissionsUtil.hasPermission(requireContext(), it) }
+
+        if (!missingPermissions.contains(Manifest.permission.RECORD_AUDIO)) {
+            queryMicrophoneSupport()
+        }
+
+        requestPermissions(missingPermissions.toTypedArray())
+    }
+
     /**
      * The SDK will automatically request the permissions it needs at runtime if needed,
-     * but if you want to pre-query the camera's capabilities you will need to get the camera permissions first
+     * but if you want to pre-query the camera or microphone capabilities you will need to
+     * request the permissions first.
      */
-    private fun requestCameraPermission() {
-        if (!PermissionsUtil.hasPermission(requireContext(), Manifest.permission.CAMERA)) {
-            if (shouldShowRequestPermissionRationale(Manifest.permission.CAMERA)) {
+    private fun requestPermissions(permissions: Array<String>) {
+        val nonRationalePermissions = mutableListOf<String>()
+
+        permissions.forEach { permission ->
+            if (shouldShowRequestPermissionRationale(permission)) {
                 AlertDialog.Builder(requireContext()).apply {
-                    setTitle(R.string.misnapSampleAppCameraPermissionRationaleTitle)
-                    setMessage(R.string.misnapSampleAppCameraPermissionRationaleMessage)
+                    setTitle(getPermissionRationaleTitle(permission))
+                    setMessage(getPermissionRationaleMessage(permission))
                     setOnDismissListener {
                         requestPermissions(
-                            arrayOf(Manifest.permission.CAMERA),
-                            DemoFragment.PERMISSION_REQUEST_CAMERA
+                            arrayOf(permission),
+                            getPermissionRequestCode(permission)
                         )
                     }
                     setPositiveButton(android.R.string.ok, null)
                     show()
                 }
             } else {
-                requestPermissions(
-                    arrayOf(Manifest.permission.CAMERA),
-                    DemoFragment.PERMISSION_REQUEST_CAMERA
-                )
+                nonRationalePermissions.add(permission)
             }
         }
+
+        if (nonRationalePermissions.isNotEmpty()) {
+            requestPermissions(nonRationalePermissions.toTypedArray(),
+                PERMISSION_REQUEST_ALL
+            )
+        }
     }
+
+    private fun getPermissionRationaleTitle(permission: String) =
+        when (permission) {
+            Manifest.permission.CAMERA -> R.string.misnapSampleAppCameraPermissionRationaleTitle
+            Manifest.permission.RECORD_AUDIO -> R.string.misnapSampleAppAudioRecordPermissionRationaleTitle
+            else -> 0
+        }
+
+    private fun getPermissionRationaleMessage(permission: String) =
+        when (permission) {
+            Manifest.permission.CAMERA -> R.string.misnapSampleAppCameraPermissionRationaleMessage
+            Manifest.permission.RECORD_AUDIO -> R.string.misnapSampleAppAudioRecordPermissionRationaleMessage
+            else -> 0
+        }
+
+    private fun getPermissionRequestCode(permission: String) =
+        when (permission) {
+            Manifest.permission.CAMERA -> PERMISSION_REQUEST_CAMERA
+            Manifest.permission.RECORD_AUDIO -> PERMISSION_REQUEST_RECORD_AUDIO
+            else -> PERMISSION_REQUEST_ALL
+        }
 
     /**
      * Callback for handling permissions.
@@ -211,9 +323,15 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
 
-        if (requestCode == DemoFragment.PERMISSION_REQUEST_CAMERA) {
+        if (requestCode and PERMISSION_REQUEST_CAMERA == PERMISSION_REQUEST_CAMERA) {
             if (grantResults.isEmpty() || PackageManager.PERMISSION_GRANTED != grantResults.first()) {
-                // Permission denied, MiSnap SDK will not be usable until permissions are granted
+                // Permission denied, MiSnap SDK will not be usable for usecases that depend on this permission
+            }
+        }
+
+        if (requestCode and PERMISSION_REQUEST_RECORD_AUDIO == PERMISSION_REQUEST_RECORD_AUDIO) {
+            if (grantResults.isEmpty() || PackageManager.PERMISSION_GRANTED != grantResults.first()) {
+                // Permission denied, MiSnap SDK will not be usable for usecases that depend on this permission
             }
         }
     }
@@ -369,7 +487,8 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
 
     private fun applyBarcodeWorkflowTabUiInputToSettings(settings: MiSnapSettings) {
         barcodeWorkflowSettingsBinding?.let {
-            val defaultWorkflowSettings = BarcodeAnalysisFragment.getDefaultWorkflowSettings(settings)
+            val defaultWorkflowSettings =
+                BarcodeAnalysisFragment.getDefaultWorkflowSettings(settings)
             val workflowSettings = BarcodeAnalysisFragment.buildWorkflowSettings(
                 reviewCondition = getBarcodeReviewConditionAt(it.barcodeWorkflowSettingsReviewConditionSpinner.selectedItemPosition),
                 guideViewAlignedScalePercentage = kotlin.runCatching {
@@ -484,6 +603,38 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
         }
     }
 
+    private fun applyVoiceTabUiInputToSettings(settings: MiSnapSettings) {
+        settings.voice.apply {
+            voiceSettingsBinding?.let {
+                flow = getVoiceFlowAt(it.voiceSettingsFlowSpinner.selectedItemPosition)
+                phrase = getVoicePhraseAt(it, it.voiceSettingsPhraseSpinner.selectedItemPosition)
+                advanced.minSpeechLength = it.voiceSettingsMinSpeechLength.text.toString().toInt()
+                advanced.minSNR = kotlin.runCatching {
+                    it.voiceSettingsMinSNR.text.toString().toFloat()
+                }
+                    .getOrDefault(advanced.getMinSNR(flow!!))
+
+                advanced.maxSilenceLength = it.voiceSettingsMaxSilenceLength.text.toString().toInt()
+            }
+        }
+    }
+
+    private fun applyVoiceWorkflowTabUiInputToSettings(settings: MiSnapSettings) {
+        voiceWorkflowSettingsBinding?.let {
+            val defaultWorkflowSettings = VoiceProcessorFragment.getDefaultWorkflowSettings()
+            val workflowSettings = VoiceProcessorFragment.buildWorkflowSettings(
+                timeoutDuration = kotlin.runCatching {
+                    it.voiceWorkflowSettingsSessionTimeoutDuration.text.toString().toInt()
+                }.getOrDefault(defaultWorkflowSettings.timeoutDuration)
+            )
+
+            settings.workflow.add(
+                getString(VOICE_ANALYSIS_FRAGMENT_LABEL_RES),
+                workflowSettings
+            )
+        }
+    }
+
     // endregion
 
     // region MiSnapSettings > UI helpers
@@ -508,6 +659,11 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
 
                 //Remove Workflow settings
                 findTabIndexByTabTitle(getString(WORKFLOW_TAB_TITLE_RES))?.let {
+                    adapter.removeViewAt(it)
+                }
+
+                //Remove Voice settings
+                findTabIndexByTabTitle(getString(VOICE_TAB_TITLE_RES))?.let {
                     adapter.removeViewAt(it)
                 }
 
@@ -549,6 +705,11 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
 
                 //Remove Workflow settings
                 findTabIndexByTabTitle(getString(WORKFLOW_TAB_TITLE_RES))?.let {
+                    adapter.removeViewAt(it)
+                }
+
+                //Remove Voice settings
+                findTabIndexByTabTitle(getString(VOICE_TAB_TITLE_RES))?.let {
                     adapter.removeViewAt(it)
                 }
 
@@ -598,6 +759,11 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
                     adapter.removeViewAt(it)
                 }
 
+                //Remove Voice settings
+                findTabIndexByTabTitle(getString(VOICE_TAB_TITLE_RES))?.let {
+                    adapter.removeViewAt(it)
+                }
+
                 //Add the nfc settings if not already there
                 if (!isTabWithTitlePresent(getString(NFC_TAB_TITLE_RES))) {
                     addNfcSettingsTab()
@@ -611,6 +777,52 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
                 applySettingsToGeneralTabUi(settings)
                 applySettingsToNfcTabUi(settings)
                 applySettingsToNfcWorkflowTabUi(settings)
+            }
+
+            MiSnapSettings.UseCase.VOICE -> {
+                //Remove camera settings
+                findTabIndexByTabTitle(getString(CAMERA_TAB_TITLE_RES))?.let {
+                    adapter.removeViewAt(it)
+                }
+
+                //Remove document settings
+                findTabIndexByTabTitle(getString(DOCUMENT_TAB_TITLE_RES))?.let {
+                    adapter.removeViewAt(it)
+                }
+
+                //Remove barcode settings
+                findTabIndexByTabTitle(getString(BARCODE_TAB_TITLE_RES))?.let {
+                    adapter.removeViewAt(it)
+                }
+
+                //Remove face settings
+                findTabIndexByTabTitle(getString(FACE_TAB_TITLE_RES))?.let {
+                    adapter.removeViewAt(it)
+                }
+
+                //Remove Workflow settings
+                findTabIndexByTabTitle(getString(WORKFLOW_TAB_TITLE_RES))?.let {
+                    adapter.removeViewAt(it)
+                }
+
+                //Remove NFC settings
+                findTabIndexByTabTitle(getString(NFC_TAB_TITLE_RES))?.let {
+                    adapter.removeViewAt(it)
+                }
+
+                //Add the voice settings if not already there
+                if (!isTabWithTitlePresent(getString(VOICE_TAB_TITLE_RES))) {
+                    addVoiceSettingsTab()
+                }
+
+                //Add the voice workflow settings tab if not already there
+                if (!isTabWithTitlePresent(getString(WORKFLOW_TAB_TITLE_RES))) {
+                    addVoiceWorkflowSettingsTab()
+                }
+
+                applySettingsToGeneralTabUi(settings)
+                applySettingsToVoiceTabUi(settings)
+                applySettingsToVoiceWorkflowTabUi(settings)
             }
 
             MiSnapSettings.UseCase.PASSPORT,
@@ -635,6 +847,11 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
 
                 //Remove Workflow settings
                 findTabIndexByTabTitle(getString(WORKFLOW_TAB_TITLE_RES))?.let {
+                    adapter.removeViewAt(it)
+                }
+
+                //Remove Voice settings
+                findTabIndexByTabTitle(getString(VOICE_TAB_TITLE_RES))?.let {
                     adapter.removeViewAt(it)
                 }
 
@@ -672,6 +889,11 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
 
                 //Remove Workflow settings
                 findTabIndexByTabTitle(getString(WORKFLOW_TAB_TITLE_RES))?.let {
+                    adapter.removeViewAt(it)
+                }
+
+                //Remove Voice settings
+                findTabIndexByTabTitle(getString(VOICE_TAB_TITLE_RES))?.let {
                     adapter.removeViewAt(it)
                 }
 
@@ -759,12 +981,14 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
                 )
 
             it.documentSettingsDocumentRequestOcrSpinner.apply {
-                isEnabled = !settings.analysis.document.advanced.requireDocType().isCheck() && !isGeneric
+                isEnabled =
+                    !settings.analysis.document.advanced.requireDocType().isCheck() && !isGeneric
                 setSelection(settings.analysis.document.getDocumentExtractionRequirement().ordinal)
             }
             it.documentSettingsBarcodeRequestExtractionSpinner.apply {
                 isEnabled = !settings.analysis.document.advanced.requireDocType().isMrzDocument() &&
-                    !settings.analysis.document.advanced.requireDocType().isCheck() && !isGeneric
+                        !settings.analysis.document.advanced.requireDocType()
+                            .isCheck() && !isGeneric
                 setSelection(settings.analysis.document.getBarcodeExtractionRequirement().ordinal)
             }
 
@@ -932,7 +1156,8 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
                             workflowSettingsString
                         )
                     }
-            val defaultWorkflowSettings = BarcodeAnalysisFragment.getDefaultWorkflowSettings(settings)
+            val defaultWorkflowSettings =
+                BarcodeAnalysisFragment.getDefaultWorkflowSettings(settings)
 
             (workflowSettings?.reviewCondition
                 ?: defaultWorkflowSettings.reviewCondition)?.let {
@@ -1006,12 +1231,13 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
 
     private fun applySettingsToFaceWorkflowTabUi(settings: MiSnapSettings) {
         faceWorkflowSettingsBinding?.let { binding ->
-            val workflowSettings = settings.workflow.get(getString(FACE_ANALYSIS_FRAGMENT_LABEL_RES))
-                ?.let { workflowSettingsString ->
-                    Json.decodeFromString<FaceAnalysisFragment.WorkflowSettings>(
-                        workflowSettingsString
-                    )
-                }
+            val workflowSettings =
+                settings.workflow.get(getString(FACE_ANALYSIS_FRAGMENT_LABEL_RES))
+                    ?.let { workflowSettingsString ->
+                        Json.decodeFromString<FaceAnalysisFragment.WorkflowSettings>(
+                            workflowSettingsString
+                        )
+                    }
             if (settings.analysis.face.trigger == null) {
                 settings.analysis.face.trigger = MiSnapSettings.Analysis.Face.Trigger.default()
             }
@@ -1076,18 +1302,14 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
         nfcSettingsBinding?.let {
             settings.nfc.advanced.docType?.let { doctype ->
                 it.nfcSettingsDoctypeSpinner.setSelection(
-                    getNfcDoctypeSpinnerIndex(
-                        doctype
-                    )
+                    getNfcDoctypeSpinnerIndex(doctype)
                 )
             }
                 ?: it.nfcSettingsDoctypeSpinner.setSelection(MiSnapSettings.Nfc.Advanced.DocType.PASSPORT.ordinal)
 
             settings.nfc.soundAndVibration?.let { soundAndVibration ->
                 it.nfcSettingsSoundAndVibrationSpinner.setSelection(
-                    getNfcSoundAndVibrationSpinnerIndex(
-                        soundAndVibration
-                    )
+                    getNfcSoundAndVibrationSpinnerIndex(soundAndVibration)
                 )
             }
                 ?: it.nfcSettingsSoundAndVibrationSpinner.setSelection(MiSnapSettings.Nfc.SoundAndVibration.default().ordinal)
@@ -1098,9 +1320,7 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
         nfcWorkflowSettingsBinding?.let { binding ->
             val workflowSettings = settings.workflow.get(getString(NFC_READER_FRAGMENT_LABEL_RES))
                 ?.let { workflowSettingsString ->
-                    Json.decodeFromString<NfcReaderFragment.WorkflowSettings>(
-                        workflowSettingsString
-                    )
+                    Json.decodeFromString<NfcReaderFragment.WorkflowSettings>(workflowSettingsString)
                 }
             val defaultWorkflowSettings =
                 NfcReaderFragment.getDefaultWorkflowSettings(settings, requireContext())
@@ -1117,6 +1337,70 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
         }
     }
 
+    private fun applySettingsToVoiceTabUi(settings: MiSnapSettings) {
+        voiceSettingsBinding?.let { binding ->
+            settings.voice.flow?.let { flow ->
+                binding.voiceSettingsFlowSpinner.setSelection(
+                    getVoiceFlowSpinnerIndex(flow)
+                )
+            }
+
+            val phrase = settings.voice.phrase
+
+            if (phrase != null) {
+                val phraseIndex = getVoicePhraseSpinnerIndex(phrase)
+
+                val selectedIndex =
+                    if (phraseIndex == -1) {
+                        binding.voiceSettingsCustomPhrase.setText(phrase)
+                        voicePhrases.lastIndex
+                    } else {
+                        phraseIndex
+                    }
+                binding.voiceSettingsPhraseSpinner.setSelection(selectedIndex)
+                if (selectedIndex != voicePhrases.lastIndex) {
+                    binding.voiceSettingsCustomPhrase.text = null
+                }
+            } else {
+                binding.voiceSettingsPhraseSpinner.setSelection(0)
+                binding.voiceSettingsCustomPhrase.text = null
+            }
+
+
+            binding.voiceSettingsMinSpeechLength.setText(
+                settings.voice.advanced.getMinSpeechLength().toString()
+            )
+
+            binding.voiceSettingsMinSNR.setText(
+                settings.voice.advanced.getMinSNR(getVoiceFlowAt(binding.voiceSettingsFlowSpinner.selectedItemPosition)!!)
+                    .toString()
+            )
+
+            binding.voiceSettingsMaxSilenceLength.setText(
+                settings.voice.advanced.getMaxSilenceLength().toString()
+            )
+        }
+    }
+
+    private fun applySettingsToVoiceWorkflowTabUi(settings: MiSnapSettings) {
+        voiceWorkflowSettingsBinding?.let { binding ->
+            val workflowSettings =
+                settings.workflow.get(getString(VOICE_ANALYSIS_FRAGMENT_LABEL_RES))
+                    ?.let { workflowSettingsString ->
+                        Json.decodeFromString<VoiceProcessorFragment.WorkflowSettings>(
+                            workflowSettingsString
+                        )
+                    }
+
+            val defaultWorkflowSettings = VoiceProcessorFragment.getDefaultWorkflowSettings()
+
+            (workflowSettings?.timeoutDuration
+                ?: defaultWorkflowSettings.timeoutDuration)?.let {
+                binding.voiceWorkflowSettingsSessionTimeoutDuration.setText(it.toString())
+            }
+        }
+    }
+
     // endregion
 
     // region Spinner selection helpers
@@ -1125,6 +1409,7 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
 
     private fun getUseCaseAt(index: Int) =
         when (index) {
+            9 -> MiSnapSettings.UseCase.VOICE
             8 -> MiSnapSettings.UseCase.NFC
             7 -> MiSnapSettings.UseCase.FACE
             6 -> MiSnapSettings.UseCase.BARCODE
@@ -1358,6 +1643,31 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
             else -> null
         }
 
+    private fun getVoiceFlowSpinnerIndex(flow: MiSnapSettings.Voice.Flow) =
+        when (flow) {
+            MiSnapSettings.Voice.Flow.ENROLLMENT -> 0
+            MiSnapSettings.Voice.Flow.VERIFICATION -> 1
+        }
+
+    private fun getVoiceFlowAt(index: Int) =
+        when (index) {
+            1 -> MiSnapSettings.Voice.Flow.VERIFICATION
+            0 -> MiSnapSettings.Voice.Flow.ENROLLMENT
+            else -> null
+        }
+
+    private fun getVoicePhraseSpinnerIndex(phrase: String) =
+        voicePhrases.indexOf(phrase)
+
+    private fun getVoicePhraseAt(binding: VoiceSettingsBinding, index: Int) =
+        if (index == voicePhrases.lastIndex) binding.voiceSettingsCustomPhrase.text.toString()
+        else voicePhrases[index]
+
+    private fun showErrorForInvalidCustomPhrase(binding: VoiceSettingsBinding) {
+        binding.voiceSettingsCustomPhraseLayout.error =
+            getString(R.string.misnapSampleAppSettingsVoiceCustomPhraseErrorEmptyField)
+    }
+
     // endregion
 
     // endregion
@@ -1384,8 +1694,22 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
                     ) {
                         useCaseIndex = position
                         val useCase = getUseCaseAt(position)
-                        val settings =
+
+                        val prefsSettings: String? = if (useCase == MiSnapSettings.UseCase.VOICE) {
+                            val flow =
+                                sharedPrefs.getInt(SHARED_PREFS_LAST_SELECTED_VOICE_FLOW_INDEX, 0)
+                            sharedPrefs.getString(
+                                getUseCaseSettingsPrefsKey(
+                                    useCase,
+                                    getVoiceFlowAt(flow)
+                                ), null
+                            )
+                        } else {
                             sharedPrefs.getString(getUseCaseSettingsPrefsKey(useCase), null)
+                        }
+
+                        val settings =
+                            prefsSettings
                                 ?.let { serializedSettings ->
                                     Json.decodeFromString(serializedSettings)
                                 } ?: MiSnapSettings(useCase, license)
@@ -1478,12 +1802,18 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
                         val isBarcodeUseCase =
                             getUseCaseAt(useCaseIndex) == MiSnapSettings.UseCase.BARCODE
 
-                        val isUnSupportedUseCase = getUseCaseAt(useCaseIndex) ==  MiSnapSettings.UseCase.GENERIC_DOCUMENT ||
-                                getUseCaseAt(useCaseIndex) ==  MiSnapSettings.UseCase.CHECK_FRONT ||
-                                getUseCaseAt(useCaseIndex) ==  MiSnapSettings.UseCase.CHECK_BACK
+                        val isUnSupportedUseCase =
+                            getUseCaseAt(useCaseIndex) == MiSnapSettings.UseCase.GENERIC_DOCUMENT ||
+                                    getUseCaseAt(useCaseIndex) == MiSnapSettings.UseCase.CHECK_FRONT ||
+                                    getUseCaseAt(useCaseIndex) == MiSnapSettings.UseCase.CHECK_BACK
 
 
-                        if (!isUnSupportedUseCase && isTabWithTitlePresent(getString(DOCUMENT_TAB_TITLE_RES)) && !isBarcodeUseCase) {
+                        if (!isUnSupportedUseCase && isTabWithTitlePresent(
+                                getString(
+                                    DOCUMENT_TAB_TITLE_RES
+                                )
+                            ) && !isBarcodeUseCase
+                        ) {
                             documentSettingsBinding?.let { documentBinding ->
                                 documentBinding.documentSettingsDocumentRequestOcrSpinner.isEnabled =
                                     isBarcodeOcrNone
@@ -1507,15 +1837,24 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
                 }
 
             it.documentExtractionTooltip.setOnClickListener { tooltip ->
-                showTooltipInfo(tooltip, getString(R.string.misnapSampleAppSettingsDocumentExtractionTooltip))
+                showTooltipInfo(
+                    tooltip,
+                    getString(R.string.misnapSampleAppSettingsDocumentExtractionTooltip)
+                )
             }
 
             it.barcodeExtractionTooltip.setOnClickListener { tooltip ->
-                showTooltipInfo(tooltip, getString(R.string.misnapSampleAppSettingsDocumentBarcodeExtractionTooltip))
+                showTooltipInfo(
+                    tooltip,
+                    getString(R.string.misnapSampleAppSettingsDocumentBarcodeExtractionTooltip)
+                )
             }
 
             it.geoTooltip.setOnClickListener { tooltip ->
-                showTooltipInfo(tooltip, getString(R.string.misnapSampleAppSettingsDocumentGeoTooltip))
+                showTooltipInfo(
+                    tooltip,
+                    getString(R.string.misnapSampleAppSettingsDocumentGeoTooltip)
+                )
             }
         }
         adapter.addView(
@@ -1608,6 +1947,81 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
         adapter.addView(nfcWorkflowSettingsView, getString(WORKFLOW_TAB_TITLE_RES))
     }
 
+    private fun addVoiceSettingsTab() {
+        val voiceSettingsView = layoutInflater.inflate(R.layout.voice_settings, null)
+        voiceSettingsBinding = VoiceSettingsBinding.bind(voiceSettingsView).also {
+            it.voiceSettingsPhraseSpinner.adapter = ArrayAdapter(
+                requireContext(),
+                android.R.layout.simple_spinner_item,
+                voicePhrases
+            ).apply {
+                setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item)
+            }
+
+            //Phrase trigger spinner
+            it.voiceSettingsPhraseSpinner.onItemSelectedListener =
+                object : AdapterView.OnItemSelectedListener {
+                    override fun onItemSelected(
+                        parent: AdapterView<*>,
+                        view: View,
+                        position: Int,
+                        id: Long
+                    ) {
+                        it.voiceSettingsCustomPhraseLayout.isEnabled =
+                            position == voicePhrases.lastIndex
+                    }
+
+                    override fun onNothingSelected(parent: AdapterView<*>?) {
+                        // Do nothing
+                    }
+
+                }
+
+            //Flow trigger spinner
+            it.voiceSettingsFlowSpinner.onItemSelectedListener =
+                object : AdapterView.OnItemSelectedListener {
+                    override fun onItemSelected(
+                        parent: AdapterView<*>?,
+                        view: View?,
+                        position: Int,
+                        id: Long,
+                    ) {
+                        voiceFlowIndex = position
+
+                        val voiceSettings =
+                            sharedPrefs.getString(
+                                getUseCaseSettingsPrefsKey(
+                                    getUseCaseAt(useCaseIndex),
+                                    getVoiceFlowAt(position)
+                                ), null
+                            )
+                                ?.let { serializedSettings ->
+                                    Json.decodeFromString(serializedSettings)
+                                } ?: MiSnapSettings(getUseCaseAt(useCaseIndex), license).apply {
+                                this.voice.flow = getVoiceFlowAt(
+                                    position
+                                )
+                            }
+
+                        applySettingsToVoiceTabUi(voiceSettings)
+                    }
+
+                    override fun onNothingSelected(parent: AdapterView<*>?) {}
+                }
+        }
+
+        adapter.addView(voiceSettingsView, getString(VOICE_TAB_TITLE_RES))
+    }
+
+    private fun addVoiceWorkflowSettingsTab() {
+        val voiceWorkflowSettingsView =
+            layoutInflater.inflate(R.layout.voice_workflow_settings, null)
+        voiceWorkflowSettingsBinding =
+            VoiceWorkflowSettingsBinding.bind(voiceWorkflowSettingsView)
+
+        adapter.addView(voiceWorkflowSettingsView, getString(WORKFLOW_TAB_TITLE_RES))
+    }
+
     // Using the tab title as identifier because the use of Ids is unreliable when used with a viewpager
     //  and tab titles should be unique anyways.
     private fun findTabIndexByTabTitle(title: String): Int? {
@@ -1623,9 +2037,11 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
     private fun isTabWithTitlePresent(title: String): Boolean =
         findTabIndexByTabTitle(title) != null
 
-    private fun showTooltipInfo(view: View, tooltipText: String){
-        TooltipCompat.setTooltipText(view,
-            tooltipText)
+    private fun showTooltipInfo(view: View, tooltipText: String) {
+        TooltipCompat.setTooltipText(
+            view,
+            tooltipText
+        )
         view.performLongClick()
     }
 
@@ -1697,28 +2113,61 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
                 }
                 is CameraUtil.CameraSupportResult.Error -> {
                     // This camera does not support auto or manual,
-                    Toast.makeText(
-                        requireContext(),
-                        getString(R.string.misnapSampleAppCameraErrorMessage),
-                        Toast.LENGTH_LONG
-                    ).show()
+                    displayError(R.string.misnapSampleAppCameraErrorMessage)
                 }
             }
         }
     }
 
-    private fun getUseCaseSettingsPrefsKey(useCase: MiSnapSettings.UseCase) =
-        "SAMPLE_APP_${useCase}_SETTINGS"
+    /**
+     * Pre queries the microphones capabilities before starting a session.
+     * This is optional, as the SDK can detect the microphone support at runtime and will post an
+     * error if there's not a sufficient microphone or its unusable.
+     * If the microphone is insufficient for your purposes, consider skipping the MiSnap flow.
+     */
+    private fun queryMicrophoneSupport() {
+        val supportedMicrophoneSupportResult =
+            MicrophoneUtil.findSupportedMicrophone(requireContext())
+
+        if (supportedMicrophoneSupportResult is MicrophoneUtil.MicrophoneSupportResult.Error) {
+            displayError(R.string.misnapSampleAppMicrophoneErrorMessage)
+        }
+    }
+
+    private fun displayError(stringId: Int) {
+        Toast.makeText(
+            requireContext(),
+            getString(stringId),
+            Toast.LENGTH_LONG
+        ).show()
+    }
+
+    private fun getUseCaseSettingsPrefsKey(
+        useCase: MiSnapSettings.UseCase,
+        flow: MiSnapSettings.Voice.Flow? = null
+    ) =
+        if (useCase == MiSnapSettings.UseCase.VOICE) {
+            "SAMPLE_APP_${useCase}_${flow}_SETTINGS"
+        } else {
+            "SAMPLE_APP_${useCase}_SETTINGS"
+        }
 
     companion object {
         private const val SHARED_PREFS_FILE_NAME = "MiSnapSettingsSharedPreferences"
-        private const val SHARED_PREFS_LAST_SELECTED_USECASE_INDEX = "UseCaseSpinnerLastSelectedIndex"
+        private const val SHARED_PREFS_LAST_SELECTED_USECASE_INDEX =
+            "UseCaseSpinnerLastSelectedIndex"
+        private const val SHARED_PREFS_LAST_SELECTED_VOICE_FLOW_INDEX =
+            "VoiceFlowSpinnerLastSelectedIndex"
         private const val CAMERA_TAB_TITLE_RES = R.string.misnapSampleAppSettingsCameraTabTitle
-        private const val DOCUMENT_TAB_TITLE_RES = R.string.misnapSampleAppSettingsDocumentTabTitle
-        private const val BARCODE_TAB_TITLE_RES = R.string.misnapSampleAppSettingsBarcodeTabTitle
+        private const val DOCUMENT_TAB_TITLE_RES =
+            R.string.misnapSampleAppSettingsDocumentTabTitle
+        private const val BARCODE_TAB_TITLE_RES =
+            R.string.misnapSampleAppSettingsBarcodeTabTitle
         private const val FACE_TAB_TITLE_RES = R.string.misnapSampleAppSettingsFaceTabTitle
         private const val NFC_TAB_TITLE_RES = R.string.misnapSampleAppSettingsNfcTabTitle
-        private const val WORKFLOW_TAB_TITLE_RES = R.string.misnapSampleAppSettingsWorkflowTabTitle
+        private const val WORKFLOW_TAB_TITLE_RES =
+            R.string.misnapSampleAppSettingsWorkflowTabTitle
+        private const val VOICE_TAB_TITLE_RES = R.string.misnapSampleAppSettingsVoiceTabTitle
         private const val DOCUMENT_ANALYSIS_FRAGMENT_LABEL_RES =
             R.string.misnapWorkflowDocumentAnalysisFlowDocumentAnalysisFragmentLabel
         private const val BARCODE_ANALYSIS_FRAGMENT_LABEL_RES =
@@ -1727,5 +2176,12 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
             R.string.misnapWorkflowFaceAnalysisFlowFaceAnalysisFragmentLabel
         private const val NFC_READER_FRAGMENT_LABEL_RES =
             R.string.misnapWorkflowNfcReaderFlowNfcReaderFragmentLabel
+        private const val VOICE_ANALYSIS_FRAGMENT_LABEL_RES =
+            R.string.misnapWorkflowVoiceProcessorFlowVoiceProcessorFragmentLabel
+
+        //Bit flags
+        private const val PERMISSION_REQUEST_CAMERA = 1
+        private const val PERMISSION_REQUEST_RECORD_AUDIO = 2
+        private const val PERMISSION_REQUEST_ALL = 15
     }
 }

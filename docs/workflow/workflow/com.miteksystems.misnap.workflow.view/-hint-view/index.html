@@ -1,0 +1,374 @@
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>HintView</title>
+</head><body><link href="../../../../../../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../../../";</script><script src="https://unpkg.com/kotlin-playground@1" data-selector="code.runnablesample"></script><script type="text/javascript" src="../../../../scripts/sourceset_dependencies.js" async></script><link href="../../../../styles/style.css" rel="Stylesheet"><link href="../../../../styles/logo-styles.css" rel="Stylesheet"><link href="../../../../styles/jetbrains-mono.css" rel="Stylesheet"><link href="../../../../styles/main.css" rel="Stylesheet"><script type="text/javascript" src="../../../../scripts/clipboard.js" async></script><script type="text/javascript" src="../../../../scripts/navigation-loader.js" async></script><script type="text/javascript" src="../../../../scripts/platform-content-handler.js" async></script><script type="text/javascript" src="../../../../scripts/main.js" async></script>
+  
+    <div id="container">
+      <div id="leftColumn"><a href="../../../../index.html">
+            <div id="logo"></div>
+          </a>
+        <div id="paneSearch"></div>
+        <div id="sideMenu"></div>
+      </div>
+      <div id="main">
+        <script type="text/javascript" src="../../../../scripts/main.js"></script><div id="leftToggler"><span class="icon-toggler"></span></div>
+
+        <div class="main-content" id="content" pageids="workflow::com.miteksystems.misnap.workflow.view/HintView///PointingToDeclaration//1506957492">
+          <div class="navigation-wrapper" id="navigation-wrapper">
+            <div class="breadcrumbs"><a href="../../../index.html">workflow</a>/<a href="../index.html">com.miteksystems.misnap.workflow.view</a>/<a href="index.html">HintView</a></div>
+            <div class="pull-right d-flex">
+              <div id="searchBar"></div>
+            </div>
+          </div>
+          <div class="cover ">
+            <h1 class="cover"><span>Hint</span><wbr><span>View</span></h1>
+            <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":workflow:dokkaHtmlPartial/release"><div class="symbol monospace">class <a href="index.html">HintView</a>&nbsp;<span>@<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.jvm/-jvm-overloads/index.html">JvmOverloads</a>()&nbsp;</span>constructor(context: <a href="https://developer.android.com/reference/kotlin/android/content/Context.html">Context</a>, attrs: <a href="https://developer.android.com/reference/kotlin/android/util/AttributeSet.html">AttributeSet</a>?, <span>@<a href="https://developer.android.com/reference/kotlin/androidx/annotation/AttrRes.html">AttrRes</a>()&nbsp;</span>defStyleAttr: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>, <span>@<a href="https://developer.android.com/reference/kotlin/androidx/annotation/StyleRes.html">StyleRes</a>()&nbsp;</span>defStyleRes: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>) : <span data-unresolved-link="com.google.android.material.textview/MaterialTextView///PointingToDeclaration/">MaterialTextView</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><p class="paragraph">A view to provide feedback to the end users based on image analysis results. When a frame is processed, the controller provides feedback to help direct end users towards a higher quality image.  This feedback is then briefly presented to the end user.</p></div></div>
+          </div>
+          <div class="tabbedcontent">
+            <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="Constructors">Constructors</button><button class="section-tab" data-togglable="Functions">Functions</button><button class="section-tab" data-togglable="Properties">Properties</button><button class="section-tab" data-togglable="Samples">Samples</button></div>
+            <div class="tabs-section-body">
+              <h2 class="">Samples</h2>
+              <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Samples"><div class="content sourceset-depenent-content" data-active="" data-togglable=":workflow:dokkaHtmlPartial/release"><div class="sample-container"><code class="runnablesample monospace" theme="idea"><pre>import android.os.Bundle
+import android.view.View
+import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.LiveData
+import com.miteksystems.misnap.R
+import com.miteksystems.misnap.camera.frameproducers.FrameProducer.Event
+import com.miteksystems.misnap.controller.MiSnapController
+import com.miteksystems.misnap.controller.MiSnapController.ErrorResult
+import com.miteksystems.misnap.core.MiSnapSettings
+import com.miteksystems.misnap.core.MibiData
+import com.miteksystems.misnap.databinding.ExampleDocumentAnalysisBinding
+import com.miteksystems.misnap.workflow.fragment.MiSnapWorkflowViewModel
+import com.miteksystems.misnap.workflow.util.ViewBindingUtil
+import com.miteksystems.misnap.workflow.view.*
+fun main() { 
+   //sampleStart 
+   /**
+ * This example demonstrates an advanced integration that makes use of the different android Views
+ * included in the MiSnap SDK to fully customize the UI/UX by recreating an analysis screen.
+ * This is an advanced integration example and as such is only suitable for developers whose customization
+ * needs are not fulfilled through standard integration types customizations.
+ *
+ * This example uses the following android Views:
+ * * [MiSnapView] to orchestrate the acquisition of frames from the device's camera and analyze them.
+ * * [GuideView] to represent a visual guide for the document's alignment.
+ * * [HintView] to display hint messages to help the user during the session.
+ * * [TorchView] to facilitate the use of the device's camera torch light.
+ * * [RecordingIconView] to facilitate the awareness of an ongoing video recording during the session.
+ * * [SuccessView] to indicate that the session has concluded successfully.
+ *
+ * @see com.miteksystems.misnap.examples.misnapview for an in-depth example on the usage of the
+ * [MiSnapView] APIs.
+ * @see com.miteksystems.misnap.workflow.view for more information on the android views used in this
+ * example.
+ * @see com.miteksystems.misnap.examples.settings for examples on how to easily customize the UI and
+ * behavior of the SDK.
+ */
+class AnalysisFragment : Fragment(R.layout.example_document_analysis) {
+    private val license = "your_sdk_license"
+
+    /**
+     * To accurately track the number of auto and manual mode session retries in [MibiData] it is
+     * required to bind the session with [MibiData.bindSession] and to keep track of the fragment
+     * resumed state.
+     */
+    private var resumed: Boolean = false
+    private var mibiDataSession = MibiData.bindSession()
+
+    private val binding by ViewBindingUtil.viewBinding(
+        this,
+        ExampleDocumentAnalysisBinding::bind
+    )
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        /**
+         * Determine if the fragment is being resumed for [MibiData] tracking purposes.
+         */
+        savedInstanceState?.let {
+            resumed = true
+        }
+
+        val settings = MiSnapSettings(MiSnapSettings.UseCase.PASSPORT, license).apply {
+            // Optionally set the camera profile to use.
+            camera.profile = MiSnapSettings.Camera.Profile.DOCUMENT_BACK_CAMERA
+            camera.videoRecord.recordSession = true
+        }
+
+        /**
+         * Optionally define a [MibiData] session outside of the view's lifecycle.
+         */
+        MibiData.startSession(this::class.java.name, settings)
+
+        /**
+         * Customize the look and feel of the [GuideView], e.g. by setting a custom drawable.
+         *
+         * @see [GuideView] for more information on the available properties that can be customized.
+         */
+        binding.guideView.drawableId = R.drawable.misnap_guide_passport
+
+        /**
+         * Observe the [MiSnapView.feedbackResult] [LiveData] to handle the feedback from the analyzed
+         * preview frames and handle them accordingly, e.g. by showing the corresponding instructions
+         * on screen based on the [MiSnapController.FeedbackResult.userAction].
+         */
+        binding.misnapView.feedbackResult.observe(viewLifecycleOwner) {
+            /**
+             * The [MiSnapController.FeedbackResult.userAction] is an identifier that should be mapped
+             * to an appropriate string message to use as hint.
+             */
+            binding.hintView.text = it.userAction.toString()
+        }
+
+        /**
+         * Observe the [MiSnapView.finalFrame] [LiveData] to handle the successful results of a session
+         * and to perform UI cleanup actions, e.g. by stopping the video recording, clearing the contents
+         * of views and modifying their visibility.
+         */
+        binding.misnapView.finalFrame.observe(viewLifecycleOwner) {
+            /**
+             * Finalize the recording of the session and clear the appropriate observers to stop
+             * receiving updates after a successful session.
+             */
+            binding.misnapView.apply {
+                stopRecording()
+                feedbackResult.removeObservers(viewLifecycleOwner)
+            }
+            binding.recordingIconView.stop()
+
+            /**
+             * Adjust the visibility of the relevant android Views to indicate the user that the
+             * session has ended.
+             */
+            binding.torchView.isVisible = false
+            binding.misnapView.isVisible = false
+            binding.guideView.isVisible = false
+            binding.hintView.apply {
+                clearText()
+                visibility = View.INVISIBLE
+            }
+
+            /**
+             * Display the [SuccessView] animation and finalize the session.
+             */
+            binding.successView.start {
+                // Animation finished, time to end the session.
+            }
+        }
+
+        /**
+         * Observe the [MiSnapView.controllerErrors] [LiveData] to handle errors during the analysis
+         * of the preview frames, e.g. by aborting the session or addressing the error.
+         */
+        binding.misnapView.controllerErrors.observe(viewLifecycleOwner) {
+            when (it) {
+                is ErrorResult.DocumentDetection, is ErrorResult.DocumentAnalysis -&gt; {
+
+                }
+            }
+        }
+
+        /**
+         * Observe the [MiSnapView.cameraEvents] [LiveData] to handle errors during the initialization
+         * and operation of the camera, e.g. by aborting the session or addressing the error.
+         */
+        binding.misnapView.cameraEvents.observe(viewLifecycleOwner) {
+            when (it) {
+                is Event.InitializationError -&gt; {
+
+                }
+            }
+        }
+
+        /**
+         * Observe the [MiSnapView.torchEvents] [LiveData] to handle torch state changes, in this case
+         * by applying the new state to the [TorchView] so they're bound.
+         */
+        binding.misnapView.torchEvents.observe(viewLifecycleOwner) {
+            if (null != it) {
+                binding.torchView.isTorchOn = it
+            }
+        }
+
+        /**
+         * Observe the [TorchView.torchEvents] [LiveData] to handle torch state change requests, in
+         * this case by applying the new state to the [MiSnapView] so that the request can reach the
+         * camera.
+         */
+        binding.torchView.torchEvents.observe(viewLifecycleOwner) {
+            if (null != it) {
+                binding.misnapView.setTorchEnabled(it)
+            }
+        }
+
+        // Start the session.
+        binding.misnapView.startMiSnapSession(settings, viewLifecycleOwner) {
+            binding.recordingIconView.start()
+
+            /**
+             * Increase the number of auto or manual session retries based on the [MibiData.sessionOwner]
+             * and whether or not the fragment is being resumed.
+             */
+            if ((MibiData.sessionOwner == this::class.java.name ||
+                    MibiData.sessionOwner == MiSnapWorkflowViewModel::class.java.name) &amp;&amp; !resumed
+            ) {
+                if (settings.analysis.barcode.trigger == MiSnapSettings.Analysis.Barcode.Trigger.AUTO) {
+                    mibiDataSession.metaData.autoTries += 1
+                } else {
+                    mibiDataSession.metaData.manualTries += 1
+                }
+            }
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+
+        /**
+         * Optionally end the [MibiData] session outside of the view's lifecycle.
+         */
+        MibiData.releaseSession(this::class.java.name)
+    }
+} 
+   //sampleEnd
+}</pre></code></div></div></div>
+              <h2 class="tabbedcontent">Constructors</h2>
+              <div class="table" data-togglable="Constructors"><a data-name="790072002%2FConstructors%2F1506957492" anchor-label="HintView" id="790072002%2FConstructors%2F1506957492" data-filterable-set=":workflow:dokkaHtmlPartial/release"></a>
+                <div class="table-row" data-filterable-current=":workflow:dokkaHtmlPartial/release" data-filterable-set=":workflow:dokkaHtmlPartial/release">
+                  <div class="main-subrow keyValue TabbedContent">
+                    <div class=""><span class="inline-flex"><a href="-hint-view.html">HintView</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="790072002%2FConstructors%2F1506957492"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title">
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":workflow:dokkaHtmlPartial/release"><div class="symbol monospace"><div class="block"><div class="block">@<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.jvm/-jvm-overloads/index.html">JvmOverloads</a>()</div></div>fun <a href="-hint-view.html">HintView</a>(context: <a href="https://developer.android.com/reference/kotlin/android/content/Context.html">Context</a>, attrs: <a href="https://developer.android.com/reference/kotlin/android/util/AttributeSet.html">AttributeSet</a>? = null, <span>@<a href="https://developer.android.com/reference/kotlin/androidx/annotation/AttrRes.html">AttrRes</a>()&nbsp;</span>defStyleAttr: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a> = R.attr.hintViewStyle, <span>@<a href="https://developer.android.com/reference/kotlin/androidx/annotation/StyleRes.html">StyleRes</a>()&nbsp;</span>defStyleRes: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a> = R.style.MiSnapTheme_View_HintView)<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <h2 class="">Functions</h2>
+              <div class="table" data-togglable="Functions"><a data-name="655182366%2FFunctions%2F1506957492" anchor-label="clearText" id="655182366%2FFunctions%2F1506957492" data-filterable-set=":workflow:dokkaHtmlPartial/release"></a>
+                <div class="table-row" data-filterable-current=":workflow:dokkaHtmlPartial/release" data-filterable-set=":workflow:dokkaHtmlPartial/release">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="clear-text.html">clearText</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="655182366%2FFunctions%2F1506957492"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":workflow:dokkaHtmlPartial/release" data-filterable-set=":workflow:dokkaHtmlPartial/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":workflow:dokkaHtmlPartial/release"><div class="symbol monospace">fun <a href="clear-text.html">clearText</a>()<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+<a data-name="655182366%2FFunctions%2F1506957492" anchor-label="clearText" id="655182366%2FFunctions%2F1506957492" data-filterable-set=":workflow:dokkaHtmlPartial/release"></a><div class="brief "><a data-name="655182366%2FFunctions%2F1506957492" anchor-label="clearText" id="655182366%2FFunctions%2F1506957492" data-filterable-set=":workflow:dokkaHtmlPartial/release"></a>Clears the text contents of the view.</div></div>
+</div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="-1688144236%2FFunctions%2F1506957492" anchor-label="getAnimation" id="-1688144236%2FFunctions%2F1506957492" data-filterable-set=":workflow:dokkaHtmlPartial/release"></a>
+                <div class="table-row" data-filterable-current=":workflow:dokkaHtmlPartial/release" data-filterable-set=":workflow:dokkaHtmlPartial/release">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="get-animation.html">getAnimation</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1688144236%2FFunctions%2F1506957492"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":workflow:dokkaHtmlPartial/release" data-filterable-set=":workflow:dokkaHtmlPartial/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":workflow:dokkaHtmlPartial/release"><div class="symbol monospace">open override fun <a href="get-animation.html">getAnimation</a>(): <a href="https://developer.android.com/reference/kotlin/android/view/animation/Animation.html">Animation</a>?<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+</div>
+</div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="-1033416301%2FFunctions%2F1506957492" anchor-label="setAnimation" id="-1033416301%2FFunctions%2F1506957492" data-filterable-set=":workflow:dokkaHtmlPartial/release"></a>
+                <div class="table-row" data-filterable-current=":workflow:dokkaHtmlPartial/release" data-filterable-set=":workflow:dokkaHtmlPartial/release">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="set-animation.html">setAnimation</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1033416301%2FFunctions%2F1506957492"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":workflow:dokkaHtmlPartial/release" data-filterable-set=":workflow:dokkaHtmlPartial/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":workflow:dokkaHtmlPartial/release"><div class="symbol monospace">open override fun <a href="set-animation.html">setAnimation</a>(animation: <a href="https://developer.android.com/reference/kotlin/android/view/animation/Animation.html">Animation</a>?)<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+<a data-name="-1033416301%2FFunctions%2F1506957492" anchor-label="setAnimation" id="-1033416301%2FFunctions%2F1506957492" data-filterable-set=":workflow:dokkaHtmlPartial/release"></a><div class="brief "><a data-name="-1033416301%2FFunctions%2F1506957492" anchor-label="setAnimation" id="-1033416301%2FFunctions%2F1506957492" data-filterable-set=":workflow:dokkaHtmlPartial/release"></a>Sets the animation to be played when start() is called.</div></div>
+</div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="-1857921411%2FFunctions%2F1506957492" anchor-label="setText" id="-1857921411%2FFunctions%2F1506957492" data-filterable-set=":workflow:dokkaHtmlPartial/release"></a>
+                <div class="table-row" data-filterable-current=":workflow:dokkaHtmlPartial/release" data-filterable-set=":workflow:dokkaHtmlPartial/release">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="set-text.html">setText</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1857921411%2FFunctions%2F1506957492"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":workflow:dokkaHtmlPartial/release" data-filterable-set=":workflow:dokkaHtmlPartial/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":workflow:dokkaHtmlPartial/release"><div class="symbol monospace">open override fun <a href="set-text.html">setText</a>(newText: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html">CharSequence</a>?, type: <a href="https://developer.android.com/reference/kotlin/android/widget/TextView.BufferType.html">TextView.BufferType</a>?)<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+<a data-name="-1857921411%2FFunctions%2F1506957492" anchor-label="setText" id="-1857921411%2FFunctions%2F1506957492" data-filterable-set=":workflow:dokkaHtmlPartial/release"></a><div class="brief "><a data-name="-1857921411%2FFunctions%2F1506957492" anchor-label="setText" id="-1857921411%2FFunctions%2F1506957492" data-filterable-set=":workflow:dokkaHtmlPartial/release"></a>Updates the message to be displayed to the end user.</div></div>
+</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <h2 class="">Properties</h2>
+              <div class="table" data-togglable="Properties"><a data-name="775060008%2FProperties%2F1506957492" anchor-label="backgroundColorId" id="775060008%2FProperties%2F1506957492" data-filterable-set=":workflow:dokkaHtmlPartial/release"></a>
+                <div class="table-row" data-filterable-current=":workflow:dokkaHtmlPartial/release" data-filterable-set=":workflow:dokkaHtmlPartial/release">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="background-color-id.html">backgroundColorId</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="775060008%2FProperties%2F1506957492"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title">
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable=":workflow:dokkaHtmlPartial/release"><a data-name="775060008%2FProperties%2F1506957492" anchor-label="backgroundColorId" id="775060008%2FProperties%2F1506957492" data-filterable-set=":workflow:dokkaHtmlPartial/release"></a><div class="symbol monospace"><div class="block"><div class="block">@<a href="https://developer.android.com/reference/kotlin/androidx/annotation/ColorInt.html">ColorInt</a>()</div></div>var <a href="background-color-id.html">backgroundColorId</a>: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><a data-name="775060008%2FProperties%2F1506957492" anchor-label="backgroundColorId" id="775060008%2FProperties%2F1506957492" data-filterable-set=":workflow:dokkaHtmlPartial/release"></a>The color to display as the background of the view.</div></div></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="-1811989746%2FProperties%2F1506957492" anchor-label="duration" id="-1811989746%2FProperties%2F1506957492" data-filterable-set=":workflow:dokkaHtmlPartial/release"></a>
+                <div class="table-row" data-filterable-current=":workflow:dokkaHtmlPartial/release" data-filterable-set=":workflow:dokkaHtmlPartial/release">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="duration.html">duration</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1811989746%2FProperties%2F1506957492"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title">
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable=":workflow:dokkaHtmlPartial/release"><a data-name="-1811989746%2FProperties%2F1506957492" anchor-label="duration" id="-1811989746%2FProperties%2F1506957492" data-filterable-set=":workflow:dokkaHtmlPartial/release"></a><div class="symbol monospace">var <a href="duration.html">duration</a>: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><a data-name="-1811989746%2FProperties%2F1506957492" anchor-label="duration" id="-1811989746%2FProperties%2F1506957492" data-filterable-set=":workflow:dokkaHtmlPartial/release"></a>How long to show each hint messages in milliseconds.</div></div></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="-934242121%2FProperties%2F1506957492" anchor-label="showBackground" id="-934242121%2FProperties%2F1506957492" data-filterable-set=":workflow:dokkaHtmlPartial/release"></a>
+                <div class="table-row" data-filterable-current=":workflow:dokkaHtmlPartial/release" data-filterable-set=":workflow:dokkaHtmlPartial/release">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="show-background.html">showBackground</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-934242121%2FProperties%2F1506957492"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title">
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable=":workflow:dokkaHtmlPartial/release"><a data-name="-934242121%2FProperties%2F1506957492" anchor-label="showBackground" id="-934242121%2FProperties%2F1506957492" data-filterable-set=":workflow:dokkaHtmlPartial/release"></a><div class="symbol monospace">var <a href="show-background.html">showBackground</a>: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><a data-name="-934242121%2FProperties%2F1506957492" anchor-label="showBackground" id="-934242121%2FProperties%2F1506957492" data-filterable-set=":workflow:dokkaHtmlPartial/release"></a>Equivalent to providing the <code>app:hintViewShowBackground</code> attribute in the layout xml file.</div></div></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="footer"><span class="go-to-top-icon"><a href="#content"></a></span><span>© 2022 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span></div>
+      </div>
+    </div>
+  
+</body></html>
+
+

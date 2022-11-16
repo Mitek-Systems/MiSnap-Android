@@ -1,4 +1,4 @@
-# MiSnap SDK v5.0.0 for Android
+# MiSnap SDK v5.1.0 for Android
 
 # Table of Contents
 [Getting Started](#getting-started)
@@ -26,59 +26,35 @@
 
 ## Release Notes
 
-### **Version 5.0.0**
-
-This version is a **complete redesign** of the MiSnap SDK and is **NOT backwards compatible**.
-
-This release focuses on providing a **uniform API** throughout the different parts of the SDK, **ease of integration**, and **true opt-in behavior** for optional components. 
-
-Additionally, the MiSnap SDK for Android is now available as a **maven/gradle dependency** and requires a valid license to function. Please follow the [FAQs](#frequently-asked-questions-faqs) for more details and see the in-code documentation for the API changes.
-
-Starting with v5.0.0, the MiSnap SDK does not provide any module as source.
+### **Version 5.1.0**
 
 #### **Added**
-* [Common] Support to record a video of the session.
-* [Common] Support to seamlessly start multiple sessions.
-* [Common] Support to query the camera capabilities before starting a session.
-* [Common] Support for 1080p selfie images.
-* [Common]Support to show a manual review screen to users.
-* [Common] Dutch (nl) string translations.
-* [Common] Support for Jetpack Navigation to create custom flows.
-* [Common] Android Views for creating custom screens.
-* [Document] Support for generic documents analysis sessions.
-* [Document] Support to extract BSN (burgerservicenummer) from newer Netherlands passport templates.
-* [Barcode] x86_64 support for the barcode scanning use case.
-* [Barcode] Support for mandatory barcode extraction in addition to a good quality image.
+* [Voice] Voice biometrics have been introduced using the new `UseCase.VOICE`.  Integrators can now record a spoken phrase, perform pre-qualifying audio quality acceptance, and create a unique voice print to associate with a user. This voice print can be passed on to the `MiPass` product for multi-modality enrollment and verification.
+
+#### **Fixed**
+* [Common] SDK defined XML attributes conflicting with integrator's attributes.
+* [Analysis] Sequential sessions with different camera configurations not updating properly.
 
 #### **Modified**
-* [Common] Changed the minimum API level to 23 (Android Marshmallow).
-* [Common] Dropped the use of deprecated camera APIs in favor of CameraX.
-* [Common] Reduced the memory footprint of the SDK by roughly 15%.
-* [Common] MiSnap SDK now runs in the same process as the host app.
-* [Common] Improved the organization and discoverability of the SDK configuration options.
-* [Common] Improved the document orientation handling.
-* [Common] Improved the SDK theming (including support for light and dark themes).
-* [Common] Improved messaging when accessibility services are enabled.
-* [Document] Various non-ID documents were folded into the generic document use case.
-* [Face & NFC] Reduced the SDK footprint for face and NFC use cases.
+* [NFC] Renamed `com.miteksystems.misnap.nfc.NfcReader` to `com.miteksystems.misnap.nfc.MiSnapNfcReader`.
+* [Common] Instances of `com.miteksystems.misnap.controller.MiSnapController` must now be created with the `MiSnapController.create` factory method.
+* [Common] Server transaction utilities at `com.miteksystems.misnap.core.serverconnection` were updated to work with concrete implementations of `com.miteksystems.misnap.core.serverconnection.MiSnapTransactionResult`.
 
-#### **Removed**
-* [Common] MiSnapWorkflow UX1 and UX2 in favor of a new, unified style.
-* [Document] Support for credit cards.
+Please see [this page](documentation/change_log.md) for release notes from older releases.
 
 Please see [this page](documentation/nfc_regions_documents_supported.md) for the full list of regions and documents supported by the MiSnap SDK NFC Reader.
 
 ## SDK Size
-All sizes are download sizes for the arm64-v8a architecture.
+All sizes are download sizes for the `arm64-v8a` architecture.
 Please see [this page](documentation/download_sizes.md) for the in-depth size tables.
 <!-- SIZE_TABLE_START -->
-| Use Case                    | Download Size (MiB) | 
-| :-------------------------- | ------------------: |
-| Document                    | 5.47                | 
-| Document and Barcode        | 6.73                | 
-| Document and Face           | 12.23               | 
-| Document, Barcode, and Face | 13.49               | 
-| Document, Face, and NFC     | 15.77               | 
+| Use Case                         | Download Size (MiB) | 
+| :------------------------------- | ------------------: |
+| Document                         | 5.53                | 
+| Document and Barcode             | 6.79                | 
+| Document and Biometric           | 13.27               | 
+| Document, Barcode, and Biometric | 14.53               | 
+| Document, Biometric, and NFC     | 16.81               | 
 <!-- SIZE_TABLE_END -->
 
 ## System Requirements
@@ -88,6 +64,7 @@ Please see [this page](documentation/download_sizes.md) for the in-depth size ta
 | Android Gradle Plugin    | 4.2.2   |
 | Gradle                   | 6.7.1   |
 | Kotlin                   | 1.5.32  |
+| CameraX                  | 1.0.x   |
 | JDK                      | 11      |
 | Android min API level    | 23      |
 | Android target API level | 31      |
@@ -100,14 +77,13 @@ Please see the [devices tested](documentation/devices_tested.md) page for more d
 
 ## Known Issues
 * As the `face-analysis` module uses `Google’s MLKit` for face detection, please follow [this link](https://developers.google.com/ml-kit/known-issues) for known issues.
-* The MiSnap SDK supports `CameraX v1.0.x` and it is not compatible with higher minor versions.
 * The `minSdkVersion` used in the MiSnap SDK is not compatible with higher `jmrtd` versions. 
 
 - - - -
 
 # Migration Guide
 
-Please follow [this migration guide](documentation/migration_guide.md) to upgrade to MiSnap SDK v5.0.0 if you have an existing MiSnap SDK integration.
+Please follow [this migration guide](documentation/migration_guide.md) to upgrade to the latest SDK version if you have an existing MiSnap SDK integration.
 
 - - - -
 
@@ -155,28 +131,6 @@ Please follow these steps:
     ```
 3. Add the required dependencies as per the [Integration Guides](#integration-guides).
 
-### How to integrate the MiSnap SDK without having access to a remote Maven repository?
-The MiSnap SDK provides the `Library_Modules/maven-local-manager.sh` script for Linux/MacOS and the `Library_Modules/maven-local-manager.bat` script for Windows in the release package. Please follow the below steps:
-1. Run the appropriate script to deploy all the MiSnap SDK aar files to maven local.<br>  
-___For Linux/MacOS___:  
-a. Open a terminal in the `Library_Modules` directory.  
-b. Run the `sh maven-local-manager.sh -i` command.  <br><br>
-___For Windows___:  
-a. Open a command prompt in the `Library_Modules` directory.  
-b. Run the `maven-local-manager.bat /i` command.
-
-2. Add the following to the **project level** `build.gradle`:
-    ```groovy
-    allprojects {
-      repositories {
-        ...
-        //Please make sure that mavenLocal() is the last entry in the repositories block
-        mavenLocal()
-      }
-    }
-    ```
-3. Add the required dependencies as per the [Integration Guides](#integration-guides).
-
 ### Does the MiSnap SDK require a license to function?
 Yes, MiSnap now requires a valid license to be provided to function. Please follow the appropriate [Integration Guide](#integration-guides) and the code samples for information on how to pass a license to the SDK.
 
@@ -198,6 +152,30 @@ different hardware architectures (ABIs). No single device requires multiple ABIs
 ABIs into a single app increases its size without providing any addition functionality. This can be avoided
 by either using [App Bundles](https://developer.android.com/guide/app-bundle) 
 or by using [Apk Splits](https://developer.android.com/studio/build/configure-apk-splits#configure-abi-split).
+
+### How to integrate the MiSnap SDK without having access to a remote Maven repository?
+**NOTE**: Local maven integration requires access to the offline MiSnap SDK zip package, and will not work with the version available on Github.  Please reach out to support for access.
+
+The offline MiSnap SDK provides the `Library_Modules/maven-local-manager.sh` script for Linux/MacOS and the `Library_Modules/maven-local-manager.bat` script for Windows in the offline release package. Please follow the below steps:
+1. Run the appropriate script to deploy all the MiSnap SDK aar files to maven local.<br>  
+___For Linux/MacOS___:  
+a. Open a terminal in the `Library_Modules` directory.  
+b. Run the `sh maven-local-manager.sh -i` command.  <br><br>
+___For Windows___:  
+a. Open a command prompt in the `Library_Modules` directory.  
+b. Run the `maven-local-manager.bat /i` command.
+
+2. Add the following to the **project level** `build.gradle`:
+    ```groovy
+    allprojects {
+      repositories {
+        ...
+        //Please make sure that mavenLocal() is the last entry in the repositories block
+        mavenLocal()
+      }
+    }
+    ```
+3. Add the required dependencies as per the [Integration Guides](#integration-guides).
 
 - - - -
 

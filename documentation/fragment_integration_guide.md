@@ -1,4 +1,4 @@
-# MiSnap SDK v5.0.0 Fragment Integration Guide
+# MiSnap SDK v5.1.0 Fragment Integration Guide
 
 This guide is targeted towards developers who want to integrate the MiSnap SDK in **single-activity architecture** applications. Please see the in-code documentation for the full list of `Fragment`s available in the MiSnap SDK.
 
@@ -24,19 +24,25 @@ The easiest way to integrate the MiSnap SDK is to add the following to the integ
 ```groovy
 dependencies {
     // Use this for check + id sessions
-    implementation "com.miteksystems.misnap:document:5.0.0"
+    implementation "com.miteksystems.misnap:document:5.1.0"
 
     // Use this for barcode sessions
-    implementation "com.miteksystems.misnap:barcode:5.0.0"
+    implementation "com.miteksystems.misnap:barcode:5.1.0"
+
+    // Use this for selfie + voice sessions
+    implementation "com.miteksystems.misnap:biometric:5.1.0"
 
     // Use this for selfie sessions
-    implementation "com.miteksystems.misnap:face:5.0.0"
+    implementation "com.miteksystems.misnap:face:5.1.0"
+
+    // Use this for voice sessions
+    implementation "com.miteksystems.misnap:voice:5.1.0"
 
     // Use this for automatically getting the nfc credentials and then reading the chip
-    implementation "com.miteksystems.misnap:combined-nfc:5.0.0"
+    implementation "com.miteksystems.misnap:combined-nfc:5.1.0"
 
     // Use this for only reading the nfc chip
-    implementation "com.miteksystems.misnap:nfc:5.0.0"
+    implementation "com.miteksystems.misnap:nfc:5.1.0"
 }
 ```
 
@@ -50,10 +56,11 @@ To integrate the MiSnap SDK without having access to an external Maven server, p
 
 The MiSnap SDK provides out-of-the-box support for `Jetpack Navigation`. The `workflow` module comes with the following navigation graphs:
 
-* **barcode_session_flow** - includes the tutorial and barcode analysis screens.
-* **document_session_flow** - includes the tutorial, document analysis, failover, and review screens.
-* **face_session_flow** - includes the tutorial, face analysis, failover, and review screens.
+* **barcode_session_flow** - includes the help and barcode analysis screens.
+* **document_session_flow** - includes the help, document analysis, failover, and review screens.
+* **face_session_flow** - includes the help, face analysis, failover, and review screens.
 * **nfc_reader_flow** - includes the NFC selection, manual entry/review, and NFC reader screens.
+* **voice_session_flow** - includes the help, password phrase selection and voice analysis screens.
 
 ## Integration
 

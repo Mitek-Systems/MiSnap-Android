@@ -58,7 +58,7 @@ private class DocumentAnalysis : Fragment() {
                 MiSnapSettings.Analysis.Document.ExtractionRequirement.OPTIONAL
         }
 
-        return MiSnapController(requireContext(), misnapSettings).apply {
+        return MiSnapController.create(requireContext(), misnapSettings).apply {
             /**
              * Observe the [MiSnapController.feedbackResult] [LiveData] to handle the feedback from
              * the analyzed frames and handle them accordingly, e.g. by showing the corresponding

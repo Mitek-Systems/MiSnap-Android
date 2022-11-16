@@ -1,0 +1,261 @@
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>MiSnapVoiceProcessor</title>
+</head><body><link href="../../../../../../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../../../";</script><script src="https://unpkg.com/kotlin-playground@1" data-selector="code.runnablesample"></script><script type="text/javascript" src="../../../../scripts/sourceset_dependencies.js" async></script><link href="../../../../styles/style.css" rel="Stylesheet"><link href="../../../../styles/logo-styles.css" rel="Stylesheet"><link href="../../../../styles/jetbrains-mono.css" rel="Stylesheet"><link href="../../../../styles/main.css" rel="Stylesheet"><script type="text/javascript" src="../../../../scripts/clipboard.js" async></script><script type="text/javascript" src="../../../../scripts/navigation-loader.js" async></script><script type="text/javascript" src="../../../../scripts/platform-content-handler.js" async></script><script type="text/javascript" src="../../../../scripts/main.js" async></script>
+  
+    <div id="container">
+      <div id="leftColumn"><a href="../../../../index.html">
+            <div id="logo"></div>
+          </a>
+        <div id="paneSearch"></div>
+        <div id="sideMenu"></div>
+      </div>
+      <div id="main">
+        <script type="text/javascript" src="../../../../scripts/main.js"></script><div id="leftToggler"><span class="icon-toggler"></span></div>
+
+        <div class="main-content" id="content" pageids="voice-processor::com.miteksystems.misnap.voice/MiSnapVoiceProcessor///PointingToDeclaration//-2137502898">
+          <div class="navigation-wrapper" id="navigation-wrapper">
+            <div class="breadcrumbs"><a href="../../../index.html">voice-processor</a>/<a href="../index.html">com.miteksystems.misnap.voice</a>/<a href="index.html">MiSnapVoiceProcessor</a></div>
+            <div class="pull-right d-flex">
+              <div id="searchBar"></div>
+            </div>
+          </div>
+          <div class="cover ">
+            <h1 class="cover"><span>Mi</span><wbr><span>Snap</span><wbr><span>Voice</span><wbr><span>Processor</span></h1>
+            <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":voice-processor:dokkaHtmlPartial/release"><div class="symbol monospace">class <a href="index.html">MiSnapVoiceProcessor</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><p class="paragraph">Records and analyzes audio with evaluations to determine its quality.</p></div></div>
+          </div>
+          <div class="tabbedcontent">
+            <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="Types">Types</button><button class="section-tab" data-togglable="Constructors">Constructors</button><button class="section-tab" data-togglable="Functions">Functions</button><button class="section-tab" data-togglable="Properties">Properties</button><button class="section-tab" data-togglable="Samples">Samples</button></div>
+            <div class="tabs-section-body">
+              <h2 class="">Samples</h2>
+              <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Samples"><div class="content sourceset-depenent-content" data-active="" data-togglable=":voice-processor:dokkaHtmlPartial/release"><div class="sample-container"><code class="runnablesample monospace" theme="idea"><pre>import android.os.Bundle
+import android.view.View
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.LiveData
+import com.miteksystems.misnap.core.MiSnapSettings
+import com.miteksystems.misnap.core.MibiData
+import com.miteksystems.misnap.voice.MiSnapVoiceProcessor
+fun main() { 
+   //sampleStart 
+   private class VoiceRecord : Fragment() {
+    private val license = "your_sdk_license"
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        /**
+         * Configure a [MiSnapSettings] object with the appropriate step to start voice record and analysis.
+         *
+         */
+        val misnapSettings = MiSnapSettings(MiSnapSettings.UseCase.VOICE, license).apply {
+            // Please see MiSnapSettings.Voice.Flow for full list of options.
+            voice.flow = MiSnapSettings.Voice.Flow.ENROLLMENT
+        }
+
+        /**
+         * Optionally define a [MibiData] session outside of the reader's lifecycle.
+         */
+        MibiData.startSession(this::class.java.name, misnapSettings)
+
+        /**
+         * Observe the [MiSnapVoiceProcessor.events] [LiveData] to receive an events for each sample
+         * sent by the audio recorder.
+         *
+         * @see [MiSnapVoiceProcessor.Event] for more details.
+         */
+        MiSnapVoiceProcessor(requireContext(), misnapSettings).apply {
+            events.observe(viewLifecycleOwner) { event -&gt;
+                // Can use event.amplitude to visualize audio being sampled and analyzed.
+            }
+
+            /**
+             * Observe the [MiSnapVoiceProcessor.result] [LiveData] to receive an [MiSnapVoiceProcessor.Result]
+             * indicating voice recording status.
+             * @see [MiSnapVoiceProcessor.Result] for full list of possible emitted events.
+             */
+            result.observe(viewLifecycleOwner) { result -&gt;
+                val hasAllRecordings = true
+                when (result) {
+                    is MiSnapVoiceProcessor.Result.Success -&gt; {
+                        if (hasAllRecordings) {
+                            /**
+                             * Releases all held up resources.
+                             */
+                            release()
+                        } else {
+                            /**
+                             * Starts new voice recording.
+                             */
+                            start(newAudio = true)
+                        }
+                    }
+                    is MiSnapVoiceProcessor.Result.Failure -&gt; {
+                        /**
+                         * Handle failure result.
+                         */
+                        cancel()
+                    }
+                }
+            }
+        }.also {
+            /**
+             * Start voice recording and analysis.
+             */
+            it.start()
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+
+        /**
+         * Optionally end the [MibiData] session outside of the reader's lifecycle.
+         */
+        MibiData.releaseSession(this::class.java.name)
+    }
+} 
+   //sampleEnd
+}</pre></code></div></div></div>
+              <h2 class="tabbedcontent">Constructors</h2>
+              <div class="table" data-togglable="Constructors"><a data-name="-879835097%2FConstructors%2F-2137502898" anchor-label="MiSnapVoiceProcessor" id="-879835097%2FConstructors%2F-2137502898" data-filterable-set=":voice-processor:dokkaHtmlPartial/release"></a>
+                <div class="table-row" data-filterable-current=":voice-processor:dokkaHtmlPartial/release" data-filterable-set=":voice-processor:dokkaHtmlPartial/release">
+                  <div class="main-subrow keyValue TabbedContent">
+                    <div class=""><span class="inline-flex"><a href="-mi-snap-voice-processor.html">MiSnapVoiceProcessor</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-879835097%2FConstructors%2F-2137502898"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title">
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":voice-processor:dokkaHtmlPartial/release"><div class="symbol monospace">fun <a href="-mi-snap-voice-processor.html">MiSnapVoiceProcessor</a>(context: <a href="https://developer.android.com/reference/kotlin/android/content/Context.html">Context</a>, settings: <a href="../../../../core/core/com.miteksystems.misnap.core/-mi-snap-settings/index.html">MiSnapSettings</a>)<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <h2 class="">Types</h2>
+              <div class="table" data-togglable="Types"><a data-name="-1171989483%2FClasslikes%2F-2137502898" anchor-label="Event" id="-1171989483%2FClasslikes%2F-2137502898" data-filterable-set=":voice-processor:dokkaHtmlPartial/release"></a>
+                <div class="table-row" data-filterable-current=":voice-processor:dokkaHtmlPartial/release" data-filterable-set=":voice-processor:dokkaHtmlPartial/release">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="-event/index.html">Event</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1171989483%2FClasslikes%2F-2137502898"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":voice-processor:dokkaHtmlPartial/release" data-filterable-set=":voice-processor:dokkaHtmlPartial/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":voice-processor:dokkaHtmlPartial/release"><div class="symbol monospace">data class <a href="-event/index.html">Event</a>(amplitude: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a>)<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+<a data-name="-1171989483%2FClasslikes%2F-2137502898" anchor-label="Event" id="-1171989483%2FClasslikes%2F-2137502898" data-filterable-set=":voice-processor:dokkaHtmlPartial/release"></a><div class="brief "><a data-name="-1171989483%2FClasslikes%2F-2137502898" anchor-label="Event" id="-1171989483%2FClasslikes%2F-2137502898" data-filterable-set=":voice-processor:dokkaHtmlPartial/release"></a>Event object for each audio recording sample.</div></div>
+</div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="-1721620170%2FClasslikes%2F-2137502898" anchor-label="Result" id="-1721620170%2FClasslikes%2F-2137502898" data-filterable-set=":voice-processor:dokkaHtmlPartial/release"></a>
+                <div class="table-row" data-filterable-current=":voice-processor:dokkaHtmlPartial/release" data-filterable-set=":voice-processor:dokkaHtmlPartial/release">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="-result/index.html">Result</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1721620170%2FClasslikes%2F-2137502898"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":voice-processor:dokkaHtmlPartial/release" data-filterable-set=":voice-processor:dokkaHtmlPartial/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":voice-processor:dokkaHtmlPartial/release"><div class="symbol monospace">sealed class <a href="-result/index.html">Result</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+<a data-name="-1721620170%2FClasslikes%2F-2137502898" anchor-label="Result" id="-1721620170%2FClasslikes%2F-2137502898" data-filterable-set=":voice-processor:dokkaHtmlPartial/release"></a><div class="brief "><a data-name="-1721620170%2FClasslikes%2F-2137502898" anchor-label="Result" id="-1721620170%2FClasslikes%2F-2137502898" data-filterable-set=":voice-processor:dokkaHtmlPartial/release"></a>Result object from audio recording analysis.</div></div>
+</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <h2 class="">Functions</h2>
+              <div class="table" data-togglable="Functions"><a data-name="1425951492%2FFunctions%2F-2137502898" anchor-label="cancel" id="1425951492%2FFunctions%2F-2137502898" data-filterable-set=":voice-processor:dokkaHtmlPartial/release"></a>
+                <div class="table-row" data-filterable-current=":voice-processor:dokkaHtmlPartial/release" data-filterable-set=":voice-processor:dokkaHtmlPartial/release">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="cancel.html">cancel</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1425951492%2FFunctions%2F-2137502898"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":voice-processor:dokkaHtmlPartial/release" data-filterable-set=":voice-processor:dokkaHtmlPartial/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":voice-processor:dokkaHtmlPartial/release"><div class="symbol monospace">fun <a href="cancel.html">cancel</a>()<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+<a data-name="1425951492%2FFunctions%2F-2137502898" anchor-label="cancel" id="1425951492%2FFunctions%2F-2137502898" data-filterable-set=":voice-processor:dokkaHtmlPartial/release"></a><div class="brief "><a data-name="1425951492%2FFunctions%2F-2137502898" anchor-label="cancel" id="1425951492%2FFunctions%2F-2137502898" data-filterable-set=":voice-processor:dokkaHtmlPartial/release"></a>Cancels the current audio recording and analysis resetting the internal state.</div></div>
+</div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="-67872459%2FFunctions%2F-2137502898" anchor-label="release" id="-67872459%2FFunctions%2F-2137502898" data-filterable-set=":voice-processor:dokkaHtmlPartial/release"></a>
+                <div class="table-row" data-filterable-current=":voice-processor:dokkaHtmlPartial/release" data-filterable-set=":voice-processor:dokkaHtmlPartial/release">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="release.html">release</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-67872459%2FFunctions%2F-2137502898"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":voice-processor:dokkaHtmlPartial/release" data-filterable-set=":voice-processor:dokkaHtmlPartial/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":voice-processor:dokkaHtmlPartial/release"><div class="symbol monospace">fun <a href="release.html">release</a>()<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+<a data-name="-67872459%2FFunctions%2F-2137502898" anchor-label="release" id="-67872459%2FFunctions%2F-2137502898" data-filterable-set=":voice-processor:dokkaHtmlPartial/release"></a><div class="brief "><a data-name="-67872459%2FFunctions%2F-2137502898" anchor-label="release" id="-67872459%2FFunctions%2F-2137502898" data-filterable-set=":voice-processor:dokkaHtmlPartial/release"></a>Cancels the current session and frees any held resources.</div></div>
+</div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="419745471%2FFunctions%2F-2137502898" anchor-label="start" id="419745471%2FFunctions%2F-2137502898" data-filterable-set=":voice-processor:dokkaHtmlPartial/release"></a>
+                <div class="table-row" data-filterable-current=":voice-processor:dokkaHtmlPartial/release" data-filterable-set=":voice-processor:dokkaHtmlPartial/release">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="start.html">start</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="419745471%2FFunctions%2F-2137502898"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":voice-processor:dokkaHtmlPartial/release" data-filterable-set=":voice-processor:dokkaHtmlPartial/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":voice-processor:dokkaHtmlPartial/release"><div class="symbol monospace"><div class="block"><div class="block">@<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.jvm/-jvm-overloads/index.html">JvmOverloads</a>()</div></div>fun <a href="start.html">start</a>(newAudio: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a> = false)<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+<a data-name="419745471%2FFunctions%2F-2137502898" anchor-label="start" id="419745471%2FFunctions%2F-2137502898" data-filterable-set=":voice-processor:dokkaHtmlPartial/release"></a><div class="brief "><a data-name="419745471%2FFunctions%2F-2137502898" anchor-label="start" id="419745471%2FFunctions%2F-2137502898" data-filterable-set=":voice-processor:dokkaHtmlPartial/release"></a>Starts the audio recording and analysis.</div></div>
+</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <h2 class="">Properties</h2>
+              <div class="table" data-togglable="Properties"><a data-name="-623412923%2FProperties%2F-2137502898" anchor-label="events" id="-623412923%2FProperties%2F-2137502898" data-filterable-set=":voice-processor:dokkaHtmlPartial/release"></a>
+                <div class="table-row" data-filterable-current=":voice-processor:dokkaHtmlPartial/release" data-filterable-set=":voice-processor:dokkaHtmlPartial/release">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="events.html">events</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-623412923%2FProperties%2F-2137502898"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title">
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable=":voice-processor:dokkaHtmlPartial/release"><a data-name="-623412923%2FProperties%2F-2137502898" anchor-label="events" id="-623412923%2FProperties%2F-2137502898" data-filterable-set=":voice-processor:dokkaHtmlPartial/release"></a><div class="symbol monospace">val <a href="events.html">events</a>: <a href="https://developer.android.com/reference/kotlin/androidx/lifecycle/LiveData.html">LiveData</a>&lt;<a href="-event/index.html">MiSnapVoiceProcessor.Event</a>&gt;<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><a data-name="-623412923%2FProperties%2F-2137502898" anchor-label="events" id="-623412923%2FProperties%2F-2137502898" data-filterable-set=":voice-processor:dokkaHtmlPartial/release"></a><a href="https://developer.android.com/reference/kotlin/androidx/lifecycle/LiveData.html">LiveData</a> object that emits the events of an analyzed audio recording sample.</div></div></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="-291979583%2FProperties%2F-2137502898" anchor-label="result" id="-291979583%2FProperties%2F-2137502898" data-filterable-set=":voice-processor:dokkaHtmlPartial/release"></a>
+                <div class="table-row" data-filterable-current=":voice-processor:dokkaHtmlPartial/release" data-filterable-set=":voice-processor:dokkaHtmlPartial/release">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="result.html">result</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-291979583%2FProperties%2F-2137502898"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title">
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable=":voice-processor:dokkaHtmlPartial/release"><a data-name="-291979583%2FProperties%2F-2137502898" anchor-label="result" id="-291979583%2FProperties%2F-2137502898" data-filterable-set=":voice-processor:dokkaHtmlPartial/release"></a><div class="symbol monospace">val <a href="result.html">result</a>: <a href="https://developer.android.com/reference/kotlin/androidx/lifecycle/LiveData.html">LiveData</a>&lt;<a href="-result/index.html">MiSnapVoiceProcessor.Result</a>&gt;<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><a data-name="-291979583%2FProperties%2F-2137502898" anchor-label="result" id="-291979583%2FProperties%2F-2137502898" data-filterable-set=":voice-processor:dokkaHtmlPartial/release"></a><a href="https://developer.android.com/reference/kotlin/androidx/lifecycle/LiveData.html">LiveData</a> object that emits the results or errors of an analyzed audio recording.</div></div></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="footer"><span class="go-to-top-icon"><a href="#content"></a></span><span>© 2022 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span></div>
+      </div>
+    </div>
+  
+</body></html>
+
+

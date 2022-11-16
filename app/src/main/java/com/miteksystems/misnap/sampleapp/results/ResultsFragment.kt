@@ -1,7 +1,6 @@
 package com.miteksystems.misnap.sampleapp.results
 
 import android.os.Bundle
-import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
@@ -13,7 +12,6 @@ import com.miteksystems.misnap.workflow.MiSnapWorkflowStep
 import com.miteksystems.misnap.workflow.util.ViewBindingUtil
 import com.miteksystems.misnap.R
 import com.miteksystems.misnap.databinding.FragmentResultsRootBinding
-import kotlinx.serialization.json.Json
 import org.json.JSONException
 import org.json.JSONObject
 
@@ -24,18 +22,16 @@ class ResultsFragment : Fragment(R.layout.fragment_results_root) {
     )
     private val sampleAppViewModel by lazy { ViewModelProvider(requireActivity())[SampleAppViewModel::class.java] }
 
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onResume() {
+        super.onResume()
 
         binding.continueButton.setOnClickListener {
             findNavController().navigate(R.id.navigateContinue)
         }
 
-        binding.viewPager.adapter = FragmentResultsPagerAdapter(parentFragmentManager)
+        binding.viewPager.adapter = FragmentResultsPagerAdapter(childFragmentManager)
         binding.tabLayout.setupWithViewPager(binding.viewPager)
     }
-
 
     private inner class FragmentResultsPagerAdapter(fm: FragmentManager) :
         FragmentStatePagerAdapter(fm) {
@@ -72,6 +68,9 @@ class ResultsFragment : Fragment(R.layout.fragment_results_root) {
                         }
                         is MiSnapFinalResult.NfcSession -> {
                             getUseCaseName(misnapResult.mibiData)
+                        }
+                        is MiSnapFinalResult.VoiceSession -> {
+                            getUseCaseName(misnapResult.mibiData.first())
                         }
                     }
                 }
@@ -116,8 +115,23 @@ class ResultsFragment : Fragment(R.layout.fragment_results_root) {
                 MiSnapSettings.UseCase.NFC -> {
                     getString(R.string.misnapSampleAppResultsUseCaseNfcTabTitle)
                 }
+                MiSnapSettings.UseCase.VOICE -> {
+                    getString(R.string.misnapSampleAppResultsUseCaseVoiceTabTitle)
+                }
             }
         } catch (e: JSONException) {
             getString(R.string.misnapSampleAppResultsUseCaseUnknownTabTitle)
         }
+
+    override fun onStop() {
+        super.onStop()
+        cleanup()
+    }
+
+    private fun cleanup() {
+        binding.viewPager.removeAllViews()
+        binding.tabLayout.removeAllTabs()
+        binding.continueButton.setOnClickListener(null)
+        binding.viewPager.clearOnPageChangeListeners()
+    }
 }

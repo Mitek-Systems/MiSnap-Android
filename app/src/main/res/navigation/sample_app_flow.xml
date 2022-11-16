@@ -8,6 +8,7 @@
     <include app:graph="@navigation/barcode_session_flow" />
     <include app:graph="@navigation/nfc_reader_flow" />
     <include app:graph="@navigation/face_session_flow" />
+    <include app:graph="@navigation/voice_session_flow" />
 
     <fragment
         android:id="@+id/demoFragment"
@@ -16,27 +17,32 @@
         <action
             android:id="@+id/navigateDocumentSession"
             app:destination="@id/documentSessionFlow"
-            app:popUpTo="@id/demoFragment"/>
+            app:popUpTo="@id/demoFragment" />
 
         <action
             android:id="@+id/navigateBarcodeSession"
             app:destination="@id/barcodeSessionFlow"
-            app:popUpTo="@id/demoFragment"/>
+            app:popUpTo="@id/demoFragment" />
 
         <action
             android:id="@+id/navigateNfcRead"
             app:destination="@id/nfcReaderFlow"
-            app:popUpTo="@id/demoFragment"/>
+            app:popUpTo="@id/demoFragment" />
 
         <action
             android:id="@+id/navigateFaceSession"
             app:destination="@id/faceSessionFlow"
-            app:popUpTo="@id/demoFragment"/>
+            app:popUpTo="@id/demoFragment" />
+
+        <action
+            android:id="@+id/navigateVoiceSession"
+            app:destination="@id/voiceSessionFlow"
+            app:popUpTo="@id/demoFragment" />
 
         <action
             android:id="@+id/navigateSettings"
             app:destination="@id/settingsFragment"
-            app:popUpTo="@id/demoFragment"/>
+            app:popUpTo="@id/demoFragment" />
 
     </fragment>
 
@@ -50,25 +56,31 @@
             android:id="@+id/navigateDocumentSession"
             app:destination="@id/documentSessionFlow"
             app:popUpTo="@id/settingsFragment"
-            app:popUpToInclusive="true"/>
+            app:popUpToInclusive="true" />
 
         <action
             android:id="@+id/navigateBarcodeSession"
             app:destination="@id/barcodeSessionFlow"
             app:popUpTo="@id/settingsFragment"
-            app:popUpToInclusive="true"/>
+            app:popUpToInclusive="true" />
 
         <action
             android:id="@+id/navigateFaceSession"
             app:destination="@id/faceSessionFlow"
             app:popUpTo="@id/settingsFragment"
-            app:popUpToInclusive="true"/>
+            app:popUpToInclusive="true" />
 
         <action
             android:id="@+id/navigateNfcRead"
             app:destination="@id/nfcReaderFlow"
             app:popUpTo="@id/settingsFragment"
-            app:popUpToInclusive="true"/>
+            app:popUpToInclusive="true" />
+
+        <action
+            android:id="@+id/navigateVoiceSession"
+            app:destination="@id/voiceSessionFlow"
+            app:popUpTo="@id/settingsFragment"
+            app:popUpToInclusive="true" />
 
     </fragment>
 

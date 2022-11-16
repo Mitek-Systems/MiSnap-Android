@@ -1,4 +1,4 @@
-# MiSnap SDK v5.0.0 Science Integration Guide
+# MiSnap SDK v5.1.0 Science Integration Guide
 
 This guide is targeted towards customers who want to integrate **MiSnap's base processing** without the default workflow shipped with the MiSnap SDK.
 
@@ -7,8 +7,12 @@ This guide is targeted towards customers who want to integrate **MiSnap's base p
 * [Dependencies](#dependencies)
 * [Starting Image Analysis](#starting-image-analysis)
 
-[NFC Reading](#nfc-reading)
+[Voice Processing](#voice-processing)
 * [Dependencies](#dependencies-1)
+* [Starting Voice Processing](#starting-voice-processing)
+
+[NFC Reading](#nfc-reading)
+* [Dependencies](#dependencies-2)
 * [Start Reading NFC](#start-reading-nfc)
 
 - - - - 
@@ -24,19 +28,19 @@ Developers can, however, choose to integrate the science modules alone, but in d
 The easiest way to integrate document, face, or barcode analysis is to add the following to the integrating module's `build.gradle`:
 ```groovy
 dependencies {
-    implementation "com.miteksystems.misnap:controller:5.0.0"
+    implementation "com.miteksystems.misnap:controller:5.1.0"
 
     // Optional barcode analysis dependency
-    implementation "com.miteksystems.misnap:barcode-analysis:5.0.0"
+    implementation "com.miteksystems.misnap:barcode-analysis:5.1.0"
 
     // Optional document analysis dependency
-    implementation "com.miteksystems.misnap:document-analysis:5.0.0"
+    implementation "com.miteksystems.misnap:document-analysis:5.1.0"
 
     // Optional face analysis dependency
-    implementation "com.miteksystems.misnap:face-analysis:5.0.0"
+    implementation "com.miteksystems.misnap:face-analysis:5.1.0"
 
     // Optional MRZ detector dependency
-    implementation "com.miteksystems.misnap:feature-detector:5.0.0"
+    implementation "com.miteksystems.misnap:feature-detector:5.1.0"
 }
 ```
 
@@ -58,16 +62,44 @@ Please see `examples/science/DocumentAnalysis.kt`, `examples/science/FaceAnalysi
 
 - - - -
 
+# Voice Processing
+
+Voice sessions don't go through the `MiSnapController` as they don't require a camera frame to work. Hence, the `voice-processor` module can directly be integrated into the customer's application without the `controller` module.
+
+## Dependencies
+
+The easiest way to integrate voice processing is to add the following to the integrating module's `build.gradle`:
+```groovy
+dependencies {
+    implementation "com.miteksystems.misnap:voice-processor:5.1.0"
+}
+```
+
+To integrate the MiSnap SDK without having access to an external Maven server, please see [this FAQ](../README.md#how-to-integrate-the-misnap-sdk-without-having-access-to-a-remote-maven-repository).
+
+## Starting Voice Processing
+
+1. Create a `MiSnapSettings` instance with the use case `UseCase.VOICE` and a valid MiSnap license.  Additionally, specify the `MiSnapSettings.Voice.Flow` for this session.
+
+2. Create a `MiSnapVoiceProcessor` instance with the `MiSnapSettings` from the previous step.
+
+3. Register to listen for `LiveData` updates for `MiSnapVoiceProcessor.events` and `MiSnapVoiceProcessor.results`.
+
+Please see `examples/science/VoiceRecord.kt` for the full code sample.
+
+Please see the in-code documentation for more details and the full API.
+- - - -
+
 # NFC Reading
 
-NFC sessions don't go through the `MiSnapController` as it doesn't require a camera frame to work. Hence, the `nfc-reader` module can directly be integrated into the customer's application without the `controller` module.
+NFC sessions don't go through the `MiSnapController` as they don't require a camera frame to work. Hence, the `nfc-reader` module can directly be integrated into the customer's application without the `controller` module.
 
 ## Dependencies
 
 The easiest way to integrate NFC reading is to add the following to the integrating module's `build.gradle`:
 ```groovy
 dependencies {
-    implementation "com.miteksystems.misnap:nfc-reader:5.0.0"
+    implementation "com.miteksystems.misnap:nfc-reader:5.1.0"
 }
 ```
 
@@ -77,11 +109,11 @@ To integrate the MiSnap SDK without having access to an external Maven server, p
 
 1. Create a `MiSnapSettings` instance with the use case `UseCase.NFC` and a valid MiSnap license, and configure it with the appropriate `Mrz`; use `MrzData` for Passports and ID cards (including Resident Permits), use `Mrz1Line` for European Union Driver's Licenses.
 
-2. Create an `NfcReader` instance with the `MiSnapSettings` from the previous step.
+2. Create a `MiSnapNfcReader` instance with the `MiSnapSettings` from the previous step.
 
-3. Register to listen for `LiveData` updates for `NfcReader.events`, `NfcReader.completedEvent`, and `NfcReader.errorEvents`.
+3. Register to listen for `LiveData` updates for `MiSnapNfcReader.events`, `MiSnapNfcReader.completedEvent`, and `MiSnapNfcReader.errorEvents`.
 
-4. Call `NfcReader.start()` by passing an `Activity` and the `MiSnapSettings` from step 1. The appropriate `LiveData`s will start receiving updates during the reading process. 
+4. Call `MiSnapNfcReader.start()` by passing an `Activity` and the `MiSnapSettings` from step 1. The appropriate `LiveData`s will start receiving updates during the reading process. 
 
 
 Please see `examples/science/NfcRead.kt` for the full code sample.

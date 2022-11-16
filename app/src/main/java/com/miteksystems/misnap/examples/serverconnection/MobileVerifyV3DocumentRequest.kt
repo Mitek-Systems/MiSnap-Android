@@ -44,7 +44,7 @@ class MobileVerifyV3DocumentRequestActivity : AppCompatActivity() {
                         when (it.result) {
                             is MiSnapFinalResult.DocumentSession, is MiSnapFinalResult.BarcodeSession -> {
                                 // Add the barcode and/or document session results.
-                                request.addDocumentResult(it.result.toServerResult())
+                                request.addDocumentResult(it.result.toServerResult() as MiSnapTransactionResult.DocumentResult)
                             }
                         }
                     }

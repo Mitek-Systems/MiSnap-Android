@@ -52,9 +52,9 @@ class MiSnapVideoView @JvmOverloads constructor(
     // mTargetState is the state that a method caller intends to reach.
     // For instance, regardless the VideoView object's current state,
     // calling pause() intends to bring the object to a target state
-    // of STATE_PAUSED.
-    private var mCurrentState = STATE_IDLE
-    private var mTargetState = STATE_IDLE
+    // of MediaPlayerState.PAUSED.
+    private var mCurrentState = MediaPlayerState.IDLE
+    private var mTargetState = MediaPlayerState.IDLE
 
     // All the stuff we need for playing and showing a video
     private var mSurfaceHolder: SurfaceHolder? = null
@@ -84,7 +84,7 @@ class MiSnapVideoView @JvmOverloads constructor(
     private var mCanSeekBack = false
     private var mCanSeekForward = false
     private var mPreparedListener = OnPreparedListener { mediaPlayer ->
-        mCurrentState = STATE_PREPARED
+        mCurrentState = MediaPlayerState.PREPARED
         // Get the capabilities of the player for this stream
         mCanSeekForward = true
         mCanSeekBack = mCanSeekForward
@@ -105,20 +105,20 @@ class MiSnapVideoView @JvmOverloads constructor(
                 // We didn't actually change the size (it was already at the size
                 // we need), so we won't get a "surface changed" callback, so
                 // start the video here instead of in the callback.
-                if (mTargetState == STATE_PLAYING) {
+                if (mTargetState == MediaPlayerState.PLAYING) {
                     start()
-                    mMediaController?.show()
+                    showMediaControls()
                 } else if (!isPlaying &&
                     (seekToPosition != 0 || currentPosition > 0)
                 ) {
                     // Show the media controls when we're paused into a video and make 'em stick.
-                    mMediaController?.show(0)
+                    showMediaControls(0)
                 }
             }
         } else {
             // We don't know the video size yet, but should start anyway.
             // The video size might be reported to us later.
-            if (mTargetState == STATE_PLAYING) {
+            if (mTargetState == MediaPlayerState.PLAYING) {
                 start()
             }
         }
@@ -128,8 +128,8 @@ class MiSnapVideoView @JvmOverloads constructor(
     private var mAudioFocusType = AudioManager.AUDIOFOCUS_GAIN // legacy focus gain
     private var mAudioAttributes: AudioAttributes
     private val mCompletionListener = OnCompletionListener {
-        mCurrentState = STATE_PLAYBACK_COMPLETED
-        mTargetState = STATE_PLAYBACK_COMPLETED
+        mCurrentState = MediaPlayerState.PLAYBACK_COMPLETED
+        mTargetState = MediaPlayerState.PLAYBACK_COMPLETED
         mMediaController?.hide()
         mOnCompletionListener?.onCompletion(mMediaPlayer)
     }
@@ -141,8 +141,8 @@ class MiSnapVideoView @JvmOverloads constructor(
     private val mErrorListener =
         OnErrorListener { _, framework_err, impl_err ->
             Log.d(TAG, "Error: $framework_err,$impl_err")
-            mCurrentState = STATE_ERROR
-            mTargetState = STATE_ERROR
+            mCurrentState = MediaPlayerState.ERROR
+            mTargetState = MediaPlayerState.ERROR
             mMediaController?.hide()
 
             /* If an error handler has been supplied, use it and finish. */
@@ -165,7 +165,8 @@ class MiSnapVideoView @JvmOverloads constructor(
                     }
                 AlertDialog.Builder(getContext())
                     .setMessage(message)
-                    .setPositiveButton("Exit"
+                    .setPositiveButton(
+                        "Exit"
                     ) { _, _ ->
                         /* If we get here, there is no onError listener, so
                          * at least inform them that the video is over.
@@ -189,7 +190,7 @@ class MiSnapVideoView @JvmOverloads constructor(
         ) {
             mSurfaceWidth = width
             mSurfaceHeight = height
-            val isValidState = mTargetState == STATE_PLAYING
+            val isValidState = mTargetState == MediaPlayerState.PLAYING
             val hasValidSize = mVideoWidth == width && mVideoHeight == height
             if (mMediaPlayer != null && isValidState && hasValidSize) {
                 if (mSeekWhenPrepared != 0) {
@@ -209,6 +210,9 @@ class MiSnapVideoView @JvmOverloads constructor(
             mSurfaceHolder = null
             mMediaController?.hide()
             release(true)
+            mMediaController?.setOnClickListener(null)
+            mMediaController = null
+
         }
     }
 
@@ -219,8 +223,8 @@ class MiSnapVideoView @JvmOverloads constructor(
         isFocusable = true
         isFocusableInTouchMode = true
         requestFocus()
-        mCurrentState = STATE_IDLE
-        mTargetState = STATE_IDLE
+        mCurrentState = MediaPlayerState.IDLE
+        mTargetState = MediaPlayerState.IDLE
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
@@ -370,8 +374,8 @@ class MiSnapVideoView @JvmOverloads constructor(
             mMediaPlayer!!.stop()
             mMediaPlayer!!.release()
             mMediaPlayer = null
-            mCurrentState = STATE_IDLE
-            mTargetState = STATE_IDLE
+            mCurrentState = MediaPlayerState.IDLE
+            mTargetState = MediaPlayerState.IDLE
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 AudioFocusRequest.Builder(mAudioFocusType).build()?.let {
                     mAudioManager.abandonAudioFocusRequest(it)
@@ -388,15 +392,15 @@ class MiSnapVideoView @JvmOverloads constructor(
         // we shouldn't clear the target state, because somebody might have
         // called start() previously
         release(false)
-//        //TODO what even is this API
+//        //TODO: what even is this API
 //        if (mAudioFocusType != AudioManager.AUDIOFOCUS_NONE) {
-//           // TODO this should have a focus listener
+//           // TODO: this should have a focus listener
 //            mAudioManager.requestAudioFocus(null, mAudioAttributes, mAudioFocusType, 0 /*flags*/);
 //        }
         try {
             mMediaPlayer = MediaPlayer()
             // TODO: create SubtitleController in MediaPlayer, but we need
-            // a context for the subtitle renderers
+            //  a context for the subtitle renderers
             val context = context
             if (mAudioSession != 0) {
                 mMediaPlayer!!.audioSessionId = mAudioSession
@@ -420,20 +424,24 @@ class MiSnapVideoView @JvmOverloads constructor(
             mMediaPlayer!!.prepareAsync()
             // we don't set the target state here either, but preserve the
             // target state that was there before.
-            mCurrentState = STATE_PREPARING
+            mCurrentState = MediaPlayerState.PREPARING
             attachMediaController()
         } catch (exception: IOException) {
-            Log.w(TAG,
-                "Unable to open content: $mUri", exception)
-            mCurrentState = STATE_ERROR
-            mTargetState = STATE_ERROR
+            Log.w(
+                TAG,
+                "Unable to open content: $mUri", exception
+            )
+            mCurrentState = MediaPlayerState.ERROR
+            mTargetState = MediaPlayerState.ERROR
             mErrorListener.onError(mMediaPlayer, MEDIA_ERROR_UNKNOWN, 0)
             return
         } catch (ex: IllegalArgumentException) {
-            Log.w(TAG,
-                "Unable to open content: $mUri", ex)
-            mCurrentState = STATE_ERROR
-            mTargetState = STATE_ERROR
+            Log.w(
+                TAG,
+                "Unable to open content: $mUri", ex
+            )
+            mCurrentState = MediaPlayerState.ERROR
+            mTargetState = MediaPlayerState.ERROR
             mErrorListener.onError(mMediaPlayer, MEDIA_ERROR_UNKNOWN, 0)
             return
         } finally {
@@ -507,9 +515,9 @@ class MiSnapVideoView @JvmOverloads constructor(
             mMediaPlayer!!.release()
             mMediaPlayer = null
             mPendingSubtitleTracks.clear()
-            mCurrentState = STATE_IDLE
+            mCurrentState = MediaPlayerState.IDLE
             if (clearTargetState) {
-                mTargetState = STATE_IDLE
+                mTargetState = MediaPlayerState.IDLE
             }
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -551,7 +559,7 @@ class MiSnapVideoView @JvmOverloads constructor(
                 -> {
                     if (mMediaPlayer!!.isPlaying) {
                         pause()
-                        mMediaController!!.show()
+                        showMediaControls()
                     } else {
                         start()
                         mMediaController!!.hide()
@@ -571,7 +579,7 @@ class MiSnapVideoView @JvmOverloads constructor(
                 -> {
                     if (mMediaPlayer!!.isPlaying) {
                         pause()
-                        mMediaController!!.show()
+                        showMediaControls()
                     }
                     return true
                 }
@@ -584,30 +592,38 @@ class MiSnapVideoView @JvmOverloads constructor(
         return super.onKeyDown(keyCode, event)
     }
 
+    // 3000 is the default timeout in MediaController.sDefaultTimeout
+    private fun showMediaControls(timeout: Int = 3000) {
+        kotlin.runCatching {
+            mMediaController?.show(timeout)
+        }
+    }
+
     private fun toggleMediaControlsVisibility() {
         if (mMediaController!!.isShowing) {
             mMediaController!!.hide()
         } else {
-            mMediaController!!.show()
+            showMediaControls()
         }
     }
 
     override fun start() {
         if (isInPlaybackState) {
             mMediaPlayer!!.start()
-            mCurrentState = STATE_PLAYING
+            showMediaControls()
+            mCurrentState = MediaPlayerState.PLAYING
         }
-        mTargetState = STATE_PLAYING
+        mTargetState = MediaPlayerState.PLAYING
     }
 
     override fun pause() {
         if (isInPlaybackState) {
             if (mMediaPlayer!!.isPlaying) {
                 mMediaPlayer!!.pause()
-                mCurrentState = STATE_PAUSED
+                mCurrentState = MediaPlayerState.PAUSED
             }
         }
-        mTargetState = STATE_PAUSED
+        mTargetState = MediaPlayerState.PAUSED
     }
 
     fun suspend() {
@@ -631,6 +647,10 @@ class MiSnapVideoView @JvmOverloads constructor(
     }
 
     override fun seekTo(msec: Int) {
+        if (!SEEKBAR_ENABLED) {
+            return
+        }
+
         mSeekWhenPrepared = if (isInPlaybackState) {
             mMediaPlayer!!.seekTo(msec)
             0
@@ -650,18 +670,18 @@ class MiSnapVideoView @JvmOverloads constructor(
     }
 
     private val isInPlaybackState: Boolean
-        get() = mMediaPlayer != null && mCurrentState != STATE_ERROR && mCurrentState != STATE_IDLE && mCurrentState != STATE_PREPARING
+        get() = mMediaPlayer != null && mCurrentState != MediaPlayerState.ERROR && mCurrentState != MediaPlayerState.IDLE && mCurrentState != MediaPlayerState.PREPARING
 
     override fun canPause(): Boolean {
         return mCanPause
     }
 
     override fun canSeekBackward(): Boolean {
-        return mCanSeekBack
+        return SEEKBAR_ENABLED
     }
 
     override fun canSeekForward(): Boolean {
-        return mCanSeekForward
+        return SEEKBAR_ENABLED
     }
 
     override fun getAudioSessionId(): Int {
@@ -673,16 +693,21 @@ class MiSnapVideoView @JvmOverloads constructor(
         return mAudioSession
     }
 
-    companion object {
+    private companion object {
         private const val TAG = "MiSnapVideoView"
 
+        //FIXME: MediaController sometimes throws an exception when using the seekbar.
+        private const val SEEKBAR_ENABLED = false
+
         // all possible internal states
-        private const val STATE_ERROR = -1
-        private const val STATE_IDLE = 0
-        private const val STATE_PREPARING = 1
-        private const val STATE_PREPARED = 2
-        private const val STATE_PLAYING = 3
-        private const val STATE_PAUSED = 4
-        private const val STATE_PLAYBACK_COMPLETED = 5
+        private enum class MediaPlayerState {
+            ERROR,
+            IDLE,
+            PREPARING,
+            PREPARED,
+            PLAYING,
+            PAUSED,
+            PLAYBACK_COMPLETED
+        }
     }
 }

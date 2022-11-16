@@ -8,7 +8,7 @@ import com.miteksystems.misnap.core.MiSnapSettings
 import com.miteksystems.misnap.core.MibiData
 import com.miteksystems.misnap.core.Mrz
 import com.miteksystems.misnap.core.Mrz1Line
-import com.miteksystems.misnap.nfc.NfcReader
+import com.miteksystems.misnap.nfc.MiSnapNfcReader
 
 /**
  * This example demonstrates a direct integration with MiSnap SDK's NFC reader, this type of integration
@@ -39,22 +39,22 @@ private class NfcRead : Fragment() {
         MibiData.startSession(this::class.java.name, misnapSettings)
 
         /**
-         * Instantiate an [NfcReader] and observe the different [LiveData] objects to receive
+         * Instantiate an [MiSnapNfcReader] and observe the different [LiveData] objects to receive
          * nfc, errors and completion events.
          */
-        NfcReader(requireContext()).apply {
+        MiSnapNfcReader(requireContext()).apply {
             /**
-             * Observe the [NfcReader.events] [LiveData] to receive notifications about the progress
+             * Observe the [MiSnapNfcReader.events] [LiveData] to receive notifications about the progress
              * of the NFC chip reading process.
              *
-             * @see [NfcReader.Event] for the full list of possible emitted events.
+             * @see [MiSnapNfcReader.Event] for the full list of possible emitted events.
              */
             events.observe(viewLifecycleOwner) {
 
             }
 
             /**
-             * Observe the [NfcReader.completedEvent] [LiveData] to receive an [NfcReader.Result]
+             * Observe the [MiSnapNfcReader.completedEvent] [LiveData] to receive an [MiSnapNfcReader.Result]
              * indicating that the NFC read process has finished successfully.
              */
             completedEvent.observe(viewLifecycleOwner) {
@@ -62,10 +62,10 @@ private class NfcRead : Fragment() {
             }
 
             /**
-             * Observe the [NfcReader.errorEvents] [LiveData] to receive notifications about errors
+             * Observe the [MiSnapNfcReader.errorEvents] [LiveData] to receive notifications about errors
              * found during the NFC chip reading process.
              *
-             * @see [NfcReader.Error] for the full list of possible emitted events.
+             * @see [MiSnapNfcReader.Error] for the full list of possible emitted events.
              */
             errorEvents.observe(viewLifecycleOwner) {
 
