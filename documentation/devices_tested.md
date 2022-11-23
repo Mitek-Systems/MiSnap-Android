@@ -1,4 +1,4 @@
-# MiSnap SDK v5.1.0 Devices Tested
+# MiSnap SDK v5.1.1 Devices Tested
 
 | Device                                    | OS          | 
 | :---------------------------------------- | ----------: | 
@@ -62,6 +62,7 @@
 |Samsung Galaxy S20+                        |12           |
 |Samsung Galaxy S21                         |12           |
 |Samsung Galaxy S21 FE                      |12           |
+|Samsung Galaxy S22                         |12           |
 |Samsung Galaxy S6                          |7            |
 |Samsung Galaxy S8+                         |9            |
 |Samsung Galaxy S9                          |8, 10        |

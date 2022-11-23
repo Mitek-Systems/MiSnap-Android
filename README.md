@@ -1,4 +1,4 @@
-# MiSnap SDK v5.1.0 for Android
+# MiSnap SDK v5.1.1 for Android
 
 # Table of Contents
 [Getting Started](#getting-started)
@@ -26,19 +26,11 @@
 
 ## Release Notes
 
-### **Version 5.1.0**
-
-#### **Added**
-* [Voice] Voice biometrics have been introduced using the new `UseCase.VOICE`.  Integrators can now record a spoken phrase, perform pre-qualifying audio quality acceptance, and create a unique voice print to associate with a user. This voice print can be passed on to the `MiPass` product for multi-modality enrollment and verification.
+### **Version 5.1.1**
 
 #### **Fixed**
-* [Common] SDK defined XML attributes conflicting with integrator's attributes.
-* [Analysis] Sequential sessions with different camera configurations not updating properly.
-
-#### **Modified**
-* [NFC] Renamed `com.miteksystems.misnap.nfc.NfcReader` to `com.miteksystems.misnap.nfc.MiSnapNfcReader`.
-* [Common] Instances of `com.miteksystems.misnap.controller.MiSnapController` must now be created with the `MiSnapController.create` factory method.
-* [Common] Server transaction utilities at `com.miteksystems.misnap.core.serverconnection` were updated to work with concrete implementations of `com.miteksystems.misnap.core.serverconnection.MiSnapTransactionResult`.
+* [Common] Images failing to process in manual mode sessions for some devices.
+* [Document & NFC] Some ITA ID documents failing to process the MRZ and not triggering NFC reading in combined workflows.
 
 Please see [this page](documentation/change_log.md) for release notes from older releases.
 
