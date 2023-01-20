@@ -39,23 +39,7 @@ import com.miteksystems.misnap.databinding.NfcSettingsBinding
 import com.miteksystems.misnap.databinding.NfcWorkflowSettingsBinding
 import com.miteksystems.misnap.databinding.VoiceSettingsBinding
 import com.miteksystems.misnap.databinding.VoiceWorkflowSettingsBinding
-import com.miteksystems.misnap.document.default
-import com.miteksystems.misnap.document.getBarcodeExtractionRequirement
-import com.miteksystems.misnap.document.getCornerConfidence
-import com.miteksystems.misnap.document.getDocumentExtractionRequirement
-import com.miteksystems.misnap.document.getGeo
-import com.miteksystems.misnap.document.getMaxAngle
-import com.miteksystems.misnap.document.getMaxBrightness
-import com.miteksystems.misnap.document.getMinBrightness
-import com.miteksystems.misnap.document.getMinBusyBackground
-import com.miteksystems.misnap.document.getMinContrast
-import com.miteksystems.misnap.document.getMinHorizontalFillAligned
-import com.miteksystems.misnap.document.getMinHorizontalFillUnaligned
-import com.miteksystems.misnap.document.getMinNoGlare
-import com.miteksystems.misnap.document.getMinPadding
-import com.miteksystems.misnap.document.getMinSharpness
-import com.miteksystems.misnap.document.getMrzConfidence
-import com.miteksystems.misnap.document.requireDocType
+import com.miteksystems.misnap.document.*
 import com.miteksystems.misnap.face.default
 import com.miteksystems.misnap.face.getMaxAngle
 import com.miteksystems.misnap.face.getMinEyesOpenConfidence
@@ -65,6 +49,7 @@ import com.miteksystems.misnap.face.getMinSmileConfidence
 import com.miteksystems.misnap.face.getTriggerDelay
 import com.miteksystems.misnap.face.requireTrigger
 import com.miteksystems.misnap.nfc.default
+import com.miteksystems.misnap.nfc.shouldRedactOptionalData
 import com.miteksystems.misnap.sampleapp.results.SampleAppViewModel
 import com.miteksystems.misnap.sampleapp.results.ViewPageAdapter
 import com.miteksystems.misnap.voice.*
@@ -286,7 +271,8 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
         }
 
         if (nonRationalePermissions.isNotEmpty()) {
-            requestPermissions(nonRationalePermissions.toTypedArray(),
+            requestPermissions(
+                nonRationalePermissions.toTypedArray(),
                 PERMISSION_REQUEST_ALL
             )
         }
@@ -377,14 +363,17 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
             documentSettingsBinding?.let {
                 document.trigger =
                     getTriggerAt(it.documentSettingsTriggerSpinner.selectedItemPosition)
+                document.enableEnhancedManual = it.documentSettingsEnableEnhancedManual.isChecked
                 document.orientation =
                     getSessionOrientationAt(it.documentSettingsSessionOrientationSpinner.selectedItemPosition)
                 document.documentExtractionRequirement =
-                    getOcrRequestAt(it.documentSettingsDocumentRequestOcrSpinner.selectedItemPosition)
+                    getDocumentExtractionRequirementAt(it.documentSettingsDocumentRequestOcrSpinner.selectedItemPosition)
                 document.barcodeExtractionRequirement =
-                    getBarcodeOcrRequestAt(it.documentSettingsBarcodeRequestExtractionSpinner.selectedItemPosition)
+                    getDocumentBarcodeExtractionRequirementAt(it.documentSettingsBarcodeRequestExtractionSpinner.selectedItemPosition)
                 document.check.geo =
                     getGeoAt(it.documentSettingsGeoSpinner.selectedItemPosition)
+
+                document.redactOptionalData = it.documentSettingsRedactOptionalData.isChecked
 
                 document.advanced.cornerConfidence = kotlin.runCatching {
                     it.documentSettingsCornerConfidence.text.toString().toInt()
@@ -581,6 +570,7 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
                     getNfcSoundAndVibrationAt(it.nfcSettingsSoundAndVibrationSpinner.selectedItemPosition)
                 advanced.docType =
                     getNfcDoctypeAt(it.nfcSettingsDoctypeSpinner.selectedItemPosition)
+                redactOptionalData = it.nfcSettingsRedactOptionalData.isChecked
             }
         }
     }
@@ -973,6 +963,8 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
                 it.documentSettingsTriggerSpinner.setSelection(MiSnapSettings.Analysis.Document.Trigger.AUTO.ordinal)
             }
 
+            it.documentSettingsEnableEnhancedManual.isChecked = settings.analysis.document.shouldEnableEnhancedManual()
+
             settings.analysis.document.orientation?.let { orientation ->
                 it.documentSettingsSessionOrientationSpinner.setSelection(orientation.ordinal)
             }
@@ -987,14 +979,17 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
             }
             it.documentSettingsBarcodeRequestExtractionSpinner.apply {
                 isEnabled = !settings.analysis.document.advanced.requireDocType().isMrzDocument() &&
-                        !settings.analysis.document.advanced.requireDocType()
-                            .isCheck() && !isGeneric
+                    !settings.analysis.document.advanced.requireDocType()
+                        .isCheck() && !isGeneric
                 setSelection(settings.analysis.document.getBarcodeExtractionRequirement().ordinal)
             }
 
             it.documentSettingsGeoSpinner.isEnabled =
                 settings.analysis.document.advanced.requireDocType().isCheck()
             it.documentSettingsGeoSpinner.setSelection(settings.analysis.document.check.getGeo().ordinal)
+
+            it.documentSettingsRedactOptionalData.isChecked =
+                settings.analysis.document.shouldRedactOptionalData()
 
             it.documentSettingsCornerConfidence.setText(
                 settings.analysis.document.advanced.getCornerConfidence()
@@ -1313,6 +1308,8 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
                 )
             }
                 ?: it.nfcSettingsSoundAndVibrationSpinner.setSelection(MiSnapSettings.Nfc.SoundAndVibration.default().ordinal)
+
+            it.nfcSettingsRedactOptionalData.isChecked = settings.nfc.shouldRedactOptionalData()
         }
     }
 
@@ -1470,12 +1467,19 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
             else -> null
         }
 
-    private fun getOcrRequestAt(index: Int) =
+    private fun getDocumentExtractionRequirementAt(index: Int) =
         when (index) {
             2 -> MiSnapSettings.Analysis.Document.ExtractionRequirement.REQUIRED
             1 -> MiSnapSettings.Analysis.Document.ExtractionRequirement.OPTIONAL
             0 -> MiSnapSettings.Analysis.Document.ExtractionRequirement.NONE
             else -> null
+        }
+
+    private fun getDocumentExtractionRequirementIndex(requirement: MiSnapSettings.Analysis.Document.ExtractionRequirement) =
+        when (requirement) {
+            MiSnapSettings.Analysis.Document.ExtractionRequirement.NONE -> 0
+            MiSnapSettings.Analysis.Document.ExtractionRequirement.OPTIONAL -> 1
+            MiSnapSettings.Analysis.Document.ExtractionRequirement.REQUIRED -> 2
         }
 
     private fun getGeoAt(index: Int) =
@@ -1491,6 +1495,7 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
 
     private fun getDocumentReviewConditionAt(index: Int) =
         when (index) {
+            3 -> DocumentAnalysisFragment.ReviewCondition.NEVER
             2 -> DocumentAnalysisFragment.ReviewCondition.WARNINGS
             1 -> DocumentAnalysisFragment.ReviewCondition.MANUAL
             0 -> DocumentAnalysisFragment.ReviewCondition.ALWAYS
@@ -1502,6 +1507,7 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
             DocumentAnalysisFragment.ReviewCondition.ALWAYS -> 0
             DocumentAnalysisFragment.ReviewCondition.MANUAL -> 1
             DocumentAnalysisFragment.ReviewCondition.WARNINGS -> 2
+            DocumentAnalysisFragment.ReviewCondition.NEVER -> 3
         }
 
     // endregion
@@ -1515,12 +1521,19 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
             else -> null
         }
 
-    private fun getBarcodeOcrRequestAt(index: Int) =
+    private fun getDocumentBarcodeExtractionRequirementAt(index: Int) =
         when (index) {
             2 -> MiSnapSettings.Analysis.Document.ExtractionRequirement.REQUIRED
             1 -> MiSnapSettings.Analysis.Document.ExtractionRequirement.OPTIONAL
             0 -> MiSnapSettings.Analysis.Document.ExtractionRequirement.NONE
             else -> null
+        }
+
+    private fun getDocumentBarcodeExtractionRequirementIndex(requirement: MiSnapSettings.Analysis.Document.ExtractionRequirement) =
+        when (requirement) {
+            MiSnapSettings.Analysis.Document.ExtractionRequirement.NONE -> 0
+            MiSnapSettings.Analysis.Document.ExtractionRequirement.OPTIONAL -> 1
+            MiSnapSettings.Analysis.Document.ExtractionRequirement.REQUIRED -> 2
         }
 
 
@@ -1559,6 +1572,7 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
     // region barcode workflow settings tab
     private fun getBarcodeReviewConditionAt(index: Int) =
         when (index) {
+            3 -> BarcodeAnalysisFragment.ReviewCondition.NEVER
             2 -> BarcodeAnalysisFragment.ReviewCondition.WARNINGS
             1 -> BarcodeAnalysisFragment.ReviewCondition.MANUAL
             0 -> BarcodeAnalysisFragment.ReviewCondition.ALWAYS
@@ -1570,6 +1584,7 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
             BarcodeAnalysisFragment.ReviewCondition.ALWAYS -> 0
             BarcodeAnalysisFragment.ReviewCondition.MANUAL -> 1
             BarcodeAnalysisFragment.ReviewCondition.WARNINGS -> 2
+            BarcodeAnalysisFragment.ReviewCondition.NEVER -> 3
         }
     // endregion
 
@@ -1596,6 +1611,7 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
 
     private fun getFaceReviewConditionAt(index: Int) =
         when (index) {
+            3 -> FaceAnalysisFragment.ReviewCondition.NEVER
             2 -> FaceAnalysisFragment.ReviewCondition.WARNINGS
             1 -> FaceAnalysisFragment.ReviewCondition.MANUAL
             0 -> FaceAnalysisFragment.ReviewCondition.ALWAYS
@@ -1607,6 +1623,7 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
             FaceAnalysisFragment.ReviewCondition.ALWAYS -> 0
             FaceAnalysisFragment.ReviewCondition.MANUAL -> 1
             FaceAnalysisFragment.ReviewCondition.WARNINGS -> 2
+            FaceAnalysisFragment.ReviewCondition.NEVER -> 3
         }
 
     // endregion
@@ -1761,7 +1778,7 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
                         id: Long,
                     ) {
                         val isDocumentOcrNone =
-                            getOcrRequestAt(position) == MiSnapSettings.Analysis.Document.ExtractionRequirement.NONE
+                            getDocumentExtractionRequirementAt(position) == MiSnapSettings.Analysis.Document.ExtractionRequirement.NONE
 
                         val isBarcodeUseCase =
                             getUseCaseAt(useCaseIndex) == MiSnapSettings.UseCase.BARCODE
@@ -1781,6 +1798,12 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
                                     isDocumentOcrNone
                             }
                         }
+
+                        if (!isDocumentOcrNone && getDocumentBarcodeExtractionRequirementAt(it.documentSettingsBarcodeRequestExtractionSpinner.selectedItemPosition) != MiSnapSettings.Analysis.Document.ExtractionRequirement.NONE) {
+                            it.documentSettingsBarcodeRequestExtractionSpinner.setSelection(
+                                getDocumentBarcodeExtractionRequirementIndex(MiSnapSettings.Analysis.Document.ExtractionRequirement.NONE)
+                            )
+                        }
                     }
 
                     override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -1798,14 +1821,14 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
                         barcodeExtractionRequirementIndex = position
 
                         val isBarcodeOcrNone =
-                            getBarcodeOcrRequestAt(position) == MiSnapSettings.Analysis.Document.ExtractionRequirement.NONE
+                            getDocumentBarcodeExtractionRequirementAt(position) == MiSnapSettings.Analysis.Document.ExtractionRequirement.NONE
                         val isBarcodeUseCase =
                             getUseCaseAt(useCaseIndex) == MiSnapSettings.UseCase.BARCODE
 
                         val isUnSupportedUseCase =
                             getUseCaseAt(useCaseIndex) == MiSnapSettings.UseCase.GENERIC_DOCUMENT ||
-                                    getUseCaseAt(useCaseIndex) == MiSnapSettings.UseCase.CHECK_FRONT ||
-                                    getUseCaseAt(useCaseIndex) == MiSnapSettings.UseCase.CHECK_BACK
+                                getUseCaseAt(useCaseIndex) == MiSnapSettings.UseCase.CHECK_FRONT ||
+                                getUseCaseAt(useCaseIndex) == MiSnapSettings.UseCase.CHECK_BACK
 
 
                         if (!isUnSupportedUseCase && isTabWithTitlePresent(
@@ -1855,6 +1878,21 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
                     tooltip,
                     getString(R.string.misnapSampleAppSettingsDocumentGeoTooltip)
                 )
+            }
+
+            it.optionalDataRedactionTooltip.setOnClickListener { tooltip ->
+                showTooltipInfo(
+                    tooltip,
+                    getString(R.string.misnapSampleAppSettingsDocumentRedactOptionalDataTooltip)
+                )
+            }
+
+            it.documentSettingsRedactOptionalData.setOnCheckedChangeListener { _, checked ->
+                if (checked) {
+                    it.documentSettingsDocumentRequestOcrSpinner.setSelection(
+                        getDocumentExtractionRequirementIndex(MiSnapSettings.Analysis.Document.ExtractionRequirement.OPTIONAL)
+                    )
+                }
             }
         }
         adapter.addView(

@@ -5,12 +5,14 @@ import android.os.Bundle
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import com.miteksystems.misnap.R
 import com.miteksystems.misnap.core.MiSnapSettings
 import com.miteksystems.misnap.databinding.ExampleActivityIntegrationBinding
 import com.miteksystems.misnap.workflow.MiSnapFinalResult
 import com.miteksystems.misnap.workflow.MiSnapWorkflowActivity
 import com.miteksystems.misnap.workflow.MiSnapWorkflowError
 import com.miteksystems.misnap.workflow.MiSnapWorkflowStep
+import com.miteksystems.misnap.workflow.fragment.DocumentAnalysisFragment
 
 /**
  * This sample is the easiest way of integrating the MiSnap SDK and it's best suited for applications
@@ -86,8 +88,33 @@ class IntegrationActivity : AppCompatActivity() {
             registerForActivityResult.launch(
                 MiSnapWorkflowActivity.buildIntent(
                     this,
-                    MiSnapWorkflowStep(MiSnapSettings(MiSnapSettings.UseCase.ID_FRONT, license)),
-                    MiSnapWorkflowStep(MiSnapSettings(MiSnapSettings.UseCase.FACE, license))
+                    MiSnapWorkflowStep(
+                        MiSnapSettings(
+                            MiSnapSettings.UseCase.PASSPORT,
+                            license
+                        ).apply {
+                            analysis.document.documentExtractionRequirement =
+                                MiSnapSettings.Analysis.Document.ExtractionRequirement.OPTIONAL
+                            analysis.document.redactOptionalData = true
+                            camera.videoRecord.recordSession =
+                                false //Disabling video recording if enabling optional data redaction since the data is not redacted from videos
+                        }),
+                    MiSnapWorkflowStep(
+                        MiSnapSettings(
+                            MiSnapSettings.UseCase.CHECK_FRONT,
+                            license
+                        ).apply {
+                            analysis.document.trigger =
+                                MiSnapSettings.Analysis.Document.Trigger.MANUAL
+                            analysis.document.enableEnhancedManual =
+                                true // Enabling hints in manual mode
+
+                            //Disabling the image review screen
+                            workflow.add(
+                                getString(R.string.misnapWorkflowDocumentAnalysisFlowDocumentAnalysisFragmentLabel),
+                                DocumentAnalysisFragment.buildWorkflowSettings(reviewCondition = DocumentAnalysisFragment.ReviewCondition.NEVER)
+                            )
+                        })
                 )
             )
         }

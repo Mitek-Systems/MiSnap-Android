@@ -1,7 +1,6 @@
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:width="16dp"
-    android:height="16dp"
-    android:alpha="0.8"
+    android:width="@dimen/misnapSampleAppInfoIconSize"
+    android:height="@dimen/misnapSampleAppInfoIconSize"
     android:tint="@color/colorPrimary"
     android:viewportWidth="24"
     android:viewportHeight="24">

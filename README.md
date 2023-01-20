@@ -1,4 +1,4 @@
-# MiSnap SDK v5.1.1 for Android
+# MiSnap SDK v5.2 for Android
 
 # Table of Contents
 [Getting Started](#getting-started)
@@ -26,11 +26,16 @@
 
 ## Release Notes
 
-### **Version 5.1.1**
+### **Version 5.2**
+
+#### **Added**
+* [Document & NFC] Support for optional data redaction in the document image, extracted data and NFC data read from the chip. Only supported for NLD Passports(BSN redaction). Please refer to [this FAQ](#how-does-the-video-recording-feature-work-when-optional-data-bsn-redaction-for-nld-passports-is-enabled) for information on how this feature works when video recording is enabled.
+  * _The on-device redaction feature of the MiSnap SDK has been added in version 5.2 to aid in compliance with Dutch data protection legislation regarding the Citizen Service Number (BSN) - see section 46 of the Dutch Implementation Act of the GDPR (“UAVG”). Mitek is making its best effort to ensure the BSN is adequately redacted so it is unreadable by human or machine.  Mitek is only redacting the BSN from still images, so the customer or integrator must ensure they are not using the video component of MiSnap if redaction is to take place._ 
+* [Document] Support for an "enhanced manual" session mode where hints are displayed on screen to assist on getting better results in manual mode sessions.
+* [Common] A new configuration option to allow skipping the "manual review screen".
 
 #### **Fixed**
-* [Common] Images failing to process in manual mode sessions for some devices.
-* [Document & NFC] Some ITA ID documents failing to process the MRZ and not triggering NFC reading in combined workflows.
+* [NFC] An issue where the NFC sessions were not ending when some drawables were customized.
 
 Please see [this page](documentation/change_log.md) for release notes from older releases.
 
@@ -42,11 +47,11 @@ Please see [this page](documentation/download_sizes.md) for the in-depth size ta
 <!-- SIZE_TABLE_START -->
 | Use Case                         | Download Size (MiB) | 
 | :------------------------------- | ------------------: |
-| Document                         | 5.53                | 
-| Document and Barcode             | 6.79                | 
-| Document and Biometric           | 13.27               | 
-| Document, Barcode, and Biometric | 14.53               | 
-| Document, Biometric, and NFC     | 16.81               | 
+| Document                         | 5.57                | 
+| Document and Barcode             | 6.83                | 
+| Document and Biometric           | 13.31               | 
+| Document, Barcode, and Biometric | 14.56               | 
+| Document, Biometric, and NFC     | 16.85               | 
 <!-- SIZE_TABLE_END -->
 
 ## System Requirements
@@ -144,6 +149,9 @@ different hardware architectures (ABIs). No single device requires multiple ABIs
 ABIs into a single app increases its size without providing any addition functionality. This can be avoided
 by either using [App Bundles](https://developer.android.com/guide/app-bundle) 
 or by using [Apk Splits](https://developer.android.com/studio/build/configure-apk-splits#configure-abi-split).
+
+### How does the video recording feature work when optional data (BSN) redaction for NLD Passports is enabled?
+The `video recording` feature requires no frame processing therefore optional data will not be redacted in a recorded video. It is your responsibility to enable or disable `video recording` as per your needs when `optional data redaction` is enabled.
 
 ### How to integrate the MiSnap SDK without having access to a remote Maven repository?
 **NOTE**: Local maven integration requires access to the offline MiSnap SDK zip package, and will not work with the version available on Github.  Please reach out to support for access.

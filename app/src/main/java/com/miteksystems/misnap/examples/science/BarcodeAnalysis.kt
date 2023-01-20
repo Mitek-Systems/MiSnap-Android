@@ -47,7 +47,9 @@ private class BarcodeAnalysis : Fragment() {
      * build a [Frame] object from different camera APIs.
      */
     private fun initBarcodeAnalysis(): MiSnapController {
-        val misnapSettings = MiSnapSettings(MiSnapSettings.UseCase.BARCODE, license)
+        val misnapSettings = MiSnapSettings(MiSnapSettings.UseCase.BARCODE, license).apply {
+            analysis.barcode.trigger = MiSnapSettings.Analysis.Barcode.Trigger.AUTO
+        }
 
         return MiSnapController.create(requireContext(), misnapSettings).apply {
             /**

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- region GENERAL -->
-    <string name="misnapSampleAppLicense" translatable="false">eyJzaWduYXR1cmUiOiJldXJBRkZiOHhRekdjcEl6emEzM2pwS2lqQ1hBYVlIZ09SdktpcXdQb2pEVm16YnNpbXp6QjJNUHkzekpCRWJoU2dySG15T1JQNW5nLzQzSml3TWhKTHA4WGlKcTZ2RXFROHdoczN0SEJFRU1POXhiS1N3R2pDNk9YUjMxcUVudEp4NmUxTmNJK2N1bXFsRXpZMnZOUDErRTErRkV1aWoyQjQxRVVDWVNwdXdoamlWdGZkby9JUkh2SmpNaXBYU0Z1ajlwU1AvcnZlaE9icTNmY1FkYXhDOFoxbFk3UG1WSWNpNmxrQ2hyUEFCMXdiT2Iyd0pITGoyNk5TMittMkZ3MG00cWRmN2Y2RzRUdkQ5cVhzY0tSRU9tWXRzKzNXUEMwdEk0MTBRcjcxWmtJVnhoekVSK2plVWlxblduV1ZjQUVMb3BHM2l4aXBYVmZUMVF1ZWJ4Q2c9PSIsInNpZ25lZCI6eyJleHBpcnkiOiIyMDMyLTAxLTAxIiwiZmVhdHVyZXMiOlsiYmFyY29kZSIsImRlcG9zaXQiLCJmYWNlIiwiZ2VuZXJpYyIsImlkIiwibmZjIiwidm9pY2UiXSwiYXBwbGljYXRpb25JZGVudGlmaWVyIjp7ImFuZHJvaWQiOlsiY29tLm1pdGVrc3lzdGVtcyoiXX0sImdwbyI6IjE2ZCIsIm9yZ2FuaXphdGlvbiI6Ik1pdGVrIFN5c3RlbXMgSW5jLiIsInZlcnNpb24iOiIxLjAifX0=
+    <string name="misnapSampleAppLicense" translatable="false">eyJzaWduYXR1cmUiOiJoS0s0WWpSTDN4bGJZcVc3WWFMcVgyYm5hRnB5U2tnd0hVRUJkRXlRWkFKRU1NamZKVVhpRVJ5RHowaVJYR1FtVnpweWIxWExBRjEya0lsK2V5SG9LR3pxVzRZM2hVdnA1MkxwWFVhWk82SjNaZmppRUpJM2I1QTVmazVmOVN0clVPMHA5M2ZNNzB3UUtwRnR1bktyeWdTbjQ0a29uRk51bEErWXFlR3dON0R2VlJteTRwajBVYXRSM1M1VHgvUFB5WFhpa25IbWtteDJaRHd2TFdBM3hoSERkYXdPRXZuVkdFSzVzaXNGZE1Vb213dXRrYjRLMTlrRWlNQVVYQkQySXRqSkY3NzBBaEJLWmNtS3orbmRibWtPMzBVTDE3STRPYnpINVVCVWxEWGJDU0FjMWdka0FRUzNGcjlLNTBUZFd4aExiOUt4bGpwTk8xR0VsNXV5NlE9PSIsInNpZ25lZCI6eyJleHBpcnkiOiIyMDMyLTAxLTAxIiwiZmVhdHVyZXMiOlsiYmFyY29kZSIsImRlcG9zaXQiLCJmYWNlIiwiZ2VuZXJpYyIsImlkIiwibmZjIiwidm9pY2UiLCJlbSJdLCJhcHBsaWNhdGlvbklkZW50aWZpZXIiOnsiYW5kcm9pZCI6WyJjb20ubWl0ZWtzeXN0ZW1zLm1pc25hcC5zYW1wbGVhcHAiXX0sImdwbyI6IjE2ZCIsIm9yZ2FuaXphdGlvbiI6Ik1pdGVrIFN5c3RlbXMgSW5jLiIsInZlcnNpb24iOiIxLjAifX0=
 </string>
     <string name="misnapSampleAppName" translatable="false">MiSnap Sample App</string>
 
@@ -202,7 +202,9 @@
     <!-- Document Settings Tab -->
     <string name="misnapSampleAppSettingsDocumentTabTitle" translatable="false">Document</string>
     <string name="misnapSampleAppSettingsDocumentTriggerLabel" translatable="false">Trigger</string>
+    <string name="misnapSampleAppSettingsDocumentEnableEnhancedManualLabel" translatable="false">Enable Enhanced Manual</string>
     <string name="misnapSampleAppSettingsDocumentRequestDocumentExtractionLabel" translatable="false">Request Document Extraction</string>
+    <string name="misnapSampleAppSettingsDocumentRedactOptionalDataLabel" translatable="false">Redact Optional Data</string>
     <string name="misnapSampleAppSettingsDocumentGeographyLabel" translatable="false">Geography</string>
     <string name="misnapSampleAppSettingsDocumentSessionOrientationLabel" translatable="false">Session Orientation</string>
     <string name="misnapSampleAppSettingsDocumentCornersConfidenceThreshold" translatable="false">Corner Confidence Threshold</string>
@@ -219,7 +221,8 @@
     <string name="misnapSampleAppSettingsDocumentMrzConfidenceThreshold" translatable="false">Mrz Confidence Threshold</string>
     <string name="misnapSampleAppSettingsDocumentExtractionTooltip" translatable="false">Used to Return MRZ Extraction. \nCan\'t be used with Barcode Extraction.</string>
     <string name="misnapSampleAppSettingsDocumentBarcodeExtractionTooltip" translatable="false">Used to Return Barcode Extraction. \nCan\'t be used with Document Extraction.</string>
-    <string name="misnapSampleAppSettingsDocumentGeoTooltip" translatable="false">"Only Supported For Checks</string>
+    <string name="misnapSampleAppSettingsDocumentGeoTooltip" translatable="false">Only Supported For Checks</string>
+    <string name="misnapSampleAppSettingsDocumentRedactOptionalDataTooltip" translatable="false">Used to redact the BSN out of NLD passports.</string>
 
     <string-array name="documentTriggersArray">
         <item>Auto</item>
@@ -259,6 +262,7 @@
         <item>Always</item>
         <item>Manual</item>
         <item>IQA Warnings Only</item>
+        <item>Never</item>
     </string-array>
 
     <!-- Barcode Settings Tab -->
@@ -308,6 +312,7 @@
         <item>Always</item>
         <item>Manual</item>
         <item>IQA Warnings Only</item>
+        <item>Never</item>
     </string-array>
 
     <!-- Face Settings Tab -->
@@ -342,12 +347,14 @@
         <item>Always</item>
         <item>Manual</item>
         <item>IQA Warnings Only</item>
+        <item>Never</item>
     </string-array>
 
     <!-- NFC Settings Tab -->
     <string name="misnapSampleAppSettingsNfcTabTitle" translatable="false">NFC</string>
     <string name="misnapSampleAppSettingsNfcDoctypeLabel" translatable="false">Document Type</string>
     <string name="misnapSampleAppSettingsNfcSoundAndVibrationLabel" translatable="false">Sound and Vibration</string>
+    <string name="misnapSampleAppSettingsNfcRedactOptionalDataLabel" translatable="false">Redact Optional Data</string>
 
     <string-array name="nfcDoctypesArray">
         <item>Passport</item>
@@ -376,7 +383,7 @@
     <string name="misnapSampleAppSettingsVoiceMinSNRLabel" translatable="false">Min SNR</string>
     <string name="misnapSampleAppSettingsVoiceMaxSilenceLengthLabel" translatable="false">Max Silence Length</string>
     <string name="misnapSampleAppSettingsVoiceCustomPhrase" translatable="false"> Custom Phrase</string>
-    <string name="misnapSampleAppSettingsVoiceCustomPhraseErrorEmptyField">This field cannot be empty</string>
+    <string name="misnapSampleAppSettingsVoiceCustomPhraseErrorEmptyField" translatable="false">This field cannot be empty</string>
 
     <string-array name="voiceFlowsArray">
         <item>Enrollment</item>

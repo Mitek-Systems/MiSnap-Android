@@ -27,6 +27,16 @@
             android:entries="@array/documentTriggersArray" />
     </LinearLayout>
 
+    <com.google.android.material.checkbox.MaterialCheckBox
+        android:id="@+id/documentSettingsEnableEnhancedManual"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/misnapSampleAppLayoutVerticalMargin"
+        android:checked="false"
+        android:text="@string/misnapSampleAppSettingsDocumentEnableEnhancedManualLabel"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/documentSettingsTriggerContainer" />
+
     <LinearLayout
         android:id="@+id/documentSettingsSessionOrientationContainer"
         android:layout_width="match_parent"
@@ -35,7 +45,7 @@
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/documentSettingsTriggerContainer">
+        app:layout_constraintTop_toBottomOf="@id/documentSettingsEnableEnhancedManual">
 
         <com.google.android.material.textview.MaterialTextView
             android:layout_width="0dp"
@@ -70,11 +80,10 @@
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/documentExtractionTooltip"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.1"
+            android:layout_width="@dimen/misnapSampleAppInfoIconSize"
+            android:layout_height="@dimen/misnapSampleAppInfoIconSize"
             android:background="@drawable/settings_info_icon"
-            android:layout_gravity="top"/>
+            android:layout_gravity="center"/>
 
         <Spinner
             android:id="@+id/documentSettingsDocumentRequestOcrSpinner"
@@ -103,11 +112,10 @@
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/barcodeExtractionTooltip"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.1"
+            android:layout_width="@dimen/misnapSampleAppInfoIconSize"
+            android:layout_height="@dimen/misnapSampleAppInfoIconSize"
             android:background="@drawable/settings_info_icon"
-            android:layout_gravity="top"/>
+            android:layout_gravity="center"/>
 
         <Spinner
             android:id="@+id/documentSettingsBarcodeRequestExtractionSpinner"
@@ -135,11 +143,10 @@
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/geoTooltip"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.1"
+            android:layout_width="@dimen/misnapSampleAppInfoIconSize"
+            android:layout_height="@dimen/misnapSampleAppInfoIconSize"
             android:background="@drawable/settings_info_icon"
-            android:layout_gravity="top"/>
+            android:layout_gravity="center"/>
 
         <Spinner
             android:id="@+id/documentSettingsGeoSpinner"
@@ -149,6 +156,25 @@
             android:entries="@array/documentGeosArray" />
     </LinearLayout>
 
+    <com.google.android.material.checkbox.MaterialCheckBox
+        android:id="@+id/documentSettingsRedactOptionalData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/misnapSampleAppLayoutVerticalMargin"
+        android:checked="false"
+        android:text="@string/misnapSampleAppSettingsDocumentRedactOptionalDataLabel"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/documentSettingsGeoContainer" />
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/optionalDataRedactionTooltip"
+        android:layout_width="@dimen/misnapSampleAppInfoIconSize"
+        android:layout_height="@dimen/misnapSampleAppInfoIconSize"
+        android:background="@drawable/settings_info_icon"
+        android:layout_marginStart="@dimen/misnapSampleAppSpaceDefault"
+        app:layout_constraintTop_toTopOf="@id/documentSettingsRedactOptionalData"
+        app:layout_constraintBottom_toBottomOf="@id/documentSettingsRedactOptionalData"
+        app:layout_constraintStart_toEndOf="@id/documentSettingsRedactOptionalData"/>
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/documentSettingsCornerConfidenceContainer"
         android:layout_width="match_parent"
@@ -156,7 +182,7 @@
         android:layout_marginTop="@dimen/misnapSampleAppLayoutVerticalMargin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/documentSettingsGeoContainer">
+        app:layout_constraintTop_toBottomOf="@id/documentSettingsRedactOptionalData">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/documentSettingsCornerConfidence"

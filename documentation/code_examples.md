@@ -1,4 +1,4 @@
-# MiSnap SDK v5.1.1 Code Examples
+# MiSnap SDK v5.2 Code Examples
 
 The MiSnap SDK provides several code examples that can be used as reference while you integrate the SDK, 
 these code examples are located in the `examples/` directory and cover a wide range of integration 

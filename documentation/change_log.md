@@ -1,4 +1,9 @@
-# MiSnap SDK v5.1.1 Change Log
+# MiSnap SDK v5.2 Change Log
+
+### **Version 5.1.1**
+#### **Fixed**
+* [Common] Images failing to process in manual mode sessions for some devices.
+* [Document & NFC] Some ITA ID documents failing to process the MRZ and not triggering NFC reading in combined workflows.
 
 ### **Version 5.1.0**
 #### **Added**

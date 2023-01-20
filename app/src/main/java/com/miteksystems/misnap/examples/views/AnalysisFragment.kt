@@ -64,6 +64,7 @@ class AnalysisFragment : Fragment(R.layout.example_document_analysis) {
         }
 
         val settings = MiSnapSettings(MiSnapSettings.UseCase.PASSPORT, license).apply {
+            analysis.document.trigger = MiSnapSettings.Analysis.Document.Trigger.AUTO
             // Optionally set the camera profile to use.
             camera.profile = MiSnapSettings.Camera.Profile.DOCUMENT_BACK_CAMERA
             camera.videoRecord.recordSession = true

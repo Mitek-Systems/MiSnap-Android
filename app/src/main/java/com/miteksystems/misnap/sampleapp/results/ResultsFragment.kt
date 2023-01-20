@@ -75,7 +75,7 @@ class ResultsFragment : Fragment(R.layout.fragment_results_root) {
                     }
                 }
                 is MiSnapWorkflowStep.Result.Error -> {
-                    getString(R.string.misnapSampleAppResultsUseCaseUnknownTabTitle)
+                    getUseCaseName(miSnapWorkflowStepResult.errorResult.mibiData)
                 }
             }
     }
