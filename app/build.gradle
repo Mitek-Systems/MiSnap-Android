@@ -65,6 +65,7 @@ dependencies {
     implementation "com.miteksystems.misnap:barcode:$misnapVersion"
     implementation "com.miteksystems.misnap:biometric:$misnapVersion"
     implementation "com.miteksystems.misnap:combined-nfc:$misnapVersion"
+    implementation project(':app-util')
 
     // Memory Leak detection. Used only for this sample app. Not used within SDK modules.
     debugImplementation "com.squareup.leakcanary:leakcanary-android:$leakcanaryVersion"

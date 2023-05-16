@@ -73,11 +73,14 @@ class CombinedWorkflowIntegrationActivity : AppCompatActivity() {
          * combined workflow.
          */
         val stepsList = listOf(
-            MiSnapWorkflowStep(MiSnapSettings(MiSnapSettings.UseCase.PASSPORT, license)),
+            MiSnapWorkflowStep(MiSnapSettings(MiSnapSettings.UseCase.PASSPORT, license).apply {
+                analysis.document.trigger = MiSnapSettings.Analysis.Document.Trigger.AUTO
+            }),
             MiSnapWorkflowStep(MiSnapSettings(MiSnapSettings.UseCase.BARCODE, license).apply {
                 analysis.barcode.type = MiSnapSettings.Analysis.Barcode.Type.QR_CODE
                 analysis.document.barcodeExtractionRequirement =
                     MiSnapSettings.Analysis.Document.ExtractionRequirement.REQUIRED
+                analysis.barcode.trigger = MiSnapSettings.Analysis.Barcode.Trigger.AUTO
             }),
             MiSnapWorkflowStep(MiSnapSettings(MiSnapSettings.UseCase.NFC, license))
         )

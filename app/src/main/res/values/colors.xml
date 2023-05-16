@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <color name="misnapSampleJsonViewerTextColorString">#008000</color>
-    <color name="misnapSampleJsonViewerTextColorNumber">#ee422e</color>
-    <color name="misnapSampleJsonViewerTextColorBool">#ff8c00</color>
-    <color name="misnapSampleJsonViewerTextColorNull">#808080</color>
-    <color name="misnapSampleJsonViewerBackgroundColor">#60000000</color>
-</resources>

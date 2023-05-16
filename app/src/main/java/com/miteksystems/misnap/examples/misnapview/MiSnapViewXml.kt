@@ -26,11 +26,14 @@ import com.miteksystems.misnap.workflow.view.MiSnapView
  */
 class MiSnapViewXml : Fragment(R.layout.example_misnap_view_xml) {
     private val license = "your_sdk_license"
+    private lateinit var settings: MiSnapSettings
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val settings = MiSnapSettings(MiSnapSettings.UseCase.ID_FRONT, license)
+        settings = MiSnapSettings(MiSnapSettings.UseCase.ID_FRONT, license).apply {
+            analysis.document.trigger = MiSnapSettings.Analysis.Document.Trigger.AUTO
+        }
 
         /**
          * Optionally define a [MibiData] session outside of the view's lifecycle.
@@ -44,7 +47,7 @@ class MiSnapViewXml : Fragment(R.layout.example_misnap_view_xml) {
          * @see [R.layout.example_misnap_view_xml] for the specific XML attributes used to configure the [MiSnapView].
          * @see [MiSnapView] for the full list of available APIs.
          */
-        val misnapView = view.findViewById<MiSnapView>(R.id.misnapView)
+        view.findViewById<MiSnapView>(R.id.misnapView)
             .also { misnapView ->
                 /**
                  * Observe the [MiSnapView.feedbackResult] [LiveData] to handle the feedback from the
@@ -96,12 +99,16 @@ class MiSnapViewXml : Fragment(R.layout.example_misnap_view_xml) {
 
                 }
             }
+    }
 
+    override fun onResume() {
+        super.onResume()
         /**
          * Start the camera preview and register a callback to know when the preview has
          * started.
          */
-        misnapView.startMiSnapSession(settings, viewLifecycleOwner) {
+        requireView().findViewById<MiSnapView>(R.id.misnapView)
+            .startMiSnapSession(settings, viewLifecycleOwner) {
 
         }
     }

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="misnapAppUtilViewPagerHorizontalMargin">16dp</dimen>
+    <dimen name="misnapAppUtilViewPagerVerticalMargin">16dp</dimen>
+    <dimen name="misnapAppUtilJsonViewerTextSize">16sp</dimen>
+</resources>

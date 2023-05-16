@@ -5,5 +5,4 @@
     <dimen name="misnapSampleAppSpaceDefault">8dp</dimen>
     <dimen name="misnapSampleAppSpaceLarge">16dp</dimen>
     <dimen name="misnapSampleAppInfoIconSize">16dp</dimen>
-    <dimen name="misnapSampleAppJsonViewerTextSize">16sp</dimen>
 </resources>

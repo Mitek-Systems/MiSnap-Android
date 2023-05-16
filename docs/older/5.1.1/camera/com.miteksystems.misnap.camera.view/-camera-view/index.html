@@ -1,0 +1,451 @@
+<!doctype html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>CameraView</title>
+<link href="../../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../../";</script>    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script src="https://unpkg.com/kotlin-playground@1"></script><script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../styles/style.css" rel="Stylesheet">
+<link href="../../../styles/jetbrains-mono.css" rel="Stylesheet">
+<link href="../../../styles/main.css" rel="Stylesheet">
+<link href="../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../styles/logo-styles.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script>
+<link href="../../../styles/multimodule.css" rel="Stylesheet"></head>
+<body>
+<div class="navigation-wrapper" id="navigation-wrapper">
+    <div id="leftToggler"><span class="icon-toggler"></span></div>
+    <div class="library-name">
+<a href="../../../index.html">
+<span>v5.1.1</span>            </a>    </div>
+    <div>
+<dokka-template-command data="{&quot;@class&quot;:&quot;org.jetbrains.dokka.base.templating.ReplaceVersionsCommand&quot;,&quot;location&quot;:&quot;com.miteksystems.misnap.camera.view/-camera-view/index.html&quot;}"><div class="versions-dropdown">
+  <div class="versions-dropdown-button">5.1.1</div>
+  <div class="versions-dropdown-data"><a href="../../../../../camera/com.miteksystems.misnap.camera.view/-camera-view/index.html">5.3.0</a><a href="../../../../5.2.1/camera/com.miteksystems.misnap.camera.view/-camera-view/index.html">5.2.1</a><a href="../../../../5.2/camera/com.miteksystems.misnap.camera.view/-camera-view/index.html">5.2</a><a href="index.html">5.1.1</a><a href="../../../../5.1.0/camera/com.miteksystems.misnap.camera.view/-camera-view/index.html">5.1.0</a><a href="../../../../5.0.0/camera/com.miteksystems.misnap.camera.view/-camera-view/index.html">5.0.0</a></div>
+</div>
+</dokka-template-command>    </div>
+    <div class="pull-right d-flex">
+        <div class="filter-section" id="filter-section">
+                <button class="platform-tag platform-selector jvm-like" data-active="" data-filter=":camera:dokkaHtmlPartial/release">androidJvm</button>
+        </div>
+        <button id="theme-toggle-button"><span id="theme-toggle"></span></button>
+        <div id="searchBar"></div>
+    </div>
+</div>
+<div id="container">
+    <div id="leftColumn">
+        <div id="sideMenu"></div>
+    </div>
+    <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="camera::com.miteksystems.misnap.camera.view/CameraView///PointingToDeclaration//722615118">
+  <div class="breadcrumbs"><a href="../../index.html">camera</a><span class="delimiter">/</span><a href="../index.html">com.miteksystems.misnap.camera.view</a><span class="delimiter">/</span><span class="current">CameraView</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Camera</span><wbr><span><span>View</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":camera:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">class </span><a href="index.html">CameraView</a>&nbsp;<span><span class="token annotation builtin">@</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.jvm/-jvm-overloads/index.html"><span class="token annotation builtin">JvmOverloads</span></a>&nbsp;</span><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">context<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/android/content/Context.html">Context</a><span class="token punctuation">, </span></span><span class="parameter ">attrs<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/android/util/AttributeSet.html">AttributeSet</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter "><span><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/annotation/AttrRes.html"><span class="token annotation builtin">AttrRes</span></a>&nbsp;</span>defStyleAttr<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token operator"> = </span><span class="token constant">0</span><span class="token punctuation">, </span></span><span class="parameter "><span><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/annotation/StyleRes.html"><span class="token annotation builtin">StyleRes</span></a>&nbsp;</span>defStyleRes<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token operator"> = </span><span class="token constant">0</span></span></span><span class="token punctuation">)</span> : <a href="https://developer.android.com/reference/kotlin/android/view/SurfaceView.html">SurfaceView</a></div><p class="paragraph">The CameraView provides a straightforward way to create and manage a camera.  On creation, the view will display the camera's preview and provide access to preview frames through the <a href="preview-frames.html">previewFrames</a> property.</p><h4 class="">Samples</h4><div class="sample-container"><pre><code class="runnablesample monospace block lang-kotlin" theme="idea">import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.LiveData
+import com.miteksystems.misnap.camera.frameproducers.FrameProducer.Event
+import com.miteksystems.misnap.camera.view.CameraView
+import com.miteksystems.misnap.controller.MiSnapController
+import com.miteksystems.misnap.core.Frame
+import com.miteksystems.misnap.core.MiSnapSettings
+fun main() { 
+   //sampleStart 
+   /**
+ * This example demonstrates how to programmatically use a [CameraView] to get access to the device's
+ * hardware camera and interact with various camera APIs such as preview frames, picture frames, torch
+ * controls, focus controls, video recording, etc.
+ *
+ * @see com.miteksystems.misnap.examples.camera.CameraViewXml for an example on how to use the [CameraView]
+ * from an XML layout.
+ */
+class CameraViewCode : Fragment() {
+    private val license = "your_sdk_license"
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        /**
+         * The [CameraView] needs a [MiSnapSettings.Camera.Profile] to select the correct camera which
+         * is defined based on the [MiSnapSettings.UseCase], you can also set it explicitly to match your
+         * specific needs.
+         */
+        val settings = MiSnapSettings(MiSnapSettings.UseCase.ID_FRONT, license).apply {
+            camera.profile = MiSnapSettings.Camera.Profile.DOCUMENT_BACK_CAMERA
+        }
+
+        /**
+         * Instantiate a [CameraView] and observe the various [LiveData]s to get preview frames, picture
+         * frames, recorded videos, camera events etc.
+         */
+        return CameraView(requireContext())
+            .apply {
+                /**
+                 * Observe the [CameraView.previewFrames] [LiveData] to handle the camera preview [Frame]s,
+                 * e.g. by analyzing them using the [MiSnapController.analyzeFrame] method.
+                 *
+                 * @see com.miteksystems.misnap.examples.science for examples on how to analyze [Frame]s
+                 * with different sciences.
+                 */
+                previewFrames.observe(viewLifecycleOwner) {
+
+                }
+
+                /**
+                 * Observe the [CameraView.pictureFrames] [LiveData] to handle the camera pictures
+                 * produced by the [CameraView.takePicture] method.
+                 */
+                pictureFrames.observe(viewLifecycleOwner) {
+
+                }
+
+                /**
+                 * Observe the [CameraView.cameraEvents] [LiveData] to handle the various camera
+                 * related [Event]s.
+                 *
+                 * @see com.miteksystems.misnap.camera.frameproducers.FrameProducer.Event for the
+                 * full list of emitted events.
+                 */
+                cameraEvents.observe(viewLifecycleOwner) { event -&gt;
+                    when (event) {
+                        is Event.CameraInitialized -&gt; {
+
+                        }
+                        is Event.CameraReady -&gt; {
+
+                        }
+                        is Event.InitializationError.InsufficientCamera -&gt; {
+
+                        }
+                        is Event.InitializationError.CameraNotAvailable -&gt; {
+
+                        }
+                    }
+                }
+
+                /**
+                 * Observe the [CameraView.recordedVideo] [LiveData] to receive a [ByteArray] with
+                 * the contents of the recorded video if requested in [MiSnapSettings].
+                 */
+                recordedVideo.observe(viewLifecycleOwner) { videoBytes -&gt;
+
+                }
+            }
+            .also { cameraView -&gt;
+                /**
+                 * Start the camera preview and register a callback to know when the preview has
+                 * started.
+                 */
+                cameraView.startCamera(settings.camera, viewLifecycleOwner) {
+
+                }
+            }
+    }
+} 
+   //sampleEnd
+}</code></pre></div></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,FUNCTION,PROPERTY">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="">Constructors</h2>
+        <div class="table"><a data-name="-392353816%2FConstructors%2F722615118" anchor-label="CameraView" id="-392353816%2FConstructors%2F722615118" data-filterable-set=":camera:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-togglable="CONSTRUCTOR" data-filterable-current=":camera:dokkaHtmlPartial/release" data-filterable-set=":camera:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-camera-view.html"><span>Camera</span><wbr><span><span>View</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-392353816%2FConstructors%2F722615118"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":camera:dokkaHtmlPartial/release"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.jvm/-jvm-overloads/index.html"><span class="token annotation builtin">JvmOverloads</span></a></div></div><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">context<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/android/content/Context.html">Context</a><span class="token punctuation">, </span></span><span class="parameter ">attrs<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/android/util/AttributeSet.html">AttributeSet</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter "><span><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/annotation/AttrRes.html"><span class="token annotation builtin">AttrRes</span></a>&nbsp;</span>defStyleAttr<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token operator"> = </span><span class="token constant">0</span><span class="token punctuation">, </span></span><span class="parameter "><span><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/annotation/StyleRes.html"><span class="token annotation builtin">StyleRes</span></a>&nbsp;</span>defStyleRes<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token operator"> = </span><span class="token constant">0</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="-1646982203%2FFunctions%2F722615118" anchor-label="cancelAutoFocus" id="-1646982203%2FFunctions%2F722615118" data-filterable-set=":camera:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":camera:dokkaHtmlPartial/release" data-filterable-set=":camera:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="cancel-auto-focus.html"><span>cancel</span><wbr><span>Auto</span><wbr><span><span>Focus</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1646982203%2FFunctions%2F722615118"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":camera:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="cancel-auto-focus.html"><span class="token function">cancelAutoFocus</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1711229242%2FFunctions%2F722615118" anchor-label="clearBoxes" id="1711229242%2FFunctions%2F722615118" data-filterable-set=":camera:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":camera:dokkaHtmlPartial/release" data-filterable-set=":camera:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="clear-boxes.html"><span>clear</span><wbr><span><span>Boxes</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1711229242%2FFunctions%2F722615118"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":camera:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="clear-boxes.html"><span class="token function">clearBoxes</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Clears the list of boxes and colors to draw and removes the drawn boxes.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-829800416%2FFunctions%2F722615118" anchor-label="drawBoxes" id="-829800416%2FFunctions%2F722615118" data-filterable-set=":camera:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":camera:dokkaHtmlPartial/release" data-filterable-set=":camera:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="draw-boxes.html"><span>draw</span><wbr><span><span>Boxes</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-829800416%2FFunctions%2F722615118"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":camera:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="draw-boxes.html"><span class="token function">drawBoxes</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">boxesColorsMap<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/index.html">Map</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-array/index.html">Array</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int-array/index.html">IntArray</a><span class="token operator">&gt;</span><span class="token punctuation">, </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Draws a set of quadrilateral shapes on the camera preview scaling the points to the area without black bars.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-325889070%2FFunctions%2F722615118" anchor-label="onTouchEvent" id="-325889070%2FFunctions%2F722615118" data-filterable-set=":camera:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":camera:dokkaHtmlPartial/release" data-filterable-set=":camera:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="on-touch-event.html"><span>on</span><wbr><span>Touch</span><wbr><span><span>Event</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-325889070%2FFunctions%2F722615118"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":camera:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="on-touch-event.html"><span class="token function">onTouchEvent</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">event<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/android/view/MotionEvent.html">MotionEvent</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1281928772%2FFunctions%2F722615118" anchor-label="setTorchEnabled" id="1281928772%2FFunctions%2F722615118" data-filterable-set=":camera:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":camera:dokkaHtmlPartial/release" data-filterable-set=":camera:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-torch-enabled.html"><span>set</span><wbr><span>Torch</span><wbr><span><span>Enabled</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1281928772%2FFunctions%2F722615118"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":camera:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="set-torch-enabled.html"><span class="token function">setTorchEnabled</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">enable<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token punctuation">, </span></span><span class="parameter ">torchChangedResultListener<span class="token operator">: </span><span class="token punctuation">(</span><span class="token keyword"></span>isSuccessful<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Sets the new state of the torch and optionally registers a listener to the operation result.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1003361936%2FFunctions%2F722615118" anchor-label="startAutoFocus" id="1003361936%2FFunctions%2F722615118" data-filterable-set=":camera:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":camera:dokkaHtmlPartial/release" data-filterable-set=":camera:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="start-auto-focus.html"><span>start</span><wbr><span>Auto</span><wbr><span><span>Focus</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1003361936%2FFunctions%2F722615118"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":camera:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="start-auto-focus.html"><span class="token function">startAutoFocus</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">focusPoint<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/android/graphics/Point.html">Point</a><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Focuses the camera, either at the provided point or at the center of the screen if no point is specified The status of the focus operation will be updated on <a href="focusing-events.html">focusingEvents</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-946323628%2FFunctions%2F722615118" anchor-label="startCamera" id="-946323628%2FFunctions%2F722615118" data-filterable-set=":camera:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":camera:dokkaHtmlPartial/release" data-filterable-set=":camera:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="start-camera.html"><span>start</span><wbr><span><span>Camera</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-946323628%2FFunctions%2F722615118"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":camera:dokkaHtmlPartial/release"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.jvm/-jvm-overloads/index.html"><span class="token annotation builtin">JvmOverloads</span></a></div></div><span class="token keyword"></span><span class="token keyword">fun </span><a href="start-camera.html"><span class="token function">startCamera</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">cameraSettings<span class="token operator">: </span><a href="../../../core/com.miteksystems.misnap.core/-mi-snap-settings/-camera/index.html">MiSnapSettings.Camera</a><span class="token punctuation">, </span></span><span class="parameter ">lifecycleOwner<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/lifecycle/LifecycleOwner.html">LifecycleOwner</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">cameraStartedListener<span class="token operator">: </span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a><span class="token operator"> = </span>{}</span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Starts the camera with the provided configurations.  These settings are equivalent to the following attributes in a layout xml file:</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1129624617%2FFunctions%2F722615118" anchor-label="startRecording" id="-1129624617%2FFunctions%2F722615118" data-filterable-set=":camera:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":camera:dokkaHtmlPartial/release" data-filterable-set=":camera:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="start-recording.html"><span>start</span><wbr><span><span>Recording</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1129624617%2FFunctions%2F722615118"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":camera:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="start-recording.html"><span class="token function">startRecording</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1531620485%2FFunctions%2F722615118" anchor-label="stopRecording" id="1531620485%2FFunctions%2F722615118" data-filterable-set=":camera:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":camera:dokkaHtmlPartial/release" data-filterable-set=":camera:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="stop-recording.html"><span>stop</span><wbr><span><span>Recording</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1531620485%2FFunctions%2F722615118"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":camera:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="stop-recording.html"><span class="token function">stopRecording</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Stops recording the camera's view, the video will be posted on <a href="recorded-video.html">recordedVideo</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1881648931%2FFunctions%2F722615118" anchor-label="takePicture" id="-1881648931%2FFunctions%2F722615118" data-filterable-set=":camera:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":camera:dokkaHtmlPartial/release" data-filterable-set=":camera:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="take-picture.html"><span>take</span><wbr><span><span>Picture</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1881648931%2FFunctions%2F722615118"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":camera:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="take-picture.html"><span class="token function">takePicture</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Takes a picture, the image will be posted on <a href="picture-frames.html">pictureFrames</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="1322112008%2FProperties%2F722615118" anchor-label="cameraEvents" id="1322112008%2FProperties%2F722615118" data-filterable-set=":camera:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":camera:dokkaHtmlPartial/release" data-filterable-set=":camera:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="camera-events.html"><span>camera</span><wbr><span><span>Events</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1322112008%2FProperties%2F722615118"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":camera:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">val </span><a href="camera-events.html">cameraEvents</a><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/lifecycle/LiveData.html">LiveData</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../../com.miteksystems.misnap.camera.frameproducers/-frame-producer/-event/index.html">FrameProducer.Event</a><span class="token operator">?</span><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph"><a href="https://developer.android.com/reference/kotlin/androidx/lifecycle/LiveData.html">LiveData</a> for camera status events and errors.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1453023165%2FProperties%2F722615118" anchor-label="focusingEvents" id="-1453023165%2FProperties%2F722615118" data-filterable-set=":camera:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":camera:dokkaHtmlPartial/release" data-filterable-set=":camera:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="focusing-events.html"><span>focusing</span><wbr><span><span>Events</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1453023165%2FProperties%2F722615118"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":camera:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">val </span><a href="focusing-events.html">focusingEvents</a><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/lifecycle/LiveData.html">LiveData</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph"><a href="https://developer.android.com/reference/kotlin/androidx/lifecycle/LiveData.html">LiveData</a> for tracking if the camera is focusing.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1469620976%2FProperties%2F722615118" anchor-label="pictureFrames" id="1469620976%2FProperties%2F722615118" data-filterable-set=":camera:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":camera:dokkaHtmlPartial/release" data-filterable-set=":camera:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="picture-frames.html"><span>picture</span><wbr><span><span>Frames</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1469620976%2FProperties%2F722615118"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":camera:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">val </span><a href="picture-frames.html">pictureFrames</a><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/lifecycle/LiveData.html">LiveData</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../../../core/com.miteksystems.misnap.core/-frame/index.html">Frame</a><span class="token operator">?</span><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph"><a href="https://developer.android.com/reference/kotlin/androidx/lifecycle/LiveData.html">LiveData</a> for pictures taken by the camera.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="279036646%2FProperties%2F722615118" anchor-label="previewFrames" id="279036646%2FProperties%2F722615118" data-filterable-set=":camera:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":camera:dokkaHtmlPartial/release" data-filterable-set=":camera:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="preview-frames.html"><span>preview</span><wbr><span><span>Frames</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="279036646%2FProperties%2F722615118"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":camera:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">val </span><a href="preview-frames.html">previewFrames</a><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/lifecycle/LiveData.html">LiveData</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../../../core/com.miteksystems.misnap.core/-frame/index.html">Frame</a><span class="token operator">?</span><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph"><a href="https://developer.android.com/reference/kotlin/androidx/lifecycle/LiveData.html">LiveData</a> for preview images from the camera.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1549566569%2FProperties%2F722615118" anchor-label="recordedVideo" id="1549566569%2FProperties%2F722615118" data-filterable-set=":camera:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":camera:dokkaHtmlPartial/release" data-filterable-set=":camera:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="recorded-video.html"><span>recorded</span><wbr><span><span>Video</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1549566569%2FProperties%2F722615118"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":camera:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">val </span><a href="recorded-video.html">recordedVideo</a><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/lifecycle/LiveData.html">LiveData</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-byte-array/index.html">ByteArray</a><span class="token operator">?</span><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph"><a href="https://developer.android.com/reference/kotlin/androidx/lifecycle/LiveData.html">LiveData</a> containing the video after <a href="stop-recording.html">stopRecording</a> has been called.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1268472031%2FProperties%2F722615118" anchor-label="torchEvents" id="1268472031%2FProperties%2F722615118" data-filterable-set=":camera:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":camera:dokkaHtmlPartial/release" data-filterable-set=":camera:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="torch-events.html"><span>torch</span><wbr><span><span>Events</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1268472031%2FProperties%2F722615118"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":camera:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">val </span><a href="torch-events.html">torchEvents</a><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/lifecycle/LiveData.html">LiveData</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph"><a href="https://developer.android.com/reference/kotlin/androidx/lifecycle/LiveData.html">LiveData</a> object to emit the changes in the torch state, true for ON and false for OFF. Default Value: False.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2023 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+    </div>
+</div>
+</body>
+</html>
+
+

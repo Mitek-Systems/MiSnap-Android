@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    This custom navgraph replaces the "helpFragment" definition with "replaceScreenCustomFragment" and
+    establishes it as the "startDestination".
+    The "navigateHelp" action of the "documentAnalysisFragment" is modified so that the destination
+    points to the "replaceScreenCustomFragment" effectively replacing the "helpFragment" with a custom
+    implementation.
+-->
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/documentSessionFlow"
+    app:startDestination="@id/replaceScreenCustomFragment">
+
+    <fragment
+        android:id="@+id/replaceScreenCustomFragment"
+        android:name="com.miteksystems.misnap.examples.advanced.screens.replacescreen.ReplaceScreenCustomFragment"
+        android:label="replaceScreenCustomFragment">
+        <action
+            android:id="@+id/navigateContinue"
+            app:destination="@id/documentAnalysisFragment"
+            app:popUpTo="@id/replaceScreenCustomFragment"
+            app:popUpToInclusive="true"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/documentAnalysisFragment"
+        android:name="com.miteksystems.misnap.workflow.fragment.DocumentAnalysisFragment"
+        android:label="@string/misnapWorkflowDocumentAnalysisFlowDocumentAnalysisFragmentLabel">
+        <argument
+            android:name="handleOrientation"
+            android:defaultValue="false"
+            app:argType="boolean" />
+        <action
+            android:id="@+id/navigateFailover"
+            app:destination="@id/failoverFragment"
+            app:popUpTo="@id/documentAnalysisFragment"
+            app:popUpToInclusive="true"/>
+
+        <action
+            android:id="@+id/navigateReview"
+            app:destination="@id/reviewFragment"
+            app:popUpTo="@id/documentAnalysisFragment"
+            app:popUpToInclusive="true"/>
+
+        <action
+            android:id="@+id/navigateHelp"
+            app:destination="@id/replaceScreenCustomFragment"
+            app:popUpTo="@id/documentAnalysisFragment"
+            app:popUpToInclusive="true">
+        </action>
+    </fragment>
+
+    <fragment
+        android:id="@+id/reviewFragment"
+        android:name="com.miteksystems.misnap.workflow.fragment.ReviewFragment"
+        android:label="@string/misnapWorkflowDocumentAnalysisFlowReviewFragmentLabel">
+        <argument
+            android:name="handleOrientation"
+            android:defaultValue="false"
+            app:argType="boolean" />
+        <action android:id="@+id/navigateSatisfied"
+            app:popUpTo="@id/reviewFragment"
+            app:popUpToInclusive="true"/>
+
+        <action
+            android:id="@+id/navigateRetake"
+            app:destination="@id/documentAnalysisFragment"
+            app:popUpTo="@id/reviewFragment"
+            app:popUpToInclusive="true"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/failoverFragment"
+        android:name="com.miteksystems.misnap.workflow.fragment.FailoverFragment"
+        android:label="@string/misnapWorkflowDocumentAnalysisFlowFailoverFragmentLabel">
+        <argument
+            android:name="handleOrientation"
+            android:defaultValue="false"
+            app:argType="boolean" />
+        <action
+            android:id="@+id/navigateManualSession"
+            app:destination="@id/documentAnalysisFragment"
+            app:popUpTo="@id/failoverFragment"
+            app:popUpToInclusive="true"/>
+        <action
+            android:id="@+id/navigateAutoSession"
+            app:destination="@id/documentAnalysisFragment"
+            app:popUpTo="@id/failoverFragment"
+            app:popUpToInclusive="true"/>
+    </fragment>
+</navigation>

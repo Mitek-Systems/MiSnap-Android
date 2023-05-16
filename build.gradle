@@ -12,6 +12,7 @@ buildscript {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
         classpath "org.jetbrains.kotlin:kotlin-serialization:$kotlinVersion"
         classpath "org.jetbrains.dokka:dokka-gradle-plugin:$dokkaVersion"
+        classpath "org.jetbrains.dokka:versioning-plugin:$dokkaVersion"
         classpath "org.jetbrains.kotlinx:binary-compatibility-validator:$apiValidatorVersion"
         classpath "org.jacoco:org.jacoco.core:$jacocoVersion"
         classpath "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:$detektVersion"

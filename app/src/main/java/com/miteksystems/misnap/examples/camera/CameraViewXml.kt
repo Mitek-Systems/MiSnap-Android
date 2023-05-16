@@ -64,7 +64,7 @@ class CameraViewXml : Fragment(R.layout.example_camera_view_xml) {
 
                         }
                         is Event.CameraReady -> {
-
+                            //Start to interact with the camera
                         }
                         is Event.InitializationError.InsufficientCamera -> {
 

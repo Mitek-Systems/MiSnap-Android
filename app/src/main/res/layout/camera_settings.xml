@@ -53,6 +53,16 @@
     </LinearLayout>
 
     <com.google.android.material.checkbox.MaterialCheckBox
+        android:id="@+id/cameraSettingsRequestHighResolutionCheckbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/misnapSampleAppLayoutVerticalMargin"
+        android:checked="false"
+        android:text="@string/misnapSampleAppSettingsCameraRequestHighResolutionLabel"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cameraSettingsTorchModeContainer" />
+
+    <com.google.android.material.checkbox.MaterialCheckBox
         android:id="@+id/cameraSettingsRecordSessionCheckbox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -60,7 +70,7 @@
         android:checked="false"
         android:text="@string/misnapSampleAppSettingsCameraShouldRecordVideoLabel"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cameraSettingsTorchModeContainer" />
+        app:layout_constraintTop_toBottomOf="@id/cameraSettingsRequestHighResolutionCheckbox" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/cameraSettingsVideoResolution"

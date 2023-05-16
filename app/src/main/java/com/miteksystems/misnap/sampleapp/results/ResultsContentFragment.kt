@@ -25,6 +25,11 @@ import androidx.viewpager.widget.ViewPager.SimpleOnPageChangeListener
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textview.MaterialTextView
 import com.miteksystems.misnap.R
+import com.miteksystems.misnap.apputil.ViewPageAdapter
+import com.miteksystems.misnap.apputil.view.JsonView
+import com.miteksystems.misnap.apputil.view.MiSnapAudioView
+import com.miteksystems.misnap.apputil.view.MiSnapVideoView
+import com.miteksystems.misnap.apputil.view.TouchImageView
 import com.miteksystems.misnap.controller.MiSnapController.FeedbackResult.UserAction
 import com.miteksystems.misnap.core.Barcode
 import com.miteksystems.misnap.core.Mrz
@@ -59,7 +64,7 @@ class ResultsContentFragment : Fragment(R.layout.fragment_result_content) {
                         when (val misnapResult = miSnapWorkflowStepResult.result) {
                             is MiSnapFinalResult.DocumentSession -> {
                                 adapter.addView(
-                                    getTouchImageView(misnapResult.jpegImage),
+                                    getFinalFrameView(misnapResult.jpegImage),
                                     getString(R.string.misnapSampleAppResultsFrameTabTitle)
                                 )
 
@@ -92,13 +97,13 @@ class ResultsContentFragment : Fragment(R.layout.fragment_result_content) {
                                 }
 
                                 adapter.addView(
-                                    getMiBiDataView(misnapResult.mibiData),
+                                    getMiBiDataView(misnapResult.misnapMibiData.mibiData),
                                     getString(R.string.misnapSampleAppResultsMibiTabTitle)
                                 )
                             }
                             is MiSnapFinalResult.BarcodeSession -> {
                                 adapter.addView(
-                                    getTouchImageView(misnapResult.jpegImage),
+                                    getFinalFrameView(misnapResult.jpegImage),
                                     getString(R.string.misnapSampleAppResultsFrameTabTitle)
                                 )
 
@@ -124,13 +129,13 @@ class ResultsContentFragment : Fragment(R.layout.fragment_result_content) {
                                 }
 
                                 adapter.addView(
-                                    getMiBiDataView(misnapResult.mibiData),
+                                    getMiBiDataView(misnapResult.misnapMibiData.mibiData),
                                     getString(R.string.misnapSampleAppResultsMibiTabTitle)
                                 )
                             }
                             is MiSnapFinalResult.FaceSession -> {
                                 adapter.addView(
-                                    getTouchImageView(misnapResult.jpegImage),
+                                    getFinalFrameView(misnapResult.jpegImage),
                                     getString(R.string.misnapSampleAppResultsFrameTabTitle)
                                 )
 
@@ -149,7 +154,7 @@ class ResultsContentFragment : Fragment(R.layout.fragment_result_content) {
                                 }
 
                                 adapter.addView(
-                                    getMiBiDataView(misnapResult.mibiData),
+                                    getMiBiDataView(misnapResult.misnapMibiData.mibiData),
                                     getString(R.string.misnapSampleAppResultsMibiTabTitle)
                                 )
                             }
@@ -160,7 +165,7 @@ class ResultsContentFragment : Fragment(R.layout.fragment_result_content) {
                                 )
 
                                 adapter.addView(
-                                    getMiBiDataView(misnapResult.mibiData),
+                                    getMiBiDataView(misnapResult.misnapMibiData.mibiData),
                                     getString(R.string.misnapSampleAppResultsMibiTabTitle)
                                 )
                             }
@@ -174,12 +179,12 @@ class ResultsContentFragment : Fragment(R.layout.fragment_result_content) {
                                             adapter.addView(
                                                 getMiSnapAudioView(
                                                     // NOTE: This is for demo purposes only. Please do not boost wav file audio before sending to MobileVerify server.
-                                                    AudioUtil.boostWavVolume(audio, 25, misnapResult.mibiData[index])
+                                                    AudioUtil.boostWavVolume(audio, 25, misnapResult.misnapMibiData[index])
                                                 ),
                                                 getString(R.string.misnapSampleAppResultsVoiceAudioTabTitle)
                                             )
                                             adapter.addView(
-                                                getMiBiDataView(misnapResult.mibiData[index]),
+                                                getMiBiDataView(misnapResult.misnapMibiData[index].mibiData),
                                                 getString(R.string.misnapSampleAppResultsMibiTabTitle)
                                             )
                                         }
@@ -219,7 +224,7 @@ class ResultsContentFragment : Fragment(R.layout.fragment_result_content) {
                             getString(R.string.misnapSampleAppResultsErrorTabTitle)
                         )
                         adapter.addView(
-                            getMiBiDataView(miSnapWorkflowStepResult.errorResult.mibiData),
+                            getMiBiDataView(miSnapWorkflowStepResult.errorResult.misnapMibiData.mibiData),
                             getString(R.string.misnapSampleAppResultsMibiTabTitle)
                         )
                     }
@@ -622,20 +627,26 @@ class ResultsContentFragment : Fragment(R.layout.fragment_result_content) {
         layout.addView(contentView)
     }
 
-    private fun getTouchImageView(byteImage: ByteArray) =
-        TouchImageView(requireActivity()).apply {
-            layoutParams = ViewGroup.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.MATCH_PARENT
-            )
-            val options = BitmapFactory.Options().apply {
+    private fun getFinalFrameView(byteImage: ByteArray) =
+        getBaseLinearLayoutView().apply {
+            val bmp = BitmapFactory.decodeByteArray(byteImage, 0, byteImage.size, BitmapFactory.Options().apply {
                 inJustDecodeBounds = false
-                inSampleSize = 1 // downscale by 2 as it's just a review
-            }
+            })
 
-            setMaxZoom(4f)
-            setImageBitmap(BitmapFactory.decodeByteArray(byteImage, 0, byteImage.size, options))
+            addView(getGenericTextView(String.format(getString(R.string.misnapSampleAppResultsFinalFrameDiskSize), "${byteImage.size/1024}KB")))
+            addView(getGenericTextView(String.format(getString(R.string.misnapSampleAppResultsFinalFrameDimensions), "${bmp.width}x${bmp.height}")))
+
+            addView(TouchImageView(requireActivity()).apply {
+                layoutParams = ViewGroup.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.MATCH_PARENT
+                )
+
+                setMaxZoom(4f)
+                setImageBitmap(bmp)
+            })
         }
+
 
     private fun getMiSnapVideoView(data: ByteArray) =
         MiSnapVideoView(requireActivity()).apply {
@@ -748,6 +759,28 @@ class ResultsContentFragment : Fragment(R.layout.fragment_result_content) {
                 )
             }
         }
+
+    private fun getBaseLinearLayoutView(
+        width: Int = ViewGroup.LayoutParams.MATCH_PARENT,
+        height: Int = ViewGroup.LayoutParams.WRAP_CONTENT,
+        layoutOrientation: Int = LinearLayout.VERTICAL
+    ) = LinearLayout(requireActivity()).apply {
+        layoutParams = ViewGroup.MarginLayoutParams(
+            width, height
+        ).apply {
+            val activityMarginVertical =
+                resources.getDimension(R.dimen.misnapSampleAppLayoutVerticalMargin).toInt()
+            val activityMarginHorizontal =
+                resources.getDimension(R.dimen.misnapSampleAppLayoutHorizontalMargin).toInt()
+            setMargins(
+                activityMarginHorizontal,
+                activityMarginVertical,
+                activityMarginHorizontal,
+                activityMarginVertical
+            )
+        }
+        orientation = layoutOrientation
+    }
 
     private fun getWarningsView(warnings: List<UserAction>) =
         LinearLayout(requireActivity()).apply {

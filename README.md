@@ -1,4 +1,4 @@
-# MiSnap SDK v5.2.1 for Android
+# MiSnap SDK v5.3.0 for Android
 
 # Table of Contents
 [Getting Started](#getting-started)
@@ -11,6 +11,8 @@
 [Migration Guide](#migration-guide)
 
 [Integration Guides](#integration-guides)
+
+[Customization Guide](#customization-guide)
 
 [Code Examples](#code-examples)
 
@@ -25,10 +27,24 @@
 # Getting Started
 
 ## Release Notes
+#### **Added**
+* [Common] The new `MiSnapMibiData` object has been added to describe analytics data from a MiSnap SDK session and it's included in the session results.
+* [Document] Improvements to the camera focus performance.
+* [Document & Analysis] Support for high resolution frames in supported devices. High resolution frames can be enabled using the `enableHighResolutionFrames` setting in the `MiSnapSettings.Camera` object.
+   * _The use of high resolution frames for analysis in auto sessions is only available when manual picture capabilities are not requested and when the device supports higher resolutions. Enabling high resolution frames impacts the performance of the analysis and the disk size of the returned image._
+* [Common] `DeviceInfoUtil` class has been added to provide device metadata that adds an additional layer of security without adding additional friction by enrolling a device to be bound to a biometric in Mitek server products.
+   * _When this API is called a collection of device info used for enrollment and verification happens without a user action therefore it's the app developer’s responsibility to get user's consent and possibly allow to opt out beforehand._
+* [Face] The `GuideView` in face sessions now changes colors depending on the IQA evaluations of a frame, signaling a change between "bad image" and "good image".
+* [NFC] Chip authentication support for Italian documents.
 
-### **Version 5.2.1**
-#### **Fixed**
-* [NFC] An issue that prevented some ITA documents from completing NFC scanning.
+#### **Modified**
+* [Document] The default `jpegQuality` has been increased to 90 for identity documents session types.
+* [Common] A minimum `jpegQuality` of 50 has been established for all session types.
+* [Camera] Updated the `CameraX` dependency to version `1.1.0`.
+* [Common] The `mibiData` property has been replaced with `misnapMibiData` in the result objects returned by the MiSnap SDK.
+    * Please see the [migration guide](./documentation/migration_guide.md) for more information on the updated APIs.
+
+### **Version 5.3.0**
 
 Please see [this page](documentation/change_log.md) for release notes from older releases.
 
@@ -40,21 +56,21 @@ Please see [this page](documentation/download_sizes.md) for the in-depth size ta
 <!-- SIZE_TABLE_START -->
 | Use Case                         | Download Size (MiB) | 
 | :------------------------------- | ------------------: |
-| Document                         | 5.57                | 
-| Document and Barcode             | 6.83                | 
-| Document and Biometric           | 13.31               | 
-| Document, Barcode, and Biometric | 14.56               | 
-| Document, Biometric, and NFC     | 16.85               | 
+| Document                         | 5.65                | 
+| Document and Barcode             | 6.9                 | 
+| Document and Biometric           | 13.38               | 
+| Document, Barcode, and Biometric | 14.64               | 
+| Document, Biometric, and NFC     | 16.93               | 
 <!-- SIZE_TABLE_END -->
 
 ## System Requirements
 
 | Technology               | Version |
-| :--------------------    | :------ |
+| :--------------------    |:--------|
 | Android Gradle Plugin    | 4.2.2   |
 | Gradle                   | 6.7.1   |
 | Kotlin                   | 1.5.32  |
-| CameraX                  | 1.0.x   |
+| CameraX                  | 1.1.0   |
 | JDK                      | 11      |
 | Android min API level    | 23      |
 | Android target API level | 31      |
@@ -86,6 +102,12 @@ To integrate the MiSnap SDK in single-activity architecture applications, please
 The MiSnap SDK also provides some easy-to-use custom Android Views to recreate various screens without integrating the default `Fragment`s provided in the SDK. Please follow [this views integration guide](documentation/views_integration_guide.md) for more information.
 
 To use MiSnap's base processing without any UI/UX provided in the MiSnap SDK, please follow [this science integration guide](documentation/science_integration_guide.md).
+
+- - - -
+
+# Customization Guide
+
+Please follow [this customization guide](documentation/customization_guide.md) for information on how to customize the MiSnap SDK workflow, UI and behavior.
 
 - - - -
 
@@ -145,6 +167,9 @@ or by using [Apk Splits](https://developer.android.com/studio/build/configure-ap
 
 ### How does the video recording feature work when optional data (BSN) redaction for NLD Passports is enabled?
 The `video recording` feature requires no frame processing therefore optional data will not be redacted in a recorded video. It is your responsibility to enable or disable `video recording` as per your needs when `optional data redaction` is enabled.
+
+### What device info is collected when using `DeviceInfoUtil`?
+It's publicly available non-PII device properties exposed by the Android APIs along with a unique Mitek-specific ID. Note, an ID is unique for every application that has this SDK integrated and its sole purpose is tying a device along with biometrics (face and/or voice) in Mitek server products, i.e. it's impossible to use it to track any user activity for purposes of creating a user profile for advertisement and/or malicious activities.
 
 ### How to integrate the MiSnap SDK without having access to a remote Maven repository?
 **NOTE**: Local maven integration requires access to the offline MiSnap SDK zip package, and will not work with the version available on Github.  Please reach out to support for access.

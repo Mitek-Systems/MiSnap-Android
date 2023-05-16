@@ -21,6 +21,8 @@ import com.miteksystems.misnap.workflow.fragment.MiSnapWorkflowViewModel
  * [R.navigation.barcode_session_flow] navgraph to take care of the navigation for a barcode session
  * while making use of the [MiSnapWorkflowViewModel] to configure the session.
  *
+ * @see R.navigation.example_session_navigation for the navgraph definition and setup.
+ *
  * @see com.miteksystems.misnap.examples.fragment.AnalysisFragmentTransaction for an activity-less
  * integration that doesn't use Jetpack Navigation and drives the navigation with [FragmentTransaction]s.
  */
@@ -37,7 +39,9 @@ class AnalysisFragmentNavigation : AppCompatActivity(R.layout.example_fragment_n
          * of this activity, it is important to apply the settings before navigating to the start
          * destination of the navgraph.
          */
-        val settings = MiSnapSettings(MiSnapSettings.UseCase.BARCODE, license)
+        val settings = MiSnapSettings(MiSnapSettings.UseCase.BARCODE, license).apply {
+            analysis.barcode.trigger = MiSnapSettings.Analysis.Barcode.Trigger.AUTO
+        }
 
         ViewModelProvider(this)[MiSnapWorkflowViewModel::class.java].also { viewModel ->
             viewModel.applySettings(settings)

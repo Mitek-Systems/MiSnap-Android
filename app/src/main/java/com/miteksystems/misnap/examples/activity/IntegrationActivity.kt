@@ -46,6 +46,14 @@ class IntegrationActivity : AppCompatActivity() {
                     is MiSnapWorkflowStep.Result.Success -> {
                         when (val result = stepResult.result) {
                             is MiSnapFinalResult.DocumentSession -> {
+                                /**
+                                 * Recover the session data from the results.
+                                 */
+                                val jpegImageBytes = result.jpegImage
+                                val licenseExpiredNotification = result.licenseExpired
+                                val mibiData = result.misnapMibiData
+                                val videoBytes = result.video
+                                val sessionWarnings = result.warnings
                             }
                             is MiSnapFinalResult.FaceSession -> {
                             }

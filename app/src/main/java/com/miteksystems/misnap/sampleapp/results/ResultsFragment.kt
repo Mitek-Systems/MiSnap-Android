@@ -58,24 +58,24 @@ class ResultsFragment : Fragment(R.layout.fragment_results_root) {
                 is MiSnapWorkflowStep.Result.Success -> {
                     when (val misnapResult = miSnapWorkflowStepResult.result) {
                         is MiSnapFinalResult.BarcodeSession -> {
-                            getUseCaseName(misnapResult.mibiData)
+                            getUseCaseName(misnapResult.misnapMibiData.mibiData)
                         }
                         is MiSnapFinalResult.DocumentSession -> {
-                            getUseCaseName(misnapResult.mibiData)
+                            getUseCaseName(misnapResult.misnapMibiData.mibiData)
                         }
                         is MiSnapFinalResult.FaceSession -> {
-                            getUseCaseName(misnapResult.mibiData)
+                            getUseCaseName(misnapResult.misnapMibiData.mibiData)
                         }
                         is MiSnapFinalResult.NfcSession -> {
-                            getUseCaseName(misnapResult.mibiData)
+                            getUseCaseName(misnapResult.misnapMibiData.mibiData)
                         }
                         is MiSnapFinalResult.VoiceSession -> {
-                            getUseCaseName(misnapResult.mibiData.first())
+                            getUseCaseName(misnapResult.misnapMibiData.first().mibiData)
                         }
                     }
                 }
                 is MiSnapWorkflowStep.Result.Error -> {
-                    getUseCaseName(miSnapWorkflowStepResult.errorResult.mibiData)
+                    getUseCaseName(miSnapWorkflowStepResult.errorResult.misnapMibiData.mibiData)
                 }
             }
     }

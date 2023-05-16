@@ -1,6 +1,8 @@
-# MiSnap SDK v5.2.1 Views Integration Guide
+# MiSnap SDK v5.3.0 Views Integration Guide
 
 This guide is targeted towards customers who want to **create their own UI/UX** while re-using some of the components shipped within the MiSnap SDK. These components (Views) can be used to create the UI for fragments or activities without having to re-write a major portion of the `workflow` module shipped out-of-the-box with the MiSnap SDK.
+
+Please see the [customization guide](./customization_guide.md) for information on how to customize the SDK.
 
 # Table of Contents
 [MiSnapView](#misnapview)
@@ -14,9 +16,6 @@ This guide is targeted towards customers who want to **create their own UI/UX** 
 [Other Views](#other-views)
 * [Dependencies](#dependencies-2)
 
-[Customizations](#customizations)
-* [Design Considerations](#design-considerations)
-
 - - - -
 
 # MiSnapView
@@ -28,21 +27,21 @@ Part of the `workflow` module, `MiSnapView` combines the functionality of the `C
 The easiest way to integrate the `MiSnapView` is to add the following to the integrating module's `build.gradle`:
 ```groovy
 dependencies {
-    implementation "com.miteksystems.misnap:workflow:5.2.1"
-    implementation "com.miteksystems.misnap:controller:5.2.1"
-    implementation "com.miteksystems.misnap:camera:5.2.1"
+    implementation "com.miteksystems.misnap:workflow:5.3.0"
+    implementation "com.miteksystems.misnap:controller:5.3.0"
+    implementation "com.miteksystems.misnap:camera:5.3.0"
 
     // Optional barcode analysis dependency
-    implementation "com.miteksystems.misnap:barcode-analysis:5.2.1"
+    implementation "com.miteksystems.misnap:barcode-analysis:5.3.0"
 
     // Optional document analysis dependency
-    implementation "com.miteksystems.misnap:document-analysis:5.2.1"
+    implementation "com.miteksystems.misnap:document-analysis:5.3.0"
 
     // Optional face analysis dependency
-    implementation "com.miteksystems.misnap:face-analysis:5.2.1"
+    implementation "com.miteksystems.misnap:face-analysis:5.3.0"
 
     // Optional MRZ detector dependency
-    implementation "com.miteksystems.misnap:feature-detector:5.2.1"
+    implementation "com.miteksystems.misnap:feature-detector:5.3.0"
 }
 ```
 
@@ -71,7 +70,7 @@ Part of the `camera` module, the `CameraView` allows developers to add a camera 
 The easiest way to integrate the `CameraView` is to add the following to the integrating module's `build.gradle`:
 ```groovy
 dependencies {
-    implementation "com.miteksystems.misnap:camera:5.2.1"
+    implementation "com.miteksystems.misnap:camera:5.3.0"
 }
 ```
 
@@ -104,42 +103,10 @@ Please see `/examples/views/AnalysisFragment.kt` for the full code sample.
 The easiest way to integrate these views is to add the following to the integrating module's `build.gradle`:
 ```groovy
 dependencies {
-    implementation "com.miteksystems.misnap:workflow:5.2.1"
+    implementation "com.miteksystems.misnap:workflow:5.3.0"
 }
 ```
 
 To integrate the MiSnap SDK without having access to an external Maven server, please see [this FAQ](../README.md#how-to-integrate-the-misnap-sdk-without-having-access-to-a-remote-maven-repository).
-
-- - - -
-
-# Customizations
-
-All views in the `workflow` module extend from either material design components or `AppCompat` components. All customizations supported by material design and `AppCompat` are supported by the views.
-
-Please see the in-code documentation for more details and the full API.
-
-## Design Considerations
-
-The following list is a collection of things to look out for while using these views:
-
-* For an optimal document analysis session, it is recommended to align the long side of the document with the long side of the device.
-
-* When using a `GuideView` in a document analysis session, ensure that the drawable is:
-  * Of the same aspect ratio as the target document.
-  * Large enough to fit the target document but not too large that it's closer to the edges of the device.
-
-* When enabling the vignette effect in a `GuideView` whose drawable is not rectangle-shaped, ensure that the drawable design includes the vignette. Please see `drawable/example_guideview_oval.xml` for reference.
-
-* Keeping hint messages concise will ensure that the messages are easier to understand.
-
-* Keeping hint duration too short (might not allow users to read the hints and act on them fast enough) or too long (the hint shown may not be relevant anymore) can negatively impact the user's experience.
-
-* Using a `CountdownTimerView`, especially for face sessions, can result in high quality, non-blurry images, as it provides visual feedback to users when the MiSnap SDK is ready to complete the session.
-
-* The `MiSnapView` and `CameraView` don't request access for camera permission. Ensure that the application holds the permission to use the camera before using them.
-
-* Making the session timeout duration too short might result in multiple fail-overs and users might opt to complete the session manually, thereby resulting in a non-optimal image being returned.
-
-* Synchronizing the trigger delay for a face analysis session and the duration of the `CountdownTimerView` yields a better experience.
 
 - - - -

@@ -1,6 +1,8 @@
-# MiSnap SDK v5.2.1 Activity-based Integration Guide
+# MiSnap SDK v5.3.0 Activity-based Integration Guide
 
 This **recommended** guide is targeted towards developers who want the **easiest integration** of the MiSnap SDK and is best suited for applications with a **multi-activity architecture**.
+
+Please see the [customization guide](./customization_guide.md) for information on how to customize the SDK.
 
 - - - -
 
@@ -12,13 +14,6 @@ This **recommended** guide is targeted towards developers who want the **easiest
 
 [Retrieving Results](#retrieving-results)
 
-[Customizations](#customizations)
-* [Theme and Colors](#theme-and-colors)
-* [Drawables](#drawables)
-* [Strings and Dimens](#strings-and-dimens)
-* [Other Settings](#other-settings)
-* [Custom Navigation Graphs](#custom-navigation-graphs)
-
 - - - -
 
 # Dependencies
@@ -28,25 +23,25 @@ The easiest way to integrate the MiSnap SDK is to add the following to the integ
 ```groovy
 dependencies {
     // Use this for check + id sessions
-    implementation "com.miteksystems.misnap:document:5.2.1"
+    implementation "com.miteksystems.misnap:document:5.3.0"
 
     // Use this for barcode sessions
-    implementation "com.miteksystems.misnap:barcode:5.2.1"
+    implementation "com.miteksystems.misnap:barcode:5.3.0"
 
     // Use this for selfie + voice sessions
-    implementation "com.miteksystems.misnap:biometric:5.2.1"
+    implementation "com.miteksystems.misnap:biometric:5.3.0"
 
     // Use this for selfie sessions
-    implementation "com.miteksystems.misnap:face:5.2.1"
+    implementation "com.miteksystems.misnap:face:5.3.0"
 
     // Use this for voice sessions
-    implementation "com.miteksystems.misnap:voice:5.2.1"
+    implementation "com.miteksystems.misnap:voice:5.3.0"
 
     // Use this for automatically getting the nfc credentials and then reading the chip
-    implementation "com.miteksystems.misnap:combined-nfc:5.2.1"
+    implementation "com.miteksystems.misnap:combined-nfc:5.3.0"
 
     // Use this for only reading the nfc chip
-    implementation "com.miteksystems.misnap:nfc:5.2.1"
+    implementation "com.miteksystems.misnap:nfc:5.3.0"
 }
 ```
 
@@ -77,41 +72,5 @@ The results are published to this object at the end (successful or otherwise) of
 The results are returned in the order in which the `MiSnapWorkflowStep`s were passed when creating the `Activity`-launch `Intent`.
 
 Please see `examples/activity/IntegrationActivity.kt` for the full code example.
-
-- - - -
-
-# Customizations
-
-## Theme and Colors
-
-The `workflow` module defines `MiSnapTheme` which extends the `Material` theme (required to properly function). Developers can either define colors to match the app's branding (recommended) or override `MiSnapTheme`. 
-
-Please see `res/example_theme_customizations.xml` for the full code sample.
-
-Please see [Material Design Theming](https://github.com/material-components/material-components-android/tree/1.5.0/docs/theming) for more information on theme customizations.
-
-## Drawables
-
-Developers can change the drawables in 2 ways by:
-1. Overriding the existing drawables.
-2. Passing drawable resource IDs to `MiSnapSettings.Workflow`.
-
-## Strings and Dimens
-
-Developers can change strings and dimen values by overriding the existing resources.
-
-## Other Settings
-
-`MiSnapSettings.Workflow` provides other settings to override existing behaviors.
-
-Please see `examples/settings/WorkflowSettings.kt` for the full code sample.
-
-Please see the in-code documentation for more details and the full API.
-
-## Custom Navigation Graphs
-
-Developers can optionally choose to create and pass a custom navigation graph for a session's flow. This can be done by passing an optional argument to `MiSnapWorkflowStep`.
-
-Please see [Jetpack Navigation](https://developer.android.com/guide/navigation) for more information.
 
 - - - -

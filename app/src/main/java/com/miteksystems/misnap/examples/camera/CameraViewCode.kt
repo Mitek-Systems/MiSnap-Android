@@ -35,6 +35,7 @@ class CameraViewCode : Fragment() {
          */
         val settings = MiSnapSettings(MiSnapSettings.UseCase.ID_FRONT, license).apply {
             camera.profile = MiSnapSettings.Camera.Profile.DOCUMENT_BACK_CAMERA
+            analysis.document.trigger = MiSnapSettings.Analysis.Document.Trigger.AUTO
         }
 
         /**
@@ -75,7 +76,7 @@ class CameraViewCode : Fragment() {
 
                         }
                         is Event.CameraReady -> {
-
+                            //Start to interact with the camera
                         }
                         is Event.InitializationError.InsufficientCamera -> {
 

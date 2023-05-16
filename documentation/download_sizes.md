@@ -1,4 +1,4 @@
-# MiSnap SDK v5.2.1 Download Sizes
+# MiSnap SDK v5.3.0 Download Sizes
 
 The following tables provide the APK download size for various SDK configurations. These values represent
 the maximum size increase, however due to potential shared dependencies the actual increase in size may
@@ -10,23 +10,23 @@ These sizes include the UI and represent an "out of the box" integration.
 <!-- USECASE_SIZE_TABLE_START -->
 | Use Case                         | armeabi_v7a | arm64_v8a | All Arm ABIs | x86   | x86_64 | All x86 ABIs | All ABIs | 
 | :------------------------------- | ----------: | --------: | -----------: | ----: | -----: | -----------: | -------: |
-| Document                         | 5.37        | 5.57      | 6.58         | 5.67  | 5.67   | 6.98         | 9.21     | 
-| Document and Barcode             | 6.57        | 6.83      | 9.04         | 6.96  | 7.03   | 9.62         | 14.31    | 
-| Document and Biometric           | 12.52       | 13.31     | 17.03        | 14.0  | 13.94  | 19.15        | 27.39    | 
-| Document, Barcode, and Biometric | 13.73       | 14.56     | 19.49        | 15.29 | 15.3   | 21.79        | 32.48    | 
-| Document, Biometric, and NFC     | 15.77       | 16.85     | 22.16        | 17.48 | 17.33  | 24.35        | 36.05    | 
+| Document                         | 5.44        | 5.65      | 6.67         | 5.75  | 5.75   | 7.08         | 9.34     | 
+| Document and Barcode             | 6.64        | 6.9       | 9.13         | 7.04  | 7.11   | 9.72         | 14.43    | 
+| Document and Biometric           | 12.59       | 13.38     | 17.12        | 14.08 | 14.02  | 19.25        | 27.53    | 
+| Document, Barcode, and Biometric | 13.8        | 14.64     | 19.58        | 15.37 | 15.39  | 21.89        | 32.62    | 
+| Document, Biometric, and NFC     | 15.85       | 16.93     | 22.26        | 17.56 | 17.42  | 24.45        | 36.19    | 
 <!-- USECASE_SIZE_TABLE_END -->
 
 ### **Feature Sizes**
 UI size listed separately from other features.
 <!-- SCIENCE_SIZE_TABLE_START -->
-| Feature       | armeabi_v7a | arm64_v8a | All Arm ABIs | x86  | x86_64 | All x86 ABIs | All ABIs | 
-| :------------ | ----------: | --------: | -----------: | ---: | -----: | -----------: | -------: |
-| Document      | 3.33        | 3.53      | 4.54         | 3.63 | 3.63   | 4.94         | 7.17     | 
-| Barcode       | 3.86        | 3.97      | 5.53         | 4.06 | 4.14   | 5.89         | 9.12     | 
-| Face          | 8.9         | 9.39      | 12.14        | 10.0 | 9.94   | 13.79        | 19.78    | 
-| Voice         | 3.14        | 3.34      | 4.03         | 3.45 | 3.47   | 4.46         | 6.04     | 
-| NFC           | 4.13        | 4.21      | 4.7          | 4.29 | 4.31   | 4.95         | 6.01     | 
-| Combined NFC  | 6.61        | 7.12      | 9.71         | 7.15 | 7.06   | 10.18        | 15.87    | 
-| Workflow (UI) | 4.26        | 4.31      | 4.67         | 4.37 | 4.38   | 4.85         | 5.63     | 
+| Feature       | armeabi_v7a | arm64_v8a | All Arm ABIs | x86   | x86_64 | All x86 ABIs | All ABIs | 
+| :------------ | ----------: | --------: | -----------: | ----: | -----: | -----------: | -------: |
+| Document      | 3.4         | 3.6       | 4.63         | 3.71  | 3.71   | 5.04         | 7.3      | 
+| Barcode       | 3.93        | 4.04      | 5.62         | 4.14  | 4.22   | 5.99         | 9.25     | 
+| Face          | 8.97        | 9.46      | 12.23        | 10.07 | 10.02  | 13.89        | 19.91    | 
+| Voice         | 3.16        | 3.35      | 4.04         | 3.46  | 3.48   | 4.47         | 6.05     | 
+| NFC           | 4.14        | 4.22      | 4.71         | 4.3   | 4.32   | 4.96         | 6.03     | 
+| Combined NFC  | 6.69        | 7.19      | 9.8          | 7.23  | 7.14   | 10.28        | 16.0     | 
+| Workflow (UI) | 4.27        | 4.32      | 4.68         | 4.38  | 4.39   | 4.86         | 5.65     | 
 <!-- SCIENCE_SIZE_TABLE_END -->

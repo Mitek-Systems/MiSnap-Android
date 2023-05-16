@@ -1,0 +1,40 @@
+plugins {
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
+}
+
+android {
+    compileSdkVersion project.compileSdkVersion
+
+    defaultConfig {
+        minSdkVersion project.coreMinSdk
+        targetSdkVersion project.targetSdkVersion
+
+        buildToolsVersion project.buildToolsVersion
+
+        buildConfigField("String", "MODULE_NAME", "\"$project.name\"")
+        buildConfigField("String", "MODULE_VERSION", "\"$versionName\"")
+    }
+
+    buildTypes {
+        debug {
+            versionNameSuffix ' debug'
+
+            buildConfigField("String", "MODULE_VERSION", "\"${defaultConfig.versionName}$versionNameSuffix\"")
+        }
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility jdkVersion
+        targetCompatibility jdkVersion
+    }
+}
+
+dependencies {
+    api "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion"
+
+    api "com.google.android.material:material:$materialDesignVersion"
+}

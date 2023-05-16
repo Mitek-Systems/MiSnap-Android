@@ -1,4 +1,8 @@
-# MiSnap SDK v5.2.1 Change Log
+# MiSnap SDK v5.3.0 Change Log
+
+### **Version 5.2.1**
+#### **Fixed**
+* [NFC] An issue that prevented some ITA documents from completing NFC scanning.
 
 ### **Version 5.2.0**
 #### **Added**

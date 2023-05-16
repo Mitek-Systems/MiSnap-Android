@@ -28,14 +28,16 @@ import com.miteksystems.misnap.workflow.view.MiSnapView
  */
 class MiSnapViewCode : Fragment() {
     private val license = "your_sdk_license"
+    private lateinit var settings: MiSnapSettings
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val settings = MiSnapSettings(MiSnapSettings.UseCase.ID_FRONT, license)
-
+        settings = MiSnapSettings(MiSnapSettings.UseCase.ID_FRONT, license).apply {
+            analysis.document.trigger = MiSnapSettings.Analysis.Document.Trigger.AUTO
+        }
         /**
          * Optionally define a [MibiData] session outside of the view's lifecycle.
          */
@@ -97,14 +99,27 @@ class MiSnapViewCode : Fragment() {
             recordedVideo.observe(viewLifecycleOwner) { videoBytes ->
 
             }
-        }.also {
-            /**
-             * Start the camera preview and register a callback to know when the preview has
-             * started.
-             */
-            it.startMiSnapSession(settings, viewLifecycleOwner) {
+        }
+    }
 
-            }
+    override fun onDestroyView() {
+        super.onDestroyView()
+
+        /**
+         * Optionally end the [MibiData] session outside of the view's lifecycle.
+         */
+        MibiData.releaseSession(this::class.java.name)
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        /**
+         * Start the camera preview and register a callback to know when the preview has
+         * started.
+         */
+        (requireView() as MiSnapView).startMiSnapSession(settings, viewLifecycleOwner) {
+
         }
     }
 }

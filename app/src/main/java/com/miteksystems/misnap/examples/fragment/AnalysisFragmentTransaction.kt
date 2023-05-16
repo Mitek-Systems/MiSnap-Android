@@ -97,7 +97,9 @@ class AnalysisFragmentTransaction : AppCompatActivity() {
          * during the session. The settings must be applied before moving to the start destination of
          * the workflow.
          */
-        viewModel.applySettings(MiSnapSettings(MiSnapSettings.UseCase.BARCODE, license))
+        viewModel.applySettings(MiSnapSettings(MiSnapSettings.UseCase.BARCODE, license).apply {
+            analysis.barcode.trigger = MiSnapSettings.Analysis.Barcode.Trigger.AUTO
+        })
 
         /**
          * Observe the [MiSnapWorkflowViewModel.navigationErrors] [LiveData] for [NavigationError]s and

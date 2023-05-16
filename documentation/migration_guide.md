@@ -1,4 +1,12 @@
-# MiSnap SDK v5.2.1 Migration Guide
+# MiSnap SDK v5.3.0 Migration Guide
+
+## Upgrading the MiSnap SDK from v5.2.1 to v5.3.0
+### API Changes
+* The `mibiData` property of the `com.miteksystems.misnap.controller.MiSnapController.FrameResult` class types has been changed to `misnapMibiData`.
+* The `mibiData` property of the `com.miteksystems.misnap.nfc.MiSnapNfcReader.Result` class has been changed to `misnapMibiData`.
+* The `mibiData` property of the `com.miteksystems.misnap.workflow.MiSnapErrorResult` class has been changed to `misnapMibiData`. 
+* The `mibiData` property of the `com.miteksystems.misnap.workflow.MiSnapFinalResult` class types has been changed to `misnapMibiData`.  
+* The `com.miteksystems.misnap.voice.AudioUtil` class functions that received a `mibiData` string now require a `misnapMibiData` object.
 
 ## Upgrading the MiSnap SDK from v5.0.0 to v5.1.0
 
@@ -40,12 +48,6 @@ Please look into the [integration guides](activity_integration_guide.md) for mor
 ### MiSnap SDK Customizations
 The MiSnap SDK introduces an improved API to enable integrators to customize the UI and the workflow to their needs. The customization through the modification of source files in the MiSnap SDK modules is deprecated.
 
-#### Workflow Customizations
-The workflow and its behavior can be customized in several ways, depending on the integration type.
+There are several ways of customizing the SDK workflow and UI depending on the integration type.
 
-For simple customizations that make use of the `Fragment`s included in the MiSnap SDK, please follow the samples in the [integration guides](activity_integration_guide.md) and the in-code documentation for `MiSnapSettings`.
-
-For advanced customizations, please follow the [views integration guide](views_integration_guide.md) to build your own `Fragment`s and the [fragment-based integration guide](fragment_integration_guide.md) to use them.
-
-#### UI Customizations
-The MiSnap SDK offers several ways of customizing the UI depending on your integration type. Please look into the `Customizations` section of your preferred [integration guide](activity_integration_guide.md) for more details.
+Please see the [customization guide](./customization_guide.md) for information on how to customize the SDK.

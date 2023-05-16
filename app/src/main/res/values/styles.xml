@@ -5,10 +5,4 @@
         <item name="android:windowTranslucentStatus">true</item>
         <!-- Customize your theme here. -->
     </style>
-
-    <style name="JsonViewer.TextAppearance" parent="TextAppearance.AppCompat">
-        <item name="android:fontFamily">monospace</item>
-    </style>
-
-
 </resources>

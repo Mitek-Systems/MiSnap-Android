@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.util.Size
 import android.view.View
 import android.widget.AdapterView
+import android.widget.AdapterView.OnItemSelectedListener
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
@@ -19,11 +20,6 @@ import androidx.navigation.fragment.findNavController
 import com.miteksystems.misnap.R
 import com.miteksystems.misnap.barcode.default
 import com.miteksystems.misnap.barcode.getScanSpeed
-import com.miteksystems.misnap.camera.getTorchMode
-import com.miteksystems.misnap.camera.getVideoBitrate
-import com.miteksystems.misnap.camera.getVideoResolution
-import com.miteksystems.misnap.camera.requireProfile
-import com.miteksystems.misnap.camera.shouldRecordSession
 import com.miteksystems.misnap.camera.util.CameraUtil
 import com.miteksystems.misnap.core.MiSnapSettings
 import com.miteksystems.misnap.databinding.BarcodeSettingsBinding
@@ -51,7 +47,8 @@ import com.miteksystems.misnap.face.requireTrigger
 import com.miteksystems.misnap.nfc.default
 import com.miteksystems.misnap.nfc.shouldRedactOptionalData
 import com.miteksystems.misnap.sampleapp.results.SampleAppViewModel
-import com.miteksystems.misnap.sampleapp.results.ViewPageAdapter
+import com.miteksystems.misnap.apputil.ViewPageAdapter
+import com.miteksystems.misnap.camera.*
 import com.miteksystems.misnap.voice.*
 import com.miteksystems.misnap.workflow.MiSnapWorkflowActivity
 import com.miteksystems.misnap.workflow.MiSnapWorkflowStep
@@ -354,6 +351,8 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
                 videoRecord.videoBitrate =
                     kotlin.runCatching { it.cameraSettingsVideoBitrate.text.toString().toInt() }
                         .getOrDefault(videoRecord.getVideoBitrate())
+
+                enableHighResolutionFrames = it.cameraSettingsRequestHighResolutionCheckbox.isChecked
             }
         }
     }
@@ -451,6 +450,7 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
                 guideViewShowVignette = it.documentWorkflowSettingsShowVignetteBox.isChecked,
                 hintViewShouldShowBackground = it.documentWorkflowSettingsHintViewShowBackground.isChecked,
                 successViewShouldVibrate = it.documentWorkflowSettingsSuccessViewShouldVibrateBox.isChecked,
+                manualButtonVisible = it.documentWorkflowSettingsShowManualButtonBox.isChecked
             )
 
             settings.workflow.add(
@@ -553,7 +553,8 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
                 }.getOrDefault(defaultWorkflowSettings.guideViewScalePercentage),
                 guideViewShowVignette = it.faceWorkflowSettingsShowVignetteBox.isChecked,
                 hintViewShouldShowBackground = it.faceWorkflowSettingsHintViewShowBackground.isChecked,
-                successViewShouldVibrate = it.faceWorkflowSettingsSuccessViewShouldVibrateBox.isChecked
+                successViewShouldVibrate = it.faceWorkflowSettingsSuccessViewShouldVibrateBox.isChecked,
+                changeGuideViewStateOnFeedback = it.faceWorkflowSettingsChangeGuideViewStateOnFeedbackBox.isChecked
             )
 
             settings.workflow.add(
@@ -950,6 +951,8 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
             it.cameraSettingsVideoBitrate.setText(
                 settings.camera.videoRecord.getVideoBitrate().toString()
             )
+
+            it.cameraSettingsRequestHighResolutionCheckbox.isChecked = settings.camera.shouldEnableHighResolutionFrames()
         }
     }
 
@@ -1109,6 +1112,11 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
             (workflowSettings?.successViewShouldVibrate
                 ?: defaultWorkflowSettings.successViewShouldVibrate)?.let {
                 binding.documentWorkflowSettingsSuccessViewShouldVibrateBox.isChecked = it
+            }
+
+            (workflowSettings?.manualButtonVisible
+                ?: defaultWorkflowSettings.manualButtonVisible)?.let {
+                binding.documentWorkflowSettingsShowManualButtonBox.isChecked = it
             }
         }
     }
@@ -1290,6 +1298,11 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
                 ?: defaultWorkflowSettings.successViewShouldVibrate)?.let {
                 binding.faceWorkflowSettingsSuccessViewShouldVibrateBox.isChecked = it
             }
+
+            (workflowSettings?.changeGuideViewStateOnFeedback
+                ?: defaultWorkflowSettings.changeGuideViewStateOnFeedback)?.let {
+                binding.faceWorkflowSettingsChangeGuideViewStateOnFeedbackBox.isChecked = it
+            }
         }
     }
 
@@ -1458,6 +1471,13 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
     // endregion
 
     // region document settings tab
+
+    private fun getDocumentAnalysisTriggerAt(index: Int) =
+        when (index) {
+            1 -> MiSnapSettings.Analysis.Document.Trigger.MANUAL
+            0 -> MiSnapSettings.Analysis.Document.Trigger.AUTO
+            else -> null
+        }
 
     private fun getSessionOrientationAt(index: Int) =
         when (index) {
@@ -1857,6 +1877,20 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
 
                     override fun onNothingSelected(parent: AdapterView<*>?) {
                     }
+                }
+
+            it.documentSettingsTriggerSpinner.onItemSelectedListener =
+                object: OnItemSelectedListener {
+                    override fun onItemSelected(parent: AdapterView<*>?,
+                                                view: View?,
+                                                position: Int,
+                                                id: Long,) {
+                        documentWorkflowSettingsBinding?.documentWorkflowSettingsShowManualButtonBox?.isChecked =
+                        getDocumentAnalysisTriggerAt(position) ==
+                            MiSnapSettings.Analysis.Document.Trigger.MANUAL
+                    }
+
+                    override fun onNothingSelected(p0: AdapterView<*>?) {}
                 }
 
             it.documentExtractionTooltip.setOnClickListener { tooltip ->

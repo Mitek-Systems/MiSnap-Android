@@ -8,6 +8,11 @@ import com.miteksystems.misnap.core.MiSnapSettings
 import com.miteksystems.misnap.core.MibiData
 import com.miteksystems.misnap.voice.MiSnapVoiceProcessor
 
+/**
+ * This example demonstrates a direct integration with MiSnap SDK's Voice processor component,
+ * this type of integration is best suited for developers that want to interface with the science
+ * directly and that will take care of driving the user through the acquisition of voice recordings.
+ */
 private class VoiceRecord : Fragment() {
     private val license = "your_sdk_license"
 

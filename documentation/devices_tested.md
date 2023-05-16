@@ -1,4 +1,4 @@
-# MiSnap SDK v5.2.1 Devices Tested
+# MiSnap SDK v5.3.0 Devices Tested
 
 | Device                                    | OS          | 
 | :---------------------------------------- | ----------: | 

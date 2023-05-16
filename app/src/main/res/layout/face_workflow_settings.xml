@@ -139,6 +139,16 @@
         app:layout_constraintTop_toBottomOf="@id/faceWorkflowSettingsGuideViewScalePercentageLayout" />
 
     <com.google.android.material.checkbox.MaterialCheckBox
+        android:id="@+id/faceWorkflowSettingsChangeGuideViewStateOnFeedbackBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/misnapSampleAppLayoutVerticalMargin"
+        android:checked="false"
+        android:text="@string/misnapSampleAppSettingsFaceWorkflowChangeGuideViewStateOnFeedbackLabel"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/faceWorkflowSettingsShowVignetteBox" />
+
+    <com.google.android.material.checkbox.MaterialCheckBox
         android:id="@+id/faceWorkflowSettingsHintViewShowBackground"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -146,7 +156,7 @@
         android:checked="false"
         android:text="@string/misnapSampelAppSettingsFaceWorkflowHintViewShowBackground"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/faceWorkflowSettingsShowVignetteBox" />
+        app:layout_constraintTop_toBottomOf="@id/faceWorkflowSettingsChangeGuideViewStateOnFeedbackBox" />
 
     <com.google.android.material.checkbox.MaterialCheckBox
         android:id="@+id/faceWorkflowSettingsSuccessViewShouldVibrateBox"

@@ -67,6 +67,9 @@
     <string name="misnapSampleAppResultsVoiceAudioTabTitle" translatable="false">Recorded Audio</string>
     <string name="misnapSampleAppResultsVoiceTabTitle" translatable="false">Recording %1$d</string>
 
+    <string name="misnapSampleAppResultsFinalFrameDiskSize" translatable="false">Size on Disk: %1$s</string>
+    <string name="misnapSampleAppResultsFinalFrameDimensions" translatable="false">Image Dimensions: %1$s</string>
+
     <string name="misnapSampleAppResultsMrzData" translatable="false">
         <![CDATA[<b>Document Number:</b>]]> %1$s <![CDATA[<br>]]>
         <![CDATA[<b>Document Code:</b>]]> %2$s <![CDATA[<br>]]>
@@ -183,6 +186,7 @@
     <string name="misnapSampleAppSettingsCameraFacingDirectionLabel" translatable="false">Camera Facing Direction</string>
     <string name="misnapSampleAppSettingsCameraTorchModeLabel" translatable="false">Torch Mode</string>
     <string name="misnapSampleAppSettingsCameraShouldRecordVideoLabel" translatable="false">Should Record Session</string>
+    <string name="misnapSampleAppSettingsCameraRequestHighResolutionLabel" translatable="false">Request High Resolution</string>
     <string name="misnapSampleAppSettingsCameraVideoBitrateLabel" translatable="false">Video Bitrate</string>
     <string name="misnapSampleAppSettingsCameraVideoResolutionLabel" translatable="false">Video Resolution</string>
     <string name="misnapSampleAppSettingsCameraVideoResolutionWidthLabel" translatable="false">Width</string>
@@ -257,6 +261,7 @@
     <string name="misnapSampleAppSettingsDocumentWorkflowShowVignetteLabel" translatable="false">GuideView Show Vignette</string>
     <string name="misnapSampleAppSettingsDocumentWorkflowHintViewShowBackground" translatable="false">HintView Show Background</string>
     <string name="misnapSampleAppSettingsDocumentWorkflowSuccessViewShouldVibrateLabel" translatable="false">SuccessView Should Vibrate</string>
+    <string name="misnapSampleAppSettingsDocumentWorkflowShowManualButtonLabel" translatable="false">Show Manual Button</string>
 
     <string-array name="documentReviewConditionsArray">
         <item>Always</item>
@@ -340,6 +345,7 @@
     <string name="misnapSampleAppSettingsFaceWorkflowReviewConditionLabel" translatable="false">Manual Review Condition</string>
     <string name="misnapSampleAppSettingsFaceWorkflowGuideViewScalePercentageLabel" translatable="false">GuideView Scale Percentage</string>
     <string name="misnapSampleAppSettingsFaceWorkflowShowVignetteLabel" translatable="false">GuideView Show Vignette</string>
+    <string name="misnapSampleAppSettingsFaceWorkflowChangeGuideViewStateOnFeedbackLabel" translatable="false">Change GuideView State on Feedback</string>
     <string name="misnapSampelAppSettingsFaceWorkflowHintViewShowBackground" translatable="false">HintView Show Background</string>
     <string name="misnapSampleAppSettingsFaceWorkflowSuccessViewShouldVibrateLabel" translatable="false">SuccessView Should Vibrate</string>
 

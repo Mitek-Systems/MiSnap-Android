@@ -1,6 +1,8 @@
-# MiSnap SDK v5.2.1 Fragment Integration Guide
+# MiSnap SDK v5.3.0 Fragment Integration Guide
 
 This guide is targeted towards developers who want to integrate the MiSnap SDK in **single-activity architecture** applications. Please see the in-code documentation for the full list of `Fragment`s available in the MiSnap SDK.
+
+Please see the [customization guide](./customization_guide.md) for information on how to customize the SDK.
 
 # Table of Contents
 
@@ -9,12 +11,10 @@ This guide is targeted towards developers who want to integrate the MiSnap SDK i
 [Integration using Navigation Graphs (recommended)](#integration-using-navigation-graphs) 
   * [Overview](#overview)
   * [Integration](#integration)
-  * [Customizations](#customizations)
 
 [Integration using Fragment Transaction](#integration-using-fragment-transactions)
   * [Overview](#overview-1)
   * [Integration](#integration-1)
-  * [Customizations](#customizations-1)
 
 - - - -
 
@@ -24,25 +24,25 @@ The easiest way to integrate the MiSnap SDK is to add the following to the integ
 ```groovy
 dependencies {
     // Use this for check + id sessions
-    implementation "com.miteksystems.misnap:document:5.2.1"
+    implementation "com.miteksystems.misnap:document:5.3.0"
 
     // Use this for barcode sessions
-    implementation "com.miteksystems.misnap:barcode:5.2.1"
+    implementation "com.miteksystems.misnap:barcode:5.3.0"
 
     // Use this for selfie + voice sessions
-    implementation "com.miteksystems.misnap:biometric:5.2.1"
+    implementation "com.miteksystems.misnap:biometric:5.3.0"
 
     // Use this for selfie sessions
-    implementation "com.miteksystems.misnap:face:5.2.1"
+    implementation "com.miteksystems.misnap:face:5.3.0"
 
     // Use this for voice sessions
-    implementation "com.miteksystems.misnap:voice:5.2.1"
+    implementation "com.miteksystems.misnap:voice:5.3.0"
 
     // Use this for automatically getting the nfc credentials and then reading the chip
-    implementation "com.miteksystems.misnap:combined-nfc:5.2.1"
+    implementation "com.miteksystems.misnap:combined-nfc:5.3.0"
 
     // Use this for only reading the nfc chip
-    implementation "com.miteksystems.misnap:nfc:5.2.1"
+    implementation "com.miteksystems.misnap:nfc:5.3.0"
 }
 ```
 
@@ -76,37 +76,6 @@ Please see `examples/fragment/AnalysisFragmentNavigation.kt` for the full code s
 
 Please see the in-code documentation for more details and the full API.
 
-## Customizations
-
-### Theme and Colors
-
-The `workflow` module defines `MiSnapTheme` which extends the `Material` theme (required to properly function). Developers can either define colors to match the app's branding (recommended) or override `MiSnapTheme`. 
-
-Please see `res/example_theme_customizations.xml` for the full code sample.
-
-Please see [Material Design Theming](https://github.com/material-components/material-components-android/tree/1.5.0/docs/theming) for more information on theme customizations.
-
-### Resources
-
-Developers can change the built-in resources (drawables, animations, etc.) in the following ways by:
-1. Overriding the existing resources.
-2. Passing resource IDs to `MiSnapSettings.Workflow`.
-3. Passing resource IDs as arguments to a `NavigationAction`.
-
-Please refer to each `Fragment`'s `WorkflowSettings` in-code documentation for a full list of the allowed UI and behavior changes.
-
-### Other settings
-
-`MiSnapSettings.Workflow` provides other settings to override existing behaviors.
-
-Please see `examples/settings/WorkflowSettings.kt` for the full code sample.
-
-Please see the in-code documentation for more details and the full API.
-
-### Navigation Graphs
-
-Developers can create their own custom navigation graphs with the available `Fragment`s in the MiSnap SDK. Please see the in-code documentation for the full list of `Fragment`s available in the MiSnap SDK.
-
 - - - -
 
 # Integration using Fragment Transactions
@@ -126,32 +95,6 @@ Internally, the MiSnap SDK uses navigation graphs to conduct the fragments navig
 4. Handle the `NavigationError` events from the `MiSnapWorkflowViewModel` to determine the next fragment destination and perform a new `FragmentTransaction` accordingly.
 
 Please see `examples/fragment/AnalysisFragmentTransaction.kt` for the full code sample.
-
-Please see the in-code documentation for more details and the full API.
-
-## Customizations
-
-### Theme and Colors
-
-The `workflow` module defines `MiSnapTheme` which extends the `Material` theme (required to properly function). Developers can either define colors to match the app's branding (recommended) or override `MiSnapTheme`. 
-
-Please see `res/example_theme_customizations.xml` for the full code sample.
-
-Please see [Material Design Theming](https://github.com/material-components/material-components-android/tree/1.5.0/docs/theming) for more information on theme customizations.
-
-### Resources
-
-Developers can change the built-in resources in the following ways by:
-1. Overriding the existing resources.
-2. Passing resource IDs to fragment arguments.
-
-Please refer to each `Fragment`'s `WorkflowSettings` in-code documentation for a full list of the allowed UI and behavior changes.
-
-### Other settings
-
-`MiSnapSettings.Workflow` provides other settings to override existing behaviors.
-
-Please see `examples/settings/FragmentArguments.kt` for the full code sample.
 
 Please see the in-code documentation for more details and the full API.
 
