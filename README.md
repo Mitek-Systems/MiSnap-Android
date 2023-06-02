@@ -1,4 +1,4 @@
-# MiSnap SDK v5.3.0 for Android
+# MiSnap SDK v5.3.1 for Android
 
 # Table of Contents
 [Getting Started](#getting-started)
@@ -28,23 +28,11 @@
 
 ## Release Notes
 #### **Added**
-* [Common] The new `MiSnapMibiData` object has been added to describe analytics data from a MiSnap SDK session and it's included in the session results.
-* [Document] Improvements to the camera focus performance.
-* [Document & Analysis] Support for high resolution frames in supported devices. High resolution frames can be enabled using the `enableHighResolutionFrames` setting in the `MiSnapSettings.Camera` object.
-   * _The use of high resolution frames for analysis in auto sessions is only available when manual picture capabilities are not requested and when the device supports higher resolutions. Enabling high resolution frames impacts the performance of the analysis and the disk size of the returned image._
-* [Common] `DeviceInfoUtil` class has been added to provide device metadata that adds an additional layer of security without adding additional friction by enrolling a device to be bound to a biometric in Mitek server products.
-   * _When this API is called a collection of device info used for enrollment and verification happens without a user action therefore it's the app developer’s responsibility to get user's consent and possibly allow to opt out beforehand._
-* [Face] The `GuideView` in face sessions now changes colors depending on the IQA evaluations of a frame, signaling a change between "bad image" and "good image".
-* [NFC] Chip authentication support for Italian documents.
+* [Common] New metadata added to the EXIF tags `0x9003` and `0x9011` to store the `UTC datetime` to represent the time when the image was acquired by the MiSnap SDK.
+* [Common] Improvements to orientation changes handling.
+* [NFC] Improvements to the tutorial guides covering more devices with specialized instructions on reading NFC chips.
 
-#### **Modified**
-* [Document] The default `jpegQuality` has been increased to 90 for identity documents session types.
-* [Common] A minimum `jpegQuality` of 50 has been established for all session types.
-* [Camera] Updated the `CameraX` dependency to version `1.1.0`.
-* [Common] The `mibiData` property has been replaced with `misnapMibiData` in the result objects returned by the MiSnap SDK.
-    * Please see the [migration guide](./documentation/migration_guide.md) for more information on the updated APIs.
-
-### **Version 5.3.0**
+### **Version 5.3.1**
 
 Please see [this page](documentation/change_log.md) for release notes from older releases.
 
@@ -56,8 +44,8 @@ Please see [this page](documentation/download_sizes.md) for the in-depth size ta
 <!-- SIZE_TABLE_START -->
 | Use Case                         | Download Size (MiB) | 
 | :------------------------------- | ------------------: |
-| Document                         | 5.65                | 
-| Document and Barcode             | 6.9                 | 
+| Document                         | 5.64                | 
+| Document and Barcode             | 6.91                | 
 | Document and Biometric           | 13.38               | 
 | Document, Barcode, and Biometric | 14.64               | 
 | Document, Biometric, and NFC     | 16.93               | 

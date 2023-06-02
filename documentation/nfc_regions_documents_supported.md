@@ -1,4 +1,4 @@
-# MiSnap SDK v5.3.0 for Android Supported Regions and Documents for NFC
+# MiSnap SDK v5.3.1 for Android Supported Regions and Documents for NFC
 
 # Table of Contents
 [Regions with Full Support](#regions-with-full-support)
