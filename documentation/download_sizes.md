@@ -1,4 +1,4 @@
-# MiSnap SDK v5.3.1 Download Sizes
+# MiSnap SDK v5.3.2 Download Sizes
 
 The following tables provide the APK download size for various SDK configurations. These values represent
 the maximum size increase, however due to potential shared dependencies the actual increase in size may
@@ -10,11 +10,11 @@ These sizes include the UI and represent an "out of the box" integration.
 <!-- USECASE_SIZE_TABLE_START -->
 | Use Case                         | armeabi_v7a | arm64_v8a | All Arm ABIs | x86   | x86_64 | All x86 ABIs | All ABIs | 
 | :------------------------------- | ----------: | --------: | -----------: | ----: | -----: | -----------: | -------: |
-| Document                         | 5.44        | 5.64      | 6.67         | 5.75  | 5.75   | 7.08         | 9.34     | 
-| Document and Barcode             | 6.64        | 6.91      | 9.13         | 7.04  | 7.11   | 9.72         | 14.44    | 
-| Document and Biometric           | 12.59       | 13.38     | 17.12        | 14.08 | 14.02  | 19.25        | 27.53    | 
-| Document, Barcode, and Biometric | 13.8        | 14.64     | 19.58        | 15.37 | 15.39  | 21.9         | 32.62    | 
-| Document, Biometric, and NFC     | 15.85       | 16.93     | 22.26        | 17.56 | 17.42  | 24.45        | 36.19    | 
+| Document                         | 5.44        | 5.65      | 6.67         | 5.75  | 5.75   | 7.08         | 9.34     | 
+| Document and Barcode             | 6.65        | 6.91      | 9.13         | 7.04  | 7.11   | 9.73         | 14.44    | 
+| Document and Biometric           | 12.6        | 13.38     | 17.13        | 14.08 | 14.03  | 19.25        | 27.52    | 
+| Document, Barcode, and Biometric | 13.81       | 14.64     | 19.58        | 15.37 | 15.39  | 21.9         | 32.61    | 
+| Document, Biometric, and NFC     | 15.85       | 16.93     | 22.26        | 17.57 | 17.43  | 24.46        | 36.19    | 
 <!-- USECASE_SIZE_TABLE_END -->
 
 ### **Feature Sizes**

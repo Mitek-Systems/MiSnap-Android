@@ -1924,7 +1924,7 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
             it.documentSettingsRedactOptionalData.setOnCheckedChangeListener { _, checked ->
                 if (checked) {
                     it.documentSettingsDocumentRequestOcrSpinner.setSelection(
-                        getDocumentExtractionRequirementIndex(MiSnapSettings.Analysis.Document.ExtractionRequirement.OPTIONAL)
+                        getDocumentExtractionRequirementIndex(MiSnapSettings.Analysis.Document.ExtractionRequirement.REQUIRED)
                     )
                 }
             }

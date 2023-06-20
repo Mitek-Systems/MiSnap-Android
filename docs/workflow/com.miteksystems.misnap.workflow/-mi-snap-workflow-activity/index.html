@@ -37,8 +37,8 @@
 <span>android-MiSnap</span>            </a>    </div>
     <div>
 <dokka-template-command data="{&quot;@class&quot;:&quot;org.jetbrains.dokka.base.templating.ReplaceVersionsCommand&quot;,&quot;location&quot;:&quot;com.miteksystems.misnap.workflow/-mi-snap-workflow-activity/index.html&quot;}"><div class="versions-dropdown">
-  <div class="versions-dropdown-button">5.3.1</div>
-  <div class="versions-dropdown-data"><a href="index.html">5.3.1</a><a href="../../../older/5.3.0/workflow/com.miteksystems.misnap.workflow/-mi-snap-workflow-activity/index.html">5.3.0</a><a href="../../../older/5.2.1/workflow/com.miteksystems.misnap.workflow/-mi-snap-workflow-activity/index.html">5.2.1</a><a href="../../../older/5.2/workflow/com.miteksystems.misnap.workflow/-mi-snap-workflow-activity/index.html">5.2</a><a href="../../../older/5.1.1/workflow/com.miteksystems.misnap.workflow/-mi-snap-workflow-activity/index.html">5.1.1</a><a href="../../../older/5.1.0/workflow/com.miteksystems.misnap.workflow/-mi-snap-workflow-activity/index.html">5.1.0</a><a href="../../../older/5.0.0/workflow/com.miteksystems.misnap.workflow/-mi-snap-workflow-activity/index.html">5.0.0</a></div>
+  <div class="versions-dropdown-button">5.3.2</div>
+  <div class="versions-dropdown-data"><a href="index.html">5.3.2</a><a href="../../../older/5.3.1/workflow/com.miteksystems.misnap.workflow/-mi-snap-workflow-activity/index.html">5.3.1</a><a href="../../../older/5.3.0/workflow/com.miteksystems.misnap.workflow/-mi-snap-workflow-activity/index.html">5.3.0</a><a href="../../../older/5.2.1/workflow/com.miteksystems.misnap.workflow/-mi-snap-workflow-activity/index.html">5.2.1</a><a href="../../../older/5.2/workflow/com.miteksystems.misnap.workflow/-mi-snap-workflow-activity/index.html">5.2</a><a href="../../../older/5.1.1/workflow/com.miteksystems.misnap.workflow/-mi-snap-workflow-activity/index.html">5.1.1</a><a href="../../../older/5.1.0/workflow/com.miteksystems.misnap.workflow/-mi-snap-workflow-activity/index.html">5.1.0</a><a href="../../../older/5.0.0/workflow/com.miteksystems.misnap.workflow/-mi-snap-workflow-activity/index.html">5.0.0</a></div>
 </div>
 </dokka-template-command>    </div>
     <div class="pull-right d-flex">
@@ -161,7 +161,7 @@ class IntegrationActivity : AppCompatActivity() {
                             license
                         ).apply {
                             analysis.document.documentExtractionRequirement =
-                                MiSnapSettings.Analysis.Document.ExtractionRequirement.OPTIONAL
+                                MiSnapSettings.Analysis.Document.ExtractionRequirement.REQUIRED
                             analysis.document.redactOptionalData = true
                             camera.videoRecord.recordSession =
                                 false //Disabling video recording if enabling optional data redaction since the data is not redacted from videos

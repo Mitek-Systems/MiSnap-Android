@@ -1,0 +1,321 @@
+<!doctype html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>NavigationAction</title>
+<link href="../../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../../";</script>    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../styles/style.css" rel="Stylesheet">
+<link href="../../../styles/jetbrains-mono.css" rel="Stylesheet">
+<link href="../../../styles/main.css" rel="Stylesheet">
+<link href="../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../styles/logo-styles.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script>
+<link href="../../../styles/multimodule.css" rel="Stylesheet"></head>
+<body>
+<div class="navigation-wrapper" id="navigation-wrapper">
+    <div id="leftToggler"><span class="icon-toggler"></span></div>
+    <div class="library-name">
+<a href="../../../index.html">
+<span>misnap</span>            </a>    </div>
+    <div>
+<dokka-template-command data="{&quot;@class&quot;:&quot;org.jetbrains.dokka.base.templating.ReplaceVersionsCommand&quot;,&quot;location&quot;:&quot;com.miteksystems.misnap.workflow.fragment/-navigation-action/index.html&quot;}"><div class="versions-dropdown">
+  <div class="versions-dropdown-button">5.3.1</div>
+  <div class="versions-dropdown-data"><a href="../../../../../workflow/com.miteksystems.misnap.workflow.fragment/-navigation-action/index.html">5.3.2</a><a href="index.html">5.3.1</a><a href="../../../../5.3.0/workflow/com.miteksystems.misnap.workflow.fragment/-navigation-action/index.html">5.3.0</a><a href="../../../../5.2.1/workflow/com.miteksystems.misnap.workflow.fragment/-navigation-action/index.html">5.2.1</a><a href="../../../../5.2/workflow/com.miteksystems.misnap.workflow.fragment/-navigation-action/index.html">5.2</a><a href="../../../../5.1.1/workflow/com.miteksystems.misnap.workflow.fragment/-navigation-action/index.html">5.1.1</a><a href="../../../../5.1.0/workflow/com.miteksystems.misnap.workflow.fragment/-navigation-action/index.html">5.1.0</a><a href="../../../../5.0.0/workflow/com.miteksystems.misnap.workflow.fragment/-navigation-action/index.html">5.0.0</a></div>
+</div>
+</dokka-template-command>    </div>
+    <div class="pull-right d-flex">
+        <div class="filter-section" id="filter-section">
+                <button class="platform-tag platform-selector jvm-like" data-active="" data-filter=":workflow:dokkaHtmlPartial/release">androidJvm</button>
+        </div>
+        <button id="theme-toggle-button"><span id="theme-toggle"></span></button>
+        <div id="searchBar"></div>
+    </div>
+</div>
+<div id="container">
+    <div id="leftColumn">
+        <div id="sideMenu"></div>
+    </div>
+    <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="workflow::com.miteksystems.misnap.workflow.fragment/NavigationAction///PointingToDeclaration//1506957492">
+  <div class="breadcrumbs"><a href="../../index.html">workflow</a><span class="delimiter">/</span><a href="../index.html">com.miteksystems.misnap.workflow.fragment</a><span class="delimiter">/</span><span class="current">NavigationAction</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Navigation</span><wbr><span><span>Action</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":workflow:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">sealed </span><span class="token keyword">class </span><a href="index.html">NavigationAction</a></div><p class="paragraph">The navigation action that was unable to be performed.</p><p class="paragraph">Subtypes:</p><ul><li><p class="paragraph"><a href="-help/index.html">Help</a></p></li><li><p class="paragraph"><a href="-document-analysis/index.html">DocumentAnalysis</a></p></li><li><p class="paragraph"><a href="-barcode-analysis/index.html">BarcodeAnalysis</a></p></li><li><p class="paragraph"><a href="-face-analysis/index.html">FaceAnalysis</a></p></li><li><p class="paragraph"><a href="-failover/index.html">Failover</a></p></li><li><p class="paragraph"><a href="-review/index.html">Review</a></p></li><li><p class="paragraph"><a href="-nfc-selection/index.html">NfcSelection</a></p></li><li><p class="paragraph"><a href="-mrz-manual-entry/index.html">MrzManualEntry</a></p></li><li><p class="paragraph"><a href="-nfc-reader/index.html">NfcReader</a></p></li><li><p class="paragraph"><a href="-voice-phrase-selection/index.html">VoicePhraseSelection</a></p></li><li><p class="paragraph"><a href="-voice-processor/index.html">VoiceProcessor</a></p></li><li><p class="paragraph"><a href="-navigate-document-session/index.html">NavigateDocumentSession</a></p></li><li><p class="paragraph"><a href="-navigate-barcode-session/index.html">NavigateBarcodeSession</a></p></li><li><p class="paragraph"><a href="-navigate-face-session/index.html">NavigateFaceSession</a></p></li><li><p class="paragraph"><a href="-navigate-nfc-session/index.html">NavigateNfcSession</a></p></li><li><p class="paragraph"><a href="-navigate-voice-session/index.html">NavigateVoiceSession</a></p></li></ul><h4 class="">Inheritors</h4><div class="table"><div class="table-row" data-filterable-current=":workflow:dokkaHtmlPartial/release" data-filterable-set=":workflow:dokkaHtmlPartial/release"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="-help/index.html">Help</a></div></span></div><div></div></div></div><div class="table-row" data-filterable-current=":workflow:dokkaHtmlPartial/release" data-filterable-set=":workflow:dokkaHtmlPartial/release"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="-document-analysis/index.html">DocumentAnalysis</a></div></span></div><div></div></div></div><div class="table-row" data-filterable-current=":workflow:dokkaHtmlPartial/release" data-filterable-set=":workflow:dokkaHtmlPartial/release"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="-barcode-analysis/index.html">BarcodeAnalysis</a></div></span></div><div></div></div></div><div class="table-row" data-filterable-current=":workflow:dokkaHtmlPartial/release" data-filterable-set=":workflow:dokkaHtmlPartial/release"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="-face-analysis/index.html">FaceAnalysis</a></div></span></div><div></div></div></div><div class="table-row" data-filterable-current=":workflow:dokkaHtmlPartial/release" data-filterable-set=":workflow:dokkaHtmlPartial/release"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="-failover/index.html">Failover</a></div></span></div><div></div></div></div><div class="table-row" data-filterable-current=":workflow:dokkaHtmlPartial/release" data-filterable-set=":workflow:dokkaHtmlPartial/release"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="-review/index.html">Review</a></div></span></div><div></div></div></div><div class="table-row" data-filterable-current=":workflow:dokkaHtmlPartial/release" data-filterable-set=":workflow:dokkaHtmlPartial/release"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="-nfc-selection/index.html">NfcSelection</a></div></span></div><div></div></div></div><div class="table-row" data-filterable-current=":workflow:dokkaHtmlPartial/release" data-filterable-set=":workflow:dokkaHtmlPartial/release"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="-mrz-manual-entry/index.html">MrzManualEntry</a></div></span></div><div></div></div></div><div class="table-row" data-filterable-current=":workflow:dokkaHtmlPartial/release" data-filterable-set=":workflow:dokkaHtmlPartial/release"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="-nfc-reader/index.html">NfcReader</a></div></span></div><div></div></div></div><div class="table-row" data-filterable-current=":workflow:dokkaHtmlPartial/release" data-filterable-set=":workflow:dokkaHtmlPartial/release"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="-voice-phrase-selection/index.html">VoicePhraseSelection</a></div></span></div><div></div></div></div><div class="table-row" data-filterable-current=":workflow:dokkaHtmlPartial/release" data-filterable-set=":workflow:dokkaHtmlPartial/release"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="-voice-processor/index.html">VoiceProcessor</a></div></span></div><div></div></div></div><div class="table-row" data-filterable-current=":workflow:dokkaHtmlPartial/release" data-filterable-set=":workflow:dokkaHtmlPartial/release"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="-navigate-document-session/index.html">NavigateDocumentSession</a></div></span></div><div></div></div></div><div class="table-row" data-filterable-current=":workflow:dokkaHtmlPartial/release" data-filterable-set=":workflow:dokkaHtmlPartial/release"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="-navigate-barcode-session/index.html">NavigateBarcodeSession</a></div></span></div><div></div></div></div><div class="table-row" data-filterable-current=":workflow:dokkaHtmlPartial/release" data-filterable-set=":workflow:dokkaHtmlPartial/release"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="-navigate-face-session/index.html">NavigateFaceSession</a></div></span></div><div></div></div></div><div class="table-row" data-filterable-current=":workflow:dokkaHtmlPartial/release" data-filterable-set=":workflow:dokkaHtmlPartial/release"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="-navigate-nfc-session/index.html">NavigateNfcSession</a></div></span></div><div></div></div></div><div class="table-row" data-filterable-current=":workflow:dokkaHtmlPartial/release" data-filterable-set=":workflow:dokkaHtmlPartial/release"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="-navigate-voice-session/index.html">NavigateVoiceSession</a></div></span></div><div></div></div></div></div></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,FUNCTION,PROPERTY">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="TYPE">
+        <h2 class="">Types</h2>
+        <div class="table"><a data-name="1202891356%2FClasslikes%2F1506957492" anchor-label="BarcodeAnalysis" id="1202891356%2FClasslikes%2F1506957492" data-filterable-set=":workflow:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":workflow:dokkaHtmlPartial/release" data-filterable-set=":workflow:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-barcode-analysis/index.html"><span>Barcode</span><wbr><span><span>Analysis</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1202891356%2FClasslikes%2F1506957492"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":workflow:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">sealed </span><span class="token keyword">class </span><a href="-barcode-analysis/index.html">BarcodeAnalysis</a> : <a href="index.html">NavigationAction</a></div><div class="brief "><p class="paragraph">Actions from the <a href="../-barcode-analysis-fragment/index.html">BarcodeAnalysisFragment</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1359731277%2FClasslikes%2F1506957492" anchor-label="DocumentAnalysis" id="-1359731277%2FClasslikes%2F1506957492" data-filterable-set=":workflow:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":workflow:dokkaHtmlPartial/release" data-filterable-set=":workflow:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-document-analysis/index.html"><span>Document</span><wbr><span><span>Analysis</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1359731277%2FClasslikes%2F1506957492"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":workflow:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">sealed </span><span class="token keyword">class </span><a href="-document-analysis/index.html">DocumentAnalysis</a> : <a href="index.html">NavigationAction</a></div><div class="brief "><p class="paragraph">Actions from the <a href="../-document-analysis-fragment/index.html">DocumentAnalysisFragment</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1172859599%2FClasslikes%2F1506957492" anchor-label="FaceAnalysis" id="-1172859599%2FClasslikes%2F1506957492" data-filterable-set=":workflow:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":workflow:dokkaHtmlPartial/release" data-filterable-set=":workflow:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-face-analysis/index.html"><span>Face</span><wbr><span><span>Analysis</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1172859599%2FClasslikes%2F1506957492"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":workflow:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">sealed </span><span class="token keyword">class </span><a href="-face-analysis/index.html">FaceAnalysis</a> : <a href="index.html">NavigationAction</a></div><div class="brief "><p class="paragraph">Actions from the <a href="../-face-analysis-fragment/index.html">FaceAnalysisFragment</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="34190136%2FClasslikes%2F1506957492" anchor-label="Failover" id="34190136%2FClasslikes%2F1506957492" data-filterable-set=":workflow:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":workflow:dokkaHtmlPartial/release" data-filterable-set=":workflow:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-failover/index.html"><span><span>Failover</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="34190136%2FClasslikes%2F1506957492"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":workflow:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">sealed </span><span class="token keyword">class </span><a href="-failover/index.html">Failover</a> : <a href="index.html">NavigationAction</a></div><div class="brief "><p class="paragraph">Actions from the <a href="../-failover-fragment/index.html">FailoverFragment</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1280042057%2FClasslikes%2F1506957492" anchor-label="Help" id="1280042057%2FClasslikes%2F1506957492" data-filterable-set=":workflow:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":workflow:dokkaHtmlPartial/release" data-filterable-set=":workflow:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-help/index.html"><span><span>Help</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1280042057%2FClasslikes%2F1506957492"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":workflow:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">sealed </span><span class="token keyword">class </span><a href="-help/index.html">Help</a> : <a href="index.html">NavigationAction</a></div><div class="brief "><p class="paragraph">Actions from the <a href="../-help-fragment/index.html">HelpFragment</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="61266803%2FClasslikes%2F1506957492" anchor-label="MrzManualEntry" id="61266803%2FClasslikes%2F1506957492" data-filterable-set=":workflow:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":workflow:dokkaHtmlPartial/release" data-filterable-set=":workflow:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-mrz-manual-entry/index.html"><span>Mrz</span><wbr><span>Manual</span><wbr><span><span>Entry</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="61266803%2FClasslikes%2F1506957492"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":workflow:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">sealed </span><span class="token keyword">class </span><a href="-mrz-manual-entry/index.html">MrzManualEntry</a> : <a href="index.html">NavigationAction</a></div><div class="brief "><p class="paragraph">Actions from the <a href="../-nfc-mrz-data-manual-entry-fragment/index.html">NfcMrzDataManualEntryFragment</a> and <a href="../-nfc-mrz1-line-manual-entry-fragment/index.html">NfcMrz1LineManualEntryFragment</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2003918781%2FClasslikes%2F1506957492" anchor-label="NavigateBarcodeSession" id="-2003918781%2FClasslikes%2F1506957492" data-filterable-set=":workflow:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":workflow:dokkaHtmlPartial/release" data-filterable-set=":workflow:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-navigate-barcode-session/index.html"><span>Navigate</span><wbr><span>Barcode</span><wbr><span><span>Session</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2003918781%2FClasslikes%2F1506957492"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":workflow:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">class </span><a href="-navigate-barcode-session/index.html">NavigateBarcodeSession</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>navGraphId<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a></span></span><span class="token punctuation">)</span> : <a href="index.html">NavigationAction</a></div><div class="brief "><p class="paragraph">Error from a barcode step in a combined session.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="740421454%2FClasslikes%2F1506957492" anchor-label="NavigateDocumentSession" id="740421454%2FClasslikes%2F1506957492" data-filterable-set=":workflow:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":workflow:dokkaHtmlPartial/release" data-filterable-set=":workflow:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-navigate-document-session/index.html"><span>Navigate</span><wbr><span>Document</span><wbr><span><span>Session</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="740421454%2FClasslikes%2F1506957492"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":workflow:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">class </span><a href="-navigate-document-session/index.html">NavigateDocumentSession</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>navGraphId<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a></span></span><span class="token punctuation">)</span> : <a href="index.html">NavigationAction</a></div><div class="brief "><p class="paragraph">Error from a document step in a combined session.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="827525264%2FClasslikes%2F1506957492" anchor-label="NavigateFaceSession" id="827525264%2FClasslikes%2F1506957492" data-filterable-set=":workflow:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":workflow:dokkaHtmlPartial/release" data-filterable-set=":workflow:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-navigate-face-session/index.html"><span>Navigate</span><wbr><span>Face</span><wbr><span><span>Session</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="827525264%2FClasslikes%2F1506957492"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":workflow:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">class </span><a href="-navigate-face-session/index.html">NavigateFaceSession</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>navGraphId<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a></span></span><span class="token punctuation">)</span> : <a href="index.html">NavigationAction</a></div><div class="brief "><p class="paragraph">Error from a face step in a combined session.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="494131566%2FClasslikes%2F1506957492" anchor-label="NavigateNfcSession" id="494131566%2FClasslikes%2F1506957492" data-filterable-set=":workflow:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":workflow:dokkaHtmlPartial/release" data-filterable-set=":workflow:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-navigate-nfc-session/index.html"><span>Navigate</span><wbr><span>Nfc</span><wbr><span><span>Session</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="494131566%2FClasslikes%2F1506957492"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":workflow:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">class </span><a href="-navigate-nfc-session/index.html">NavigateNfcSession</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>navGraphId<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a></span></span><span class="token punctuation">)</span> : <a href="index.html">NavigationAction</a></div><div class="brief "><p class="paragraph">Error from a nfc step in a combined session.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1034517771%2FClasslikes%2F1506957492" anchor-label="NavigateVoiceSession" id="-1034517771%2FClasslikes%2F1506957492" data-filterable-set=":workflow:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":workflow:dokkaHtmlPartial/release" data-filterable-set=":workflow:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-navigate-voice-session/index.html"><span>Navigate</span><wbr><span>Voice</span><wbr><span><span>Session</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1034517771%2FClasslikes%2F1506957492"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":workflow:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">class </span><a href="-navigate-voice-session/index.html">NavigateVoiceSession</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>navGraphId<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a></span></span><span class="token punctuation">)</span> : <a href="index.html">NavigationAction</a></div><div class="brief "><p class="paragraph">Error from a voice step in a combined session.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="28393738%2FClasslikes%2F1506957492" anchor-label="NfcReader" id="28393738%2FClasslikes%2F1506957492" data-filterable-set=":workflow:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":workflow:dokkaHtmlPartial/release" data-filterable-set=":workflow:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-nfc-reader/index.html"><span>Nfc</span><wbr><span><span>Reader</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="28393738%2FClasslikes%2F1506957492"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":workflow:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">sealed </span><span class="token keyword">class </span><a href="-nfc-reader/index.html">NfcReader</a> : <a href="index.html">NavigationAction</a></div><div class="brief "><p class="paragraph">Actions from the <a href="../-nfc-reader-fragment/index.html">NfcReaderFragment</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1472958057%2FClasslikes%2F1506957492" anchor-label="NfcSelection" id="1472958057%2FClasslikes%2F1506957492" data-filterable-set=":workflow:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":workflow:dokkaHtmlPartial/release" data-filterable-set=":workflow:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-nfc-selection/index.html"><span>Nfc</span><wbr><span><span>Selection</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1472958057%2FClasslikes%2F1506957492"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":workflow:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">sealed </span><span class="token keyword">class </span><a href="-nfc-selection/index.html">NfcSelection</a> : <a href="index.html">NavigationAction</a></div><div class="brief "><p class="paragraph">Actions from the <a href="../-nfc-selection-fragment/index.html">NfcSelectionFragment</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1952347694%2FClasslikes%2F1506957492" anchor-label="Review" id="-1952347694%2FClasslikes%2F1506957492" data-filterable-set=":workflow:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":workflow:dokkaHtmlPartial/release" data-filterable-set=":workflow:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-review/index.html"><span><span>Review</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1952347694%2FClasslikes%2F1506957492"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":workflow:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">sealed </span><span class="token keyword">class </span><a href="-review/index.html">Review</a> : <a href="index.html">NavigationAction</a></div><div class="brief "><p class="paragraph">Actions from the <a href="../-review-fragment/index.html">ReviewFragment</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1181703607%2FClasslikes%2F1506957492" anchor-label="VoicePhraseSelection" id="-1181703607%2FClasslikes%2F1506957492" data-filterable-set=":workflow:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":workflow:dokkaHtmlPartial/release" data-filterable-set=":workflow:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-voice-phrase-selection/index.html"><span>Voice</span><wbr><span>Phrase</span><wbr><span><span>Selection</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1181703607%2FClasslikes%2F1506957492"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":workflow:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">sealed </span><span class="token keyword">class </span><a href="-voice-phrase-selection/index.html">VoicePhraseSelection</a> : <a href="index.html">NavigationAction</a></div><div class="brief "><p class="paragraph">Actions from the <a href="../-voice-phrase-selection-fragment/index.html">VoicePhraseSelectionFragment</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1995951702%2FClasslikes%2F1506957492" anchor-label="VoiceProcessor" id="-1995951702%2FClasslikes%2F1506957492" data-filterable-set=":workflow:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":workflow:dokkaHtmlPartial/release" data-filterable-set=":workflow:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-voice-processor/index.html"><span>Voice</span><wbr><span><span>Processor</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1995951702%2FClasslikes%2F1506957492"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":workflow:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">sealed </span><span class="token keyword">class </span><a href="-voice-processor/index.html">VoiceProcessor</a> : <a href="index.html">NavigationAction</a></div><div class="brief "><p class="paragraph">Actions from the <a href="../-voice-processor-fragment/index.html">VoiceProcessorFragment</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2023 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+    </div>
+</div>
+</body>
+</html>
+
+

@@ -226,7 +226,7 @@
     <string name="misnapSampleAppSettingsDocumentExtractionTooltip" translatable="false">Used to Return MRZ Extraction. \nCan\'t be used with Barcode Extraction.</string>
     <string name="misnapSampleAppSettingsDocumentBarcodeExtractionTooltip" translatable="false">Used to Return Barcode Extraction. \nCan\'t be used with Document Extraction.</string>
     <string name="misnapSampleAppSettingsDocumentGeoTooltip" translatable="false">Only Supported For Checks</string>
-    <string name="misnapSampleAppSettingsDocumentRedactOptionalDataTooltip" translatable="false">Used to redact the BSN out of NLD passports.</string>
+    <string name="misnapSampleAppSettingsDocumentRedactOptionalDataTooltip" translatable="false">Used to redact the BSN out of NLD documents.</string>
 
     <string-array name="documentTriggersArray">
         <item>Auto</item>

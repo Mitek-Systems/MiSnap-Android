@@ -1,4 +1,4 @@
-# MiSnap SDK v5.3.1 for Android
+# MiSnap SDK v5.3.2 for Android
 
 # Table of Contents
 [Getting Started](#getting-started)
@@ -28,11 +28,10 @@
 
 ## Release Notes
 #### **Added**
-* [Common] New metadata added to the EXIF tags `0x9003` and `0x9011` to store the `UTC datetime` to represent the time when the image was acquired by the MiSnap SDK.
-* [Common] Improvements to orientation changes handling.
-* [NFC] Improvements to the tutorial guides covering more devices with specialized instructions on reading NFC chips.
+* [Document & NFC] Support for optional data redaction in the document image, extracted data and NFC data read from the chip. Only supported for NLD IDs(BSN redaction). Please refer to [this FAQ](#how-does-the-video-recording-feature-work-when-optional-data-bsn-redaction-for-nld-documents-is-enabled) for information on how this feature works when video recording is enabled.
+   * _The on-device redaction feature of the MiSnap SDK has been added in this version to aid in compliance with Dutch data protection legislation regarding the Citizen Service Number (BSN) - see section 46 of the Dutch Implementation Act of the GDPR (“UAVG”). Mitek is making its best effort to ensure the BSN is adequately redacted so it is unreadable by human or machine.  Mitek is only redacting the BSN from still images, so the customer or integrator must ensure they are not using the video component of MiSnap if redaction is to take place._
 
-### **Version 5.3.1**
+### **Version 5.3.2**
 
 Please see [this page](documentation/change_log.md) for release notes from older releases.
 
@@ -44,7 +43,7 @@ Please see [this page](documentation/download_sizes.md) for the in-depth size ta
 <!-- SIZE_TABLE_START -->
 | Use Case                         | Download Size (MiB) | 
 | :------------------------------- | ------------------: |
-| Document                         | 5.64                | 
+| Document                         | 5.65                | 
 | Document and Barcode             | 6.91                | 
 | Document and Biometric           | 13.38               | 
 | Document, Barcode, and Biometric | 14.64               | 
@@ -153,7 +152,7 @@ ABIs into a single app increases its size without providing any addition functio
 by either using [App Bundles](https://developer.android.com/guide/app-bundle) 
 or by using [Apk Splits](https://developer.android.com/studio/build/configure-apk-splits#configure-abi-split).
 
-### How does the video recording feature work when optional data (BSN) redaction for NLD Passports is enabled?
+### How does the video recording feature work when optional data (BSN) redaction for NLD documents is enabled?
 The `video recording` feature requires no frame processing therefore optional data will not be redacted in a recorded video. It is your responsibility to enable or disable `video recording` as per your needs when `optional data redaction` is enabled.
 
 ### What device info is collected when using `DeviceInfoUtil`?

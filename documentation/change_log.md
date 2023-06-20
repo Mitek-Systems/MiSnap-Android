@@ -1,4 +1,9 @@
-# MiSnap SDK v5.3.1 Change Log
+# MiSnap SDK v5.3.2 Change Log
+### **Version 5.3.1**
+#### **Added**
+* [Common] New metadata added to the EXIF tags `0x9003` and `0x9011` to store the `UTC datetime` to represent the time when the image was acquired by the MiSnap SDK.
+* [Common] Improvements to orientation changes handling.
+* [NFC] Improvements to the tutorial guides covering more devices with specialized instructions on reading NFC chips.
 
 ### **Version 5.3.0**
 #### **Added**
@@ -24,7 +29,7 @@
 
 ### **Version 5.2.0**
 #### **Added**
-* [Document & NFC] Support for optional data redaction in the document image, extracted data and NFC data read from the chip. Only supported for NLD Passports(BSN redaction). Please refer to [this FAQ](../README.md#how-does-the-video-recording-feature-work-when-optional-data-bsn-redaction-for-nld-passports-is-enabled) for information on how this feature works when video recording is enabled.
+* [Document & NFC] Support for optional data redaction in the document image, extracted data and NFC data read from the chip. Only supported for NLD Passports(BSN redaction). Please refer to [this FAQ](../README.md#how-does-the-video-recording-feature-work-when-optional-data-bsn-redaction-for-nld-documents-is-enabled) for information on how this feature works when video recording is enabled.
     * _The on-device redaction feature of the MiSnap SDK has been added in version 5.2 to aid in compliance with Dutch data protection legislation regarding the Citizen Service Number (BSN) - see section 46 of the Dutch Implementation Act of the GDPR (“UAVG”). Mitek is making its best effort to ensure the BSN is adequately redacted so it is unreadable by human or machine.  Mitek is only redacting the BSN from still images, so the customer or integrator must ensure they are not using the video component of MiSnap if redaction is to take place._
 * [Document] Support for an "enhanced manual" session mode where hints are displayed on screen to assist on getting better results in manual mode sessions.
 * [Common] A new configuration option to allow skipping the "manual review screen".

@@ -102,7 +102,7 @@ class IntegrationActivity : AppCompatActivity() {
                             license
                         ).apply {
                             analysis.document.documentExtractionRequirement =
-                                MiSnapSettings.Analysis.Document.ExtractionRequirement.OPTIONAL
+                                MiSnapSettings.Analysis.Document.ExtractionRequirement.REQUIRED
                             analysis.document.redactOptionalData = true
                             camera.videoRecord.recordSession =
                                 false //Disabling video recording if enabling optional data redaction since the data is not redacted from videos

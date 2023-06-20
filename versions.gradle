@@ -1,6 +1,6 @@
 project.ext {
     def buildNumber = String.format("%03d", System.getenv().BUILD_NUMBER?.toInteger() ?: 0)
-    def version = "5.3.1"
+    def version = "5.3.2"
 
     misnapVersionCode = Integer.parseInt("${version.replaceAll("\\.", "")}$buildNumber")
     misnapVersion = "$version"
