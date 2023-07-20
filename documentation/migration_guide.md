@@ -1,7 +1,11 @@
-# MiSnap SDK v5.3.2 Migration Guide
+# MiSnap SDK v5.3.3 Migration Guide
 
 ## Upgrading the MiSnap SDK from v5.2.1 to v5.3.0
 ### API Changes
+* The `startMiSnapSession` method of the `MiSnapView` now optionally takes the boolean parameter `requireTakePictureCapability` which starts the camera with or without the capability to take manual pictures.
+  * When the option is not specified, the `MiSnapView` will infer if the capability is needed according to the trigger mode specified in the `MiSnapSettings` object. If the `DocumentAnalysisFragment` is used, the `manualButtonVisible` option from the `WorkflowSettings` will be also considered to determine whether to request the capability or not.
+  * When working directly with the `MiSnapView`, it is necessary to determine if the capability should be requested or not. E.g. if the session has been configured to start in auto mode but the custom UI includes a shutter button to call for a manual picture, it is necessary to specify that the manual picture capability should be enabled, otherwise the action to take a picture won't work.
+* The `startCamera` method of the `CameraView` now optionally takes the boolean parameter `requireTakePictureCapability` which defaults to true. If set to false, the camera will start without the take picture capability.
 * The `mibiData` property of the `com.miteksystems.misnap.controller.MiSnapController.FrameResult` class types has been changed to `misnapMibiData`.
 * The `mibiData` property of the `com.miteksystems.misnap.nfc.MiSnapNfcReader.Result` class has been changed to `misnapMibiData`.
 * The `mibiData` property of the `com.miteksystems.misnap.workflow.MiSnapErrorResult` class has been changed to `misnapMibiData`. 

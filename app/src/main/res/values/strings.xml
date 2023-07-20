@@ -262,6 +262,7 @@
     <string name="misnapSampleAppSettingsDocumentWorkflowHintViewShowBackground" translatable="false">HintView Show Background</string>
     <string name="misnapSampleAppSettingsDocumentWorkflowSuccessViewShouldVibrateLabel" translatable="false">SuccessView Should Vibrate</string>
     <string name="misnapSampleAppSettingsDocumentWorkflowShowManualButtonLabel" translatable="false">Show Manual Button</string>
+    <string name="misnapSampleAppSettingsDocumentWorkflowShowDocumentLabelLabel" translatable="false">Show Document Label</string>
 
     <string-array name="documentReviewConditionsArray">
         <item>Always</item>

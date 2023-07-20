@@ -168,4 +168,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/documentWorkflowSettingsSuccessViewShouldVibrateBox" />
 
+    <com.google.android.material.checkbox.MaterialCheckBox
+        android:id="@+id/documentWorkflowSettingsShowDocumentLabelBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/misnapSampleAppLayoutVerticalMargin"
+        android:checked="false"
+        android:text="@string/misnapSampleAppSettingsDocumentWorkflowShowDocumentLabelLabel"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/documentWorkflowSettingsShowManualButtonBox" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,4 +1,4 @@
-# MiSnap SDK v5.3.2 for Android
+# MiSnap SDK v5.3.3 for Android
 
 # Table of Contents
 [Getting Started](#getting-started)
@@ -28,10 +28,13 @@
 
 ## Release Notes
 #### **Added**
-* [Document & NFC] Support for optional data redaction in the document image, extracted data and NFC data read from the chip. Only supported for NLD IDs(BSN redaction). Please refer to [this FAQ](#how-does-the-video-recording-feature-work-when-optional-data-bsn-redaction-for-nld-documents-is-enabled) for information on how this feature works when video recording is enabled.
-   * _The on-device redaction feature of the MiSnap SDK has been added in this version to aid in compliance with Dutch data protection legislation regarding the Citizen Service Number (BSN) - see section 46 of the Dutch Implementation Act of the GDPR (“UAVG”). Mitek is making its best effort to ensure the BSN is adequately redacted so it is unreadable by human or machine.  Mitek is only redacting the BSN from still images, so the customer or integrator must ensure they are not using the video component of MiSnap if redaction is to take place._
+* [Document] The `DocumentAnalysisFragment.WorkflowSettings` now support the boolean option `shouldShowDocumentLabel` which displays on screen a `TextView` with the name of the expected document type. Additionally, the `documentLabelStringId` argument has been added to customize the document name for special use cases.
 
-### **Version 5.3.2**
+#### **Fixed**
+* [NFC] Fixed an issue that prevented some SWE and ITA documents from scanning correctly.
+* [Common] Fixed an issue where the `HintView` would be displayed even when there were no hints to display, making the use of padding in the view difficult.
+
+### **Version 5.3.3**
 
 Please see [this page](documentation/change_log.md) for release notes from older releases.
 
@@ -138,6 +141,9 @@ Please reach out to your Mitek support team to obtain a license.
 
 ### How should I provision the license to the MiSnap SDK?
 Avoid hard-coding the license in your application. Instead, fetch it from your application server before invoking the MiSnap SDK. This will allow you to easily switch the license in the future without requiring you to roll out a new version of your app.
+
+### I want to customize the MiSnap SDK UI/UX. Where do I find the resources?
+The MiSnap SDK provides several options to customize the UI/UX, whether it is drawables, colors, styles, strings or behaviors. Please follow [this customization guide](documentation/customization_guide.md) for more information on how to locate the appropriate resource or option that fits your needs.
 
 ### Can I know in advance the device's camera capabilities before starting a session?
 Yes, when invoking the MiSnap SDK, it is a best practice to first query the camera support and set the `MiSnapSettings` capture mode according to the device's camera capabilities. This helps the asset selection of the `HelpFragment` be faster providing a smoother user experience. Look into `examples/camera/CameraSupport.Kt` for a code example on how to query the camera support.

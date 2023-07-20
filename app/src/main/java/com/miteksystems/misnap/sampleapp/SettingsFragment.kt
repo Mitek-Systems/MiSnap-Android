@@ -450,7 +450,8 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
                 guideViewShowVignette = it.documentWorkflowSettingsShowVignetteBox.isChecked,
                 hintViewShouldShowBackground = it.documentWorkflowSettingsHintViewShowBackground.isChecked,
                 successViewShouldVibrate = it.documentWorkflowSettingsSuccessViewShouldVibrateBox.isChecked,
-                manualButtonVisible = it.documentWorkflowSettingsShowManualButtonBox.isChecked
+                manualButtonVisible = it.documentWorkflowSettingsShowManualButtonBox.isChecked,
+                shouldShowDocumentLabel = it.documentWorkflowSettingsShowDocumentLabelBox.isChecked
             )
 
             settings.workflow.add(
@@ -1117,6 +1118,11 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
             (workflowSettings?.manualButtonVisible
                 ?: defaultWorkflowSettings.manualButtonVisible)?.let {
                 binding.documentWorkflowSettingsShowManualButtonBox.isChecked = it
+            }
+
+            (workflowSettings?.shouldShowDocumentLabel
+                ?: defaultWorkflowSettings.shouldShowDocumentLabel)?.let {
+                binding.documentWorkflowSettingsShowDocumentLabelBox.isChecked = it
             }
         }
     }

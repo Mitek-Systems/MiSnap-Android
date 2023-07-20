@@ -1,4 +1,4 @@
-# MiSnap SDK v5.3.2 Customization Guide
+# MiSnap SDK v5.3.3 Customization Guide
 While many of the customization options mentioned in this guide may be applicable to other MiSnap integration types, this guide focuses on customization options for the [activity-based integration](./activity_integration_guide.md).
 
 # Table of Contents
@@ -24,10 +24,11 @@ While many of the customization options mentioned in this guide may be applicabl
 * [Analysis Screen](#analysis-screen)
     * [Customizing the GuideView](#customizing-the-guideview)
     * [Displaying the Manual Button in Auto Sessions](#displaying-the-manual-button-in-auto-sessions)
+    * [Displaying a Document Label](#displaying-a-document-label)
     * [Adjusting the Session Timeout](#adjusting-the-session-timeout)
     * [Customizing the HintView](#customizing-the-hintview)
     * [Customizing the SuccessView](#customizing-the-successview)
-    * [Controling the Review Screen](#controling-the-review-screen)
+    * [Controlling the Review Screen](#controlling-the-review-screen)
 * [Failover Screen](#failover-screen)
     * [Customizing the Failover Reasons](#customizing-the-failover-reasons)
 * [NFC Reader Screen](#nfc-reader-screen)
@@ -242,6 +243,25 @@ MiSnapSettings(
 
 **Note: turning on this setting while requesting high resolution frames in an auto trigger session mode will prevent the camera from generating high resolution frames.**
 
+### Displaying a Document Label
+The MiSnap SDK can display a document label on the analysis screen to assist the end user to use the correct document for the session.
+
+By default, the document label is not displayed on screen but it can be activated and customized through the `MiSnapSettings.Workflow` object as follows:
+```kotlin
+MiSnapSettings(
+    MiSnapSettings.UseCase.ID_FRONT,
+    license
+).apply {
+    workflow.add(
+        getString(R.string.misnapWorkflowDocumentAnalysisFlowDocumentAnalysisFragmentLabel),
+        DocumentAnalysisFragment.buildWorkflowSettings(
+            shouldShowDocumentLabel = true,
+            documentLabelStringId = R.string.my_custom_document_label
+        )
+    )
+}
+```
+
 ### Adjusting the Session Timeout
 The MiSnap SDK features a timeout during the session analysis screen to prevent extended sessions, reduce resource usage, and to provide help to the end user for a successful session the next time in the `FailoverFragment`.
 
@@ -300,7 +320,7 @@ MiSnapSettings(
 }
 ```
 
-### Controling the Review Screen
+### Controlling the Review Screen
 The MiSnap SDK features a review screen that is suitable for situations where there might be a potential low quality on the acquired image.
 This behavior can be customized using the `MiSnapSettings.Workflow` object, for example, to never show the review screen:
 ```kotlin
