@@ -1,4 +1,12 @@
-# MiSnap SDK v5.3.3 Change Log
+# MiSnap SDK v5.3.4 Change Log
+
+### **Version 5.3.3**
+#### **Added**
+* [Document] The `DocumentAnalysisFragment.WorkflowSettings` now support the boolean option `shouldShowDocumentLabel` which displays on screen a `TextView` with the name of the expected document type. Additionally, the `documentLabelStringId` argument has been added to customize the document name for special use cases.
+
+#### **Fixed**
+* [NFC] Fixed an issue that prevented some SWE and ITA documents from scanning correctly.
+* [Common] Fixed an issue where the `HintView` would be displayed even when there were no hints to display, making the use of padding in the view difficult.
 
 ### **Version 5.3.2**
 #### **Added**

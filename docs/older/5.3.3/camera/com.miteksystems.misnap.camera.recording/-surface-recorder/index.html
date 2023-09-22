@@ -1,0 +1,224 @@
+<!doctype html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>SurfaceRecorder</title>
+<link href="../../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../../";</script>    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../styles/style.css" rel="Stylesheet">
+<link href="../../../styles/jetbrains-mono.css" rel="Stylesheet">
+<link href="../../../styles/main.css" rel="Stylesheet">
+<link href="../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../styles/logo-styles.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script>
+<link href="../../../styles/multimodule.css" rel="Stylesheet"></head>
+<body>
+<div class="navigation-wrapper" id="navigation-wrapper">
+    <div id="leftToggler"><span class="icon-toggler"></span></div>
+    <div class="library-name">
+<a href="../../../index.html">
+<span>android-MiSnap</span>            </a>    </div>
+    <div>
+<dokka-template-command data="{&quot;@class&quot;:&quot;org.jetbrains.dokka.base.templating.ReplaceVersionsCommand&quot;,&quot;location&quot;:&quot;com.miteksystems.misnap.camera.recording/-surface-recorder/index.html&quot;}"><div class="versions-dropdown">
+  <div class="versions-dropdown-button">5.3.3</div>
+  <div class="versions-dropdown-data"><a href="../../../../../camera/com.miteksystems.misnap.camera.recording/-surface-recorder/index.html">5.3.4</a><a href="index.html">5.3.3</a><a href="../../../../5.3.2/camera/com.miteksystems.misnap.camera.recording/-surface-recorder/index.html">5.3.2</a><a href="../../../../5.3.1/camera/com.miteksystems.misnap.camera.recording/-surface-recorder/index.html">5.3.1</a><a href="../../../../5.3.0/camera/com.miteksystems.misnap.camera.recording/-surface-recorder/index.html">5.3.0</a><a href="../../../../5.2.1/camera/com.miteksystems.misnap.camera.recording/-surface-recorder/index.html">5.2.1</a><a href="../../../../5.2/camera/com.miteksystems.misnap.camera.recording/-surface-recorder/index.html">5.2</a><a href="../../../../5.1.1/camera/com.miteksystems.misnap.camera.recording/-surface-recorder/index.html">5.1.1</a><a href="../../../../5.1.0/camera/com.miteksystems.misnap.camera.recording/-surface-recorder/index.html">5.1.0</a><a href="../../../../5.0.0/camera/com.miteksystems.misnap.camera.recording/-surface-recorder/index.html">5.0.0</a></div>
+</div>
+</dokka-template-command>    </div>
+    <div class="pull-right d-flex">
+        <div class="filter-section" id="filter-section">
+                <button class="platform-tag platform-selector jvm-like" data-active="" data-filter=":camera:dokkaHtmlPartial/release">androidJvm</button>
+        </div>
+        <button id="theme-toggle-button"><span id="theme-toggle"></span></button>
+        <div id="searchBar"></div>
+    </div>
+</div>
+<div id="container">
+    <div id="leftColumn">
+        <div id="sideMenu"></div>
+    </div>
+    <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="camera::com.miteksystems.misnap.camera.recording/SurfaceRecorder///PointingToDeclaration//722615118">
+  <div class="breadcrumbs"><a href="../../index.html">camera</a><span class="delimiter">/</span><a href="../index.html">com.miteksystems.misnap.camera.recording</a><span class="delimiter">/</span><span class="current">SurfaceRecorder</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Surface</span><wbr><span><span>Recorder</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":camera:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">class </span><a href="index.html">SurfaceRecorder</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">videoSettings<span class="token operator">: </span><a href="../../../core/com.miteksystems.misnap.core/-mi-snap-settings/-camera/-video-record/index.html">MiSnapSettings.Camera.VideoRecord</a><span class="token punctuation">, </span></span><span class="parameter ">outputPath<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span></div><p class="paragraph">The SurfaceRecorder acts as an adapter between the Android camera and the <a href="https://developer.android.com/reference/kotlin/android/view/SurfaceView.html">SurfaceView</a> that the preview will be displayed on.  This allows it to record a video of the preview and save it to the file system.</p><p class="paragraph">NOTE: Restarting video recording will overwrite the original video rather than appending to it.</p><p class="paragraph">Throws <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-exception/index.html">Exception</a> if there was an error while instantiating.</p></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,FUNCTION,PROPERTY">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="">Constructors</h2>
+        <div class="table"><a data-name="-244290097%2FConstructors%2F722615118" anchor-label="SurfaceRecorder" id="-244290097%2FConstructors%2F722615118" data-filterable-set=":camera:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-togglable="CONSTRUCTOR" data-filterable-current=":camera:dokkaHtmlPartial/release" data-filterable-set=":camera:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-surface-recorder.html"><span>Surface</span><wbr><span><span>Recorder</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-244290097%2FConstructors%2F722615118"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":camera:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">videoSettings<span class="token operator">: </span><a href="../../../core/com.miteksystems.misnap.core/-mi-snap-settings/-camera/-video-record/index.html">MiSnapSettings.Camera.VideoRecord</a><span class="token punctuation">, </span></span><span class="parameter ">outputPath<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="-334440834%2FFunctions%2F722615118" anchor-label="bindSurfaceView" id="-334440834%2FFunctions%2F722615118" data-filterable-set=":camera:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":camera:dokkaHtmlPartial/release" data-filterable-set=":camera:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="bind-surface-view.html"><span>bind</span><wbr><span>Surface</span><wbr><span><span>View</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-334440834%2FFunctions%2F722615118"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":camera:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="bind-surface-view.html"><span class="token function">bindSurfaceView</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">surfaceView<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/android/view/SurfaceView.html">SurfaceView</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Binds the SurfaceRecorder to the provided SurfaceView, once bound and initialized the resulting <a href="https://developer.android.com/reference/kotlin/android/graphics/SurfaceTexture.html">SurfaceTexture</a> will be posted to <a href="surface-live-data.html">surfaceLiveData</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-180708958%2FFunctions%2F722615118" anchor-label="bindTextureView" id="-180708958%2FFunctions%2F722615118" data-filterable-set=":camera:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":camera:dokkaHtmlPartial/release" data-filterable-set=":camera:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="bind-texture-view.html"><span>bind</span><wbr><span>Texture</span><wbr><span><span>View</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-180708958%2FFunctions%2F722615118"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":camera:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="bind-texture-view.html"><span class="token function">bindTextureView</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">textureView<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/android/view/TextureView.html">TextureView</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Binds the SurfaceRecorder to the provided TextureView, once bound and initialized the resulting <a href="https://developer.android.com/reference/kotlin/android/graphics/SurfaceTexture.html">SurfaceTexture</a> will be posted to <a href="surface-live-data.html">surfaceLiveData</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1262047352%2FFunctions%2F722615118" anchor-label="resetSettings" id="-1262047352%2FFunctions%2F722615118" data-filterable-set=":camera:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":camera:dokkaHtmlPartial/release" data-filterable-set=":camera:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="reset-settings.html"><span>reset</span><wbr><span><span>Settings</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1262047352%2FFunctions%2F722615118"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":camera:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="reset-settings.html"><span class="token function">resetSettings</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">videoSettings<span class="token operator">: </span><a href="../../../core/com.miteksystems.misnap.core/-mi-snap-settings/-camera/-video-record/index.html">MiSnapSettings.Camera.VideoRecord</a><span class="token punctuation">, </span></span><span class="parameter ">outputPath<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Resets the video's settings and output path.  If a video was already being recorded, it will be closed and recording will need to be started again.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-968383248%2FFunctions%2F722615118" anchor-label="startRecording" id="-968383248%2FFunctions%2F722615118" data-filterable-set=":camera:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":camera:dokkaHtmlPartial/release" data-filterable-set=":camera:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="start-recording.html"><span>start</span><wbr><span><span>Recording</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-968383248%2FFunctions%2F722615118"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":camera:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="start-recording.html"><span class="token function">startRecording</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Enables recording of the preview from the camera.  If the preview has not yet started, then recording will begin as soon as it does.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2138545414%2FFunctions%2F722615118" anchor-label="stopRecording" id="-2138545414%2FFunctions%2F722615118" data-filterable-set=":camera:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":camera:dokkaHtmlPartial/release" data-filterable-set=":camera:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="stop-recording.html"><span>stop</span><wbr><span><span>Recording</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2138545414%2FFunctions%2F722615118"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":camera:dokkaHtmlPartial/release"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.jvm/-jvm-overloads/index.html"><span class="token annotation builtin">JvmOverloads</span></a></div></div><span class="token keyword"></span><span class="token keyword">fun </span><a href="stop-recording.html"><span class="token function">stopRecording</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">writeFinishedCallback<span class="token operator">: </span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a><span class="token operator"> = </span>{}</span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Disables recording of the preview from the camera.  The preview will continue to display to the user, but the video file will no longer be updated.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="544873732%2FFunctions%2F722615118" anchor-label="unbindView" id="544873732%2FFunctions%2F722615118" data-filterable-set=":camera:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":camera:dokkaHtmlPartial/release" data-filterable-set=":camera:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="unbind-view.html"><span>unbind</span><wbr><span><span>View</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="544873732%2FFunctions%2F722615118"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":camera:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="unbind-view.html"><span class="token function">unbindView</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Releases the currently bound View. This is handled automatically when the <a href="https://developer.android.com/reference/kotlin/android/view/Surface.html">Surface</a> or <a href="https://developer.android.com/reference/kotlin/android/graphics/SurfaceTexture.html">SurfaceTexture</a> is destroyed, and so the method only needs to be called if switching from one View to another. NOTE: Releasing the surface automatically stops recording video, and rebinding to a new View and then restarting video recording will overwrite the old video.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="-1717053526%2FProperties%2F722615118" anchor-label="recording" id="-1717053526%2FProperties%2F722615118" data-filterable-set=":camera:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":camera:dokkaHtmlPartial/release" data-filterable-set=":camera:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="recording.html"><span><span>recording</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1717053526%2FProperties%2F722615118"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":camera:dokkaHtmlPartial/release"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.jvm/-volatile/index.html"><span class="token annotation builtin">Volatile</span></a></div><div class="block"><span class="token annotation builtin">@get:</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.jvm/-jvm-name/index.html"><span class="token annotation builtin">JvmName</span></a><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">"isRecording"</span></span></span><wbr><span class="token punctuation">)</span></div></div><span class="token keyword"></span><span class="token keyword">var </span><a href="recording.html">recording</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1356080344%2FProperties%2F722615118" anchor-label="surfaceLiveData" id="1356080344%2FProperties%2F722615118" data-filterable-set=":camera:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":camera:dokkaHtmlPartial/release" data-filterable-set=":camera:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="surface-live-data.html"><span>surface</span><wbr><span>Live</span><wbr><span><span>Data</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1356080344%2FProperties%2F722615118"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":camera:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">val </span><a href="surface-live-data.html">surfaceLiveData</a><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/lifecycle/LiveData.html">LiveData</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/android/graphics/SurfaceTexture.html">SurfaceTexture</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">The fully initialized SurfaceTexture to be passed to the camera after a <a href="https://developer.android.com/reference/kotlin/android/view/SurfaceView.html">SurfaceView</a> or <a href="https://developer.android.com/reference/kotlin/android/view/TextureView.html">TextureView</a> have been bound.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2023 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+    </div>
+</div>
+</body>
+</html>
+
+

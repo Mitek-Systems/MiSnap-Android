@@ -1,4 +1,4 @@
-# MiSnap SDK v5.3.3 for Android
+# MiSnap SDK v5.3.4 for Android
 
 # Table of Contents
 [Getting Started](#getting-started)
@@ -27,14 +27,11 @@
 # Getting Started
 
 ## Release Notes
-#### **Added**
-* [Document] The `DocumentAnalysisFragment.WorkflowSettings` now support the boolean option `shouldShowDocumentLabel` which displays on screen a `TextView` with the name of the expected document type. Additionally, the `documentLabelStringId` argument has been added to customize the document name for special use cases.
 
 #### **Fixed**
-* [NFC] Fixed an issue that prevented some SWE and ITA documents from scanning correctly.
-* [Common] Fixed an issue where the `HintView` would be displayed even when there were no hints to display, making the use of padding in the view difficult.
+* [Common] Fixed an issue where the EXIF data was sometimes not being written to the resulting image.
 
-### **Version 5.3.3**
+### **Version 5.3.4**
 
 Please see [this page](documentation/change_log.md) for release notes from older releases.
 
