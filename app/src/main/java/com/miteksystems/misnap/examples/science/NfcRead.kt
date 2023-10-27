@@ -14,6 +14,9 @@ import com.miteksystems.misnap.nfc.MiSnapNfcReader
  * This example demonstrates a direct integration with MiSnap SDK's NFC reader, this type of integration
  * is best suited for developers that want to interface with the science directly and that will take
  * care of supplying the [Mrz] data context required to read the NFC chip themselves.
+ *
+ * NOTE: Ensure that the provided license has all the necessary features enabled for the target
+ *  MiSnap session.
  */
 private class NfcRead : Fragment() {
     private val license = "your_sdk_license"

@@ -20,6 +20,9 @@ import com.miteksystems.misnap.workflow.MiSnapWorkflowStep
  * This integration method uses [ActivityResultContracts] and [registerForActivityResult] to launch
  * a new [MiSnapWorkflowActivity] that handles the session.
  *
+ * NOTE: Ensure that the provided license has all the necessary features enabled for the target
+ *  MiSnap session.
+ *
  * @see R.navigation.example_add_screen_navigation for the navgraph definition and setup.
  * @see AddScreenCustomFragment for the full code of the custom fragment.
  */

@@ -45,6 +45,10 @@ import com.miteksystems.misnap.workflow.util.CombinedWorkflowHandler
  * and apply its settings to the [MiSnapWorkflowViewModel], repeat steps 4-6 until there are no more steps to handle.
  * 7. Get all the results from [CombinedWorkflowHandler.CombinedViewModel.combinedWorkflowStepResultsList].
  * 8. Clear both [MiSnapWorkflowViewModel] and [CombinedWorkflowHandler.CombinedViewModel].
+ *
+ *
+ * NOTE: Ensure that the provided license has all the necessary features enabled for the target
+ *  MiSnap session.
  */
 class CombinedWorkflowIntegrationActivity : AppCompatActivity() {
     private val license = "your_sdk_license"

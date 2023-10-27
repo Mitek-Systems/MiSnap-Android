@@ -10,6 +10,9 @@ import com.miteksystems.misnap.core.MiSnapSettings
  * This example demonstrates how to query the device's camera support in advance before invoking the
  * MiSnap SDK. This is a recommended best practice for every MiSnap SDK integration as it makes the
  * help screen asset selection faster.
+ *
+ * NOTE: Ensure that the provided license has all the necessary features enabled for the target
+ *  MiSnap session.
  */
 class CameraSupport : Fragment() {
     private val license = "your_sdk_license"

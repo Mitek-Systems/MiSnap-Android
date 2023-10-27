@@ -15,6 +15,9 @@ import com.miteksystems.misnap.core.MiSnapSettings
  * the [MiSnapController], this type of integration is best suited for developers that want to
  * interface with the science directly and that will take care of supplying the frames themselves.
  *
+ * NOTE: Ensure that the provided license has all the necessary features enabled for the target
+ *  MiSnap session.
+ *
  * @see com.miteksystems.misnap.examples.science for examples on how to directly interface with other
  * MiSnap SDK sciences.
  */

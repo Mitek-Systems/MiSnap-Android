@@ -15,6 +15,9 @@ import com.miteksystems.misnap.core.MiSnapSettings
  * the [MiSnapController], this type of integration is best suited for developers that want to
  * interface with the science directly and that will take care of supplying the frames themselves.
  *
+ * NOTE: Ensure that the provided license has all the necessary features enabled for the target
+ *  MiSnap session.
+ *
  * @see com.miteksystems.misnap.examples.science for examples on how to directly interface with other
  * MiSnap SDK sciences.
  */
@@ -52,6 +55,9 @@ private class DocumentAnalysis : Fragment() {
             analysis.document.check.geo = MiSnapSettings.Analysis.Document.Check.Geo.US
 
             analysis.document.trigger = MiSnapSettings.Analysis.Document.Trigger.AUTO
+
+            // Optionally enable on device document classification
+            analysis.document.enableDocumentClassification = true
 
             // Optionally enable barcode extraction.
             analysis.document.barcodeExtractionRequirement =
@@ -98,6 +104,9 @@ private class DocumentAnalysis : Fragment() {
                     is ErrorResult.BarcodeDetection -> {
                     }
                     is ErrorResult.BarcodeAnalysis -> {
+                    }
+                    is ErrorResult.DocumentClassification -> {
+
                     }
                 }
             }

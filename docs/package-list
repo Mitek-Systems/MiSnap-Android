@@ -17,6 +17,9 @@ com.miteksystems.misnap.core
 com.miteksystems.misnap.core.serverconnection
 module:document-analysis
 com.miteksystems.misnap.document
+module:document-classifier
+com.miteksystems.misnap.classifier
+com.miteksystems.misnap.classifier.util
 module:face-analysis
 com.miteksystems.misnap.face
 module:feature-detector

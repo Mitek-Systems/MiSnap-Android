@@ -1,4 +1,5 @@
-# MiSnap SDK v5.3.4 for Android
+# MiSnap SDK v5.4.0 for Android
+Mitek MiSnap™ is a patented mobile-capture SDK that enables an intuitive user experience and instant capture of quality images. It all starts with the quality of the image.
 
 # Table of Contents
 [Getting Started](#getting-started)
@@ -7,6 +8,8 @@
 * [System Requirements](#system-requirements) 
 * [Devices Tested](#devices-tested)
 * [Known Issues](#known-issues)
+
+[License Key](#license-key)
 
 [Migration Guide](#migration-guide)
 
@@ -27,11 +30,32 @@
 # Getting Started
 
 ## Release Notes
+#### **Added**
+* [Document] On Device Document Classification(ODC), this feature enables extra processing on identity documents to classify them into different document types, which makes it possible to provide special hints during the session to place the correct document if a wrong document is detected.
+To enable this feature, set the `getEnableDocumentClassification` from `MiSnapSettings.Analysis.Document` to true and retrieve the classification results from the `classification` property of the session results.
+Please see [this](#what-is-the-advantage-of-using-the-on-device-classification-feature-over-regular-document-sessions) FAQ for more information on the advantages of using this feature and [this](#what-are-the-considerations-of-using-the-on-device-classification-feature) FAQ to learn more about the considerations of using the ODC feature.
+  * _The use of the On Device Classification(ODC) feature requires a valid MiSnap license with the ODC feature enabled to work. This feature is currently in beta._
+* [Document] On Device Extraction(ODE), this feature allows MiSnap to return additional extracted data from supported MRZ enabled identity documents. If the feature is licensed and `the MRZ extraction is requested` the extraction results can be recovered from the `extraction` property of the session results.
+  * _The use of the On Device Extraction(ODE) feature requires a valid MiSnap license with the ODE feature enabled to work._
+* [Common] An encrypted payload for sending to Mitek APIs for increased security.
+* [Document] Multiple optimizations to improve the frame processing speed for faster and more responsive sessions.
+* [Common] Improved the frame handling process to reduce the chances of a session resulting in blurred frames due to ongoing camera autofocus routines.
+
+Please see the in-code documentation for more details and the full API.
 
 #### **Fixed**
-* [Common] Fixed an issue where the EXIF data was sometimes not being written to the resulting image.
+* [Document] An issue where the first hint message for a document capture would often be irrelevant to the ongoing session.
+* [Common] An issue where the final frame would sometimes be propagated more than one time.
 
-### **Version 5.3.4**
+#### **Modified**
+* [Common] The `UserAction` class has been moved to `com.miteksystems.misnap.core` and is now part of the `core` module.
+* [Document] The `mrz` property of a MiSnap document session result is now contained in the `extraction` property of type `DocumentExtraction` which includes other ODE related properties.
+  * _The `mrz` property contents and the conditions in which is returned are not affected by this change nor require the ODE feature to be licensed._
+* [Document] The `extractedDataCorners` property of the `MiSnapDocumentAnalyzerResult` class is now contained in the `extraction` property of type `DocumentExtraction` which includes other ODE related properties.
+
+Please see [the migration guide](documentation/migration_guide.md) for more extended information on the changes introduced in this release that can affect your integration.
+
+### **Version 5.4.0**
 
 Please see [this page](documentation/change_log.md) for release notes from older releases.
 
@@ -43,11 +67,12 @@ Please see [this page](documentation/download_sizes.md) for the in-depth size ta
 <!-- SIZE_TABLE_START -->
 | Use Case                         | Download Size (MiB) | 
 | :------------------------------- | ------------------: |
-| Document                         | 5.65                | 
-| Document and Barcode             | 6.91                | 
-| Document and Biometric           | 13.38               | 
-| Document, Barcode, and Biometric | 14.64               | 
-| Document, Biometric, and NFC     | 16.93               | 
+| Document                         | 5.55                | 
+| Document and Barcode             | 6.81                | 
+| Document and Biometric           | 13.29               | 
+| Document, Barcode, and Biometric | 14.54               | 
+| Document, Biometric, and NFC     | 17.26               | 
+| Document Classification          | 13.31               | 
 <!-- SIZE_TABLE_END -->
 
 ## System Requirements
@@ -69,8 +94,30 @@ Please see [versions.gradle](versions.gradle) for more details.
 Please see the [devices tested](documentation/devices_tested.md) page for more details.
 
 ## Known Issues
-* As the `face-analysis` module uses `Google’s MLKit` for face detection, please follow [this link](https://developers.google.com/ml-kit/known-issues) for known issues.
+* As the `face-analysis`, `face` and `biometric` modules use `Google’s MLKit` for face detection, please follow [this link](https://developers.google.com/ml-kit/known-issues) for known issues.
+* The `document-classifier` and `classifier` modules use `Google’s MLKit` for document classification, please follow [this link](https://developers.google.com/ml-kit/known-issues) for known issues. 
 * The `minSdkVersion` used in the MiSnap SDK is not compatible with higher `jmrtd` versions. 
+
+- - - -
+
+# License Key
+The MiSnap SDK requires a valid license key to work and it must be provided to the SDK before invoking any session type. A license enables the different features of the SDK and it should be provisioned by the Mitek support team.
+
+The following features require a license key to work:
+* Identity Document Session
+* Check Document Session
+* Barcode Session
+* Face Session
+* Voice Session
+* NFC Session
+* On Device Document Classification
+* On Device Extraction
+* Generic Document Session
+* Enhanced Manual Mode
+
+Please follow the appropriate [Integration Guide](#integration-guides) and the code samples for information on how to pass a license to the SDK.
+
+Please see [this](#how-should-i-provision-the-license-to-the-misnap-sdk) FAQ for tips on providing the license to the MiSnap SDK and [this](#what-happens-if-i-request-a-feature-i-dont-have-a-license-for) FAQ for more information on the SDK behavior when requesting unlicensed features.
 
 - - - -
 
@@ -130,17 +177,28 @@ Please follow these steps:
     ```
 3. Add the required dependencies as per the [Integration Guides](#integration-guides).
 
-### Does the MiSnap SDK require a license to function?
-Yes, MiSnap now requires a valid license to be provided to function. Please follow the appropriate [Integration Guide](#integration-guides) and the code samples for information on how to pass a license to the SDK.
-
-### Where can I get a license?
-Please reach out to your Mitek support team to obtain a license.
-
 ### How should I provision the license to the MiSnap SDK?
 Avoid hard-coding the license in your application. Instead, fetch it from your application server before invoking the MiSnap SDK. This will allow you to easily switch the license in the future without requiring you to roll out a new version of your app.
 
+### What happens if I request a feature I don’t have a license for?
+Always verify that the license you provide to the MiSnap SDK is licensed for the features you need to use to avoid undesirable results. If you have requested to use a feature but the provisioned license does not allow the use of such feature the SDK can’t use it. If the requested feature is a core functionality, e.g. the `Identity Document Session` feature, then the SDK won’t complete the request and will return a `MiSnapErrorResult` instance with a `License` error.
+
+If the feature is not part of a core functionality, e.g. the `On Device Extraction` feature, the SDK will complete the session but won’t include the extraction data as part of the results.
+
+Please see the in-code documentation to learn more about which components require licensed features.
+
 ### I want to customize the MiSnap SDK UI/UX. Where do I find the resources?
 The MiSnap SDK provides several options to customize the UI/UX, whether it is drawables, colors, styles, strings or behaviors. Please follow [this customization guide](documentation/customization_guide.md) for more information on how to locate the appropriate resource or option that fits your needs.
+
+### What is the advantage of using the On Device Classification feature over regular document sessions?
+When the `On Device Classification(ODC)` feature is enabled, the MiSnap SDK will attempt to classify the document type and provide hints to the user to place the correct document type if needed. e.g. if a MiSnap session is invoked with the `UseCase.PASSPORT` use case but the user places a driver's license, the MiSnap SDK will provide a hint to the user to place the correct document type. These special instructions are also displayed in the `FailoverFragment`.
+
+Please see the in-code documentation to learn more about the ODC APIs.
+
+### What are the considerations of using the On Device Classification feature?
+The `On Device Classification(ODC)` feature requires extra processing and therefore, it can be slower than a regular document session. While the MiSnap SDK won't prevent any device from using the ODC feature, it is recommended to use the `DeviceCapabilityUtil.isDeviceSuitableForOdc` method to determine if the device is generally fast enough to use the ODC feature and maintain a good experience.
+
+Please see the in-code documentation to learn more about the ODC APIs.
 
 ### Can I know in advance the device's camera capabilities before starting a session?
 Yes, when invoking the MiSnap SDK, it is a best practice to first query the camera support and set the `MiSnapSettings` capture mode according to the device's camera capabilities. This helps the asset selection of the `HelpFragment` be faster providing a smoother user experience. Look into `examples/camera/CameraSupport.Kt` for a code example on how to query the camera support.
@@ -165,7 +223,8 @@ It's publicly available non-PII device properties exposed by the Android APIs al
 **NOTE**: Local maven integration requires access to the offline MiSnap SDK zip package, and will not work with the version available on Github.  Please reach out to support for access.
 
 The offline MiSnap SDK provides the `Library_Modules/maven-local-manager.sh` script for Linux/MacOS and the `Library_Modules/maven-local-manager.bat` script for Windows in the offline release package. Please follow the below steps:
-1. Run the appropriate script to deploy all the MiSnap SDK aar files to maven local.<br>  
+1. Contact your Mitek support team to get access to the package that contains the MiSnap SDK artifacts and support scripts.
+2. Run the appropriate script to deploy all the MiSnap SDK aar files to maven local.<br>  
 ___For Linux/MacOS___:  
 a. Open a terminal in the `Library_Modules` directory.  
 b. Run the `sh maven-local-manager.sh -i` command.  <br><br>
@@ -173,7 +232,7 @@ ___For Windows___:
 a. Open a command prompt in the `Library_Modules` directory.  
 b. Run the `maven-local-manager.bat /i` command.
 
-2. Add the following to the **project level** `build.gradle`:
+3. Add the following to the **project level** `build.gradle`:
     ```groovy
     allprojects {
       repositories {
@@ -183,8 +242,9 @@ b. Run the `maven-local-manager.bat /i` command.
       }
     }
     ```
-3. Add the required dependencies as per the [Integration Guides](#integration-guides).
+4. Add the required dependencies as per the [Integration Guides](#integration-guides).
 
+_Note: The artifacts hosted in Github are exclusively for use with online Maven integrations, please use the artifacts in the zip package for an offline integration with Maven._
 - - - -
 
 # Third-Party Licenses

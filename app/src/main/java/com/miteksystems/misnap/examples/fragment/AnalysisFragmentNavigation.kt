@@ -21,6 +21,9 @@ import com.miteksystems.misnap.workflow.fragment.MiSnapWorkflowViewModel
  * [R.navigation.barcode_session_flow] navgraph to take care of the navigation for a barcode session
  * while making use of the [MiSnapWorkflowViewModel] to configure the session.
  *
+ * NOTE: Ensure that the provided license has all the necessary features enabled for the target
+ *  MiSnap session.
+ *
  * @see R.navigation.example_session_navigation for the navgraph definition and setup.
  *
  * @see com.miteksystems.misnap.examples.fragment.AnalysisFragmentTransaction for an activity-less

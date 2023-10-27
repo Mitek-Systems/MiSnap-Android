@@ -1,0 +1,332 @@
+<!doctype html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>MiSnapNfcReader</title>
+<link href="../../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../../";</script>    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script src="https://unpkg.com/kotlin-playground@1"></script><script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../styles/style.css" rel="Stylesheet">
+<link href="../../../styles/jetbrains-mono.css" rel="Stylesheet">
+<link href="../../../styles/main.css" rel="Stylesheet">
+<link href="../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../styles/logo-styles.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script>
+<link href="../../../styles/multimodule.css" rel="Stylesheet"></head>
+<body>
+<div class="navigation-wrapper" id="navigation-wrapper">
+    <div id="leftToggler"><span class="icon-toggler"></span></div>
+    <div class="library-name">
+<a href="../../../index.html">
+<span>misnap</span>            </a>    </div>
+    <div>
+<dokka-template-command data="{&quot;@class&quot;:&quot;org.jetbrains.dokka.base.templating.ReplaceVersionsCommand&quot;,&quot;location&quot;:&quot;com.miteksystems.misnap.nfc/-mi-snap-nfc-reader/index.html&quot;}"><div class="versions-dropdown">
+  <div class="versions-dropdown-button">5.3.4</div>
+  <div class="versions-dropdown-data"><a href="../../../../../nfc-reader/com.miteksystems.misnap.nfc/-mi-snap-nfc-reader/index.html">5.4.0</a><a href="index.html">5.3.4</a><a href="../../../../5.3.3/nfc-reader/com.miteksystems.misnap.nfc/-mi-snap-nfc-reader/index.html">5.3.3</a><a href="../../../../5.3.2/nfc-reader/com.miteksystems.misnap.nfc/-mi-snap-nfc-reader/index.html">5.3.2</a><a href="../../../../5.3.1/nfc-reader/com.miteksystems.misnap.nfc/-mi-snap-nfc-reader/index.html">5.3.1</a><a href="../../../../5.3.0/nfc-reader/com.miteksystems.misnap.nfc/-mi-snap-nfc-reader/index.html">5.3.0</a><a href="../../../../5.2.1/nfc-reader/com.miteksystems.misnap.nfc/-mi-snap-nfc-reader/index.html">5.2.1</a><a href="../../../../5.2.0/nfc-reader/com.miteksystems.misnap.nfc/-mi-snap-nfc-reader/index.html">5.2.0</a><a href="../../../../5.1.1/nfc-reader/com.miteksystems.misnap.nfc/-mi-snap-nfc-reader/index.html">5.1.1</a><a href="../../../../5.1.0/nfc-reader/com.miteksystems.misnap.nfc/-mi-snap-nfc-reader/index.html">5.1.0</a><a href="../../../../../not-found-version.html?v=5.0.0">5.0.0</a></div>
+</div>
+</dokka-template-command>    </div>
+    <div class="pull-right d-flex">
+        <div class="filter-section" id="filter-section">
+                <button class="platform-tag platform-selector jvm-like" data-active="" data-filter=":nfc-reader:dokkaHtmlPartial/release">androidJvm</button>
+        </div>
+        <button id="theme-toggle-button"><span id="theme-toggle"></span></button>
+        <div id="searchBar"></div>
+    </div>
+</div>
+<div id="container">
+    <div id="leftColumn">
+        <div id="sideMenu"></div>
+    </div>
+    <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="nfc-reader::com.miteksystems.misnap.nfc/MiSnapNfcReader///PointingToDeclaration//1407725518">
+  <div class="breadcrumbs"><a href="../../index.html">nfc-reader</a><span class="delimiter">/</span><a href="../index.html">com.miteksystems.misnap.nfc</a><span class="delimiter">/</span><span class="current">MiSnapNfcReader</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Mi</span><wbr><span>Snap</span><wbr><span>Nfc</span><wbr><span><span>Reader</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":nfc-reader:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">class </span><a href="index.html">MiSnapNfcReader</a></div><p class="paragraph">Class to help read data from NFC-enabled documents.</p><h4 class="">Samples</h4><div class="sample-container"><pre><code class="runnablesample monospace block lang-kotlin" theme="idea">import android.os.Bundle
+import android.view.View
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.LiveData
+import com.miteksystems.misnap.core.MiSnapSettings
+import com.miteksystems.misnap.core.MibiData
+import com.miteksystems.misnap.core.Mrz
+import com.miteksystems.misnap.core.Mrz1Line
+import com.miteksystems.misnap.nfc.MiSnapNfcReader
+fun main() { 
+   //sampleStart 
+   /**
+ * This example demonstrates a direct integration with MiSnap SDK's NFC reader, this type of integration
+ * is best suited for developers that want to interface with the science directly and that will take
+ * care of supplying the [Mrz] data context required to read the NFC chip themselves.
+ */
+private class NfcRead : Fragment() {
+    private val license = "your_sdk_license"
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        /**
+         * Configure a [MiSnapSettings] object with the appropriate [Mrz] data that will be used as
+         * context to unlock the NFC chip of the document.
+         *
+         * @see [Mrz] for the different types of data and requirements.
+         */
+        val misnapSettings = MiSnapSettings(MiSnapSettings.UseCase.NFC, license).apply {
+            nfc.mrz = Mrz1Line("30-digit MRZ")
+            nfc.soundAndVibration = MiSnapSettings.Nfc.SoundAndVibration.FOLLOW_SYSTEM
+            nfc.advanced.docType = MiSnapSettings.Nfc.Advanced.DocType.EU_DL
+        }
+
+        /**
+         * Optionally define a [MibiData] session outside of the reader's lifecycle.
+         */
+        MibiData.startSession(this::class.java.name, misnapSettings)
+
+        /**
+         * Instantiate an [MiSnapNfcReader] and observe the different [LiveData] objects to receive
+         * nfc, errors and completion events.
+         */
+        MiSnapNfcReader(requireContext()).apply {
+            /**
+             * Observe the [MiSnapNfcReader.events] [LiveData] to receive notifications about the progress
+             * of the NFC chip reading process.
+             *
+             * @see [MiSnapNfcReader.Event] for the full list of possible emitted events.
+             */
+            events.observe(viewLifecycleOwner) {
+
+            }
+
+            /**
+             * Observe the [MiSnapNfcReader.completedEvent] [LiveData] to receive an [MiSnapNfcReader.Result]
+             * indicating that the NFC read process has finished successfully.
+             */
+            completedEvent.observe(viewLifecycleOwner) {
+
+            }
+
+            /**
+             * Observe the [MiSnapNfcReader.errorEvents] [LiveData] to receive notifications about errors
+             * found during the NFC chip reading process.
+             *
+             * @see [MiSnapNfcReader.Error] for the full list of possible emitted events.
+             */
+            errorEvents.observe(viewLifecycleOwner) {
+
+            }
+        }.also {
+            /**
+             * Start the NFC reading process with the built [MiSnapSettings] object.
+             */
+            it.start(requireActivity(), misnapSettings)
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+
+        /**
+         * Optionally end the [MibiData] session outside of the reader's lifecycle.
+         */
+        MibiData.releaseSession(this::class.java.name)
+    }
+} 
+   //sampleEnd
+}</code></pre></div></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,FUNCTION,PROPERTY">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="">Constructors</h2>
+        <div class="table"><a data-name="642684058%2FConstructors%2F1407725518" anchor-label="MiSnapNfcReader" id="642684058%2FConstructors%2F1407725518" data-filterable-set=":nfc-reader:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-togglable="CONSTRUCTOR" data-filterable-current=":nfc-reader:dokkaHtmlPartial/release" data-filterable-set=":nfc-reader:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-mi-snap-nfc-reader.html"><span>Mi</span><wbr><span>Snap</span><wbr><span>Nfc</span><wbr><span><span>Reader</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="642684058%2FConstructors%2F1407725518"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":nfc-reader:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">context<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/android/content/Context.html">Context</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Creates and returns instance of <a href="index.html">MiSnapNfcReader</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="TYPE">
+        <h2 class="">Types</h2>
+        <div class="table"><a data-name="1924781316%2FClasslikes%2F1407725518" anchor-label="ChipData" id="1924781316%2FClasslikes%2F1407725518" data-filterable-set=":nfc-reader:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":nfc-reader:dokkaHtmlPartial/release" data-filterable-set=":nfc-reader:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-chip-data/index.html"><span>Chip</span><wbr><span><span>Data</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1924781316%2FClasslikes%2F1407725518"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":nfc-reader:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">sealed </span><span class="token keyword">class </span><a href="-chip-data/index.html">ChipData</a></div><div class="brief "><p class="paragraph">Data object containing the data read from the NFC-enabled document.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-13047392%2FClasslikes%2F1407725518" anchor-label="Error" id="-13047392%2FClasslikes%2F1407725518" data-filterable-set=":nfc-reader:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":nfc-reader:dokkaHtmlPartial/release" data-filterable-set=":nfc-reader:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-error/index.html"><span><span>Error</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-13047392%2FClasslikes%2F1407725518"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":nfc-reader:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">sealed </span><span class="token keyword">class </span><a href="-error/index.html">Error</a></div><div class="brief "><p class="paragraph">Class representing a NFC session error event.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="876392782%2FClasslikes%2F1407725518" anchor-label="Event" id="876392782%2FClasslikes%2F1407725518" data-filterable-set=":nfc-reader:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":nfc-reader:dokkaHtmlPartial/release" data-filterable-set=":nfc-reader:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-event/index.html"><span><span>Event</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="876392782%2FClasslikes%2F1407725518"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":nfc-reader:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">sealed </span><span class="token keyword">class </span><a href="-event/index.html">Event</a></div><div class="brief "><p class="paragraph">Status events emitted when unlocking the NFC chip.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1648687901%2FClasslikes%2F1407725518" anchor-label="Result" id="1648687901%2FClasslikes%2F1407725518" data-filterable-set=":nfc-reader:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":nfc-reader:dokkaHtmlPartial/release" data-filterable-set=":nfc-reader:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-result/index.html"><span><span>Result</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1648687901%2FClasslikes%2F1407725518"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":nfc-reader:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">class </span><a href="-result/index.html">Result</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>chipData<span class="token operator">: </span><a href="-chip-data/index.html">MiSnapNfcReader.ChipData</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>misnapMibiData<span class="token operator">: </span><a href="../../../core/com.miteksystems.misnap.core/-mi-snap-mibi-data/index.html">MiSnapMibiData</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>licenseExpired<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Result object from a successful chip read.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="-2062324720%2FFunctions%2F1407725518" anchor-label="cancel" id="-2062324720%2FFunctions%2F1407725518" data-filterable-set=":nfc-reader:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":nfc-reader:dokkaHtmlPartial/release" data-filterable-set=":nfc-reader:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="cancel.html"><span><span>cancel</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2062324720%2FFunctions%2F1407725518"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":nfc-reader:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="cancel.html"><span class="token function">cancel</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">activity<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/android/app/Activity.html">Activity</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Cancels the existing NFC read session.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-847736272%2FFunctions%2F1407725518" anchor-label="start" id="-847736272%2FFunctions%2F1407725518" data-filterable-set=":nfc-reader:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":nfc-reader:dokkaHtmlPartial/release" data-filterable-set=":nfc-reader:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="start.html"><span><span>start</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-847736272%2FFunctions%2F1407725518"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":nfc-reader:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="start.html"><span class="token function">start</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">activity<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/android/app/Activity.html">Activity</a><span class="token punctuation">, </span></span><span class="parameter ">misnapSettings<span class="token operator">: </span><a href="../../../core/com.miteksystems.misnap.core/-mi-snap-settings/index.html">MiSnapSettings</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Starts a NFC read session and waits NFC chip to be detected by the on-device NFC antenna. Subscribe to <a href="events.html">events</a>, <a href="completed-event.html">completedEvent</a>, and <a href="error-events.html">errorEvents</a> to receive various events.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="-358448650%2FProperties%2F1407725518" anchor-label="completedEvent" id="-358448650%2FProperties%2F1407725518" data-filterable-set=":nfc-reader:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":nfc-reader:dokkaHtmlPartial/release" data-filterable-set=":nfc-reader:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="completed-event.html"><span>completed</span><wbr><span><span>Event</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-358448650%2FProperties%2F1407725518"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":nfc-reader:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">val </span><a href="completed-event.html">completedEvent</a><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/lifecycle/LiveData.html">LiveData</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-result/index.html">MiSnapNfcReader.Result</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">LiveData object that emits event when data from the NFC chip has been read.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1038754764%2FProperties%2F1407725518" anchor-label="errorEvents" id="-1038754764%2FProperties%2F1407725518" data-filterable-set=":nfc-reader:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":nfc-reader:dokkaHtmlPartial/release" data-filterable-set=":nfc-reader:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="error-events.html"><span>error</span><wbr><span><span>Events</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1038754764%2FProperties%2F1407725518"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":nfc-reader:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">val </span><a href="error-events.html">errorEvents</a><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/lifecycle/LiveData.html">LiveData</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-error/index.html">MiSnapNfcReader.Error</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">LiveData object that emits NFC chip error events.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1548072148%2FProperties%2F1407725518" anchor-label="events" id="-1548072148%2FProperties%2F1407725518" data-filterable-set=":nfc-reader:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":nfc-reader:dokkaHtmlPartial/release" data-filterable-set=":nfc-reader:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="events.html"><span><span>events</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1548072148%2FProperties%2F1407725518"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":nfc-reader:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">val </span><a href="events.html">events</a><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/lifecycle/LiveData.html">LiveData</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-event/index.html">MiSnapNfcReader.Event</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">LiveData object that emits NFC chip unlock progress events.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2023 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+    </div>
+</div>
+</body>
+</html>
+
+

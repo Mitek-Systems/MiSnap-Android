@@ -352,7 +352,8 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
                     kotlin.runCatching { it.cameraSettingsVideoBitrate.text.toString().toInt() }
                         .getOrDefault(videoRecord.getVideoBitrate())
 
-                enableHighResolutionFrames = it.cameraSettingsRequestHighResolutionCheckbox.isChecked
+                enableHighResolutionFrames =
+                    it.cameraSettingsRequestHighResolutionCheckbox.isChecked
             }
         }
     }
@@ -373,6 +374,9 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
                     getGeoAt(it.documentSettingsGeoSpinner.selectedItemPosition)
 
                 document.redactOptionalData = it.documentSettingsRedactOptionalData.isChecked
+
+                document.enableDocumentClassification =
+                    it.documentSettingsEnableClassification.isChecked
 
                 document.advanced.cornerConfidence = kotlin.runCatching {
                     it.documentSettingsCornerConfidence.text.toString().toInt()
@@ -953,7 +957,8 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
                 settings.camera.videoRecord.getVideoBitrate().toString()
             )
 
-            it.cameraSettingsRequestHighResolutionCheckbox.isChecked = settings.camera.shouldEnableHighResolutionFrames()
+            it.cameraSettingsRequestHighResolutionCheckbox.isChecked =
+                settings.camera.shouldEnableHighResolutionFrames()
         }
     }
 
@@ -967,7 +972,8 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
                 it.documentSettingsTriggerSpinner.setSelection(MiSnapSettings.Analysis.Document.Trigger.AUTO.ordinal)
             }
 
-            it.documentSettingsEnableEnhancedManual.isChecked = settings.analysis.document.shouldEnableEnhancedManual()
+            it.documentSettingsEnableEnhancedManual.isChecked =
+                settings.analysis.document.shouldEnableEnhancedManual()
 
             settings.analysis.document.orientation?.let { orientation ->
                 it.documentSettingsSessionOrientationSpinner.setSelection(orientation.ordinal)
@@ -994,6 +1000,9 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
 
             it.documentSettingsRedactOptionalData.isChecked =
                 settings.analysis.document.shouldRedactOptionalData()
+
+            it.documentSettingsEnableClassification.isChecked =
+                settings.analysis.document.shouldEnableDocumentClassification()
 
             it.documentSettingsCornerConfidence.setText(
                 settings.analysis.document.advanced.getCornerConfidence()
@@ -1055,6 +1064,14 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
                             workflowSettingsString
                         )
                     }
+
+            //Trigger is needed to determine the correct manual button visibility
+            documentSettingsBinding?.let { documentSettingsBinding ->
+                settings.apply {
+                    analysis.document.trigger = getTriggerAt(
+                        documentSettingsBinding.documentSettingsTriggerSpinner.selectedItemPosition)
+                }
+            }
 
             val defaultWorkflowSettings =
                 DocumentAnalysisFragment.getDefaultWorkflowSettings(settings)
@@ -1886,14 +1903,16 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
                 }
 
             it.documentSettingsTriggerSpinner.onItemSelectedListener =
-                object: OnItemSelectedListener {
-                    override fun onItemSelected(parent: AdapterView<*>?,
-                                                view: View?,
-                                                position: Int,
-                                                id: Long,) {
+                object : OnItemSelectedListener {
+                    override fun onItemSelected(
+                        parent: AdapterView<*>?,
+                        view: View?,
+                        position: Int,
+                        id: Long,
+                    ) {
                         documentWorkflowSettingsBinding?.documentWorkflowSettingsShowManualButtonBox?.isChecked =
-                        getDocumentAnalysisTriggerAt(position) ==
-                            MiSnapSettings.Analysis.Document.Trigger.MANUAL
+                            getDocumentAnalysisTriggerAt(position) ==
+                                MiSnapSettings.Analysis.Document.Trigger.MANUAL
                     }
 
                     override fun onNothingSelected(p0: AdapterView<*>?) {}
@@ -1927,12 +1946,30 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
                 )
             }
 
+            it.documentClassificationTooltip.setOnClickListener { tooltip ->
+                showTooltipInfo(
+                    tooltip,
+                    getString(R.string.misnapSampleAppSettingsDocumentClassificationTooltip)
+                )
+            }
+
             it.documentSettingsRedactOptionalData.setOnCheckedChangeListener { _, checked ->
                 if (checked) {
                     it.documentSettingsDocumentRequestOcrSpinner.setSelection(
                         getDocumentExtractionRequirementIndex(MiSnapSettings.Analysis.Document.ExtractionRequirement.REQUIRED)
                     )
                 }
+            }
+
+            it.documentSettingsEnableClassification.setOnCheckedChangeListener { _, checked ->
+                val supportedClassificationUseCases = listOf(
+                    MiSnapSettings.UseCase.ID_FRONT,
+                    MiSnapSettings.UseCase.ID_BACK,
+                    MiSnapSettings.UseCase.PASSPORT
+                )
+
+                it.documentSettingsEnableClassification.isEnabled =
+                    supportedClassificationUseCases.contains(getUseCaseAt(useCaseIndex))
             }
         }
         adapter.addView(

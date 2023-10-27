@@ -30,6 +30,9 @@ import com.miteksystems.misnap.workflow.view.*
  * * [RecordingIconView] to facilitate the awareness of an ongoing video recording during the session.
  * * [SuccessView] to indicate that the session has concluded successfully.
  *
+ * NOTE: Ensure that the provided license has all the necessary features enabled for the target
+ *  MiSnap session.
+ *
  * @see com.miteksystems.misnap.examples.misnapview for an in-depth example on the usage of the
  * [MiSnapView] APIs.
  * @see com.miteksystems.misnap.workflow.view for more information on the android views used in this

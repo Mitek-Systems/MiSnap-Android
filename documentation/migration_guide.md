@@ -1,6 +1,17 @@
-# MiSnap SDK v5.3.4 Migration Guide
+# MiSnap SDK v5.4.0 Migration Guide
 
-## Upgrading the MiSnap SDK from v5.2.1 to v5.3.0
+## Upgrading the MiSnap SDK from v5.3.x to v5.4.0
+### API Changes
+* The `UserAction` class has been moved from the `MiSnapController.FeedbackResult` class in the `com.miteksystems.misnap.controller` package to the `com.miteksystems.misnap.core` package. 
+If you're working directly with the `UserAction` class, you'll need to update the import statements from `com.miteksystems.misnap.controller.MiSnapController.FeedbackResult.UserAction` to `com.miteksystems.misnap.core.UserAction`.
+* The `mrz` property of the MiSnap document session result classes has been moved inside the `extraction` property of the MiSnap document session result classes.
+  * If you're working directly with the `MiSnapController.DocumentAnalysis.mrz` property you must instead change the access to `MiSnapController.DocumentAnalysis.extraction.mrz`.
+  * If you're working directly with the `MiSnapFinalResult.DocumentSession.mrz` property you must instead change the access to `MiSnapFinalResult.DocumentSession.extraction.mrz`.
+  * If you're working directly with the `MiSnapDocumentAnalyzer.Result.Processed.extractedData` property you must instead change the access to `MiSnapDocumentAnalyzer.Result.Processed.extraction.mrz`.
+* The `ExtractedDataCorners` class has been moved from the `MiSnapDocumentAnalyzer.Result.Processed` class in the `com.miteksystems.misnap.document` package to the `com.miteksystems.misnap.core` package. If you're working directly with the `ExtractedDataCorners` class, you'll need to update the import statements from `com.miteksystems.misnap.document.MiSnapDocumentAnalyzer.Result.Processed.ExtractedDataCorners` to `com.miteksystems.misnap.core.ExtractedDataCorners`.
+* The `extractedDataCorners` property of the `MiSnapDocumentAnalyzer.Result.Processed` class has been moved inside the `extraction` property of the same class. If you're working directly with the `extractedDataCorners` property, you must instead change the access to `extraction.extractedDataCorners`.
+
+## Upgrading the MiSnap SDK from v5.1.x/v5.2.x to v5.3.0
 ### API Changes
 * The `startMiSnapSession` method of the `MiSnapView` now optionally takes the boolean parameter `requireTakePictureCapability` which starts the camera with or without the capability to take manual pictures.
   * When the option is not specified, the `MiSnapView` will infer if the capability is needed according to the trigger mode specified in the `MiSnapSettings` object. If the `DocumentAnalysisFragment` is used, the `manualButtonVisible` option from the `WorkflowSettings` will be also considered to determine whether to request the capability or not.

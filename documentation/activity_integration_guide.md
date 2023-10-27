@@ -1,4 +1,4 @@
-# MiSnap SDK v5.3.4 Activity-based Integration Guide
+# MiSnap SDK v5.4.0 Activity-based Integration Guide
 
 This **recommended** guide is targeted towards developers who want the **easiest integration** of the MiSnap SDK and is best suited for applications with a **multi-activity architecture**.
 
@@ -23,25 +23,28 @@ The easiest way to integrate the MiSnap SDK is to add the following to the integ
 ```groovy
 dependencies {
     // Use this for check + id sessions
-    implementation "com.miteksystems.misnap:document:5.3.4"
+    implementation "com.miteksystems.misnap:document:5.4.0"
+
+    // Use this for document classification
+    implementation "com.miteksystems.misnap:classifier:5.4.0"
 
     // Use this for barcode sessions
-    implementation "com.miteksystems.misnap:barcode:5.3.4"
+    implementation "com.miteksystems.misnap:barcode:5.4.0"
 
     // Use this for selfie + voice sessions
-    implementation "com.miteksystems.misnap:biometric:5.3.4"
+    implementation "com.miteksystems.misnap:biometric:5.4.0"
 
     // Use this for selfie sessions
-    implementation "com.miteksystems.misnap:face:5.3.4"
+    implementation "com.miteksystems.misnap:face:5.4.0"
 
     // Use this for voice sessions
-    implementation "com.miteksystems.misnap:voice:5.3.4"
+    implementation "com.miteksystems.misnap:voice:5.4.0"
 
     // Use this for automatically getting the nfc credentials and then reading the chip
-    implementation "com.miteksystems.misnap:combined-nfc:5.3.4"
+    implementation "com.miteksystems.misnap:combined-nfc:5.4.0"
 
     // Use this for only reading the nfc chip
-    implementation "com.miteksystems.misnap:nfc:5.3.4"
+    implementation "com.miteksystems.misnap:nfc:5.4.0"
 }
 ```
 

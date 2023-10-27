@@ -1,5 +1,8 @@
-# MiSnap SDK v5.3.4 Change Log
+# MiSnap SDK v5.4.0 Change Log
 
+### **Version 5.3.4**
+#### **Fixed**
+* [Common] Fixed an issue where the EXIF data was sometimes not being written to the resulting image.
 ### **Version 5.3.3**
 #### **Added**
 * [Document] The `DocumentAnalysisFragment.WorkflowSettings` now support the boolean option `shouldShowDocumentLabel` which displays on screen a `TextView` with the name of the expected document type. Additionally, the `documentLabelStringId` argument has been added to customize the document name for special use cases.

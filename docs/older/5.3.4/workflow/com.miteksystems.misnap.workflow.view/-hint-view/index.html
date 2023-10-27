@@ -1,0 +1,416 @@
+<!doctype html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>HintView</title>
+<link href="../../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../../";</script>    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script src="https://unpkg.com/kotlin-playground@1"></script><script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../styles/style.css" rel="Stylesheet">
+<link href="../../../styles/jetbrains-mono.css" rel="Stylesheet">
+<link href="../../../styles/main.css" rel="Stylesheet">
+<link href="../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../styles/logo-styles.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script>
+<link href="../../../styles/multimodule.css" rel="Stylesheet"></head>
+<body>
+<div class="navigation-wrapper" id="navigation-wrapper">
+    <div id="leftToggler"><span class="icon-toggler"></span></div>
+    <div class="library-name">
+<a href="../../../index.html">
+<span>misnap</span>            </a>    </div>
+    <div>
+<dokka-template-command data="{&quot;@class&quot;:&quot;org.jetbrains.dokka.base.templating.ReplaceVersionsCommand&quot;,&quot;location&quot;:&quot;com.miteksystems.misnap.workflow.view/-hint-view/index.html&quot;}"><div class="versions-dropdown">
+  <div class="versions-dropdown-button">5.3.4</div>
+  <div class="versions-dropdown-data"><a href="../../../../../workflow/com.miteksystems.misnap.workflow.view/-hint-view/index.html">5.4.0</a><a href="index.html">5.3.4</a><a href="../../../../5.3.3/workflow/com.miteksystems.misnap.workflow.view/-hint-view/index.html">5.3.3</a><a href="../../../../5.3.2/workflow/com.miteksystems.misnap.workflow.view/-hint-view/index.html">5.3.2</a><a href="../../../../5.3.1/workflow/com.miteksystems.misnap.workflow.view/-hint-view/index.html">5.3.1</a><a href="../../../../5.3.0/workflow/com.miteksystems.misnap.workflow.view/-hint-view/index.html">5.3.0</a><a href="../../../../5.2.1/workflow/com.miteksystems.misnap.workflow.view/-hint-view/index.html">5.2.1</a><a href="../../../../5.2.0/workflow/com.miteksystems.misnap.workflow.view/-hint-view/index.html">5.2.0</a><a href="../../../../5.1.1/workflow/com.miteksystems.misnap.workflow.view/-hint-view/index.html">5.1.1</a><a href="../../../../5.1.0/workflow/com.miteksystems.misnap.workflow.view/-hint-view/index.html">5.1.0</a><a href="../../../../5.0.0/workflow/com.miteksystems.misnap.workflow.view/-hint-view/index.html">5.0.0</a></div>
+</div>
+</dokka-template-command>    </div>
+    <div class="pull-right d-flex">
+        <div class="filter-section" id="filter-section">
+                <button class="platform-tag platform-selector jvm-like" data-active="" data-filter=":workflow:dokkaHtmlPartial/release">androidJvm</button>
+        </div>
+        <button id="theme-toggle-button"><span id="theme-toggle"></span></button>
+        <div id="searchBar"></div>
+    </div>
+</div>
+<div id="container">
+    <div id="leftColumn">
+        <div id="sideMenu"></div>
+    </div>
+    <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="workflow::com.miteksystems.misnap.workflow.view/HintView///PointingToDeclaration//1506957492">
+  <div class="breadcrumbs"><a href="../../index.html">workflow</a><span class="delimiter">/</span><a href="../index.html">com.miteksystems.misnap.workflow.view</a><span class="delimiter">/</span><span class="current">HintView</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Hint</span><wbr><span><span>View</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":workflow:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">class </span><a href="index.html">HintView</a>&nbsp;<span><span class="token annotation builtin">@</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.jvm/-jvm-overloads/index.html"><span class="token annotation builtin">JvmOverloads</span></a>&nbsp;</span><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">context<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/android/content/Context.html">Context</a><span class="token punctuation">, </span></span><span class="parameter ">attrs<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/android/util/AttributeSet.html">AttributeSet</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter "><span><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/annotation/AttrRes.html"><span class="token annotation builtin">AttrRes</span></a>&nbsp;</span>defStyleAttr<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token operator"> = </span>R.attr.hintViewStyle<span class="token punctuation">, </span></span><span class="parameter "><span><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/annotation/StyleRes.html"><span class="token annotation builtin">StyleRes</span></a>&nbsp;</span>defStyleRes<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token operator"> = </span>R.style.MiSnapTheme_View_HintView</span></span><span class="token punctuation">)</span> : <span data-unresolved-link="com.google.android.material.textview/MaterialTextView///PointingToDeclaration/">MaterialTextView</span></div><p class="paragraph">A view to provide feedback to the end users based on image analysis results. When a frame is processed, the controller provides feedback to help direct end users towards a higher quality image.  This feedback is then briefly presented to the end user.</p><h4 class="">Samples</h4><div class="sample-container"><pre><code class="runnablesample monospace block lang-kotlin" theme="idea">import android.os.Bundle
+import android.view.View
+import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.LiveData
+import com.miteksystems.misnap.R
+import com.miteksystems.misnap.camera.frameproducers.FrameProducer.Event
+import com.miteksystems.misnap.controller.MiSnapController
+import com.miteksystems.misnap.controller.MiSnapController.ErrorResult
+import com.miteksystems.misnap.core.MiSnapSettings
+import com.miteksystems.misnap.core.MibiData
+import com.miteksystems.misnap.databinding.ExampleDocumentAnalysisBinding
+import com.miteksystems.misnap.workflow.fragment.MiSnapWorkflowViewModel
+import com.miteksystems.misnap.workflow.util.ViewBindingUtil
+import com.miteksystems.misnap.workflow.view.*
+fun main() { 
+   //sampleStart 
+   /**
+ * This example demonstrates an advanced integration that makes use of the different android Views
+ * included in the MiSnap SDK to fully customize the UI/UX by recreating an analysis screen.
+ * This is an advanced integration example and as such is only suitable for developers whose customization
+ * needs are not fulfilled through standard integration types customizations.
+ *
+ * This example uses the following android Views:
+ * * [MiSnapView] to orchestrate the acquisition of frames from the device's camera and analyze them.
+ * * [GuideView] to represent a visual guide for the document's alignment.
+ * * [HintView] to display hint messages to help the user during the session.
+ * * [TorchView] to facilitate the use of the device's camera torch light.
+ * * [RecordingIconView] to facilitate the awareness of an ongoing video recording during the session.
+ * * [SuccessView] to indicate that the session has concluded successfully.
+ *
+ * @see com.miteksystems.misnap.examples.misnapview for an in-depth example on the usage of the
+ * [MiSnapView] APIs.
+ * @see com.miteksystems.misnap.workflow.view for more information on the android views used in this
+ * example.
+ * @see com.miteksystems.misnap.examples.settings for examples on how to easily customize the UI and
+ * behavior of the SDK.
+ */
+class AnalysisFragment : Fragment(R.layout.example_document_analysis) {
+    private val license = "your_sdk_license"
+
+    /**
+     * To accurately track the number of auto and manual mode session retries in [MibiData] it is
+     * required to bind the session with [MibiData.bindSession] and to keep track of the fragment
+     * resumed state.
+     */
+    private var resumed: Boolean = false
+    private var mibiDataSession = MibiData.bindSession()
+
+    private val binding by ViewBindingUtil.viewBinding(
+        this,
+        ExampleDocumentAnalysisBinding::bind
+    )
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        /**
+         * Determine if the fragment is being resumed for [MibiData] tracking purposes.
+         */
+        savedInstanceState?.let {
+            resumed = true
+        }
+
+        val settings = MiSnapSettings(MiSnapSettings.UseCase.PASSPORT, license).apply {
+            analysis.document.trigger = MiSnapSettings.Analysis.Document.Trigger.AUTO
+            // Optionally set the camera profile to use.
+            camera.profile = MiSnapSettings.Camera.Profile.DOCUMENT_BACK_CAMERA
+            camera.videoRecord.recordSession = true
+        }
+
+        /**
+         * Optionally define a [MibiData] session outside of the view's lifecycle.
+         */
+        MibiData.startSession(this::class.java.name, settings)
+
+        /**
+         * Customize the look and feel of the [GuideView], e.g. by setting a custom drawable.
+         *
+         * @see [GuideView] for more information on the available properties that can be customized.
+         */
+        binding.guideView.drawableId = R.drawable.misnap_guide_passport
+
+        /**
+         * Observe the [MiSnapView.feedbackResult] [LiveData] to handle the feedback from the analyzed
+         * preview frames and handle them accordingly, e.g. by showing the corresponding instructions
+         * on screen based on the [MiSnapController.FeedbackResult.userAction].
+         */
+        binding.misnapView.feedbackResult.observe(viewLifecycleOwner) {
+            /**
+             * The [MiSnapController.FeedbackResult.userAction] is an identifier that should be mapped
+             * to an appropriate string message to use as hint.
+             */
+            binding.hintView.text = it.userAction.toString()
+        }
+
+        /**
+         * Observe the [MiSnapView.finalFrame] [LiveData] to handle the successful results of a session
+         * and to perform UI cleanup actions, e.g. by stopping the video recording, clearing the contents
+         * of views and modifying their visibility.
+         */
+        binding.misnapView.finalFrame.observe(viewLifecycleOwner) {
+            /**
+             * Finalize the recording of the session and clear the appropriate observers to stop
+             * receiving updates after a successful session.
+             */
+            binding.misnapView.apply {
+                stopRecording()
+                feedbackResult.removeObservers(viewLifecycleOwner)
+            }
+            binding.recordingIconView.stop()
+
+            /**
+             * Adjust the visibility of the relevant android Views to indicate the user that the
+             * session has ended.
+             */
+            binding.torchView.isVisible = false
+            binding.misnapView.isVisible = false
+            binding.guideView.isVisible = false
+            binding.hintView.apply {
+                clearText()
+                visibility = View.INVISIBLE
+            }
+
+            /**
+             * Display the [SuccessView] animation and finalize the session.
+             */
+            binding.successView.start {
+                // Animation finished, time to end the session.
+            }
+        }
+
+        /**
+         * Observe the [MiSnapView.controllerErrors] [LiveData] to handle errors during the analysis
+         * of the preview frames, e.g. by aborting the session or addressing the error.
+         */
+        binding.misnapView.controllerErrors.observe(viewLifecycleOwner) {
+            when (it) {
+                is ErrorResult.DocumentDetection, is ErrorResult.DocumentAnalysis -&gt; {
+
+                }
+            }
+        }
+
+        /**
+         * Observe the [MiSnapView.cameraEvents] [LiveData] to handle errors during the initialization
+         * and operation of the camera, e.g. by aborting the session or addressing the error.
+         */
+        binding.misnapView.cameraEvents.observe(viewLifecycleOwner) {
+            when (it) {
+                is Event.InitializationError -&gt; {
+
+                }
+            }
+        }
+
+        /**
+         * Observe the [MiSnapView.torchEvents] [LiveData] to handle torch state changes, in this case
+         * by applying the new state to the [TorchView] so they're bound.
+         */
+        binding.misnapView.torchEvents.observe(viewLifecycleOwner) {
+            if (null != it) {
+                binding.torchView.isTorchOn = it
+            }
+        }
+
+        /**
+         * Observe the [TorchView.torchEvents] [LiveData] to handle torch state change requests, in
+         * this case by applying the new state to the [MiSnapView] so that the request can reach the
+         * camera.
+         */
+        binding.torchView.torchEvents.observe(viewLifecycleOwner) {
+            if (null != it) {
+                binding.misnapView.setTorchEnabled(it)
+            }
+        }
+
+        // Start the session.
+        binding.misnapView.startMiSnapSession(settings, viewLifecycleOwner) {
+            binding.recordingIconView.start()
+
+            /**
+             * Increase the number of auto or manual session retries based on the [MibiData.sessionOwner]
+             * and whether or not the fragment is being resumed.
+             */
+            if ((MibiData.sessionOwner == this::class.java.name ||
+                    MibiData.sessionOwner == MiSnapWorkflowViewModel::class.java.name) &amp;&amp; !resumed
+            ) {
+                if (settings.analysis.barcode.trigger == MiSnapSettings.Analysis.Barcode.Trigger.AUTO) {
+                    mibiDataSession.metaData.autoTries += 1
+                } else {
+                    mibiDataSession.metaData.manualTries += 1
+                }
+            }
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+
+        /**
+         * Optionally end the [MibiData] session outside of the view's lifecycle.
+         */
+        MibiData.releaseSession(this::class.java.name)
+    }
+} 
+   //sampleEnd
+}</code></pre></div></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,FUNCTION,PROPERTY">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="">Constructors</h2>
+        <div class="table"><a data-name="790072002%2FConstructors%2F1506957492" anchor-label="HintView" id="790072002%2FConstructors%2F1506957492" data-filterable-set=":workflow:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-togglable="CONSTRUCTOR" data-filterable-current=":workflow:dokkaHtmlPartial/release" data-filterable-set=":workflow:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-hint-view.html"><span>Hint</span><wbr><span><span>View</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="790072002%2FConstructors%2F1506957492"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":workflow:dokkaHtmlPartial/release"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.jvm/-jvm-overloads/index.html"><span class="token annotation builtin">JvmOverloads</span></a></div></div><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">context<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/android/content/Context.html">Context</a><span class="token punctuation">, </span></span><span class="parameter ">attrs<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/android/util/AttributeSet.html">AttributeSet</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter "><span><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/annotation/AttrRes.html"><span class="token annotation builtin">AttrRes</span></a>&nbsp;</span>defStyleAttr<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token operator"> = </span>R.attr.hintViewStyle<span class="token punctuation">, </span></span><span class="parameter "><span><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/annotation/StyleRes.html"><span class="token annotation builtin">StyleRes</span></a>&nbsp;</span>defStyleRes<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token operator"> = </span>R.style.MiSnapTheme_View_HintView</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="655182366%2FFunctions%2F1506957492" anchor-label="clearText" id="655182366%2FFunctions%2F1506957492" data-filterable-set=":workflow:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":workflow:dokkaHtmlPartial/release" data-filterable-set=":workflow:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="clear-text.html"><span>clear</span><wbr><span><span>Text</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="655182366%2FFunctions%2F1506957492"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":workflow:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="clear-text.html"><span class="token function">clearText</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Clears the text contents of the view.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1688144236%2FFunctions%2F1506957492" anchor-label="getAnimation" id="-1688144236%2FFunctions%2F1506957492" data-filterable-set=":workflow:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":workflow:dokkaHtmlPartial/release" data-filterable-set=":workflow:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-animation.html"><span>get</span><wbr><span><span>Animation</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1688144236%2FFunctions%2F1506957492"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":workflow:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="get-animation.html"><span class="token function">getAnimation</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/android/view/animation/Animation.html">Animation</a><span class="token operator">?</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1033416301%2FFunctions%2F1506957492" anchor-label="setAnimation" id="-1033416301%2FFunctions%2F1506957492" data-filterable-set=":workflow:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":workflow:dokkaHtmlPartial/release" data-filterable-set=":workflow:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-animation.html"><span>set</span><wbr><span><span>Animation</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1033416301%2FFunctions%2F1506957492"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":workflow:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="set-animation.html"><span class="token function">setAnimation</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">animation<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/android/view/animation/Animation.html">Animation</a><span class="token operator">?</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Sets the animation to be played when start() is called.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1857921411%2FFunctions%2F1506957492" anchor-label="setText" id="-1857921411%2FFunctions%2F1506957492" data-filterable-set=":workflow:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":workflow:dokkaHtmlPartial/release" data-filterable-set=":workflow:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-text.html"><span>set</span><wbr><span><span>Text</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1857921411%2FFunctions%2F1506957492"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":workflow:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="set-text.html"><span class="token function">setText</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">newText<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html">CharSequence</a><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">type<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/android/widget/TextView.BufferType.html">TextView.BufferType</a><span class="token operator">?</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Updates the message to be displayed to the end user.  If no message is currently being displayed the provided message will begin animating in immediately, otherwise the message will be cached until the current message is no longer shown.  Multiple calls to setText() during a single message's duration will only show the last message when the current message's duration is over.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="775060008%2FProperties%2F1506957492" anchor-label="backgroundColorId" id="775060008%2FProperties%2F1506957492" data-filterable-set=":workflow:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":workflow:dokkaHtmlPartial/release" data-filterable-set=":workflow:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="background-color-id.html"><span>background</span><wbr><span>Color</span><wbr><span><span>Id</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="775060008%2FProperties%2F1506957492"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":workflow:dokkaHtmlPartial/release"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/annotation/ColorInt.html"><span class="token annotation builtin">ColorInt</span></a></div></div><span class="token keyword"></span><span class="token keyword">var </span><a href="background-color-id.html">backgroundColorId</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a></div><div class="brief "><p class="paragraph">The color to display as the background of the view.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1811989746%2FProperties%2F1506957492" anchor-label="duration" id="-1811989746%2FProperties%2F1506957492" data-filterable-set=":workflow:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":workflow:dokkaHtmlPartial/release" data-filterable-set=":workflow:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="duration.html"><span><span>duration</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1811989746%2FProperties%2F1506957492"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":workflow:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">var </span><a href="duration.html">duration</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a></div><div class="brief "><p class="paragraph">How long to show each hint messages in milliseconds.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-934242121%2FProperties%2F1506957492" anchor-label="showBackground" id="-934242121%2FProperties%2F1506957492" data-filterable-set=":workflow:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":workflow:dokkaHtmlPartial/release" data-filterable-set=":workflow:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="show-background.html"><span>show</span><wbr><span><span>Background</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-934242121%2FProperties%2F1506957492"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":workflow:dokkaHtmlPartial/release"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@get:</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.jvm/-jvm-name/index.html"><span class="token annotation builtin">JvmName</span></a><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">"shouldShowBackground"</span></span></span><wbr><span class="token punctuation">)</span></div></div><span class="token keyword"></span><span class="token keyword">var </span><a href="show-background.html">showBackground</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Equivalent to providing the <code class="lang-kotlin">app:hintViewShowBackground</code> attribute in the layout xml file.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2023 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+    </div>
+</div>
+</body>
+</html>
+
+

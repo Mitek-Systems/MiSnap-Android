@@ -19,6 +19,9 @@ import com.miteksystems.misnap.workflow.view.MiSnapView
  * This example makes use of a [MiSnapView] defined in an XML layout to simplify the orchestration
  * of setting up a camera, a [MiSnapController], and the science to analyze preview frames.
  *
+ * NOTE: Ensure that the provided license has all the necessary features enabled for the target
+ *  MiSnap session.
+ *
  * @see com.miteksystems.misnap.examples.settings for examples on how to customize the UI/UX before
  * deciding to use this example.
  * @see com.miteksystems.misnap.examples.misnapview.MiSnapViewCode for an example on how to programmatically

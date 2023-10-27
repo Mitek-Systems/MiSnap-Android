@@ -9,6 +9,9 @@ import com.miteksystems.misnap.core.DeviceInfoUtil
 /**
  * This example demonstrates how to use the [DeviceInfoUtil] class to retrieve device metadata that
  * can be used to bind a device with a biometric in Mitek server products.
+ *
+ * NOTE: Ensure that the provided license has all the necessary features enabled for the target
+ *  MiSnap session.
  */
 class DeviceInfo : Fragment() {
     private val license = "your_sdk_license"

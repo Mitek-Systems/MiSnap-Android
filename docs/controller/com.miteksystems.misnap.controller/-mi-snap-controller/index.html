@@ -37,8 +37,8 @@
 <span>android-MiSnap</span>            </a>    </div>
     <div>
 <dokka-template-command data="{&quot;@class&quot;:&quot;org.jetbrains.dokka.base.templating.ReplaceVersionsCommand&quot;,&quot;location&quot;:&quot;com.miteksystems.misnap.controller/-mi-snap-controller/index.html&quot;}"><div class="versions-dropdown">
-  <div class="versions-dropdown-button">5.3.4</div>
-  <div class="versions-dropdown-data"><a href="index.html">5.3.4</a><a href="../../../older/5.3.3/controller/com.miteksystems.misnap.controller/-mi-snap-controller/index.html">5.3.3</a><a href="../../../older/5.3.2/controller/com.miteksystems.misnap.controller/-mi-snap-controller/index.html">5.3.2</a><a href="../../../older/5.3.1/controller/com.miteksystems.misnap.controller/-mi-snap-controller/index.html">5.3.1</a><a href="../../../older/5.3.0/controller/com.miteksystems.misnap.controller/-mi-snap-controller/index.html">5.3.0</a><a href="../../../older/5.2.1/controller/com.miteksystems.misnap.controller/-mi-snap-controller/index.html">5.2.1</a><a href="../../../older/5.2/controller/com.miteksystems.misnap.controller/-mi-snap-controller/index.html">5.2</a><a href="../../../older/5.1.1/controller/com.miteksystems.misnap.controller/-mi-snap-controller/index.html">5.1.1</a><a href="../../../older/5.1.0/controller/com.miteksystems.misnap.controller/-mi-snap-controller/index.html">5.1.0</a><a href="../../../older/5.0.0/controller/com.miteksystems.misnap.controller/-mi-snap-controller/index.html">5.0.0</a></div>
+  <div class="versions-dropdown-button">5.4.0</div>
+  <div class="versions-dropdown-data"><a href="index.html">5.4.0</a><a href="../../../older/5.3.4/controller/com.miteksystems.misnap.controller/-mi-snap-controller/index.html">5.3.4</a><a href="../../../older/5.3.3/controller/com.miteksystems.misnap.controller/-mi-snap-controller/index.html">5.3.3</a><a href="../../../older/5.3.2/controller/com.miteksystems.misnap.controller/-mi-snap-controller/index.html">5.3.2</a><a href="../../../older/5.3.1/controller/com.miteksystems.misnap.controller/-mi-snap-controller/index.html">5.3.1</a><a href="../../../older/5.3.0/controller/com.miteksystems.misnap.controller/-mi-snap-controller/index.html">5.3.0</a><a href="../../../older/5.2.1/controller/com.miteksystems.misnap.controller/-mi-snap-controller/index.html">5.2.1</a><a href="../../../older/5.2.0/controller/com.miteksystems.misnap.controller/-mi-snap-controller/index.html">5.2.0</a><a href="../../../older/5.1.1/controller/com.miteksystems.misnap.controller/-mi-snap-controller/index.html">5.1.1</a><a href="../../../older/5.1.0/controller/com.miteksystems.misnap.controller/-mi-snap-controller/index.html">5.1.0</a><a href="../../../older/5.0.0/controller/com.miteksystems.misnap.controller/-mi-snap-controller/index.html">5.0.0</a></div>
 </div>
 </dokka-template-command>    </div>
     <div class="pull-right d-flex">
@@ -58,7 +58,7 @@
   <div class="breadcrumbs"><a href="../../index.html">controller</a><span class="delimiter">/</span><a href="../index.html">com.miteksystems.misnap.controller</a><span class="delimiter">/</span><span class="current">MiSnapController</span></div>
   <div class="cover ">
     <h1 class="cover"><span>Mi</span><wbr><span>Snap</span><wbr><span><span>Controller</span></span></h1>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":controller:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">class </span><a href="index.html">MiSnapController</a></div><p class="paragraph">Coordinates the analysis of a <a href="../../../core/com.miteksystems.misnap.core/-frame/index.html">Frame</a> with evaluations to determine its quality. Use <a href="-companion/create.html">MiSnapController.create</a> for creating an instance of this class.</p><h4 class="">Samples</h4><div class="sample-container"><pre><code class="runnablesample monospace block lang-kotlin" theme="idea">import android.os.Bundle
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":controller:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">class </span><a href="index.html">MiSnapController</a></div><p class="paragraph">Coordinates the analysis of a <a href="../../../core/com.miteksystems.misnap.core/-frame/index.html">Frame</a> with evaluations to determine its quality. Use <a href="-companion/create.html">MiSnapController.create</a> for creating an instance of this class.</p><p class="paragraph">NOTE: Ensure that the license in <a href="../../../core/com.miteksystems.misnap.core/-mi-snap-settings/index.html">MiSnapSettings</a> has the required features enabled for the target use case.</p><h4 class="">Samples</h4><div class="sample-container"><pre><code class="runnablesample monospace block lang-kotlin" theme="idea">import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
@@ -73,6 +73,9 @@ fun main() {
  * This example demonstrates a direct integration with MiSnap SDK's document analysis science through
  * the [MiSnapController], this type of integration is best suited for developers that want to
  * interface with the science directly and that will take care of supplying the frames themselves.
+ *
+ * NOTE: Ensure that the provided license has all the necessary features enabled for the target
+ *  MiSnap session.
  *
  * @see com.miteksystems.misnap.examples.science for examples on how to directly interface with other
  * MiSnap SDK sciences.
@@ -111,6 +114,9 @@ private class DocumentAnalysis : Fragment() {
             analysis.document.check.geo = MiSnapSettings.Analysis.Document.Check.Geo.US
 
             analysis.document.trigger = MiSnapSettings.Analysis.Document.Trigger.AUTO
+
+            // Optionally enable on device document classification
+            analysis.document.enableDocumentClassification = true
 
             // Optionally enable barcode extraction.
             analysis.document.barcodeExtractionRequirement =
@@ -158,6 +164,9 @@ private class DocumentAnalysis : Fragment() {
                     }
                     is ErrorResult.BarcodeAnalysis -&gt; {
                     }
+                    is ErrorResult.DocumentClassification -&gt; {
+
+                    }
                 }
             }
         }
@@ -179,6 +188,9 @@ fun main() {
  * This example demonstrates a direct integration with MiSnap SDK's barcode analysis science through
  * the [MiSnapController], this type of integration is best suited for developers that want to
  * interface with the science directly and that will take care of supplying the frames themselves.
+ *
+ * NOTE: Ensure that the provided license has all the necessary features enabled for the target
+ *  MiSnap session.
  *
  * @see com.miteksystems.misnap.examples.science for examples on how to directly interface with other
  * MiSnap SDK sciences.
@@ -272,6 +284,9 @@ fun main() {
  * This example demonstrates a direct integration with MiSnap SDK's face analysis science through
  * the [MiSnapController], this type of integration is best suited for developers that want to
  * interface with the science directly and that will take care of supplying the frames themselves.
+ *
+ * NOTE: Ensure that the provided license has all the necessary features enabled for the target
+ *  MiSnap session.
  *
  * @see com.miteksystems.misnap.examples.science for examples on how to directly interface with other
  * MiSnap SDK sciences.
@@ -396,7 +411,7 @@ private class FaceAnalysis : Fragment() {
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":controller:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">data </span><span class="token keyword">class </span><a href="-feedback-result/index.html">FeedbackResult</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>userAction<span class="token operator">: </span><a href="-feedback-result/-user-action/index.html">MiSnapController.FeedbackResult.UserAction</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>corners<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-array/index.html">Array</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int-array/index.html">IntArray</a><span class="token operator">&gt;</span><span class="token operator"> = </span>emptyArray()<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>glareCorners<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-array/index.html">Array</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int-array/index.html">IntArray</a><span class="token operator">&gt;</span><span class="token operator"> = </span>emptyArray()<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>warnings<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-feedback-result/-user-action/index.html">MiSnapController.FeedbackResult.UserAction</a><span class="token operator">&gt;</span><span class="token operator"> = </span>emptyList()</span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Results of analyzing a <a href="../../../core/com.miteksystems.misnap.core/-frame/index.html">Frame</a> whose quality is not enough.</p></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":controller:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">data </span><span class="token keyword">class </span><a href="-feedback-result/index.html">FeedbackResult</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>userAction<span class="token operator">: </span><a href="../../../core/com.miteksystems.misnap.core/-user-action/index.html">UserAction</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>corners<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-array/index.html">Array</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int-array/index.html">IntArray</a><span class="token operator">&gt;</span><span class="token operator"> = </span>emptyArray()<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>glareCorners<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-array/index.html">Array</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int-array/index.html">IntArray</a><span class="token operator">&gt;</span><span class="token operator"> = </span>emptyArray()<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>warnings<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../../../core/com.miteksystems.misnap.core/-user-action/index.html">UserAction</a><span class="token operator">&gt;</span><span class="token operator"> = </span>emptyList()</span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Results of analyzing a <a href="../../../core/com.miteksystems.misnap.core/-frame/index.html">Frame</a> whose quality is not enough.</p></div></div></div>
                 </div>
               </div>
             </div>

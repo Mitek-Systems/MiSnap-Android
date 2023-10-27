@@ -30,11 +30,7 @@ import com.miteksystems.misnap.apputil.view.JsonView
 import com.miteksystems.misnap.apputil.view.MiSnapAudioView
 import com.miteksystems.misnap.apputil.view.MiSnapVideoView
 import com.miteksystems.misnap.apputil.view.TouchImageView
-import com.miteksystems.misnap.controller.MiSnapController.FeedbackResult.UserAction
-import com.miteksystems.misnap.core.Barcode
-import com.miteksystems.misnap.core.Mrz
-import com.miteksystems.misnap.core.Mrz1Line
-import com.miteksystems.misnap.core.MrzData
+import com.miteksystems.misnap.core.*
 import com.miteksystems.misnap.databinding.FragmentResultContentBinding
 import com.miteksystems.misnap.nfc.MiSnapNfcReader
 import com.miteksystems.misnap.nfc.MiSnapNfcReader.ChipData.AuthenticationData
@@ -42,6 +38,7 @@ import com.miteksystems.misnap.voice.AudioUtil
 import com.miteksystems.misnap.workflow.MiSnapFinalResult
 import com.miteksystems.misnap.workflow.MiSnapWorkflowStep
 import com.miteksystems.misnap.workflow.util.ViewBindingUtil
+import org.apache.commons.imaging.formats.tiff.constants.ExifTagConstants
 
 class ResultsContentFragment : Fragment(R.layout.fragment_result_content) {
     private val binding by ViewBindingUtil.viewBinding(
@@ -82,10 +79,17 @@ class ResultsContentFragment : Fragment(R.layout.fragment_result_content) {
                                     )
                                 }
 
-                                misnapResult.mrz?.let {
+                                misnapResult.extraction?.let {
                                     adapter.addView(
-                                        getMrzTextView(it),
-                                        getString(R.string.misnapSampleAppResultsMrzTabTitle)
+                                        getExtractionView(it),
+                                        getString(R.string.misnapSampleAppResultsExtractionTabTitle)
+                                    )
+                                }
+
+                                misnapResult.classification?.let {
+                                    adapter.addView(
+                                        getGenericTextView(it.documentType.name),
+                                        getString(R.string.misnapSampleAppResultsDocumentClassificationTabTitle)
                                     )
                                 }
 
@@ -97,7 +101,7 @@ class ResultsContentFragment : Fragment(R.layout.fragment_result_content) {
                                 }
 
                                 adapter.addView(
-                                    getMiBiDataView(misnapResult.misnapMibiData.mibiData),
+                                    getMiBiDataView(misnapResult.jpegImage),
                                     getString(R.string.misnapSampleAppResultsMibiTabTitle)
                                 )
                             }
@@ -129,7 +133,7 @@ class ResultsContentFragment : Fragment(R.layout.fragment_result_content) {
                                 }
 
                                 adapter.addView(
-                                    getMiBiDataView(misnapResult.misnapMibiData.mibiData),
+                                    getMiBiDataView(misnapResult.jpegImage),
                                     getString(R.string.misnapSampleAppResultsMibiTabTitle)
                                 )
                             }
@@ -154,7 +158,7 @@ class ResultsContentFragment : Fragment(R.layout.fragment_result_content) {
                                 }
 
                                 adapter.addView(
-                                    getMiBiDataView(misnapResult.misnapMibiData.mibiData),
+                                    getMiBiDataView(misnapResult.jpegImage),
                                     getString(R.string.misnapSampleAppResultsMibiTabTitle)
                                 )
                             }
@@ -164,8 +168,10 @@ class ResultsContentFragment : Fragment(R.layout.fragment_result_content) {
                                     getString(R.string.misnapSampleAppResultsNfcResultsTabTitle)
                                 )
 
+                                val jpeg = getNfcImageByteArray(misnapResult.nfcData)
+
                                 adapter.addView(
-                                    getMiBiDataView(misnapResult.misnapMibiData.mibiData),
+                                    getMiBiDataView(jpeg),
                                     getString(R.string.misnapSampleAppResultsMibiTabTitle)
                                 )
                             }
@@ -179,7 +185,11 @@ class ResultsContentFragment : Fragment(R.layout.fragment_result_content) {
                                             adapter.addView(
                                                 getMiSnapAudioView(
                                                     // NOTE: This is for demo purposes only. Please do not boost wav file audio before sending to MobileVerify server.
-                                                    AudioUtil.boostWavVolume(audio, 25, misnapResult.misnapMibiData[index])
+                                                    AudioUtil.boostWavVolume(
+                                                        audio,
+                                                        25,
+                                                        misnapResult.misnapMibiData[index]
+                                                    )
                                                 ),
                                                 getString(R.string.misnapSampleAppResultsVoiceAudioTabTitle)
                                             )
@@ -315,6 +325,12 @@ class ResultsContentFragment : Fragment(R.layout.fragment_result_content) {
                 }
             }
     }
+
+    private fun getNfcImageByteArray(nfcResult: MiSnapNfcReader.ChipData) =
+        when (nfcResult) {
+            is MiSnapNfcReader.ChipData.Icao -> nfcResult.photo
+            is MiSnapNfcReader.ChipData.EuDl -> nfcResult.photo
+        }
 
     private fun getNfcResultsView(nfcResult: MiSnapNfcReader.ChipData): View {
         val nfcResultsView = layoutInflater.inflate(R.layout.nfc_results_page, null)
@@ -629,12 +645,30 @@ class ResultsContentFragment : Fragment(R.layout.fragment_result_content) {
 
     private fun getFinalFrameView(byteImage: ByteArray) =
         getBaseLinearLayoutView().apply {
-            val bmp = BitmapFactory.decodeByteArray(byteImage, 0, byteImage.size, BitmapFactory.Options().apply {
-                inJustDecodeBounds = false
-            })
+            val bmp = BitmapFactory.decodeByteArray(
+                byteImage,
+                0,
+                byteImage.size,
+                BitmapFactory.Options().apply {
+                    inJustDecodeBounds = false
+                })
 
-            addView(getGenericTextView(String.format(getString(R.string.misnapSampleAppResultsFinalFrameDiskSize), "${byteImage.size/1024}KB")))
-            addView(getGenericTextView(String.format(getString(R.string.misnapSampleAppResultsFinalFrameDimensions), "${bmp.width}x${bmp.height}")))
+            addView(
+                getGenericTextView(
+                    String.format(
+                        getString(R.string.misnapSampleAppResultsFinalFrameDiskSize),
+                        "${byteImage.size / 1024}KB"
+                    )
+                )
+            )
+            addView(
+                getGenericTextView(
+                    String.format(
+                        getString(R.string.misnapSampleAppResultsFinalFrameDimensions),
+                        "${bmp.width}x${bmp.height}"
+                    )
+                )
+            )
 
             addView(TouchImageView(requireActivity()).apply {
                 layoutParams = ViewGroup.LayoutParams(
@@ -675,40 +709,127 @@ class ResultsContentFragment : Fragment(R.layout.fragment_result_content) {
             }
         }
 
-    private fun getMrzTextView(mrz: Mrz) =
-        MaterialTextView(requireActivity()).apply {
-            layoutParams = ViewGroup.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT
-            )
-            gravity = Gravity.CENTER
-            textSize = 25f
-            when (mrz) {
-                is MrzData -> {
+    private fun getExtractionView(extraction: DocumentExtraction) =
+        getBaseLinearLayoutView().apply {
+            extraction.mrz?.let { mrz ->
+                addView(MaterialTextView(requireActivity()).apply {
+                    layoutParams = ViewGroup.LayoutParams(
+                        ViewGroup.LayoutParams.MATCH_PARENT,
+                        ViewGroup.LayoutParams.WRAP_CONTENT
+                    )
+                    gravity = Gravity.START
+                    textSize = 25f
+                    text = HtmlCompat.fromHtml(
+                        getString(R.string.misnapSampleAppResultsMrzDataTitle),
+                        HtmlCompat.FROM_HTML_MODE_COMPACT
+                    )
+                })
+
+                val mrzView = MaterialTextView(requireActivity()).apply {
+                    layoutParams = ViewGroup.LayoutParams(
+                        ViewGroup.LayoutParams.MATCH_PARENT,
+                        ViewGroup.LayoutParams.WRAP_CONTENT
+                    )
+                    gravity = Gravity.START
+                    textSize = 20f
+                    when (mrz) {
+                        is MrzData -> {
+                            text = HtmlCompat.fromHtml(
+                                String.format(
+                                    getString(R.string.misnapSampleAppResultsMrzData),
+                                    mrz.documentNumber,
+                                    mrz.documentCode,
+                                    mrz.country,
+                                    mrz.dateOfBirth,
+                                    mrz.dateOfExpiry,
+                                    mrz.optionalData1
+                                ),
+                                HtmlCompat.FROM_HTML_MODE_COMPACT
+                            )
+                        }
+                        is Mrz1Line -> {
+                            text = HtmlCompat.fromHtml(
+                                String.format(
+                                    getString(R.string.misnapSampleAppResultsMrzOneLineData),
+                                    mrz.mrzString
+                                ),
+                                HtmlCompat.FROM_HTML_MODE_COMPACT
+                            )
+                        }
+                    }
+                    setTextIsSelectable(true)
+                }
+
+                addView(mrzView)
+            }
+
+            extraction.extractedData?.let { documentData ->
+                addView(MaterialTextView(requireActivity()).apply {
+                    layoutParams = ViewGroup.LayoutParams(
+                        ViewGroup.LayoutParams.MATCH_PARENT,
+                        ViewGroup.LayoutParams.WRAP_CONTENT
+                    )
+                    gravity = Gravity.START
+                    textSize = 25f
+                    text = HtmlCompat.fromHtml(
+                        getString(R.string.misnapSampleAppResultsDocumentDataTitle),
+                        HtmlCompat.FROM_HTML_MODE_COMPACT
+                    )
+                })
+
+                val documentDataView = MaterialTextView(requireActivity()).apply {
+                    layoutParams = ViewGroup.LayoutParams(
+                        ViewGroup.LayoutParams.MATCH_PARENT,
+                        ViewGroup.LayoutParams.WRAP_CONTENT
+                    )
+                    gravity = Gravity.START
+                    textSize = 20f
+
                     text = HtmlCompat.fromHtml(
                         String.format(
-                            getString(R.string.misnapSampleAppResultsMrzData),
-                            mrz.documentNumber,
-                            mrz.documentCode,
-                            mrz.country,
-                            mrz.dateOfBirth,
-                            mrz.dateOfExpiry,
-                            mrz.optionalData1
+                            getString(R.string.misnapSampleAppResultsDocumentData),
+                            documentData.docType ?: "",
+                            documentData.country ?: "",
+                            documentData.surname ?: "",
+                            documentData.firstName ?: "",
+                            documentData.sex ?: "",
+                            documentData.docNumber ?: "",
+                            documentData.nationality ?: "",
+                            documentData.dateOfBirth ?: "",
+                            documentData.dateOfExpiration ?: "",
+                            documentData.optionalData1 ?: "",
+                            documentData.optionalData2 ?: "",
                         ),
-                        HtmlCompat.FROM_HTML_MODE_COMPACT
+                        HtmlCompat.FROM_HTML_MODE_LEGACY
                     )
                 }
-                is Mrz1Line -> {
-                    text = HtmlCompat.fromHtml(
-                        String.format(
-                            getString(R.string.misnapSampleAppResultsMrzOneLineData),
-                            mrz.mrzString
-                        ),
-                        HtmlCompat.FROM_HTML_MODE_COMPACT
-                    )
+                addView(documentDataView)
+
+                documentData.rawData?.let {
+                    addView(MaterialTextView(requireActivity()).apply {
+                        layoutParams = ViewGroup.LayoutParams(
+                            ViewGroup.LayoutParams.MATCH_PARENT,
+                            ViewGroup.LayoutParams.WRAP_CONTENT
+                        )
+                        gravity = Gravity.START
+                        textSize = 25f
+                        text = HtmlCompat.fromHtml(
+                            getString(R.string.misnapSampleAppResultsRawMrzTitle),
+                            HtmlCompat.FROM_HTML_MODE_COMPACT
+                        )
+                    })
+
+                    addView(MaterialTextView(requireActivity()).apply {
+                        layoutParams = ViewGroup.LayoutParams(
+                            ViewGroup.LayoutParams.MATCH_PARENT,
+                            ViewGroup.LayoutParams.WRAP_CONTENT
+                        )
+                        gravity = Gravity.START
+                        textSize = 20f
+                        text = documentData.rawData
+                    })
                 }
             }
-            setTextIsSelectable(true)
         }
 
     private fun getBarcodeView(barcode: Barcode) =
@@ -841,6 +962,13 @@ class ResultsContentFragment : Fragment(R.layout.fragment_result_content) {
             text = content
             setTextIsSelectable(true)
         }
+
+    private fun getMiBiDataView(jpeg: ByteArray): View {
+        val mibiData = ExifUtil.readExifTag(jpeg, ExifTagConstants.EXIF_TAG_USER_COMMENT)
+            ?: getString(R.string.misnapSampleAppResultsMibiDataNotFound)
+
+        return getMiBiDataView(mibiData)
+    }
 
     private fun getMiBiDataView(mibiData: String) =
         LinearLayout(requireActivity()).apply {

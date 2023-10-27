@@ -17,6 +17,9 @@ import com.miteksystems.misnap.core.MiSnapSettings
  * hardware camera and interact with various camera APIs such as preview frames, picture frames, torch
  * controls, focus controls, video recording, etc.
  *
+ * NOTE: Ensure that the provided license has all the necessary features enabled for the target
+ *  MiSnap session.
+ *
  * @see com.miteksystems.misnap.examples.camera.CameraViewXml for an example on how to use the [CameraView]
  * from an XML layout.
  */

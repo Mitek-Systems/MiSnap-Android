@@ -14,6 +14,8 @@ import com.miteksystems.misnap.workflow.util.ViewBindingUtil
  * This Fragment executes the "navigateContinue" action defined in the custom navgraph to move to the
  * next screen, in this case, the DocumentAnalysisFragment.
  *
+ * NOTE: Ensure that the provided license has all the necessary features enabled for the target
+ *  MiSnap session.
  * @see R.navigation.example_add_screen_navigation.xml for the navgraph definition and setup.
  */
 class AddScreenCustomFragment : Fragment(R.layout.example_add_screen_custom_fragment) {

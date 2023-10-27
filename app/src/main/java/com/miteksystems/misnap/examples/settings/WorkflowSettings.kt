@@ -16,6 +16,9 @@ import com.miteksystems.misnap.workflow.fragment.HelpFragment
  * Please refer to the "buildWorkflowSettings" method of the fragment you want to customize for the
  * full list of customization options.
  *
+ * NOTE: Ensure that the provided license has all the necessary features enabled for the target
+ *  MiSnap session.
+ *
  * @see com.miteksystems.misnap.examples.settings.FragmentArguments for an example on how to customize
  * the UI and behavior using [Bundle]s instead.
  */

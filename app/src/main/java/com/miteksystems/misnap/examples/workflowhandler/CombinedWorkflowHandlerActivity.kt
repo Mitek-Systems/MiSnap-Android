@@ -23,6 +23,9 @@ import com.miteksystems.misnap.workflow.util.CombinedWorkflowHandler
  *
  * @see com.miteksystems.misnap.examples.advanced.CombinedWorkflowIntegrationActivity for a more
  * advanced combined workflow integration that allows to retain control on the navigation.
+ *
+ * NOTE: Ensure that the provided license has all the necessary features enabled for the target
+ *  MiSnap session.
  */
 class CombinedWorkflowHandlerActivity : AppCompatActivity() {
     private val license = "your_sdk_license"

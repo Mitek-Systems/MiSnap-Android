@@ -37,8 +37,8 @@
 <span>android-MiSnap</span>            </a>    </div>
     <div>
 <dokka-template-command data="{&quot;@class&quot;:&quot;org.jetbrains.dokka.base.templating.ReplaceVersionsCommand&quot;,&quot;location&quot;:&quot;com.miteksystems.misnap.core.serverconnection/-mi-pass-enroll-request/index.html&quot;}"><div class="versions-dropdown">
-  <div class="versions-dropdown-button">5.3.4</div>
-  <div class="versions-dropdown-data"><a href="index.html">5.3.4</a><a href="../../../older/5.3.3/core/com.miteksystems.misnap.core.serverconnection/-mi-pass-enroll-request/index.html">5.3.3</a><a href="../../../older/5.3.2/core/com.miteksystems.misnap.core.serverconnection/-mi-pass-enroll-request/index.html">5.3.2</a><a href="../../../older/5.3.1/core/com.miteksystems.misnap.core.serverconnection/-mi-pass-enroll-request/index.html">5.3.1</a><a href="../../../older/5.3.0/core/com.miteksystems.misnap.core.serverconnection/-mi-pass-enroll-request/index.html">5.3.0</a><a href="../../../older/5.2.1/core/com.miteksystems.misnap.core.serverconnection/-mi-pass-enroll-request/index.html">5.2.1</a><a href="../../../older/5.2/core/com.miteksystems.misnap.core.serverconnection/-mi-pass-enroll-request/index.html">5.2</a><a href="../../../older/5.1.1/core/com.miteksystems.misnap.core.serverconnection/-mi-pass-enroll-request/index.html">5.1.1</a><a href="../../../older/5.1.0/core/com.miteksystems.misnap.core.serverconnection/-mi-pass-enroll-request/index.html">5.1.0</a><a href="../../../not-found-version.html?v=5.0.0">5.0.0</a></div>
+  <div class="versions-dropdown-button">5.4.0</div>
+  <div class="versions-dropdown-data"><a href="index.html">5.4.0</a><a href="../../../older/5.3.4/core/com.miteksystems.misnap.core.serverconnection/-mi-pass-enroll-request/index.html">5.3.4</a><a href="../../../older/5.3.3/core/com.miteksystems.misnap.core.serverconnection/-mi-pass-enroll-request/index.html">5.3.3</a><a href="../../../older/5.3.2/core/com.miteksystems.misnap.core.serverconnection/-mi-pass-enroll-request/index.html">5.3.2</a><a href="../../../older/5.3.1/core/com.miteksystems.misnap.core.serverconnection/-mi-pass-enroll-request/index.html">5.3.1</a><a href="../../../older/5.3.0/core/com.miteksystems.misnap.core.serverconnection/-mi-pass-enroll-request/index.html">5.3.0</a><a href="../../../older/5.2.1/core/com.miteksystems.misnap.core.serverconnection/-mi-pass-enroll-request/index.html">5.2.1</a><a href="../../../older/5.2.0/core/com.miteksystems.misnap.core.serverconnection/-mi-pass-enroll-request/index.html">5.2.0</a><a href="../../../older/5.1.1/core/com.miteksystems.misnap.core.serverconnection/-mi-pass-enroll-request/index.html">5.1.1</a><a href="../../../older/5.1.0/core/com.miteksystems.misnap.core.serverconnection/-mi-pass-enroll-request/index.html">5.1.0</a><a href="../../../not-found-version.html?v=5.0.0">5.0.0</a></div>
 </div>
 </dokka-template-command>    </div>
     <div class="pull-right d-flex">
@@ -73,7 +73,16 @@ import com.miteksystems.misnap.workflow.MiSnapWorkflowStep
 import com.miteksystems.misnap.workflow.util.toServerResult
 fun main() { 
    //sampleStart 
-   class MiPassEnrollRequestActivity : AppCompatActivity() {
+   /**
+ * This example demonstrates how to handle the results from the MiSnap SDK to build an
+ * HTTP request payload that can be used with the MiPass API for enrollment.
+ *
+ * NOTE: Ensure that the provided license has all the necessary features enabled for the target
+ *  MiSnap session.
+ *
+ * @see [MiPassEnrollRequest] for the full list of properties used to build the payload.
+ **/
+class MiPassEnrollRequestActivity : AppCompatActivity() {
     private val license = "your_sdk_license"
     private lateinit var binding: ExampleActivityIntegrationBinding
 

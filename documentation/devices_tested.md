@@ -1,4 +1,4 @@
-# MiSnap SDK v5.3.4 Devices Tested
+# MiSnap SDK v5.4.0 Devices Tested
 
 | Device                                    | OS          | 
 | :---------------------------------------- | ----------: | 
@@ -11,7 +11,7 @@
 |Google Pixel 4 XL                          |11, 13       |
 |Google Pixel 5                             |13           |
 |Google Pixel 6                             |12, 13       |
-|Google Pixel 6 Pro                         |12, 13       |
+|Google Pixel 6 Pro                         |12, 13, 14   |
 |Google Pixel 7                             |12, 13       |
 |HTC U11                                    |7.1.1        |
 |HTC U12+                                |8            |
@@ -62,11 +62,14 @@
 |Samsung Galaxy S20+                        |12           |
 |Samsung Galaxy S21                         |12           |
 |Samsung Galaxy S21 FE                      |12           |
-|Samsung Galaxy S22                         |12           |
+|Samsung Galaxy S22                         |12, 13       |
+|Samsung Galaxy S23 Ultra                   |13           |
 |Samsung Galaxy S6                          |7            |
 |Samsung Galaxy S8+                         |9            |
 |Samsung Galaxy S9                          |8, 10        |
 |Samsung Galaxy S9+                         |10           |
+|Samsung Galaxy Z Flip 4                    |13           |
+|Samsung Galaxy Z Fold 4                    |13           |
 |Samsung Tab S3                             |7            |
 |Sony Xperia XZ2                            |9            |
 |Sony Xperia XZ Premium                     |9            |

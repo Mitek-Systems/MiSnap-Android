@@ -157,6 +157,25 @@
     </LinearLayout>
 
     <com.google.android.material.checkbox.MaterialCheckBox
+        android:id="@+id/documentSettingsEnableClassification"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/misnapSampleAppLayoutVerticalMargin"
+        android:checked="false"
+        android:text="@string/misnapSampleAppSettingsDocumentClassificationLabel"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/documentSettingsGeoContainer" />
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/documentClassificationTooltip"
+        android:layout_width="@dimen/misnapSampleAppInfoIconSize"
+        android:layout_height="@dimen/misnapSampleAppInfoIconSize"
+        android:background="@drawable/settings_info_icon"
+        android:layout_marginStart="@dimen/misnapSampleAppSpaceDefault"
+        app:layout_constraintTop_toTopOf="@id/documentSettingsEnableClassification"
+        app:layout_constraintBottom_toBottomOf="@id/documentSettingsEnableClassification"
+        app:layout_constraintStart_toEndOf="@id/documentSettingsEnableClassification"/>
+
+    <com.google.android.material.checkbox.MaterialCheckBox
         android:id="@+id/documentSettingsRedactOptionalData"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -164,7 +183,7 @@
         android:checked="false"
         android:text="@string/misnapSampleAppSettingsDocumentRedactOptionalDataLabel"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/documentSettingsGeoContainer" />
+        app:layout_constraintTop_toBottomOf="@id/documentSettingsEnableClassification" />
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/optionalDataRedactionTooltip"
         android:layout_width="@dimen/misnapSampleAppInfoIconSize"

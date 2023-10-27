@@ -18,6 +18,9 @@ import com.miteksystems.misnap.workflow.util.toServerResult
  * This example demonstrates how to handle the results from the MiSnap SDK to build an
  * HTTP request payload that can be used with the Mobile Verify V2 API.
  *
+ * NOTE: Ensure that the provided license has all the necessary features enabled for the target
+ *  MiSnap session.
+ *
  * @see [MobileVerifyV2Request] for the full list of properties used to build the payload.
  */
 class MobileVerifyV2RequestActivity : AppCompatActivity() {
