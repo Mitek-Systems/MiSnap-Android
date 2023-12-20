@@ -1,4 +1,4 @@
-# MiSnap SDK v5.4.0 Science Integration Guide
+# MiSnap SDK v5.4.1 Science Integration Guide
 
 This guide is targeted towards customers who want to integrate **MiSnap's base processing** without the default workflow shipped with the MiSnap SDK.
 
@@ -31,22 +31,22 @@ Developers can, however, choose to integrate the science modules alone, but in d
 The easiest way to integrate document, face, or barcode analysis is to add the following to the integrating module's `build.gradle`:
 ```groovy
 dependencies {
-    implementation "com.miteksystems.misnap:controller:5.4.0"
+    implementation "com.miteksystems.misnap:controller:5.4.1"
 
     // Optional barcode analysis dependency
-    implementation "com.miteksystems.misnap:barcode-analysis:5.4.0"
+    implementation "com.miteksystems.misnap:barcode-analysis:5.4.1"
 
     // Optional document analysis dependency
-    implementation "com.miteksystems.misnap:document-analysis:5.4.0"
+    implementation "com.miteksystems.misnap:document-analysis:5.4.1"
 
     // Optional face analysis dependency
-    implementation "com.miteksystems.misnap:face-analysis:5.4.0"
+    implementation "com.miteksystems.misnap:face-analysis:5.4.1"
 
     // Optional MRZ detector dependency
-    implementation "com.miteksystems.misnap:feature-detector:5.4.0"
+    implementation "com.miteksystems.misnap:feature-detector:5.4.1"
 
     // Oprtional document classifier dependency
-    implementation "com.miteksystems.misnap:document-classifier:5.4.0"
+    implementation "com.miteksystems.misnap:document-classifier:5.4.1"
 }
 ```
 
@@ -77,7 +77,7 @@ Voice sessions don't go through the `MiSnapController` as they don't require a c
 The easiest way to integrate voice processing is to add the following to the integrating module's `build.gradle`:
 ```groovy
 dependencies {
-    implementation "com.miteksystems.misnap:voice-processor:5.4.0"
+    implementation "com.miteksystems.misnap:voice-processor:5.4.1"
 }
 ```
 
@@ -105,7 +105,7 @@ NFC sessions don't go through the `MiSnapController` as they don't require a cam
 The easiest way to integrate NFC reading is to add the following to the integrating module's `build.gradle`:
 ```groovy
 dependencies {
-    implementation "com.miteksystems.misnap:nfc-reader:5.4.0"
+    implementation "com.miteksystems.misnap:nfc-reader:5.4.1"
 }
 ```
 

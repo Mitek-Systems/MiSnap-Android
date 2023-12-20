@@ -1,4 +1,4 @@
-# MiSnap SDK v5.4.0 Views Integration Guide
+# MiSnap SDK v5.4.1 Views Integration Guide
 
 This guide is targeted towards customers who want to **create their own UI/UX** while re-using some of the components shipped within the MiSnap SDK. These components (Views) can be used to create the UI for fragments or activities without having to re-write a major portion of the `workflow` module shipped out-of-the-box with the MiSnap SDK.
 
@@ -27,24 +27,24 @@ Part of the `workflow` module, `MiSnapView` combines the functionality of the `C
 The easiest way to integrate the `MiSnapView` is to add the following to the integrating module's `build.gradle`:
 ```groovy
 dependencies {
-    implementation "com.miteksystems.misnap:workflow:5.4.0"
-    implementation "com.miteksystems.misnap:controller:5.4.0"
-    implementation "com.miteksystems.misnap:camera:5.4.0"
+    implementation "com.miteksystems.misnap:workflow:5.4.1"
+    implementation "com.miteksystems.misnap:controller:5.4.1"
+    implementation "com.miteksystems.misnap:camera:5.4.1"
 
     // Optional barcode analysis dependency
-    implementation "com.miteksystems.misnap:barcode-analysis:5.4.0"
+    implementation "com.miteksystems.misnap:barcode-analysis:5.4.1"
 
     // Optional document analysis dependency
-    implementation "com.miteksystems.misnap:document-analysis:5.4.0"
+    implementation "com.miteksystems.misnap:document-analysis:5.4.1"
 
     // Optional face analysis dependency
-    implementation "com.miteksystems.misnap:face-analysis:5.4.0"
+    implementation "com.miteksystems.misnap:face-analysis:5.4.1"
 
     // Optional MRZ detector dependency
-    implementation "com.miteksystems.misnap:feature-detector:5.4.0"
+    implementation "com.miteksystems.misnap:feature-detector:5.4.1"
 
     // Oprtional document classifier dependency
-    implementation "com.miteksystems.misnap:document-classifier:5.4.0"
+    implementation "com.miteksystems.misnap:document-classifier:5.4.1"
 }
 ```
 
@@ -73,7 +73,7 @@ Part of the `camera` module, the `CameraView` allows developers to add a camera 
 The easiest way to integrate the `CameraView` is to add the following to the integrating module's `build.gradle`:
 ```groovy
 dependencies {
-    implementation "com.miteksystems.misnap:camera:5.4.0"
+    implementation "com.miteksystems.misnap:camera:5.4.1"
 }
 ```
 
@@ -106,7 +106,7 @@ Please see `/examples/views/AnalysisFragment.kt` for the full code sample.
 The easiest way to integrate these views is to add the following to the integrating module's `build.gradle`:
 ```groovy
 dependencies {
-    implementation "com.miteksystems.misnap:workflow:5.4.0"
+    implementation "com.miteksystems.misnap:workflow:5.4.1"
 }
 ```
 

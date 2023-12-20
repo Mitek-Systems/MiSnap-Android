@@ -1,4 +1,4 @@
-# MiSnap SDK v5.4.0 for Android
+# MiSnap SDK v5.4.1 for Android
 Mitek MiSnap™ is a patented mobile-capture SDK that enables an intuitive user experience and instant capture of quality images. It all starts with the quality of the image.
 
 # Table of Contents
@@ -30,32 +30,13 @@ Mitek MiSnap™ is a patented mobile-capture SDK that enables an intuitive user 
 # Getting Started
 
 ## Release Notes
-#### **Added**
-* [Document] On Device Document Classification(ODC), this feature enables extra processing on identity documents to classify them into different document types, which makes it possible to provide special hints during the session to place the correct document if a wrong document is detected.
-To enable this feature, set the `getEnableDocumentClassification` from `MiSnapSettings.Analysis.Document` to true and retrieve the classification results from the `classification` property of the session results.
-Please see [this](#what-is-the-advantage-of-using-the-on-device-classification-feature-over-regular-document-sessions) FAQ for more information on the advantages of using this feature and [this](#what-are-the-considerations-of-using-the-on-device-classification-feature) FAQ to learn more about the considerations of using the ODC feature.
-  * _The use of the On Device Classification(ODC) feature requires a valid MiSnap license with the ODC feature enabled to work. This feature is currently in beta._
-* [Document] On Device Extraction(ODE), this feature allows MiSnap to return additional extracted data from supported MRZ enabled identity documents. If the feature is licensed and `the MRZ extraction is requested` the extraction results can be recovered from the `extraction` property of the session results.
-  * _The use of the On Device Extraction(ODE) feature requires a valid MiSnap license with the ODE feature enabled to work._
-* [Common] An encrypted payload for sending to Mitek APIs for increased security.
-* [Document] Multiple optimizations to improve the frame processing speed for faster and more responsive sessions.
-* [Common] Improved the frame handling process to reduce the chances of a session resulting in blurred frames due to ongoing camera autofocus routines.
-
-Please see the in-code documentation for more details and the full API.
-
 #### **Fixed**
-* [Document] An issue where the first hint message for a document capture would often be irrelevant to the ongoing session.
-* [Common] An issue where the final frame would sometimes be propagated more than one time.
-
-#### **Modified**
-* [Common] The `UserAction` class has been moved to `com.miteksystems.misnap.core` and is now part of the `core` module.
-* [Document] The `mrz` property of a MiSnap document session result is now contained in the `extraction` property of type `DocumentExtraction` which includes other ODE related properties.
-  * _The `mrz` property contents and the conditions in which is returned are not affected by this change nor require the ODE feature to be licensed._
-* [Document] The `extractedDataCorners` property of the `MiSnapDocumentAnalyzerResult` class is now contained in the `extraction` property of type `DocumentExtraction` which includes other ODE related properties.
+* [NFC] Fixed an issue that prevented the NFC flow from completing in some Android 14 devices.
+* [Document] Fixed an issue that prevented some checks from completing a session in auto mode.
 
 Please see [the migration guide](documentation/migration_guide.md) for more extended information on the changes introduced in this release that can affect your integration.
 
-### **Version 5.4.0**
+### **Version 5.4.1**
 
 Please see [this page](documentation/change_log.md) for release notes from older releases.
 
@@ -71,7 +52,7 @@ Please see [this page](documentation/download_sizes.md) for the in-depth size ta
 | Document and Barcode             | 6.81                | 
 | Document and Biometric           | 13.29               | 
 | Document, Barcode, and Biometric | 14.54               | 
-| Document, Biometric, and NFC     | 17.26               | 
+| Document, Biometric, and NFC     | 17.27               | 
 | Document Classification          | 13.31               | 
 <!-- SIZE_TABLE_END -->
 
