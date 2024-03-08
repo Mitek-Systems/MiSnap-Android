@@ -88,7 +88,7 @@ class MiSnapAudioView @JvmOverloads constructor(
         currentState = MediaPlayerState.PLAYBACK_COMPLETED
         targetState = MediaPlayerState.PLAYBACK_COMPLETED
 
-        showMediaControls()
+        hideMediaControls()
     }
 
     private val onErrorListener = OnErrorListener { _, _, _ ->
@@ -189,7 +189,9 @@ class MiSnapAudioView @JvmOverloads constructor(
     override fun start() {
         if (isInPlaybackState) {
             mediaPlayer?.start()
-            showMediaControls()
+            handler.postDelayed({
+                showMediaControls()
+            }, MEDIA_CONTROL_SHOW_DELAY)
 
             currentState = MediaPlayerState.PlAYING
         }
@@ -205,6 +207,7 @@ class MiSnapAudioView @JvmOverloads constructor(
         }
 
         targetState = MediaPlayerState.PAUSED
+        hideMediaControls()
     }
 
     override fun getDuration(): Int =
@@ -219,11 +222,15 @@ class MiSnapAudioView @JvmOverloads constructor(
         if (!SEEKBAR_ENABLED) {
             return
         }
-        seekTo = if (isInPlaybackState) {
-            mediaPlayer?.seekTo(pos)
-            0
-        } else {
-            pos
+        try {
+            seekTo = if (isInPlaybackState) {
+                mediaPlayer?.seekTo(pos)
+                0
+            } else {
+                pos
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
         }
     }
 
@@ -333,8 +340,8 @@ class MiSnapAudioView @JvmOverloads constructor(
     }
 
     private companion object {
-        //FIXME: MediaController sometimes throws an exception when using the seekbar.
-        private const val SEEKBAR_ENABLED = false
+        private const val SEEKBAR_ENABLED = true
+        private const val MEDIA_CONTROL_SHOW_DELAY = 200L
 
         private enum class MediaPlayerState {
             ERROR,

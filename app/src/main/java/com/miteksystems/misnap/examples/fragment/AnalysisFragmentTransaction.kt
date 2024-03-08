@@ -71,6 +71,7 @@ class AnalysisFragmentTransaction : AppCompatActivity() {
                                 // Handle a continue action from a help screen.
                             }
                         }
+                        else -> {}
                     }
                 }
                 BarcodeAnalysisFragment::class.java -> {
@@ -78,6 +79,7 @@ class AnalysisFragmentTransaction : AppCompatActivity() {
                         is NavigationAction.BarcodeAnalysis.NavigateHelp -> {
                             executeFragmentTransaction(HelpFragment())
                         }
+                        else -> {}
                     }
                 }
             }
@@ -118,6 +120,7 @@ class AnalysisFragmentTransaction : AppCompatActivity() {
                 when (it) {
                     is MiSnapFinalResult.BarcodeSession -> {
                     }
+                    else -> {}
                 }
             }
         }
@@ -135,6 +138,7 @@ class AnalysisFragmentTransaction : AppCompatActivity() {
                     }
                     is MiSnapWorkflowError.Cancelled -> {
                     }
+                    else -> {}
                 }
             }
         }

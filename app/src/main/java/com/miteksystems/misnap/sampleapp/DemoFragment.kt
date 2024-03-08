@@ -262,15 +262,15 @@ class DemoFragment : Fragment(R.layout.fragment_demo) {
 
     private fun getPermissionRationaleTitle(permission: String) =
         when (permission) {
-            Manifest.permission.CAMERA -> R.string.misnapSampleAppCameraPermissionRationaleTitle
-            Manifest.permission.RECORD_AUDIO -> R.string.misnapSampleAppAudioRecordPermissionRationaleTitle
+            Manifest.permission.CAMERA -> R.string.misnapAppUtilCameraPermissionRationaleTitle
+            Manifest.permission.RECORD_AUDIO -> R.string.misnapAppUtilAudioRecordPermissionRationaleTitle
             else -> 0
         }
 
     private fun getPermissionRationaleMessage(permission: String) =
         when (permission) {
-            Manifest.permission.CAMERA -> R.string.misnapSampleAppCameraPermissionRationaleMessage
-            Manifest.permission.RECORD_AUDIO -> R.string.misnapSampleAppAudioRecordPermissionRationaleMessage
+            Manifest.permission.CAMERA -> R.string.misnapAppUtilCameraPermissionRationaleMessage
+            Manifest.permission.RECORD_AUDIO -> R.string.misnapAppUtilAudioRecordPermissionRationaleMessage
             else -> 0
         }
 
@@ -319,7 +319,7 @@ class DemoFragment : Fragment(R.layout.fragment_demo) {
             MicrophoneUtil.findSupportedMicrophone(requireContext())
 
         if (supportedMicrophoneSupportResult is MicrophoneUtil.MicrophoneSupportResult.Error) {
-            displayError(R.string.misnapSampleAppMicrophoneErrorMessage)
+            displayError(R.string.misnapAppUtilMicrophoneErrorMessage)
         }
     }
 
@@ -349,7 +349,7 @@ class DemoFragment : Fragment(R.layout.fragment_demo) {
                 }
 
                 is CameraSupportResult.Error -> {
-                    displayError(R.string.misnapSampleAppBackCameraErrorMessage)
+                    displayError(R.string.misnapAppUtilBackCameraErrorMessage)
                 }
             }
 
@@ -364,7 +364,7 @@ class DemoFragment : Fragment(R.layout.fragment_demo) {
                     }
 
                     is CameraSupportResult.Error -> {
-                        displayError(R.string.misnapSampleAppFrontCameraErrorMessage)
+                        displayError(R.string.misnapAppUtilFrontCameraErrorMessage)
                     }
                 }
             }

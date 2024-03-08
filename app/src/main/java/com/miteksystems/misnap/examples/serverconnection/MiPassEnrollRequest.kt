@@ -41,7 +41,7 @@ class MiPassEnrollRequestActivity : AppCompatActivity() {
              * to the request payload builder first convert the [MiSnapWorkflowActivity.Result] into a
              * [MiSnapTransactionResult].
              */
-            MiSnapWorkflowActivity.Result.results.forEach {
+            MiSnapWorkflowActivity.Result.results.iterator().forEach {
                 when (it) {
                     is MiSnapWorkflowStep.Result.Success -> {
                         when (it.result) {
@@ -54,8 +54,10 @@ class MiPassEnrollRequestActivity : AppCompatActivity() {
                                 // Add the face session result.
                                 request.setFaceResult(it.result.toServerResult() as MiSnapTransactionResult.FaceResult)
                             }
+                            else -> {}
                         }
                     }
+                    else -> {}
                 }
             }
 

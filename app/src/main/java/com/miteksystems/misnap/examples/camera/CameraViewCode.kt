@@ -87,6 +87,9 @@ class CameraViewCode : Fragment() {
                         is Event.InitializationError.CameraNotAvailable -> {
 
                         }
+                        else -> {
+                            //Nothing to do
+                        }
                     }
                 }
 

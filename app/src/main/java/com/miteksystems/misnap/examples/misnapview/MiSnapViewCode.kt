@@ -77,6 +77,7 @@ class MiSnapViewCode : Fragment() {
                     is FrameResult.DocumentAnalysis -> {
 
                     }
+                    else -> {}
                 }
             }
 
@@ -92,6 +93,7 @@ class MiSnapViewCode : Fragment() {
                     }
                     is ErrorResult.DocumentAnalysis -> {
                     }
+                    else -> {}
                 }
             }
 

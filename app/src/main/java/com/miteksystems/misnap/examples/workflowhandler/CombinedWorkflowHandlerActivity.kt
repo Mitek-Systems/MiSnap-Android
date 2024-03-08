@@ -60,6 +60,7 @@ class CombinedWorkflowHandlerActivity : AppCompatActivity() {
                                 }
                                 is MiSnapFinalResult.BarcodeSession -> {
                                 }
+                                else -> {}
                             }
                         }
                         is MiSnapWorkflowStep.Result.Error -> {
@@ -71,6 +72,7 @@ class CombinedWorkflowHandlerActivity : AppCompatActivity() {
                                 }
                                 is MiSnapWorkflowError.Permission -> {
                                 }
+                                else -> {}
                             }
                         }
                     }

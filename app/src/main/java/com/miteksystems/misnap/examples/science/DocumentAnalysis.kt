@@ -86,6 +86,7 @@ private class DocumentAnalysis : Fragment() {
                     is FrameResult.DocumentAnalysis -> {
 
                     }
+                    else -> {}
                 }
             }
 
@@ -108,6 +109,7 @@ private class DocumentAnalysis : Fragment() {
                     is ErrorResult.DocumentClassification -> {
 
                     }
+                    else -> {}
                 }
             }
         }

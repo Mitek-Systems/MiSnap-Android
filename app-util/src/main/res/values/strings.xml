@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- region GENERAL -->
+
+    <string name="misnapAppUtilCameraPermissionRationaleTitle" translatable="false">Permission reason</string>
+    <string name="misnapAppUtilCameraPermissionRationaleMessage" translatable="false">Camera access is required to snap a photo</string>
+    <string name="misnapAppUtilAudioRecordPermissionRationaleTitle" translatable="false">Permission reason</string>
+    <string name="misnapAppUtilAudioRecordPermissionRationaleMessage" translatable="false">Microphone access is required to record your voice</string>
+    <string name="misnapAppUtilBackCameraErrorMessage" translatable="false">Error Initializing Back Camera</string>
+    <string name="misnapAppUtilFrontCameraErrorMessage" translatable="false">Error Initializing Front Camera</string>
+    <string name="misnapAppUtilMicrophoneErrorMessage" translatable="false">Error Initializing Microphone</string>
+    <string name="misnapAppUtilCameraErrorMessage" translatable="false">Error Initializing Camera</string>
+    <string name="misnapAppUtilAnalysisErrorMessage" translatable="false">Error Analyzing Image</string>
+    <string name="misnapAppUtilSettingsErrorMessage" translatable="false">Invalid settings</string>
+    <string name="misnapAppUtilCameraPermissionErrorMessage" translatable="false">Error Acquiring Permissions</string>
+    <string name="misnapAppUtilNfcDeviceErrorMessage" translatable="false">Device does not support NFC</string>
+    <string name="misnapAppUtilNfcDocumentErrorMessage" translatable="false">Document does not support NFC</string>
+    <string name="misnapAppUtilNfcSkippedErrorMessage" translatable="false">NFC session skipped</string>
+    <string name="misnapAppUtilNfcCredentialsErrorMessage" translatable="false">Invalid NFC credentials</string>
+    <string name="misnapAppUtilVoiceSkippedErrorMessage" translatable="false">Voice session skipped</string>
+    <string name="misnapAppUtilVoiceExecutionErrorMessage" translatable="false">Error Executing Voice Engines</string>
+    <string name="misnapAppUtilVoiceInitializationErrorMessage" translatable="false">Error Initializing Voice Engines</string>
+    <string name="misnapAppUtilVoiceInputFormatErrorMessage" translatable="false">Error Unsupported Input Format</string>
+    <string name="misnapAppUtilVoiceMicrophoneMutedErrorMessage" translatable="false">Error UnMuting microphone</string>
+    <string name="misnapAppUtilVoiceMissingRequirementErrorMessage" translatable="false">Missing Flow / Verification Phrase</string>
+    <string name="misnapAppUtilCancelledErrorMessage" translatable="false">Session Cancelled</string>
+    <string name="misnapAppUtilCombinedWorkflowCancelledErrorMessage" translatable="false">Session Cancelled</string>
+    <string name="misnapAppUtilCombinedWorkflowSkippedStepErrorMessage" translatable="false">Skipped Workflow Step</string>
+    <string name="misnapAppUtilCombinedWorkflowLicenseErrorMessage" translatable="false">Invalid license / Feature not licensed</string>
+    <string name="misnapAppUtilUnknownResult" translatable="false">Unknown</string>
+
+    <!-- endregion -->
+
+    <!-- region DOCUMENT RESULTS FRAGMENT -->
+
+    <string name="misnapAppUtilResultsUseCaseDriversLicenseTabTitle" translatable="false">Drivers License</string>
+    <string name="misnapAppUtilResultsUseCaseIdFrontTabTitle" translatable="false">ID Front</string>
+    <string name="misnapAppUtilResultsUseCaseIdBackTabTitle" translatable="false">ID Back</string>
+    <string name="misnapAppUtilResultsUseCaseCheckFrontTabTitle" translatable="false">Check Front</string>
+    <string name="misnapAppUtilResultsUseCaseCheckBackTabTitle" translatable="false">Check Back</string>
+    <string name="misnapAppUtilResultsUseCasePassportTabTitle" translatable="false">Passport</string>
+    <string name="misnapAppUtilResultsUseCaseGenericDocumentTabTitle" translatable="false">Generic Document</string>
+    <string name="misnapAppUtilResultsUseCaseBarcodeTabTitle" translatable="false">Barcode</string>
+    <string name="misnapAppUtilResultsUseCaseFaceTabTitle" translatable="false">Face</string>
+    <string name="misnapAppUtilResultsUseCaseNfcTabTitle" translatable="false">NFC</string>
+    <string name="misnapAppUtilResultsUseCaseVoiceTabTitle" translatable="false">Voice</string>
+    <string name="misnapAppUtilResultsUseCaseUnknownTabTitle" translatable="false">Unknown</string>
+
+    <string name="misnapAppUtilResultsFrameTabTitle" translatable="false">Final Frame</string>
+    <string name="misnapAppUtilResultsVideoTabTitle" translatable="false">Recorded Video</string>
+    <string name="misnapAppUtilResultsExtractionTabTitle" translatable="false">Extraction Results</string>
+    <string name="misnapAppUtilResultsDocumentClassificationTabTitle" translatable="false">Classification Results</string>
+    <string name="misnapAppUtilResultsMrzTabTitle" translatable="false">MRZ Results</string>
+    <string name="misnapAppUtilResultsBarcodeTabTitle" translatable="false">Barcode Results</string>
+    <string name="misnapAppUtilResultsWarningsTabTitle" translatable="false">Warnings</string>
+    <string name="misnapAppUtilResultsMibiTabTitle" translatable="false">MiBi</string>
+    <string name="misnapAppUtilResultsErrorTabTitle" translatable="false">Error</string>
+    <string name="misnapAppUtilResultsNfcResultsTabTitle" translatable="false">NFC Results</string>
+    <string name="misnapAppUtilResultsVoiceAudioTabTitle" translatable="false">Recorded Audio</string>
+    <string name="misnapAppUtilResultsVoiceTabTitle" translatable="false">Recording %1$d</string>
+
+
+    <string name="misnapAppUtilResultsContinueButtonLabel" translatable="false">Continue</string>
+
+    <string name="misnapAppUtilResultsServerResultLoading" translatable="false">Loading Response</string>
+    <string name="misnapAppUtilResultsServerResultErrorTabTitle" translatable="false">Error</string>
+    <string name="misnapAppUtilResultsServerResultErrorMessage" translatable="false">An error has occurred and the request couldn\'t be processed.</string>
+    <string name="misnapAppUtilResultsServerResultSummaryTabTitle" translatable="false">Summary</string>
+    <string name="misnapAppUtilResultsServerResultExtractedDataTabTitle" translatable="false">Extracted Data</string>
+    <string name="misnapAppUtilResultsServerResultFindingsTabTitle" translatable="false">Findings</string>
+
+    <string name="misnapAppUtilResultsServerResultResponseCopyButtonLabel" translatable="false">Copy Raw Response</string>
+    <string name="misnapAppUtilResultsServerResultResponseCopySuccessMessage" translatable="false">Response JSON data copied to clipboard</string>
+    <string name="misnapAppUtilResultsServerResultResponseCopyFailureMessage" translatable="false">Raw response copy failed</string>
+
+    <string name="misnapAppUtilResultsServerResultSummaryRequestIdTitle" translatable="false">Request ID</string>
+
+    <string name="misnapAppUtilResultsServerResultSummaryDossierIdTitle" translatable="false">Dossier ID</string>
+    <string name="misnapAppUtilResultsServerResultSummaryProcessingStatusTitle" translatable="false">Processing Status</string>
+    <string name="misnapAppUtilResultsServerResultSummaryEvidencesTitle" translatable="false">Evidences</string>
+    <string name="misnapAppUtilResultsServerResultSummaryEvidencesContent" translatable="false">ID: %1$s\nType: %2$s</string>
+    <string name="misnapAppUtilResultsServerResultSummaryEvidencesContentImage" translatable="false">Image #%1$s\n%2$s\n</string>
+    <string name="misnapAppUtilResultsServerResultSummaryEvidencesContentImageClassification" translatable="false">Classification: %1$s\n</string>
+    <string name="misnapAppUtilResultsServerResultSummaryEvidencesContentImageProcessingStatus" translatable="false">Processing Status: %1$s\n</string>
+    <string name="misnapAppUtilResultsServerResultSummaryAuthenticationStatusTitle" translatable="false">Authentication Status</string>
+    <string name="misnapAppUtilResultsServerResultSummaryAuthenticationStatusAuthentic" translatable="false">Authentic</string>
+    <string name="misnapAppUtilResultsServerResultSummaryAuthenticationStatusFraudulent" translatable="false">Fraudulent</string>
+    <string name="misnapAppUtilResultsServerResultSummaryAuthenticationStatusAuthenticProbability" translatable="false">Authentic Probability of %1$s%%</string>
+    <string name="misnapAppUtilResultsServerResultSummaryPerformanceTitle" translatable="false">Performance</string>
+    <string name="misnapAppUtilResultsServerResultSummaryPerformancePayloadSize" translatable="false">Payload Size: %1$s KB</string>
+    <string name="misnapAppUtilResultsServerResultSummaryPerformanceProcessingTime" translatable="false">Processing Time: %1$s ms</string>
+
+    <string name="misnapAppUtilResultsServerResultExtractedDataEvidenceIdTitle" translatable="false">Evidence ID</string>
+
+    <string name="misnapAppUtilResultsServerResultExtractedDataGeneralTitle" translatable="false">General</string>
+    <string name="misnapAppUtilResultsServerResultExtractedDataGeneralDocumentNumber" translatable="false">Document Number: %1$s</string>
+    <string name="misnapAppUtilResultsServerResultExtractedDataGeneralDateOfBirth" translatable="false">Date of Birth: %1$s</string>
+    <string name="misnapAppUtilResultsServerResultExtractedDataGeneralDateOfIssue" translatable="false">Date of Issue: %1$s</string>
+    <string name="misnapAppUtilResultsServerResultExtractedDataGeneralDateOfExpiry" translatable="false">Date of Expiry: %1$s</string>
+    <string name="misnapAppUtilResultsServerResultExtractedDataNameTitle" translatable="false">Name</string>
+
+    <string name="misnapAppUtilResultsServerResultExtractedDataAddressTitle" translatable="false">Address</string>
+    <string name="misnapAppUtilResultsServerResultExtractedDataAddress1" translatable="false">Address Line 1: %1$s</string>
+    <string name="misnapAppUtilResultsServerResultExtractedDataAddress2" translatable="false">Address Line 2: %1$s</string>
+    <string name="misnapAppUtilResultsServerResultExtractedDataAddress3" translatable="false">Address Line 3: %1$s</string>
+
+    <string name="misnapAppUtilResultsServerResultExtractedDataDynamicPropertiesTitle" translatable="false">Dynamic Properties</string>
+    <string name="misnapAppUtilResultsServerResultExtractedDataDynamicPropertiesSex" translatable="false">Sex: %1$s</string>
+    <string name="misnapAppUtilResultsServerResultExtractedDataDynamicPropertiesPersonalGovID" translatable="false">Personal Gov. ID: %1$s</string>
+    <string name="misnapAppUtilResultsServerResultExtractedDataDynamicPropertiesSecondaryPersonalGovID" translatable="false">Secondary Personal Gov. ID: %1$s</string>
+    <string name="misnapAppUtilResultsServerResultExtractedDataDynamicPropertiesIssuingCountry" translatable="false">Issuing Country: %1$s</string>
+    <string name="misnapAppUtilResultsServerResultExtractedDataDynamicPropertiesLicenseClass" translatable="false">License Class: %1$s</string>
+    <string name="misnapAppUtilResultsServerResultExtractedDataDynamicPropertiesNationality" translatable="false">Nationality: %1$s</string>
+    <string name="misnapAppUtilResultsServerResultExtractedDataDynamicPropertiesNationalityCode" translatable="false">Nationality Code: %1$s</string>
+
+    <string name="misnapAppUtilResultsServerResultExtractedDataNfcExtractedDataTitle" translatable="false">NFC Extracted Data</string>
+    <string name="misnapAppUtilResultsServerResultExtractedDataNfcExtractedDataDocumentNumber" translatable="false">Document Number: %1$s</string>
+    <string name="misnapAppUtilResultsServerResultExtractedDataNfcExtractedDataDateOfBirth" translatable="false">Date of Birth: %1$s</string>
+    <string name="misnapAppUtilResultsServerResultExtractedDataNfcExtractedDataDateOfIssue" translatable="false">Date of Issue: %1$s</string>
+    <string name="misnapAppUtilResultsServerResultExtractedDataNfcExtractedDataDateOfExpiry" translatable="false">Date of Expiry: %1$s</string>
+    <string name="misnapAppUtilResultsServerResultExtractedDataNfcExtractedDataName" translatable="false">Name: %1$s</string>
+    <string name="misnapAppUtilResultsServerResultExtractedDataNfcExtractedDataAddress" translatable="false">Address: %1$s</string>
+    <string name="misnapAppUtilResultsServerResultExtractedDataNfcExtractedDataDynamicPropertiesIssuingCountry" translatable="false">Issuing Country: %1$s</string>
+    <string name="misnapAppUtilResultsServerResultExtractedDataNfcExtractedDataDynamicPropertiesMrzLine1" translatable="false">MRZ Line 1: %1$s</string>
+    <string name="misnapAppUtilResultsServerResultExtractedDataNfcExtractedDataDynamicPropertiesMrzLine2" translatable="false">MRZ Line 2: %1$s</string>
+    <string name="misnapAppUtilResultsServerResultExtractedDataNfcExtractedDataDynamicPropertiesMrzLine3" translatable="false">MRZ Line 3: %1$s</string>
+    <string name="misnapAppUtilResultsServerResultExtractedDataNfcExtractedDataDynamicPropertiesNationality" translatable="false">Nationality: %1$s</string>
+    <string name="misnapAppUtilResultsServerResultExtractedDataNfcExtractedDataDynamicPropertiesPersonalGovId" translatable="false">Personal Gov. ID: %1$s</string>
+    <string name="misnapAppUtilResultsServerResultExtractedDataNfcExtractedDataDynamicPropertiesSex" translatable="false">Sex: %1$s</string>
+
+    <string name="misnapAppUtilResultsServerResultFindingsJudgementProbability" translatable="false">Authentic Probability of %1$s%%</string>
+
+    <string name="misnapAppUtilResultsServerResultMiPassResultTabTitle" translatable="false">Results</string>
+    <string name="misnapAppUtilResultsServerResultMiPassResultReasonsLabel" translatable="false">Reasons</string>
+    <string name="misnapAppUtilResultsServerResultMiPassResultFaceProcessingStatusLabel" translatable="false">Face Processing Status</string>
+    <string name="misnapAppUtilResultsServerResultMiPassResultVoiceProcessingStatusLabel" translatable="false">Voice Processing Status</string>
+    <string name="misnapAppUtilResultsServerResultMiPassResultEnrollmentIdLabel" translatable="false">Enrollment ID</string>
+    <string name="misnapAppUtilResultsServerResultMiPassResultRequestIdLabel" translatable="false">Request ID</string>
+    <string name="misnapAppUtilResultsServerResultMiPassResultEnrollmentStatusLabel" translatable="false">Enrollment Status</string>
+
+    <string name="misnapAppUtilResultsServerResultMiPassResultVerificationStatusLabel" translatable="false">Verification Status</string>
+    <string name="misnapAppUtilResultsServerResultMiPassResultFaceVerificationStatusLabel" translatable="false">Face Verification Status</string>
+    <string name="misnapAppUtilResultsServerResultMiPassResultVoiceVerificationStatusLabel" translatable="false">Voice Verification Status</string>
+    <!-- endregion -->
+
+    <!-- region NFC RESULTS LAYOUT -->
+    <string name="misnapAppUtilResultsNfcDataTitle" translatable="false">NFC Data</string>
+    <string name="misnapAppUtilResultsNfcAuthenticationDataTitle" translatable="false">Authentication Data</string>
+    <string name="misnapAppUtilResultsNfcFirstNameLabel" translatable="false">First name</string>
+    <string name="misnapAppUtilResultsNfcLastNameLabel" translatable="false">Last name</string>
+    <string name="misnapAppUtilResultsNfcDocumentNumberLabel" translatable="false">Document number</string>
+    <string name="misnapAppUtilResultsNfcDocumentCodeLabel" translatable="false">Document code</string>
+    <string name="misnapAppUtilResultsNfcMrzLabel" translatable="false">Mrz</string>
+    <string name="misnapAppUtilResultsNfcIssuingCountryLabel" translatable="false">Issuing country</string>
+    <string name="misnapAppUtilResultsNfcNationalityLabel" translatable="false">Nationality</string>
+    <string name="misnapAppUtilResultsNfcGenderLabel" translatable="false">Gender</string>
+    <string name="misnapAppUtilResultsNfcPlaceOfBirthLabel" translatable="false">Place of birth</string>
+    <string name="misnapAppUtilResultsNfcDateOfBirthLabel" translatable="false">Date of birth</string>
+    <string name="misnapAppUtilResultsNfcExpirationDateLabel" translatable="false">Expiration date</string>
+    <string name="misnapAppUtilResultsNfcDateOfIssueLabel" translatable="false">Date of issue</string>
+    <string name="misnapAppUtilResultsNfcIssuingAuthorityLabel" translatable="false">Issuing authority</string>
+    <string name="misnapAppUtilResultsNfcPermanentPlaceOfResidenceLabel" translatable="false">Permanent place of residence</string>
+    <string name="misnapAppUtilResultsNfcVehicleCategoriesLabel" translatable="false">Vehicle categories</string>
+    <string name="misnapAppUtilResultsNfcOtherNamesLabel" translatable="false">Other names</string>
+    <string name="misnapAppUtilResultsNfcAddressLabel" translatable="false">Address</string>
+    <string name="misnapAppUtilResultsNfcTelephoneLabel" translatable="false">Telephone</string>
+    <string name="misnapAppUtilResultsNfcPersonalNumberLabel" translatable="false">Personal number</string>
+    <string name="misnapAppUtilResultsNfcProfessionLabel" translatable="false">Profession</string>
+    <string name="misnapAppUtilResultsNfcTitleLabel" translatable="false">Title</string>
+    <string name="misnapAppUtilResultsNfcPersonalSummaryLabel" translatable="false">Personal summary</string>
+    <string name="misnapAppUtilResultsNfcOtherTravelDocNumbersLabel" translatable="false">Other travel doc numbers</string>
+    <string name="misnapAppUtilResultsNfcCustodyInfoLabel" translatable="false">Custody info</string>
+    <string name="misnapAppUtilResultsNfcDataGroupsReadLabel" translatable="false">Data groups read</string>
+    <string name="misnapAppUtilResultsNfcSODPresentLabel" translatable="false">SOD present</string>
+    <string name="misnapAppUtilResultsNfcDataGroupsForPassiveAuthenticationLabel" translatable="false">Data groups for Passive Authentication</string>
+    <string name="misnapAppUtilResultsNfcActiveAuthenticationSupportedLabel" translatable="false">Active Authentication supported</string>
+
+    <!-- endregion -->
+
+    <!-- region SERVER IMAGE TYPES -->
+    <string name="misnapAppUtilResultsServerResultImageTypeUnknown" translatable="false">Unknown</string>
+    <string name="misnapAppUtilResultsServerResultImageTypeIdDocument" translatable="false">ID Document</string>
+    <string name="misnapAppUtilResultsServerResultImageTypeBiometric" translatable="false">Biometric</string>
+
+    <string name="misnapAppUtilResultsServerResultImageClassificationTypeUnknown" translatable="false">Unknown</string>
+    <string name="misnapAppUtilResultsServerResultImageClassificationTypeDriversLicenseFront" translatable="false">Drivers License Front</string>
+    <string name="misnapAppUtilResultsServerResultImageClassificationTypeDriversLicenseBack" translatable="false">Drivers License Back</string>
+    <string name="misnapAppUtilResultsServerResultImageClassificationTypePassportSignature" translatable="false">Passport Signature</string>
+    <string name="misnapAppUtilResultsServerResultImageClassificationTypePassportPicturePage" translatable="false">Passport Picture Page</string>
+    <string name="misnapAppUtilResultsServerResultImageClassificationTypeIdentificationCardFront" translatable="false">Identification Card Front</string>
+    <string name="misnapAppUtilResultsServerResultImageClassificationTypeIdentificationCardBack" translatable="false">Identification Card Back</string>
+    <string name="misnapAppUtilResultsServerResultImageClassificationTypeResidencePermitFront" translatable="false">Residence Permit Front</string>
+    <string name="misnapAppUtilResultsServerResultImageClassificationTypeResidencePermitBack" translatable="false">Residence Permit Back</string>
+    <string name="misnapAppUtilResultsServerResultImageClassificationTypePassportCardFront" translatable="false">Passport Card Front</string>
+    <string name="misnapAppUtilResultsServerResultImageClassificationTypePassportCardBack" translatable="false">Passport Card Back</string>
+    <string name="misnapAppUtilResultsServerResultImageClassificationTypeHealthServicesCardFront" translatable="false">Health Services Card Front</string>
+    <string name="misnapAppUtilResultsServerResultImageClassificationTypeHealthServicesCardBack" translatable="false">Health Services Card Back</string>
+    <string name="misnapAppUtilResultsServerResultImageClassificationTypeVisa" translatable="false">Visa</string>
+    <!-- endregion -->
+
+
+
+    <string name="misnapAppUtilClipboardId" translatable="false">MiSnap Sample App</string>
+
+    <string name="misnapAppUtilResultsFinalFrameDiskSize" translatable="false">Size on Disk: %1$s</string>
+    <string name="misnapAppUtilResultsFinalFrameDimensions" translatable="false">Image Dimensions: %1$s</string>
+
+    <string name="misnapAppUtilResultsMibiCopyButtonLabel" translatable="false">Copy Contents</string>
+    <string name="misnapAppUtilResultsMibiCopySuccessMessage" translatable="false">MiBi data copied to clipboard</string>
+    <string name="misnapAppUtilResultsMibiCopyFailureMessage" translatable="false">Please select and copy manually</string>
+    <string name="misnapAppUtilResultsMibiDataNotFound" translatable="false">Unable to read MiBI from EXIF Tag</string>
+
+    <string name="misnapAppUtilResultsBarcodeData" translatable="false">Data: %1$s</string>
+    <string name="misnapAppUtilResultsBarcodeType" translatable="false">Type: %1$s</string>
+
+    <string name="misnapAppUtilResultsMrzDataTitle" translatable="false"><![CDATA[<b>Parsed MRZ</b>]]><![CDATA[<br>]]></string>
+    <string name="misnapAppUtilResultsMrzData" translatable="false">
+        <![CDATA[<b>Document Number:</b>]]> %1$s <![CDATA[<br>]]>
+        <![CDATA[<b>Document Code:</b>]]> %2$s <![CDATA[<br>]]>
+        <![CDATA[<b>Issuing Country:</b>]]> %3$s <![CDATA[<br>]]>
+        <![CDATA[<b>Date of Birth:</b>]]> %4$s <![CDATA[<br>]]>
+        <![CDATA[<b>Date of Expiry:</b>]]> %5$s <![CDATA[<br>]]>
+        <![CDATA[<b>Optional Data1:</b>]]> %6$s
+    </string>
+
+    <string name="misnapAppUtilResultsMrzOneLineData" translatable="false"><![CDATA[<b>Parsed Mrz Data:</b>]]> %1$s</string>
+    <string name="misnapAppUtilResultsRawMrzTitle" translatable="false"><![CDATA[<br>]]><![CDATA[<b>Raw Data</b>]]><![CDATA[<br>]]></string>
+    <string name="misnapAppUtilResultsDocumentDataTitle" translatable="false"><![CDATA[<br>]]><![CDATA[<b>Extracted Data</b>]]><![CDATA[<br>]]></string>
+    <string name="misnapAppUtilResultsDocumentData" translatable="false">
+        <![CDATA[<b>Document Type:</b>]]> %1$s <![CDATA[<br>]]>
+        <![CDATA[<b>Country:</b>]]> %2$s <![CDATA[<br>]]>
+        <![CDATA[<b>Last Name:</b>]]> %3$s <![CDATA[<br>]]>
+        <![CDATA[<b>First Name:</b>]]> %4$s <![CDATA[<br>]]>
+        <![CDATA[<b>Sex:</b>]]> %5$s <![CDATA[<br>]]>
+        <![CDATA[<b>Document Number:</b>]]> %6$s <![CDATA[<br>]]>
+        <![CDATA[<b>Nationality:</b>]]> %7$s <![CDATA[<br>]]>
+        <![CDATA[<b>Date of Birth:</b>]]> %8$s <![CDATA[<br>]]>
+        <![CDATA[<b>Date of Expiration:</b>]]> %9$s <![CDATA[<br>]]>
+        <![CDATA[<b>Optional Data 1:</b>]]> %10$s <![CDATA[<br>]]>
+        <![CDATA[<b>Optional Data 2:</b>]]> %11$s <![CDATA[<br>]]>
+    </string>
+</resources>

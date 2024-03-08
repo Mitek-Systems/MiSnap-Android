@@ -1,4 +1,4 @@
-# MiSnap SDK v5.4.1 for Android
+# MiSnap SDK v5.5.0 for Android
 Mitek MiSnap™ is a patented mobile-capture SDK that enables an intuitive user experience and instant capture of quality images. It all starts with the quality of the image.
 
 # Table of Contents
@@ -30,13 +30,25 @@ Mitek MiSnap™ is a patented mobile-capture SDK that enables an intuitive user 
 # Getting Started
 
 ## Release Notes
+#### **Added**
+* [Face] For selfie images, the device analyzes the ambient light available to the device camera and adjusts the screen if the environment is too dark.  Two levels of adjustments are automatically made: one, turning up the brightness of the device; and two, adding a white vignette to the screen to provide lighting for the face.
+  * See the in code documentation for more information about this feature and the [design considerations](documentation/customization_guide.md#design-considerations) for more information on how to use the feature with a custom UI.
+* [Document] For identity documents, the MiSnap SDK now makes use of a device motion detector to prevent the user from capturing a frame while in movement, reducing the likelihood of a blurry image due to motion.
+  * See the in code documentation for `motionDetectorSensitivity` in `MiSnapSettings` for more information on this feature.
+* [NFC] Fixed an issue that prevented some ROU documents from scanning correctly.
+
+#### **Modified**
+* [Common] The target API level has been updated to 32. MiSnap is now compiled against API level 34.
+* [Common] The CameraX version has been updated to 1.3.0.
+* [Common] The Kotlin version has been updated to 1.8.10 and the Gradle version has been upgraded to 6.8.3.
+
 #### **Fixed**
-* [NFC] Fixed an issue that prevented the NFC flow from completing in some Android 14 devices.
-* [Document] Fixed an issue that prevented some checks from completing a session in auto mode.
+* [Common] An issue with combined workflows that prevented non document sessions combinations from working correctly when not depending on the `document-analysis` package.
+* [Common] An issue with the `SuccessView` not playing the default camera shutter sound on some devices.
 
-Please see [the migration guide](documentation/migration_guide.md) for more extended information on the changes introduced in this release that can affect your integration.
+Please see [the migration guide](documentation/migration_guide.md) for extended information on the changes introduced in this release that can affect your integration.
 
-### **Version 5.4.1**
+### **Version 5.5.0**
 
 Please see [this page](documentation/change_log.md) for release notes from older releases.
 
@@ -48,25 +60,27 @@ Please see [this page](documentation/download_sizes.md) for the in-depth size ta
 <!-- SIZE_TABLE_START -->
 | Use Case                         | Download Size (MiB) | 
 | :------------------------------- | ------------------: |
-| Document                         | 5.55                | 
-| Document and Barcode             | 6.81                | 
-| Document and Biometric           | 13.29               | 
-| Document, Barcode, and Biometric | 14.54               | 
-| Document, Biometric, and NFC     | 17.27               | 
-| Document Classification          | 13.31               | 
+| Document                         | 5.82                | 
+| Document and Barcode             | 7.07                | 
+| Document and Biometric           | 13.55               | 
+| Document, Barcode, and Biometric | 14.81               | 
+| Document, Biometric, and NFC     | 17.52               | 
+| Document Classification          | 13.56               | 
 <!-- SIZE_TABLE_END -->
+
 
 ## System Requirements
 
-| Technology               | Version |
-| :--------------------    |:--------|
-| Android Gradle Plugin    | 4.2.2   |
-| Gradle                   | 6.7.1   |
-| Kotlin                   | 1.5.32  |
-| CameraX                  | 1.1.0   |
-| JDK                      | 11      |
-| Android min API level    | 23      |
-| Android target API level | 31      |
+| Technology                | Version |
+|:--------------------------|:--------|
+| Android Gradle Plugin     | 4.2.2   |
+| Gradle                    | 6.8.3   |
+| Kotlin                    | 1.8.10  |
+| CameraX                   | 1.3.0   |
+| JDK                       | 11      |
+| Android min API level     | 23      |
+| Android target API level  | 32      |
+| Android compile API level | 34      |
 
 Please see [versions.gradle](versions.gradle) for more details.
 
@@ -78,6 +92,7 @@ Please see the [devices tested](documentation/devices_tested.md) page for more d
 * As the `face-analysis`, `face` and `biometric` modules use `Google’s MLKit` for face detection, please follow [this link](https://developers.google.com/ml-kit/known-issues) for known issues.
 * The `document-classifier` and `classifier` modules use `Google’s MLKit` for document classification, please follow [this link](https://developers.google.com/ml-kit/known-issues) for known issues. 
 * The `minSdkVersion` used in the MiSnap SDK is not compatible with higher `jmrtd` versions. 
+* When using the Voice component of MiSnap, there is limited support for screen readers.
 
 - - - -
 
@@ -230,7 +245,7 @@ _Note: The artifacts hosted in Github are exclusively for use with online Maven 
 
 # Third-Party Licenses
 
-### [3-Clause BSD License](https://opensource.org/licenses/BSD-3-Clause)
+### [3-Clause BSD License](https://opensource.org/blog/license/bsd-3-clause)
 * #### [OpenCV](https://github.com/opencv/opencv/blob/4.4.0/LICENSE)
 
 ### [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0)
@@ -240,7 +255,7 @@ _Note: The artifacts hosted in Github are exclusively for use with online Maven 
 * #### [Kotlin Coroutines](https://github.com/Kotlin/kotlinx.coroutines/tree/master/license/)
 * #### [Material Components for Android](https://github.com/material-components/material-components-android/blob/master/LICENSE)
 
-### [BSD 2-Clause "Simplified" License](https://opensource.org/license/bsd-license-php/)
+### [BSD 2-Clause "Simplified" License](https://opensource.org/blog/license/bsd-2-clause)
 * #### [JP2ForAndroid](https://github.com/ThalesGroup/JP2ForAndroid/blob/master/LICENSE)
 
 ### [GNU Lesser General Public License](https://www.gnu.org/licenses/lgpl-3.0.en.html)

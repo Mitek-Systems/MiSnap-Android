@@ -76,6 +76,7 @@ class MiSnapViewXml : Fragment(R.layout.example_misnap_view_xml) {
                         is FrameResult.DocumentAnalysis -> {
 
                         }
+                        else -> {}
                     }
                 }
 
@@ -91,6 +92,7 @@ class MiSnapViewXml : Fragment(R.layout.example_misnap_view_xml) {
                         }
                         is ErrorResult.DocumentAnalysis -> {
                         }
+                        else -> {}
                     }
                 }
 

@@ -5,33 +5,6 @@
 </string>
     <string name="misnapSampleAppName" translatable="false">MiSnap Sample App</string>
 
-    <string name="misnapSampleAppCameraErrorMessage" translatable="false">Error Initializing Camera</string>
-    <string name="misnapSampleAppBackCameraErrorMessage" translatable="false">Error Initializing Back Camera</string>
-    <string name="misnapSampleAppFrontCameraErrorMessage" translatable="false">Error Initializing Front Camera</string>
-    <string name="misnapSampleAppMicrophoneErrorMessage" translatable="false">Error Initializing Microphone</string>
-    <string name="misnapSampleAppAnalysisErrorMessage" translatable="false">Error Analyzing Image</string>
-    <string name="misnapSampleAppSettingsErrorMessage" translatable="false">Invalid settings</string>
-    <string name="misnapSampleAppCameraPermissionErrorMessage" translatable="false">Error Acquiring Permissions</string>
-    <string name="misnapSampleAppCameraPermissionRationaleTitle" translatable="false">Permission reason</string>
-    <string name="misnapSampleAppCameraPermissionRationaleMessage" translatable="false">Camera access is required to snap a photo</string>
-    <string name="misnapSampleAppAudioRecordPermissionRationaleTitle" translatable="false">Permission reason</string>
-    <string name="misnapSampleAppAudioRecordPermissionRationaleMessage" translatable="false">Microphone access is required to record your voice</string>
-    <string name="misnapSampleAppNfcDeviceErrorMessage" translatable="false">Device does not support NFC</string>
-    <string name="misnapSampleAppNfcDocumentErrorMessage" translatable="false">Document does not support NFC</string>
-    <string name="misnapSampleAppNfcSkippedErrorMessage" translatable="false">NFC session skipped</string>
-    <string name="misnapSampleAppNfcCredentialsErrorMessage" translatable="false">Invalid NFC credentials</string>
-    <string name="misnapSampleAppVoiceSkippedErrorMessage" translatable="false">Voice session skipped</string>
-    <string name="misnapSampleAppVoiceExecutionErrorMessage" translatable="false">Error Executing Voice Engines</string>
-    <string name="misnapSampleAppVoiceInitializationErrorMessage" translatable="false">Error Initializing Voice Engines</string>
-    <string name="misnapSampleAppVoiceInputFormatErrorMessage" translatable="false">Error Unsupported Input Format</string>
-    <string name="misnapSampleAppVoiceMicrophoneMutedErrorMessage" translatable="false">Error UnMuting microphone</string>
-    <string name="misnapSampleAppVoiceMissingRequirementErrorMessage" translatable="false">Missing Flow / Verification Phrase</string>
-    <string name="misnapSampleAppCancelledErrorMessage" translatable="false">Session Cancelled</string>
-    <string name="misnapSampleAppCombinedWorkflowCancelledErrorMessage" translatable="false">Session Cancelled</string>
-    <string name="misnapSampleAppCombinedWorkflowSkippedStepErrorMessage" translatable="false">Skipped Workflow Step</string>
-    <string name="misnapSampleAppCombinedWorkflowLicenseErrorMessage" translatable="false">Invalid license / Feature not licensed</string>
-    <string name="misnapSampleAppResultsMibiDataNotFound" translatable="false">Unable to read MiBI from EXIF Tag</string>
-
     <!-- endregion -->
 
     <!-- region FRAGMENT LABELS -->
@@ -42,108 +15,6 @@
 
     <!-- endregion -->
 
-    <!-- region DOCUMENT RESULTS FRAGMENT -->
-
-    <string name="misnapSampleAppResultsUseCaseDriversLicenseTabTitle" translatable="false">Drivers License</string>
-    <string name="misnapSampleAppResultsUseCaseIdFrontTabTitle" translatable="false">ID Front</string>
-    <string name="misnapSampleAppResultsUseCaseIdBackTabTitle" translatable="false">ID Back</string>
-    <string name="misnapSampleAppResultsUseCaseCheckFrontTabTitle" translatable="false">Check Front</string>
-    <string name="misnapSampleAppResultsUseCaseCheckBackTabTitle" translatable="false">Check Back</string>
-    <string name="misnapSampleAppResultsUseCasePassportTabTitle" translatable="false">Passport</string>
-    <string name="misnapSampleAppResultsUseCaseGenericDocumentTabTitle" translatable="false">Generic Document</string>
-    <string name="misnapSampleAppResultsUseCaseBarcodeTabTitle" translatable="false">Barcode</string>
-    <string name="misnapSampleAppResultsUseCaseFaceTabTitle" translatable="false">Face</string>
-    <string name="misnapSampleAppResultsUseCaseNfcTabTitle" translatable="false">NFC</string>
-    <string name="misnapSampleAppResultsUseCaseVoiceTabTitle" translatable="false">Voice</string>
-    <string name="misnapSampleAppResultsUseCaseUnknownTabTitle" translatable="false">Unknown</string>
-
-    <string name="misnapSampleAppResultsFrameTabTitle" translatable="false">Final Frame</string>
-    <string name="misnapSampleAppResultsVideoTabTitle" translatable="false">Recorded Video</string>
-    <string name="misnapSampleAppResultsExtractionTabTitle" translatable="false">Extraction Results</string>
-    <string name="misnapSampleAppResultsDocumentClassificationTabTitle" translatable="false">Classification Results</string>
-    <string name="misnapSampleAppResultsBarcodeTabTitle" translatable="false">Barcode Results</string>
-    <string name="misnapSampleAppResultsWarningsTabTitle" translatable="false">Warnings</string>
-    <string name="misnapSampleAppResultsMibiTabTitle" translatable="false">MiBi</string>
-    <string name="misnapSampleAppResultsErrorTabTitle" translatable="false">Error</string>
-    <string name="misnapSampleAppResultsNfcResultsTabTitle" translatable="false">NFC Results</string>
-    <string name="misnapSampleAppResultsVoiceAudioTabTitle" translatable="false">Recorded Audio</string>
-    <string name="misnapSampleAppResultsVoiceTabTitle" translatable="false">Recording %1$d</string>
-
-    <string name="misnapSampleAppResultsFinalFrameDiskSize" translatable="false">Size on Disk: %1$s</string>
-    <string name="misnapSampleAppResultsFinalFrameDimensions" translatable="false">Image Dimensions: %1$s</string>
-
-    <string name="misnapSampleAppResultsMrzDataTitle" translatable="false"><![CDATA[<b>Parsed MRZ</b>]]><![CDATA[<br>]]></string>
-    <string name="misnapSampleAppResultsMrzData" translatable="false">
-        <![CDATA[<b>Document Number:</b>]]> %1$s <![CDATA[<br>]]>
-        <![CDATA[<b>Document Code:</b>]]> %2$s <![CDATA[<br>]]>
-        <![CDATA[<b>Issuing Country:</b>]]> %3$s <![CDATA[<br>]]>
-        <![CDATA[<b>Date of Birth:</b>]]> %4$s <![CDATA[<br>]]>
-        <![CDATA[<b>Date of Expiry:</b>]]> %5$s <![CDATA[<br>]]>
-        <![CDATA[<b>Optional Data1:</b>]]> %6$s
-    </string>
-
-    <string name="misnapSampleAppResultsDocumentDataTitle" translatable="false"><![CDATA[<br>]]><![CDATA[<b>Extracted Data</b>]]><![CDATA[<br>]]></string>
-    <string name="misnapSampleAppResultsDocumentData" translatable="false">
-        <![CDATA[<b>Document Type:</b>]]> %1$s <![CDATA[<br>]]>
-        <![CDATA[<b>Country:</b>]]> %2$s <![CDATA[<br>]]>
-        <![CDATA[<b>Last Name:</b>]]> %3$s <![CDATA[<br>]]>
-        <![CDATA[<b>First Name:</b>]]> %4$s <![CDATA[<br>]]>
-        <![CDATA[<b>Sex:</b>]]> %5$s <![CDATA[<br>]]>
-        <![CDATA[<b>Document Number:</b>]]> %6$s <![CDATA[<br>]]>
-        <![CDATA[<b>Nationality:</b>]]> %7$s <![CDATA[<br>]]>
-        <![CDATA[<b>Date of Birth:</b>]]> %8$s <![CDATA[<br>]]>
-        <![CDATA[<b>Date of Expiration:</b>]]> %9$s <![CDATA[<br>]]>
-        <![CDATA[<b>Optional Data 1:</b>]]> %10$s <![CDATA[<br>]]>
-        <![CDATA[<b>Optional Data 2:</b>]]> %11$s <![CDATA[<br>]]>
-    </string>
-
-    <string name="misnapSampleAppResultsRawMrzTitle" translatable="false"><![CDATA[<br>]]><![CDATA[<b>Raw Data</b>]]><![CDATA[<br>]]></string>
-
-    <string name="misnapSampleAppResultsMrzOneLineData" translatable="false"><![CDATA[<b>Parsed Mrz Data:</b>]]> %1$s</string>
-    <string name="misnapSampleAppResultsContinueButtonLabel" translatable="false">Continue</string>
-
-    <string name="misnapSampleAppResultsMibiCopyButtonLabel" translatable="false">Copy Contents</string>
-    <string name="misnapSampleAppResultsMibiCopySuccessMessage" translatable="false">MiBi data copied to clipboard</string>
-    <string name="misnapSampleAppResultsMibiCopyFailureMessage" translatable="false">Please select and copy manually</string>
-
-    <string name="misnapSampleAppResultsBarcodeData" translatable="false">Data: %1$s</string>
-    <string name="misnapSampleAppResultsBarcodeType" translatable="false">Type: %1$s</string>
-
-    <!-- endregion -->
-
-    <!-- region NFC RESULTS LAYOUT -->
-    <string name="misnapSampleAppResultsNfcDataTitle" translatable="false">NFC Data</string>
-    <string name="misnapSampleAppResultsNfcAuthenticationDataTitle" translatable="false">Authentication Data</string>
-    <string name="misnapSampleAppResultsNfcFirstNameLabel" translatable="false">First name</string>
-    <string name="misnapSampleAppResultsNfcLastNameLabel" translatable="false">Last name</string>
-    <string name="misnapSampleAppResultsNfcDocumentNumberLabel" translatable="false">Document number</string>
-    <string name="misnapSampleAppResultsNfcDocumentCodeLabel" translatable="false">Document code</string>
-    <string name="misnapSampleAppResultsNfcMrzLabel" translatable="false">Mrz</string>
-    <string name="misnapSampleAppResultsNfcIssuingCountryLabel" translatable="false">Issuing country</string>
-    <string name="misnapSampleAppResultsNfcNationalityLabel" translatable="false">Nationality</string>
-    <string name="misnapSampleAppResultsNfcGenderLabel" translatable="false">Gender</string>
-    <string name="misnapSampleAppResultsNfcPlaceOfBirthLabel" translatable="false">Place of birth</string>
-    <string name="misnapSampleAppResultsNfcDateOfBirthLabel" translatable="false">Date of birth</string>
-    <string name="misnapSampleAppResultsNfcExpirationDateLabel" translatable="false">Expiration date</string>
-    <string name="misnapSampleAppResultsNfcDateOfIssueLabel" translatable="false">Date of issue</string>
-    <string name="misnapSampleAppResultsNfcIssuingAuthorityLabel" translatable="false">Issuing authority</string>
-    <string name="misnapSampleAppResultsNfcPermanentPlaceOfResidenceLabel" translatable="false">Permanent place of residence</string>
-    <string name="misnapSampleAppResultsNfcVehicleCategoriesLabel" translatable="false">Vehicle categories</string>
-    <string name="misnapSampleAppResultsNfcOtherNamesLabel" translatable="false">Other names</string>
-    <string name="misnapSampleAppResultsNfcAddressLabel" translatable="false">Address</string>
-    <string name="misnapSampleAppResultsNfcTelephoneLabel" translatable="false">Telephone</string>
-    <string name="misnapSampleAppResultsNfcPersonalNumberLabel" translatable="false">Personal number</string>
-    <string name="misnapSampleAppResultsNfcProfessionLabel" translatable="false">Profession</string>
-    <string name="misnapSampleAppResultsNfcTitleLabel" translatable="false">Title</string>
-    <string name="misnapSampleAppResultsNfcPersonalSummaryLabel" translatable="false">Personal summary</string>
-    <string name="misnapSampleAppResultsNfcOtherTravelDocNumbersLabel" translatable="false">Other travel doc numbers</string>
-    <string name="misnapSampleAppResultsNfcCustodyInfoLabel" translatable="false">Custody info</string>
-    <string name="misnapSampleAppResultsNfcDataGroupsReadLabel" translatable="false">Data groups read</string>
-    <string name="misnapSampleAppResultsNfcSODPresentLabel" translatable="false">SOD present</string>
-    <string name="misnapSampleAppResultsNfcDataGroupsForPassiveAuthenticationLabel" translatable="false">Data groups for Passive Authentication</string>
-    <string name="misnapSampleAppResultsNfcActiveAuthenticationSupportedLabel" translatable="false">Active Authentication supported</string>
-
-    <!-- endregion -->
 
     <!-- region DEMO FRAGMENT -->
 
@@ -231,6 +102,7 @@
     <string name="misnapSampleAppSettingsDocumentRedactOptionalDataLabel" translatable="false">Redact Optional Data</string>
     <string name="misnapSampleAppSettingsDocumentClassificationLabel" translatable="false">Enable Document Classification</string>
     <string name="misnapSampleAppSettingsDocumentGeographyLabel" translatable="false">Geography</string>
+    <string name="misnapSampleAppSettingsAnalysisDeviceMotionSensitivityLabel" translatable="false">Device Motion Sensitivity</string>
     <string name="misnapSampleAppSettingsDocumentSessionOrientationLabel" translatable="false">Session Orientation</string>
     <string name="misnapSampleAppSettingsDocumentCornersConfidenceThreshold" translatable="false">Corner Confidence Threshold</string>
     <string name="misnapSampleAppSettingsDocumentMinPaddingThreshold" translatable="false">Minimum Padding Threshold</string>
@@ -249,6 +121,7 @@
     <string name="misnapSampleAppSettingsDocumentGeoTooltip" translatable="false">Only Supported For Checks</string>
     <string name="misnapSampleAppSettingsDocumentRedactOptionalDataTooltip" translatable="false">Used to redact the BSN out of NLD documents.</string>
     <string name="misnapSampleAppSettingsDocumentClassificationTooltip" translatable="false">Used to enable document classification.</string>
+    <string name="misnapSampleAppSettingsJpegQualityThreshold" translatable="false">JPEG Quality</string>
 
     <string-array name="documentTriggersArray">
         <item>Auto</item>
@@ -258,6 +131,12 @@
     <string-array name="documentGeosArray">
         <item>US</item>
         <item>Global</item>
+    </string-array>
+
+    <string-array name="deviceMotionSensitivityArray">
+        <item>None</item>
+        <item>Low</item>
+        <item>High</item>
     </string-array>
 
     <string-array name="documentSessionOrientationsArray">
@@ -371,6 +250,14 @@
     <string name="misnapSampleAppSettingsFaceWorkflowChangeGuideViewStateOnFeedbackLabel" translatable="false">Change GuideView State on Feedback</string>
     <string name="misnapSampelAppSettingsFaceWorkflowHintViewShowBackground" translatable="false">HintView Show Background</string>
     <string name="misnapSampleAppSettingsFaceWorkflowSuccessViewShouldVibrateLabel" translatable="false">SuccessView Should Vibrate</string>
+    <string name="misnapSampleAppSettingsFaceWorkflowLowLightSensitivityLabel" translatable="false">Low Light Sensitivity</string>
+
+    <string-array name="lowLightSensitivitiesArray">
+        <item>None</item>
+        <item>Low</item>
+        <item>Medium</item>
+        <item>High</item>
+    </string-array>
 
     <string-array name="faceReviewConditionsArray">
         <item>Always</item>

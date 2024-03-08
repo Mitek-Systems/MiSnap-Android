@@ -11,6 +11,8 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.AdapterView.OnItemSelectedListener
 import android.widget.ArrayAdapter
+import android.widget.EditText
+import android.widget.Spinner
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.widget.TooltipCompat
@@ -49,6 +51,8 @@ import com.miteksystems.misnap.nfc.shouldRedactOptionalData
 import com.miteksystems.misnap.sampleapp.results.SampleAppViewModel
 import com.miteksystems.misnap.apputil.ViewPageAdapter
 import com.miteksystems.misnap.camera.*
+import com.miteksystems.misnap.controller.getImageQuality
+import com.miteksystems.misnap.controller.getMotionDetectorSensitivity
 import com.miteksystems.misnap.voice.*
 import com.miteksystems.misnap.workflow.MiSnapWorkflowActivity
 import com.miteksystems.misnap.workflow.MiSnapWorkflowStep
@@ -277,15 +281,15 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
 
     private fun getPermissionRationaleTitle(permission: String) =
         when (permission) {
-            Manifest.permission.CAMERA -> R.string.misnapSampleAppCameraPermissionRationaleTitle
-            Manifest.permission.RECORD_AUDIO -> R.string.misnapSampleAppAudioRecordPermissionRationaleTitle
+            Manifest.permission.CAMERA -> R.string.misnapAppUtilCameraPermissionRationaleTitle
+            Manifest.permission.RECORD_AUDIO -> R.string.misnapAppUtilAudioRecordPermissionRationaleTitle
             else -> 0
         }
 
     private fun getPermissionRationaleMessage(permission: String) =
         when (permission) {
-            Manifest.permission.CAMERA -> R.string.misnapSampleAppCameraPermissionRationaleMessage
-            Manifest.permission.RECORD_AUDIO -> R.string.misnapSampleAppAudioRecordPermissionRationaleMessage
+            Manifest.permission.CAMERA -> R.string.misnapAppUtilCameraPermissionRationaleMessage
+            Manifest.permission.RECORD_AUDIO -> R.string.misnapAppUtilAudioRecordPermissionRationaleMessage
             else -> 0
         }
 
@@ -361,6 +365,8 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
     private fun applyDocumentTabUiInputToSettings(settings: MiSnapSettings) {
         settings.analysis.apply {
             documentSettingsBinding?.let {
+                motionDetectorSensitivity =
+                    getDeviceMotionSensitivityAt(it.analysisSettings.findViewById<Spinner>(R.id.analysisSettingsDeviceMotionSensitivitySpinner).selectedItemPosition)
                 document.trigger =
                     getTriggerAt(it.documentSettingsTriggerSpinner.selectedItemPosition)
                 document.enableEnhancedManual = it.documentSettingsEnableEnhancedManual.isChecked
@@ -425,6 +431,10 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
                 document.advanced.mrzConfidence = kotlin.runCatching {
                     it.documentSettingsMrzConfidence.text.toString().toInt()
                 }.getOrDefault(document.advanced.getMrzConfidence())
+
+                jpgQuality = kotlin.runCatching {
+                    it.analysisSettings.findViewById<EditText>(R.id.analysisSettingsJpegQuality).text.toString().toInt()
+                }.getOrDefault(getImageQuality(settings.useCase))
             }
         }
     }
@@ -505,34 +515,41 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
     }
 
     private fun applyFaceTabUiInputToSettings(settings: MiSnapSettings) {
-        settings.analysis.face.apply {
+        settings.analysis.apply {
             faceSettingsBinding?.let {
-                trigger =
+                motionDetectorSensitivity =
+                    getDeviceMotionSensitivityAt(it.analysisSettings.findViewById<Spinner>(R.id.analysisSettingsDeviceMotionSensitivitySpinner).selectedItemPosition)
+
+                face.trigger =
                     getFaceTriggerAt(it.faceSettingsTriggerSpinner.selectedItemPosition)
 
-                advanced.triggerDelay = kotlin.runCatching {
+                face.advanced.triggerDelay = kotlin.runCatching {
                     it.faceSettingsTriggerDelay.text.toString().toInt()
-                }.getOrDefault(advanced.getTriggerDelay(requireTrigger()))
+                }.getOrDefault(face.advanced.getTriggerDelay(face.requireTrigger()))
 
-                advanced.minEyesOpenConfidence = kotlin.runCatching {
+                face.advanced.minEyesOpenConfidence = kotlin.runCatching {
                     it.faceSettingsEyesOpenConfidenceThreshold.text.toString().toInt()
-                }.getOrDefault(advanced.getMinEyesOpenConfidence())
+                }.getOrDefault(face.advanced.getMinEyesOpenConfidence())
 
-                advanced.minSmileConfidence = kotlin.runCatching {
+                face.advanced.minSmileConfidence = kotlin.runCatching {
                     it.faceSettingsSmileConfidenceThreshold.text.toString().toInt()
-                }.getOrDefault(advanced.getMinSmileConfidence())
+                }.getOrDefault(face.advanced.getMinSmileConfidence())
 
-                advanced.maxAngle = kotlin.runCatching {
+                face.advanced.maxAngle = kotlin.runCatching {
                     it.faceSettingsMaxAngleThreshold.text.toString().toInt()
-                }.getOrDefault(advanced.getMaxAngle())
+                }.getOrDefault(face.advanced.getMaxAngle())
 
-                advanced.minHorizontalFill = kotlin.runCatching {
+                face.advanced.minHorizontalFill = kotlin.runCatching {
                     it.faceSettingsMinFillThreshold.text.toString().toInt()
-                }.getOrDefault(advanced.getMinHorizontalFill())
+                }.getOrDefault(face.advanced.getMinHorizontalFill())
 
-                advanced.minPadding = kotlin.runCatching {
+                face.advanced.minPadding = kotlin.runCatching {
                     it.faceSettingsMinPaddingThreshold.text.toString().toInt()
-                }.getOrDefault(advanced.getMinPadding())
+                }.getOrDefault(face.advanced.getMinPadding())
+
+                jpgQuality = kotlin.runCatching {
+                    it.analysisSettings.findViewById<EditText>(R.id.analysisSettingsJpegQuality).text.toString().toInt()
+                }.getOrDefault(getImageQuality(settings.useCase))
             }
         }
     }
@@ -559,7 +576,8 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
                 guideViewShowVignette = it.faceWorkflowSettingsShowVignetteBox.isChecked,
                 hintViewShouldShowBackground = it.faceWorkflowSettingsHintViewShowBackground.isChecked,
                 successViewShouldVibrate = it.faceWorkflowSettingsSuccessViewShouldVibrateBox.isChecked,
-                changeGuideViewStateOnFeedback = it.faceWorkflowSettingsChangeGuideViewStateOnFeedbackBox.isChecked
+                changeGuideViewStateOnFeedback = it.faceWorkflowSettingsChangeGuideViewStateOnFeedbackBox.isChecked,
+                lowLightSensitivity = getLowLightSensitivityAt(it.faceWorkflowSettingsLowLightSensitivitySpinner.selectedItemPosition),
             )
 
             settings.workflow.add(
@@ -965,6 +983,9 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
     private fun applySettingsToDocumentTabUi(settings: MiSnapSettings) {
         val isGeneric = settings.useCase == MiSnapSettings.UseCase.GENERIC_DOCUMENT
         documentSettingsBinding?.let {
+            it.analysisSettings.findViewById<Spinner>(R.id.analysisSettingsDeviceMotionSensitivitySpinner).setSelection(
+                settings.analysis.getMotionDetectorSensitivity(settings.useCase).ordinal
+            )
 
             if (settings.analysis.document.trigger == MiSnapSettings.Analysis.Document.Trigger.MANUAL) {
                 it.documentSettingsTriggerSpinner.setSelection(MiSnapSettings.Analysis.Document.Trigger.MANUAL.ordinal)
@@ -1050,6 +1071,11 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
             )
             it.documentSettingsMrzConfidence.setText(
                 settings.analysis.document.advanced.getMrzConfidence()
+                    .toString()
+            )
+
+            it.analysisSettings.findViewById<EditText>(R.id.analysisSettingsJpegQuality).setText(
+                settings.analysis.getImageQuality(settings.useCase)
                     .toString()
             )
         }
@@ -1216,6 +1242,9 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
 
     private fun applySettingsToFaceTabUi(settings: MiSnapSettings) {
         faceSettingsBinding?.let {
+            it.analysisSettings.findViewById<Spinner>(R.id.analysisSettingsDeviceMotionSensitivitySpinner).setSelection(
+                settings.analysis.getMotionDetectorSensitivity(settings.useCase).ordinal
+            )
             //Set the ttigger from the settings, or the default value, the "require" method is not a good fit here.
             settings.analysis.face.trigger?.let { faceTrigger ->
                 it.faceSettingsTriggerSpinner.setSelection(
@@ -1251,6 +1280,11 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
 
             it.faceSettingsSmileConfidenceThreshold.setText(
                 settings.analysis.face.advanced.getMinSmileConfidence().toString()
+            )
+
+            it.analysisSettings.findViewById<EditText>(R.id.analysisSettingsJpegQuality).setText(
+                settings.analysis.getImageQuality(settings.useCase)
+                    .toString()
             )
         }
     }
@@ -1320,6 +1354,13 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
             (workflowSettings?.successViewShouldVibrate
                 ?: defaultWorkflowSettings.successViewShouldVibrate)?.let {
                 binding.faceWorkflowSettingsSuccessViewShouldVibrateBox.isChecked = it
+            }
+
+            (workflowSettings?.lowLightSensitivity
+                ?: defaultWorkflowSettings.lowLightSensitivity)?.let {
+                binding.faceWorkflowSettingsLowLightSensitivitySpinner.setSelection(
+                    getLowLightSensitivityIndex(it)
+                )
             }
 
             (workflowSettings?.changeGuideViewStateOnFeedback
@@ -1579,6 +1620,13 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
             MiSnapSettings.Analysis.Document.ExtractionRequirement.REQUIRED -> 2
         }
 
+    private fun getDeviceMotionSensitivityAt(index: Int) =
+        when (index) {
+            2 -> MiSnapSettings.Analysis.MotionDetectorSensitivity.HIGH
+            1 -> MiSnapSettings.Analysis.MotionDetectorSensitivity.LOW
+            0 -> MiSnapSettings.Analysis.MotionDetectorSensitivity.NONE
+            else -> null
+        }
 
     private fun getBarcodeSpinnerIndex(barcodeType: Int): Int {
         return when (barcodeType) {
@@ -1667,6 +1715,23 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
             FaceAnalysisFragment.ReviewCondition.MANUAL -> 1
             FaceAnalysisFragment.ReviewCondition.WARNINGS -> 2
             FaceAnalysisFragment.ReviewCondition.NEVER -> 3
+        }
+
+    private fun getLowLightSensitivityAt(index: Int) =
+        when (index) {
+            3 -> FaceAnalysisFragment.LowLightSensitivity.HIGH
+            2 -> FaceAnalysisFragment.LowLightSensitivity.MEDIUM
+            1 -> FaceAnalysisFragment.LowLightSensitivity.LOW
+            0 -> FaceAnalysisFragment.LowLightSensitivity.NONE
+            else -> null
+        }
+
+    private fun getLowLightSensitivityIndex(sensitivity: FaceAnalysisFragment.LowLightSensitivity) =
+        when (sensitivity) {
+            FaceAnalysisFragment.LowLightSensitivity.NONE -> 0
+            FaceAnalysisFragment.LowLightSensitivity.LOW -> 1
+            FaceAnalysisFragment.LowLightSensitivity.MEDIUM -> 2
+            FaceAnalysisFragment.LowLightSensitivity.HIGH -> 3
         }
 
     // endregion
@@ -2026,6 +2091,8 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
 
                     override fun onNothingSelected(parent: AdapterView<*>?) {}
                 }
+
+            it.analysisSettings.findViewById<Spinner>(R.id.analysisSettingsDeviceMotionSensitivitySpinner).isEnabled = false
         }
 
         adapter.addView(faceSettingsView, getString(FACE_TAB_TITLE_RES))
@@ -2228,7 +2295,7 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
                 }
                 is CameraUtil.CameraSupportResult.Error -> {
                     // This camera does not support auto or manual,
-                    displayError(R.string.misnapSampleAppCameraErrorMessage)
+                    displayError(R.string.misnapAppUtilCameraErrorMessage)
                 }
             }
         }
@@ -2245,7 +2312,7 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
             MicrophoneUtil.findSupportedMicrophone(requireContext())
 
         if (supportedMicrophoneSupportResult is MicrophoneUtil.MicrophoneSupportResult.Error) {
-            displayError(R.string.misnapSampleAppMicrophoneErrorMessage)
+            displayError(R.string.misnapAppUtilMicrophoneErrorMessage)
         }
     }
 

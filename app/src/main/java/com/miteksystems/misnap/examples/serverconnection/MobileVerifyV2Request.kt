@@ -43,7 +43,7 @@ class MobileVerifyV2RequestActivity : AppCompatActivity() {
              * to the request payload builder first convert the [MiSnapWorkflowActivity.Result] into a
              * [MiSnapTransactionResult].
              */
-            MiSnapWorkflowActivity.Result.results.forEach {
+            MiSnapWorkflowActivity.Result.results.iterator().forEach {
                 when (it) {
                     is MiSnapWorkflowStep.Result.Success -> {
                         when (it.result) {
@@ -59,8 +59,10 @@ class MobileVerifyV2RequestActivity : AppCompatActivity() {
                                 // Add the NFC reading session results.
                                 request.setNfcResult(it.result.toServerResult() as MiSnapTransactionResult.NfcResult)
                             }
+                            else -> {}
                         }
                     }
+                    else -> {}
                 }
             }
 

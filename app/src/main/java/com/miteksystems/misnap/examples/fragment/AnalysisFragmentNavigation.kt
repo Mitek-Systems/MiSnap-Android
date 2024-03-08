@@ -60,6 +60,7 @@ class AnalysisFragmentNavigation : AppCompatActivity(R.layout.example_fragment_n
                         is MiSnapFinalResult.BarcodeSession -> {
 
                         }
+                        else -> {}
                     }
 
                     // Once you're done handling the results, clear them before invoking a new session.

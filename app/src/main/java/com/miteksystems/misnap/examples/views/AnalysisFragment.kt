@@ -143,6 +143,7 @@ class AnalysisFragment : Fragment(R.layout.example_document_analysis) {
                 is ErrorResult.DocumentDetection, is ErrorResult.DocumentAnalysis -> {
 
                 }
+                else -> {}
             }
         }
 
@@ -155,6 +156,7 @@ class AnalysisFragment : Fragment(R.layout.example_document_analysis) {
                 is Event.InitializationError -> {
 
                 }
+                else -> {}
             }
         }
 

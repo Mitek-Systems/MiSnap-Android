@@ -75,6 +75,7 @@ private class FaceAnalysis : Fragment() {
                     is FrameResult.FaceAnalysis -> {
 
                     }
+                    else -> {}
                 }
             }
 
@@ -88,6 +89,7 @@ private class FaceAnalysis : Fragment() {
                 when (result) {
                     is ErrorResult.FaceAnalysis -> {
                     }
+                    else -> {}
                 }
             }
         }

@@ -41,7 +41,7 @@ class MobileVerifyV3DocumentRequestActivity : AppCompatActivity() {
              * to the request payload builder first convert the [MiSnapWorkflowActivity.Result] into a
              * [MiSnapTransactionResult].
              */
-            MiSnapWorkflowActivity.Result.results.forEach {
+            MiSnapWorkflowActivity.Result.results.iterator().forEach {
                 when (it) {
                     is MiSnapWorkflowStep.Result.Success -> {
                         when (it.result) {
@@ -49,8 +49,10 @@ class MobileVerifyV3DocumentRequestActivity : AppCompatActivity() {
                                 // Add the barcode and/or document session results.
                                 request.addDocumentResult(it.result.toServerResult() as MiSnapTransactionResult.DocumentResult)
                             }
+                            else -> {}
                         }
                     }
+                    else -> {}
                 }
             }
 

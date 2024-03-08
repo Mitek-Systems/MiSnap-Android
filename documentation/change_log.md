@@ -1,4 +1,9 @@
-# MiSnap SDK v5.4.1 Change Log
+# MiSnap SDK v5.5.0 Change Log
+
+### **Version 5.4.1**
+#### **Fixed**
+* [NFC] Fixed an issue that prevented the NFC flow from completing in some Android 14 devices.
+* [Document] Fixed an issue that prevented some checks from completing a session in auto mode.
 
 ### **Version 5.4.0**
 #### **Added**

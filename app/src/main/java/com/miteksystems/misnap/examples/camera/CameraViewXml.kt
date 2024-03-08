@@ -72,6 +72,9 @@ class CameraViewXml : Fragment(R.layout.example_camera_view_xml) {
                         is Event.InitializationError.CameraNotAvailable -> {
 
                         }
+                        else -> {
+                            //Nothing to do
+                        }
                     }
                 }
 

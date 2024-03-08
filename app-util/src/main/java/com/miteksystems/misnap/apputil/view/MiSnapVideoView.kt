@@ -611,7 +611,9 @@ class MiSnapVideoView @JvmOverloads constructor(
     override fun start() {
         if (isInPlaybackState) {
             mMediaPlayer!!.start()
-            showMediaControls()
+            handler.postDelayed({
+                showMediaControls()
+            }, MEDIA_CONTROL_SHOW_DELAY)
             mCurrentState = MediaPlayerState.PLAYING
         }
         mTargetState = MediaPlayerState.PLAYING
@@ -652,11 +654,15 @@ class MiSnapVideoView @JvmOverloads constructor(
             return
         }
 
-        mSeekWhenPrepared = if (isInPlaybackState) {
-            mMediaPlayer!!.seekTo(msec)
-            0
-        } else {
-            msec
+        try {
+            mSeekWhenPrepared = if (isInPlaybackState) {
+                mMediaPlayer!!.seekTo(msec)
+                0
+            } else {
+                msec
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
         }
     }
 
@@ -696,9 +702,8 @@ class MiSnapVideoView @JvmOverloads constructor(
 
     private companion object {
         private const val TAG = "MiSnapVideoView"
-
-        //FIXME: MediaController sometimes throws an exception when using the seekbar.
-        private const val SEEKBAR_ENABLED = false
+        private const val SEEKBAR_ENABLED = true
+        private const val MEDIA_CONTROL_SHOW_DELAY = 200L
 
         // all possible internal states
         private enum class MediaPlayerState {

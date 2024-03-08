@@ -1,4 +1,4 @@
-# MiSnap SDK v5.4.1 Download Sizes
+# MiSnap SDK v5.5.0 Download Sizes
 
 The following tables provide the APK download size for various SDK configurations. These values represent
 the maximum size increase, however due to potential shared dependencies the actual increase in size may
@@ -10,12 +10,12 @@ These sizes include the UI and represent an "out of the box" integration.
 <!-- USECASE_SIZE_TABLE_START -->
 | Use Case                         | armeabi_v7a | arm64_v8a | All Arm ABIs | x86   | x86_64 | All x86 ABIs | All ABIs | 
 | :------------------------------- | ----------: | --------: | -----------: | ----: | -----: | -----------: | -------: |
-| Document                         | 5.39        | 5.55      | 6.5          | 5.66  | 5.67   | 6.9          | 8.97     | 
-| Document and Barcode             | 6.59        | 6.81      | 8.95         | 6.94  | 7.03   | 9.53         | 14.03    | 
-| Document and Biometric           | 12.55       | 13.29     | 16.96        | 14.0  | 13.96  | 19.08        | 27.15    | 
-| Document, Barcode, and Biometric | 13.75       | 14.54     | 19.4         | 15.27 | 15.31  | 21.69        | 32.21    | 
-| Document, Biometric, and NFC     | 16.16       | 17.27     | 22.87        | 17.91 | 17.81  | 25.16        | 37.48    | 
-| Document Classification          | 12.05       | 13.31     | 19.11        | 13.67 | 13.52  | 20.94        | 33.8     | 
+| Document                         | 5.65        | 5.82      | 6.77         | 5.93  | 5.94   | 7.17         | 9.24     | 
+| Document and Barcode             | 6.85        | 7.07      | 9.21         | 7.2   | 7.3    | 9.79         | 14.3     | 
+| Document and Biometric           | 12.81       | 13.55     | 17.22        | 14.26 | 14.22  | 19.34        | 27.42    | 
+| Document, Barcode, and Biometric | 14.01       | 14.81     | 19.67        | 15.54 | 15.57  | 21.96        | 32.48    | 
+| Document, Biometric, and NFC     | 16.41       | 17.52     | 23.13        | 18.17 | 18.07  | 25.43        | 37.74    | 
+| Document Classification          | 12.3        | 13.56     | 19.37        | 13.92 | 13.77  | 21.19        | 34.06    | 
 <!-- USECASE_SIZE_TABLE_END -->
 
 ### **Feature Sizes**
@@ -23,12 +23,12 @@ UI size listed separately from other features.
 <!-- SCIENCE_SIZE_TABLE_START -->
 | Feature       | armeabi_v7a | arm64_v8a | All Arm ABIs | x86   | x86_64 | All x86 ABIs | All ABIs | 
 | :------------ | ----------: | --------: | -----------: | ----: | -----: | -----------: | -------: |
-| Document      | 3.35        | 3.51      | 4.46         | 3.63  | 3.64   | 4.86         | 6.93     | 
-| Barcode       | 3.97        | 4.08      | 5.67         | 4.18  | 4.25   | 6.05         | 9.34     | 
-| Face          | 9.02        | 9.51      | 12.3         | 10.14 | 10.06  | 13.96        | 20.03    | 
-| Voice         | 3.2         | 3.4       | 4.11         | 3.53  | 3.52   | 4.55         | 6.17     | 
-| Classifier    | 9.94        | 11.2      | 17.0         | 11.55 | 11.41  | 18.82        | 31.68    | 
-| NFC           | 4.19        | 4.27      | 4.78         | 4.36  | 4.36   | 5.05         | 6.15     | 
-| Combined NFC  | 7.0         | 7.53      | 10.41        | 7.57  | 7.53   | 10.99        | 17.29    | 
-| Workflow (UI) | 4.32        | 4.37      | 4.76         | 4.45  | 4.43   | 4.95         | 5.77     | 
+| Document      | 3.46        | 3.63      | 4.58         | 3.74  | 3.75   | 4.99         | 7.05     | 
+| Barcode       | 4.09        | 4.2       | 5.79         | 4.3   | 4.37   | 6.17         | 9.46     | 
+| Face          | 9.14        | 9.64      | 12.42        | 10.26 | 10.18  | 14.09        | 20.16    | 
+| Voice         | 3.22        | 3.42      | 4.13         | 3.55  | 3.54   | 4.57         | 6.2      | 
+| Classifier    | 10.06       | 11.32     | 17.13        | 11.68 | 11.53  | 18.95        | 31.81    | 
+| NFC           | 4.21        | 4.29      | 4.8          | 4.39  | 4.38   | 5.07         | 6.17     | 
+| Combined NFC  | 7.12        | 7.65      | 10.54        | 7.7   | 7.65   | 11.12        | 17.42    | 
+| Workflow (UI) | 4.52        | 4.58      | 4.96         | 4.65  | 4.64   | 5.15         | 5.98     | 
 <!-- SCIENCE_SIZE_TABLE_END -->

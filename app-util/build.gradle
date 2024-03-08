@@ -27,6 +27,11 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+    buildFeatures {
+        viewBinding true
+    }
+
     compileOptions {
         sourceCompatibility jdkVersion
         targetCompatibility jdkVersion
@@ -35,6 +40,9 @@ android {
 
 dependencies {
     api "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion"
-
     api "com.google.android.material:material:$materialDesignVersion"
+    api "androidx.databinding:viewbinding:$viewbindingVersion"
+
+    implementation "com.miteksystems.misnap:core:$misnapVersion"
+    implementation "com.miteksystems.misnap:workflow:$misnapVersion"
 }

@@ -1,4 +1,4 @@
-# MiSnap SDK v5.4.1 Customization Guide
+# MiSnap SDK v5.5.0 Customization Guide
 While many of the customization options mentioned in this guide may be applicable to other MiSnap integration types, this guide focuses on customization options for the [activity-based integration](./activity_integration_guide.md).
 
 # Table of Contents
@@ -561,6 +561,12 @@ The following list is a collection of things to look out for while customizing t
     * Large enough to fit the target document but not too large that it's closer to the edges of the device.
 
 * When enabling the vignette effect in a `GuideView` whose drawable is not rectangle-shaped, ensure that the drawable design includes the vignette. Please see `drawable/example_guideview_oval.xml` for reference.
+
+* When using a custom `GuideView` drawable in a face analysis session using the `FaceAnalysisFragment` ensure that the guide color is stateful using a `Selector` and the `android:state_enabled` attribute if you want the guide color to change based on the image quality status. Please see `color_face_session_guide.xml` for reference.
+
+* When using the `lowLightSensitivity` feature for a face analysis session using the `FaceAnalysisFragment` :
+  * Ensure that the `guideViewShowVignette` is set to `true`.
+  * To customize the `GuideView` and use this feature use a [resource override](#through-resource-overrides) approach to override the `misnap_guide_face.xml` drawable and `misnap_guide_face_low_light_conditions.xml`.
 
 * Keeping hint messages concise will ensure that the messages are easier to understand.
 

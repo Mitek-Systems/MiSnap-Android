@@ -148,4 +148,15 @@
             android:maxLength="4" />
     </com.google.android.material.textfield.TextInputLayout>
 
+    <LinearLayout
+        android:id="@+id/analysisSettings"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/faceSettingsFaceSmileConfidenceThresholdContainer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+        <include layout="@layout/analysis_settings" />
+    </LinearLayout>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

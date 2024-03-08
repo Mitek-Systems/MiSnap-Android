@@ -41,7 +41,7 @@ class FaceComparisonV3RequestActivity : AppCompatActivity() {
              * to the request payload builder first convert the [MiSnapWorkflowActivity.Result] into a
              * [MiSnapTransactionResult].
              */
-            MiSnapWorkflowActivity.Result.results.forEach {
+            MiSnapWorkflowActivity.Result.results.iterator().forEach {
                 when (it) {
                     is MiSnapWorkflowStep.Result.Success -> {
                         when (it.result) {
@@ -53,8 +53,10 @@ class FaceComparisonV3RequestActivity : AppCompatActivity() {
                                 // Add the face session results.
                                 request.addFaceResult(it.result.toServerResult() as MiSnapTransactionResult.FaceResult)
                             }
+                            else -> {}
                         }
                     }
+                    else -> {}
                 }
             }
 

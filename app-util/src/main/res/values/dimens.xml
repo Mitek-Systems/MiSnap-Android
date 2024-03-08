@@ -3,4 +3,8 @@
     <dimen name="misnapAppUtilViewPagerHorizontalMargin">16dp</dimen>
     <dimen name="misnapAppUtilViewPagerVerticalMargin">16dp</dimen>
     <dimen name="misnapAppUtilJsonViewerTextSize">16sp</dimen>
+
+    <dimen name="misnapAppUtilLayoutHorizontalMargin">16dp</dimen>
+    <dimen name="misnapAppUtilLayoutVerticalMargin">16dp</dimen>
+    <dimen name="misnapAppUtilSpaceDefault">8dp</dimen>
 </resources>

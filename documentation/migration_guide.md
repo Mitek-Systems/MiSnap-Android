@@ -1,4 +1,4 @@
-# MiSnap SDK v5.4.1 Migration Guide
+# MiSnap SDK v5.5.0 Migration Guide
 
 ## Upgrading the MiSnap SDK from v5.3.x to v5.4.0
 ### API Changes

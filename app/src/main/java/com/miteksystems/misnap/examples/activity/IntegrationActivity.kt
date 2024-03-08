@@ -125,6 +125,7 @@ class IntegrationActivity : AppCompatActivity() {
                                 val mibiData = result.misnapMibiData
                                 val phrase = result.phrase
                                 val wavAudioListBytes = result.voiceSamples
+                                val rtsList = result.rts
                             }
                         }
                     }
@@ -140,6 +141,7 @@ class IntegrationActivity : AppCompatActivity() {
                             }
                             is MiSnapWorkflowError.Cancelled -> {
                             }
+                            else -> {}
                         }
                     }
                 }

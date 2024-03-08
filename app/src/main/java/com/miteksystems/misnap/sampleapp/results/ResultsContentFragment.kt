@@ -1,44 +1,30 @@
 package com.miteksystems.misnap.sampleapp.results
 
-import android.content.ClipData
-import android.content.ClipboardManager
-import android.content.Context
 import android.graphics.BitmapFactory
-import android.graphics.Typeface
-import android.util.TypedValue
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
-import android.widget.MediaController
 import android.widget.TextView
-import android.widget.Toast
-import androidx.appcompat.content.res.AppCompatResources
-import androidx.core.text.HtmlCompat
 import androidx.core.view.children
-import androidx.core.widget.TextViewCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager.widget.ViewPager
 import androidx.viewpager.widget.ViewPager.SimpleOnPageChangeListener
-import com.google.android.material.button.MaterialButton
-import com.google.android.material.textview.MaterialTextView
 import com.miteksystems.misnap.R
 import com.miteksystems.misnap.apputil.ViewPageAdapter
-import com.miteksystems.misnap.apputil.view.JsonView
+import com.miteksystems.misnap.apputil.util.ViewUtil
 import com.miteksystems.misnap.apputil.view.MiSnapAudioView
 import com.miteksystems.misnap.apputil.view.MiSnapVideoView
-import com.miteksystems.misnap.apputil.view.TouchImageView
-import com.miteksystems.misnap.core.*
-import com.miteksystems.misnap.databinding.FragmentResultContentBinding
+import com.miteksystems.misnap.apputil.databinding.FragmentResultContentBinding
+import com.miteksystems.misnap.apputil.util.ResultsUtil
 import com.miteksystems.misnap.nfc.MiSnapNfcReader
 import com.miteksystems.misnap.nfc.MiSnapNfcReader.ChipData.AuthenticationData
 import com.miteksystems.misnap.voice.AudioUtil
 import com.miteksystems.misnap.workflow.MiSnapFinalResult
 import com.miteksystems.misnap.workflow.MiSnapWorkflowStep
 import com.miteksystems.misnap.workflow.util.ViewBindingUtil
-import org.apache.commons.imaging.formats.tiff.constants.ExifTagConstants
 
 class ResultsContentFragment : Fragment(R.layout.fragment_result_content) {
     private val binding by ViewBindingUtil.viewBinding(
@@ -61,120 +47,154 @@ class ResultsContentFragment : Fragment(R.layout.fragment_result_content) {
                         when (val misnapResult = miSnapWorkflowStepResult.result) {
                             is MiSnapFinalResult.DocumentSession -> {
                                 adapter.addView(
-                                    getFinalFrameView(misnapResult.jpegImage),
-                                    getString(R.string.misnapSampleAppResultsFrameTabTitle)
+                                    ViewUtil.getFinalFrameView(
+                                        misnapResult.jpegImage,
+                                        requireContext()
+                                    ),
+                                    getString(R.string.misnapAppUtilResultsFrameTabTitle)
                                 )
 
                                 misnapResult.video?.let {
                                     adapter.addView(
-                                        getMiSnapVideoView(it),
-                                        getString(R.string.misnapSampleAppResultsVideoTabTitle)
+                                        ViewUtil.getMiSnapVideoView(it, requireContext()),
+                                        getString(R.string.misnapAppUtilResultsVideoTabTitle)
                                     )
                                 }
 
                                 if (misnapResult.warnings.isNotEmpty()) {
                                     adapter.addView(
-                                        getWarningsView(misnapResult.warnings),
-                                        getString(R.string.misnapSampleAppResultsWarningsTabTitle)
+                                        ViewUtil.getWarningsView(
+                                            misnapResult.warnings,
+                                            requireContext()
+                                        ),
+                                        getString(R.string.misnapAppUtilResultsWarningsTabTitle)
                                     )
                                 }
 
                                 misnapResult.extraction?.let {
                                     adapter.addView(
-                                        getExtractionView(it),
-                                        getString(R.string.misnapSampleAppResultsExtractionTabTitle)
+                                        ViewUtil.getExtractionView(it, requireContext()),
+                                        getString(R.string.misnapAppUtilResultsExtractionTabTitle)
                                     )
                                 }
 
                                 misnapResult.classification?.let {
                                     adapter.addView(
-                                        getGenericTextView(it.documentType.name),
-                                        getString(R.string.misnapSampleAppResultsDocumentClassificationTabTitle)
+                                        ViewUtil.getGenericTextView(
+                                            it.documentType.name,
+                                            requireContext()
+                                        ),
+                                        getString(R.string.misnapAppUtilResultsDocumentClassificationTabTitle)
                                     )
                                 }
 
                                 misnapResult.barcode?.let {
                                     adapter.addView(
-                                        getBarcodeView(it),
-                                        getString(R.string.misnapSampleAppResultsBarcodeTabTitle)
+                                        ViewUtil.getBarcodeView(it, requireContext()),
+                                        getString(R.string.misnapAppUtilResultsBarcodeTabTitle)
                                     )
                                 }
 
                                 adapter.addView(
-                                    getMiBiDataView(misnapResult.jpegImage),
-                                    getString(R.string.misnapSampleAppResultsMibiTabTitle)
+                                    ViewUtil.getMiBiDataView(
+                                        misnapResult.jpegImage,
+                                        requireContext()
+                                    ),
+                                    getString(R.string.misnapAppUtilResultsMibiTabTitle)
                                 )
                             }
+
                             is MiSnapFinalResult.BarcodeSession -> {
                                 adapter.addView(
-                                    getFinalFrameView(misnapResult.jpegImage),
-                                    getString(R.string.misnapSampleAppResultsFrameTabTitle)
+                                    ViewUtil.getFinalFrameView(
+                                        misnapResult.jpegImage,
+                                        requireContext()
+                                    ),
+                                    getString(R.string.misnapAppUtilResultsFrameTabTitle)
                                 )
 
                                 misnapResult.video?.let {
                                     adapter.addView(
-                                        getMiSnapVideoView(it),
-                                        getString(R.string.misnapSampleAppResultsVideoTabTitle)
+                                        ViewUtil.getMiSnapVideoView(it, requireContext()),
+                                        getString(R.string.misnapAppUtilResultsVideoTabTitle)
                                     )
                                 }
 
                                 if (misnapResult.warnings.isNotEmpty()) {
                                     adapter.addView(
-                                        getWarningsView(misnapResult.warnings),
-                                        getString(R.string.misnapSampleAppResultsWarningsTabTitle)
+                                        ViewUtil.getWarningsView(
+                                            misnapResult.warnings,
+                                            requireContext()
+                                        ),
+                                        getString(R.string.misnapAppUtilResultsWarningsTabTitle)
                                     )
                                 }
 
                                 misnapResult.barcode?.let {
                                     adapter.addView(
-                                        getBarcodeView(it),
-                                        getString(R.string.misnapSampleAppResultsBarcodeTabTitle)
+                                        ViewUtil.getBarcodeView(it, requireContext()),
+                                        getString(R.string.misnapAppUtilResultsBarcodeTabTitle)
                                     )
                                 }
 
                                 adapter.addView(
-                                    getMiBiDataView(misnapResult.jpegImage),
-                                    getString(R.string.misnapSampleAppResultsMibiTabTitle)
+                                    ViewUtil.getMiBiDataView(
+                                        misnapResult.jpegImage,
+                                        requireContext()
+                                    ),
+                                    getString(R.string.misnapAppUtilResultsMibiTabTitle)
                                 )
                             }
+
                             is MiSnapFinalResult.FaceSession -> {
                                 adapter.addView(
-                                    getFinalFrameView(misnapResult.jpegImage),
-                                    getString(R.string.misnapSampleAppResultsFrameTabTitle)
+                                    ViewUtil.getFinalFrameView(
+                                        misnapResult.jpegImage,
+                                        requireContext()
+                                    ),
+                                    getString(R.string.misnapAppUtilResultsFrameTabTitle)
                                 )
 
                                 misnapResult.video?.let {
                                     adapter.addView(
-                                        getMiSnapVideoView(it),
-                                        getString(R.string.misnapSampleAppResultsVideoTabTitle)
+                                        ViewUtil.getMiSnapVideoView(it, requireContext()),
+                                        getString(R.string.misnapAppUtilResultsVideoTabTitle)
                                     )
                                 }
 
                                 if (misnapResult.warnings.isNotEmpty()) {
                                     adapter.addView(
-                                        getWarningsView(misnapResult.warnings),
-                                        getString(R.string.misnapSampleAppResultsWarningsTabTitle)
+                                        ViewUtil.getWarningsView(
+                                            misnapResult.warnings,
+                                            requireContext()
+                                        ),
+                                        getString(R.string.misnapAppUtilResultsWarningsTabTitle)
                                     )
                                 }
 
                                 adapter.addView(
-                                    getMiBiDataView(misnapResult.jpegImage),
-                                    getString(R.string.misnapSampleAppResultsMibiTabTitle)
+                                    ViewUtil.getMiBiDataView(
+                                        misnapResult.jpegImage,
+                                        requireContext()
+                                    ),
+                                    getString(R.string.misnapAppUtilResultsMibiTabTitle)
                                 )
                             }
+
                             is MiSnapFinalResult.NfcSession -> {
                                 adapter.addView(
                                     getNfcResultsView(misnapResult.nfcData),
-                                    getString(R.string.misnapSampleAppResultsNfcResultsTabTitle)
+                                    getString(R.string.misnapAppUtilResultsNfcResultsTabTitle)
                                 )
 
                                 val jpeg = getNfcImageByteArray(misnapResult.nfcData)
 
                                 adapter.addView(
-                                    getMiBiDataView(jpeg),
-                                    getString(R.string.misnapSampleAppResultsMibiTabTitle)
+                                    ViewUtil.getMiBiDataView(jpeg, requireContext()),
+                                    getString(R.string.misnapAppUtilResultsMibiTabTitle)
                                 )
                             }
+
                             is MiSnapFinalResult.VoiceSession -> {
                                 misnapResult.voiceSamples.forEachIndexed { index, audio ->
                                     val voiceLayoutBinding =
@@ -183,19 +203,23 @@ class ResultsContentFragment : Fragment(R.layout.fragment_result_content) {
                                     voiceLayoutBinding.viewPager.also { pager ->
                                         pager.adapter = ViewPageAdapter().also { adapter ->
                                             adapter.addView(
-                                                getMiSnapAudioView(
+                                                ViewUtil.getMiSnapAudioView(
                                                     // NOTE: This is for demo purposes only. Please do not boost wav file audio before sending to MobileVerify server.
                                                     AudioUtil.boostWavVolume(
                                                         audio,
                                                         25,
                                                         misnapResult.misnapMibiData[index]
-                                                    )
+                                                    ),
+                                                    requireContext()
                                                 ),
-                                                getString(R.string.misnapSampleAppResultsVoiceAudioTabTitle)
+                                                getString(R.string.misnapAppUtilResultsVoiceAudioTabTitle)
                                             )
                                             adapter.addView(
-                                                getMiBiDataView(misnapResult.misnapMibiData[index].mibiData),
-                                                getString(R.string.misnapSampleAppResultsMibiTabTitle)
+                                                ViewUtil.getMiBiDataView(
+                                                    misnapResult.misnapMibiData[index].mibiData,
+                                                    requireContext()
+                                                ),
+                                                getString(R.string.misnapAppUtilResultsMibiTabTitle)
                                             )
                                         }
 
@@ -217,7 +241,7 @@ class ResultsContentFragment : Fragment(R.layout.fragment_result_content) {
                                     adapter.addView(
                                         voiceLayoutBinding.root,
                                         String.format(
-                                            getString(R.string.misnapSampleAppResultsVoiceTabTitle),
+                                            getString(R.string.misnapAppUtilResultsVoiceTabTitle),
                                             index + 1
                                         )
                                     )
@@ -225,17 +249,22 @@ class ResultsContentFragment : Fragment(R.layout.fragment_result_content) {
                             }
                         }
                     }
+
                     is MiSnapWorkflowStep.Result.Error -> {
                         adapter.addView(
-                            getGenericTextView(
-                                getString(getErrorMessageId(miSnapWorkflowStepResult)),
+                            ViewUtil.getGenericTextView(
+                                getString(ResultsUtil.getErrorMessageId(miSnapWorkflowStepResult)),
+                                requireContext(),
                                 Gravity.CENTER
                             ),
-                            getString(R.string.misnapSampleAppResultsErrorTabTitle)
+                            getString(R.string.misnapAppUtilResultsErrorTabTitle)
                         )
                         adapter.addView(
-                            getMiBiDataView(miSnapWorkflowStepResult.errorResult.misnapMibiData.mibiData),
-                            getString(R.string.misnapSampleAppResultsMibiTabTitle)
+                            ViewUtil.getMiBiDataView(
+                                miSnapWorkflowStepResult.errorResult.misnapMibiData.mibiData,
+                                requireContext()
+                            ),
+                            getString(R.string.misnapAppUtilResultsMibiTabTitle)
                         )
                     }
                 }
@@ -267,15 +296,19 @@ class ResultsContentFragment : Fragment(R.layout.fragment_result_content) {
                     when (view) {
                         is MiSnapVideoView -> {
                             if (view.isPlaying) {
+                                view.seekTo(0)
                                 view.pause()
                             }
                         }
+
                         is MiSnapAudioView -> {
                             if (view.isPlaying) {
+                                view.seekTo(0)
                                 view.pause()
                             }
                             view.hideMediaControls()
                         }
+
                         else -> {
                             // search for inner viewpager and look for MiSnapVideoView to pause
                             view.findViewById<ViewPager>(R.id.viewPager)
@@ -284,9 +317,11 @@ class ResultsContentFragment : Fragment(R.layout.fragment_result_content) {
                                         ?.getChildAt(0)
                                         ?.let {
                                             if (it is MiSnapVideoView && it.isPlaying) {
+                                                it.seekTo(0)
                                                 it.pause()
                                             } else if (it is MiSnapAudioView) {
                                                 if (it.isPlaying) {
+                                                    it.seekTo(0)
                                                     it.pause()
                                                 }
                                                 it.hideMediaControls()
@@ -306,10 +341,11 @@ class ResultsContentFragment : Fragment(R.layout.fragment_result_content) {
                     is MiSnapVideoView -> {
                         view.start()
                     }
+
                     is MiSnapAudioView -> {
                         view.start()
-                        view.showMediaControls()
                     }
+
                     is ViewGroup -> {
                         // search for inner viewpager and look for MiSnapVideoView to play
                         view.children.filterIsInstance<ViewPager>().toList()
@@ -339,6 +375,7 @@ class ResultsContentFragment : Fragment(R.layout.fragment_result_content) {
             is MiSnapNfcReader.ChipData.Icao -> {
                 setIcaoResults(nfcResult, nfcResultsView)
             }
+
             is MiSnapNfcReader.ChipData.EuDl -> {
                 setEuDlResults(nfcResult, nfcResultsView)
             }
@@ -359,119 +396,142 @@ class ResultsContentFragment : Fragment(R.layout.fragment_result_content) {
 
         //Set the nfc data
         nfcResultsView.findViewById<LinearLayout>(R.id.nfcChipDataContainer).apply {
-            addNfcDataEntry(
+            ViewUtil.addNfcDataEntry(
+                requireContext(),
                 this,
-                getString(R.string.misnapSampleAppResultsNfcFirstNameLabel),
+                getString(R.string.misnapAppUtilResultsNfcFirstNameLabel),
                 nfcData.firstName
             )
-            addNfcDataEntry(
+            ViewUtil.addNfcDataEntry(
+                requireContext(),
                 this,
-                getString(R.string.misnapSampleAppResultsNfcLastNameLabel),
+                getString(R.string.misnapAppUtilResultsNfcLastNameLabel),
                 nfcData.lastName
             )
-            addNfcDataEntry(
+            ViewUtil.addNfcDataEntry(
+                requireContext(),
                 this,
-                getString(R.string.misnapSampleAppResultsNfcDocumentNumberLabel),
+                getString(R.string.misnapAppUtilResultsNfcDocumentNumberLabel),
                 nfcData.documentNumber
             )
-            addNfcDataEntry(
+            ViewUtil.addNfcDataEntry(
+                requireContext(),
                 this,
-                getString(R.string.misnapSampleAppResultsNfcDocumentCodeLabel),
+                getString(R.string.misnapAppUtilResultsNfcDocumentCodeLabel),
                 nfcData.documentCode
             )
-            addNfcDataEntry(
+            ViewUtil.addNfcDataEntry(
+                requireContext(),
                 this,
-                getString(R.string.misnapSampleAppResultsNfcMrzLabel),
+                getString(R.string.misnapAppUtilResultsNfcMrzLabel),
                 nfcData.mrz
             )
-            addNfcDataEntry(
+            ViewUtil.addNfcDataEntry(
+                requireContext(),
                 this,
-                getString(R.string.misnapSampleAppResultsNfcIssuingCountryLabel),
+                getString(R.string.misnapAppUtilResultsNfcIssuingCountryLabel),
                 nfcData.issuingCountry
             )
-            addNfcDataEntry(
+            ViewUtil.addNfcDataEntry(
+                requireContext(),
                 this,
-                getString(R.string.misnapSampleAppResultsNfcNationalityLabel),
+                getString(R.string.misnapAppUtilResultsNfcNationalityLabel),
                 nfcData.nationality
             )
-            addNfcDataEntry(
+            ViewUtil.addNfcDataEntry(
+                requireContext(),
                 this,
-                getString(R.string.misnapSampleAppResultsNfcGenderLabel),
+                getString(R.string.misnapAppUtilResultsNfcGenderLabel),
                 nfcData.gender
             )
-            addNfcDataEntry(
+            ViewUtil.addNfcDataEntry(
+                requireContext(),
                 this,
-                getString(R.string.misnapSampleAppResultsNfcPlaceOfBirthLabel),
+                getString(R.string.misnapAppUtilResultsNfcPlaceOfBirthLabel),
                 nfcData.placeOfBirth
             )
-            addNfcDataEntry(
+            ViewUtil.addNfcDataEntry(
+                requireContext(),
                 this,
-                getString(R.string.misnapSampleAppResultsNfcDateOfBirthLabel),
+                getString(R.string.misnapAppUtilResultsNfcDateOfBirthLabel),
                 nfcData.dateOfBirth
             )
-            addNfcDataEntry(
+            ViewUtil.addNfcDataEntry(
+                requireContext(),
                 this,
-                getString(R.string.misnapSampleAppResultsNfcExpirationDateLabel),
+                getString(R.string.misnapAppUtilResultsNfcExpirationDateLabel),
                 nfcData.dateOfExpiry
             )
-            addNfcDataEntry(
+            ViewUtil.addNfcDataEntry(
+                requireContext(),
                 this,
-                getString(R.string.misnapSampleAppResultsNfcDateOfIssueLabel),
+                getString(R.string.misnapAppUtilResultsNfcDateOfIssueLabel),
                 nfcData.dateOfIssue
             )
-            addNfcDataEntry(
+            ViewUtil.addNfcDataEntry(
+                requireContext(),
                 this,
-                getString(R.string.misnapSampleAppResultsNfcIssuingAuthorityLabel),
+                getString(R.string.misnapAppUtilResultsNfcIssuingAuthorityLabel),
                 nfcData.issuingAuthority
             )
-            addNfcDataEntry(
+            ViewUtil.addNfcDataEntry(
+                requireContext(),
                 this,
-                getString(R.string.misnapSampleAppResultsNfcOtherNamesLabel),
+                getString(R.string.misnapAppUtilResultsNfcOtherNamesLabel),
                 nfcData.otherNames?.joinToString()
             )
-            addNfcDataEntry(
+            ViewUtil.addNfcDataEntry(
+                requireContext(),
                 this,
-                getString(R.string.misnapSampleAppResultsNfcAddressLabel),
+                getString(R.string.misnapAppUtilResultsNfcAddressLabel),
                 nfcData.address?.joinToString()
             )
-            addNfcDataEntry(
+            ViewUtil.addNfcDataEntry(
+                requireContext(),
                 this,
-                getString(R.string.misnapSampleAppResultsNfcTelephoneLabel),
+                getString(R.string.misnapAppUtilResultsNfcTelephoneLabel),
                 nfcData.telephone
             )
-            addNfcDataEntry(
+            ViewUtil.addNfcDataEntry(
+                requireContext(),
                 this,
-                getString(R.string.misnapSampleAppResultsNfcPersonalNumberLabel),
+                getString(R.string.misnapAppUtilResultsNfcPersonalNumberLabel),
                 nfcData.personalNumber
             )
-            addNfcDataEntry(
+            ViewUtil.addNfcDataEntry(
+                requireContext(),
                 this,
-                getString(R.string.misnapSampleAppResultsNfcProfessionLabel),
+                getString(R.string.misnapAppUtilResultsNfcProfessionLabel),
                 nfcData.profession
             )
-            addNfcDataEntry(
+            ViewUtil.addNfcDataEntry(
+                requireContext(),
                 this,
-                getString(R.string.misnapSampleAppResultsNfcTitleLabel),
+                getString(R.string.misnapAppUtilResultsNfcTitleLabel),
                 nfcData.title
             )
-            addNfcDataEntry(
+            ViewUtil.addNfcDataEntry(
+                requireContext(),
                 this,
-                getString(R.string.misnapSampleAppResultsNfcPersonalSummaryLabel),
+                getString(R.string.misnapAppUtilResultsNfcPersonalSummaryLabel),
                 nfcData.personalSummary
             )
-            addNfcDataEntry(
+            ViewUtil.addNfcDataEntry(
+                requireContext(),
                 this,
-                getString(R.string.misnapSampleAppResultsNfcOtherTravelDocNumbersLabel),
+                getString(R.string.misnapAppUtilResultsNfcOtherTravelDocNumbersLabel),
                 nfcData.otherTravelDocumentNumbers?.joinToString()
             )
-            addNfcDataEntry(
+            ViewUtil.addNfcDataEntry(
+                requireContext(),
                 this,
-                getString(R.string.misnapSampleAppResultsNfcCustodyInfoLabel),
+                getString(R.string.misnapAppUtilResultsNfcCustodyInfoLabel),
                 nfcData.custodyInfo
             )
-            addNfcDataEntry(
+            ViewUtil.addNfcDataEntry(
+                requireContext(),
                 this,
-                getString(R.string.misnapSampleAppResultsNfcDataGroupsReadLabel),
+                getString(R.string.misnapAppUtilResultsNfcDataGroupsReadLabel),
                 nfcData.dataGroupsRead.joinToString()
             )
         }
@@ -479,19 +539,22 @@ class ResultsContentFragment : Fragment(R.layout.fragment_result_content) {
         //Set the auth data
         nfcResultsView.findViewById<LinearLayout>(R.id.nfcAuthDataContainer).apply {
             val authData: AuthenticationData = nfcData.authenticationData
-            addNfcDataEntry(
+            ViewUtil.addNfcDataEntry(
+                requireContext(),
                 this,
-                getString(R.string.misnapSampleAppResultsNfcSODPresentLabel),
+                getString(R.string.misnapAppUtilResultsNfcSODPresentLabel),
                 (authData.sod.isNotEmpty()).toString()
             )
-            addNfcDataEntry(
+            ViewUtil.addNfcDataEntry(
+                requireContext(),
                 this,
-                getString(R.string.misnapSampleAppResultsNfcDataGroupsForPassiveAuthenticationLabel),
+                getString(R.string.misnapAppUtilResultsNfcDataGroupsForPassiveAuthenticationLabel),
                 authData.dataGroups.keys.joinToString(separator = "\n")
             )
-            addNfcDataEntry(
+            ViewUtil.addNfcDataEntry(
+                requireContext(),
                 this,
-                getString(R.string.misnapSampleAppResultsNfcActiveAuthenticationSupportedLabel),
+                getString(R.string.misnapAppUtilResultsNfcActiveAuthenticationSupportedLabel),
                 (authData.activeAuthInfo != null).toString()
             )
         }
@@ -509,88 +572,104 @@ class ResultsContentFragment : Fragment(R.layout.fragment_result_content) {
 
         //Set the nfc data
         nfcResultsView.findViewById<LinearLayout>(R.id.nfcChipDataContainer).apply {
-            addNfcDataEntry(
+            ViewUtil.addNfcDataEntry(
+                requireContext(),
                 this,
-                getString(R.string.misnapSampleAppResultsNfcFirstNameLabel),
+                getString(R.string.misnapAppUtilResultsNfcFirstNameLabel),
                 nfcData.firstName
             )
-            addNfcDataEntry(
+            ViewUtil.addNfcDataEntry(
+                requireContext(),
                 this,
-                getString(R.string.misnapSampleAppResultsNfcLastNameLabel),
+                getString(R.string.misnapAppUtilResultsNfcLastNameLabel),
                 nfcData.lastName
             )
-            addNfcDataEntry(
+            ViewUtil.addNfcDataEntry(
+                requireContext(),
                 this,
-                getString(R.string.misnapSampleAppResultsNfcDocumentNumberLabel),
+                getString(R.string.misnapAppUtilResultsNfcDocumentNumberLabel),
                 nfcData.documentNumber
             )
-            addNfcDataEntry(
+            ViewUtil.addNfcDataEntry(
+                requireContext(),
                 this,
-                getString(R.string.misnapSampleAppResultsNfcDocumentCodeLabel),
+                getString(R.string.misnapAppUtilResultsNfcDocumentCodeLabel),
                 nfcData.documentCode
             )
-            addNfcDataEntry(
+            ViewUtil.addNfcDataEntry(
+                requireContext(),
                 this,
-                getString(R.string.misnapSampleAppResultsNfcMrzLabel),
+                getString(R.string.misnapAppUtilResultsNfcMrzLabel),
                 nfcData.mrz
             )
-            addNfcDataEntry(
+            ViewUtil.addNfcDataEntry(
+                requireContext(),
                 this,
-                getString(R.string.misnapSampleAppResultsNfcIssuingCountryLabel),
+                getString(R.string.misnapAppUtilResultsNfcIssuingCountryLabel),
                 nfcData.issuingCountry
             )
-            addNfcDataEntry(
+            ViewUtil.addNfcDataEntry(
+                requireContext(),
                 this,
-                getString(R.string.misnapSampleAppResultsNfcNationalityLabel),
+                getString(R.string.misnapAppUtilResultsNfcNationalityLabel),
                 nfcData.nationality
             )
-            addNfcDataEntry(
+            ViewUtil.addNfcDataEntry(
+                requireContext(),
                 this,
-                getString(R.string.misnapSampleAppResultsNfcGenderLabel),
+                getString(R.string.misnapAppUtilResultsNfcGenderLabel),
                 nfcData.gender
             )
-            addNfcDataEntry(
+            ViewUtil.addNfcDataEntry(
+                requireContext(),
                 this,
-                getString(R.string.misnapSampleAppResultsNfcPlaceOfBirthLabel),
+                getString(R.string.misnapAppUtilResultsNfcPlaceOfBirthLabel),
                 nfcData.placeOfBirth
             )
-            addNfcDataEntry(
+            ViewUtil.addNfcDataEntry(
+                requireContext(),
                 this,
-                getString(R.string.misnapSampleAppResultsNfcDateOfBirthLabel),
+                getString(R.string.misnapAppUtilResultsNfcDateOfBirthLabel),
                 nfcData.dateOfBirth
             )
-            addNfcDataEntry(
+            ViewUtil.addNfcDataEntry(
+                requireContext(),
                 this,
-                getString(R.string.misnapSampleAppResultsNfcExpirationDateLabel),
+                getString(R.string.misnapAppUtilResultsNfcExpirationDateLabel),
                 nfcData.dateOfExpiry
             )
-            addNfcDataEntry(
+            ViewUtil.addNfcDataEntry(
+                requireContext(),
                 this,
-                getString(R.string.misnapSampleAppResultsNfcDateOfIssueLabel),
+                getString(R.string.misnapAppUtilResultsNfcDateOfIssueLabel),
                 nfcData.dateOfIssue
             )
-            addNfcDataEntry(
+            ViewUtil.addNfcDataEntry(
+                requireContext(),
                 this,
-                getString(R.string.misnapSampleAppResultsNfcIssuingAuthorityLabel),
+                getString(R.string.misnapAppUtilResultsNfcIssuingAuthorityLabel),
                 nfcData.issuingAuthority
             )
-            addNfcDataEntry(
+            ViewUtil.addNfcDataEntry(
+                requireContext(),
                 this,
-                getString(R.string.misnapSampleAppResultsNfcPermanentPlaceOfResidenceLabel),
+                getString(R.string.misnapAppUtilResultsNfcPermanentPlaceOfResidenceLabel),
                 nfcData.permanentPlaceOfResidence
             )
-            addNfcDataEntry(
+            ViewUtil.addNfcDataEntry(requireContext(),
                 this,
-                getString(R.string.misnapSampleAppResultsNfcVehicleCategoriesLabel),
+                getString(R.string.misnapAppUtilResultsNfcVehicleCategoriesLabel),
                 nfcData.vehicleCategories?.joinToString(separator = "\n") { it.toString() })
-            addNfcDataEntry(
+            ViewUtil.addNfcDataEntry(
+                requireContext(),
                 this,
-                getString(R.string.misnapSampleAppResultsNfcPersonalNumberLabel),
+                getString(R.string.misnapAppUtilResultsNfcPersonalNumberLabel),
                 nfcData.personalNumber
             )
-            addNfcDataEntry(
+            ViewUtil.addNfcDataEntry(
+                requireContext(),
                 this,
-                getString(R.string.misnapSampleAppResultsNfcDataGroupsReadLabel),
+                getString(R.string.misnapAppUtilResultsNfcDataGroupsReadLabel),
                 nfcData.dataGroupsRead.joinToString()
             )
         }
@@ -598,421 +677,26 @@ class ResultsContentFragment : Fragment(R.layout.fragment_result_content) {
         //Set the auth data
         nfcResultsView.findViewById<LinearLayout>(R.id.nfcAuthDataContainer).apply {
             val authData: AuthenticationData = nfcData.authenticationData
-            addNfcDataEntry(
+            ViewUtil.addNfcDataEntry(
+                requireContext(),
                 this,
-                getString(R.string.misnapSampleAppResultsNfcSODPresentLabel),
+                getString(R.string.misnapAppUtilResultsNfcSODPresentLabel),
                 (authData.sod.isNotEmpty()).toString()
             )
-            addNfcDataEntry(
+            ViewUtil.addNfcDataEntry(
+                requireContext(),
                 this,
-                getString(R.string.misnapSampleAppResultsNfcDataGroupsForPassiveAuthenticationLabel),
+                getString(R.string.misnapAppUtilResultsNfcDataGroupsForPassiveAuthenticationLabel),
                 authData.dataGroups.keys.joinToString(separator = "\n")
             )
-            addNfcDataEntry(
+            ViewUtil.addNfcDataEntry(
+                requireContext(),
                 this,
-                getString(R.string.misnapSampleAppResultsNfcActiveAuthenticationSupportedLabel),
+                getString(R.string.misnapAppUtilResultsNfcActiveAuthenticationSupportedLabel),
                 (authData.activeAuthInfo != null).toString()
             )
         }
     }
-
-    private fun addNfcDataEntry(layout: LinearLayout, title: String, content: String?) {
-        if (content == null || content.isEmpty())
-            return
-
-        val titleView = MaterialTextView(requireActivity()).apply {
-            setTypeface(null, Typeface.BOLD)
-            text = title
-            setTextIsSelectable(true)
-        }
-
-        val contentView = MaterialTextView(requireActivity())
-        TextViewCompat.setAutoSizeTextTypeUniformWithConfiguration(
-            contentView, 12, 30, 1,
-            TypedValue.COMPLEX_UNIT_DIP
-        )
-        contentView.text = content
-        contentView.setPadding(
-            0, 0, 0, TypedValue.applyDimension(
-                TypedValue.COMPLEX_UNIT_DIP,
-                8F, resources.displayMetrics
-            ).toInt()
-        )
-        contentView.setTextIsSelectable(true)
-        layout.addView(titleView)
-        layout.addView(contentView)
-    }
-
-    private fun getFinalFrameView(byteImage: ByteArray) =
-        getBaseLinearLayoutView().apply {
-            val bmp = BitmapFactory.decodeByteArray(
-                byteImage,
-                0,
-                byteImage.size,
-                BitmapFactory.Options().apply {
-                    inJustDecodeBounds = false
-                })
-
-            addView(
-                getGenericTextView(
-                    String.format(
-                        getString(R.string.misnapSampleAppResultsFinalFrameDiskSize),
-                        "${byteImage.size / 1024}KB"
-                    )
-                )
-            )
-            addView(
-                getGenericTextView(
-                    String.format(
-                        getString(R.string.misnapSampleAppResultsFinalFrameDimensions),
-                        "${bmp.width}x${bmp.height}"
-                    )
-                )
-            )
-
-            addView(TouchImageView(requireActivity()).apply {
-                layoutParams = ViewGroup.LayoutParams(
-                    ViewGroup.LayoutParams.MATCH_PARENT,
-                    ViewGroup.LayoutParams.MATCH_PARENT
-                )
-
-                setMaxZoom(4f)
-                setImageBitmap(bmp)
-            })
-        }
-
-
-    private fun getMiSnapVideoView(data: ByteArray) =
-        MiSnapVideoView(requireActivity()).apply {
-            layoutParams = ViewGroup.LayoutParams(
-                ViewGroup.LayoutParams.WRAP_CONTENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT
-            )
-
-            MediaController(requireContext()).also {
-                it.setAnchorView(this)
-                setVideoData(data)
-                setMediaController(it)
-            }
-        }
-
-    private fun getMiSnapAudioView(data: ByteArray) =
-        MiSnapAudioView(requireContext()).apply {
-            layoutParams = ViewGroup.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.MATCH_PARENT
-            )
-
-            MediaController(requireContext(), false).also {
-                setAudioData(data)
-                setMediaController(it)
-            }
-        }
-
-    private fun getExtractionView(extraction: DocumentExtraction) =
-        getBaseLinearLayoutView().apply {
-            extraction.mrz?.let { mrz ->
-                addView(MaterialTextView(requireActivity()).apply {
-                    layoutParams = ViewGroup.LayoutParams(
-                        ViewGroup.LayoutParams.MATCH_PARENT,
-                        ViewGroup.LayoutParams.WRAP_CONTENT
-                    )
-                    gravity = Gravity.START
-                    textSize = 25f
-                    text = HtmlCompat.fromHtml(
-                        getString(R.string.misnapSampleAppResultsMrzDataTitle),
-                        HtmlCompat.FROM_HTML_MODE_COMPACT
-                    )
-                })
-
-                val mrzView = MaterialTextView(requireActivity()).apply {
-                    layoutParams = ViewGroup.LayoutParams(
-                        ViewGroup.LayoutParams.MATCH_PARENT,
-                        ViewGroup.LayoutParams.WRAP_CONTENT
-                    )
-                    gravity = Gravity.START
-                    textSize = 20f
-                    when (mrz) {
-                        is MrzData -> {
-                            text = HtmlCompat.fromHtml(
-                                String.format(
-                                    getString(R.string.misnapSampleAppResultsMrzData),
-                                    mrz.documentNumber,
-                                    mrz.documentCode,
-                                    mrz.country,
-                                    mrz.dateOfBirth,
-                                    mrz.dateOfExpiry,
-                                    mrz.optionalData1
-                                ),
-                                HtmlCompat.FROM_HTML_MODE_COMPACT
-                            )
-                        }
-                        is Mrz1Line -> {
-                            text = HtmlCompat.fromHtml(
-                                String.format(
-                                    getString(R.string.misnapSampleAppResultsMrzOneLineData),
-                                    mrz.mrzString
-                                ),
-                                HtmlCompat.FROM_HTML_MODE_COMPACT
-                            )
-                        }
-                    }
-                    setTextIsSelectable(true)
-                }
-
-                addView(mrzView)
-            }
-
-            extraction.extractedData?.let { documentData ->
-                addView(MaterialTextView(requireActivity()).apply {
-                    layoutParams = ViewGroup.LayoutParams(
-                        ViewGroup.LayoutParams.MATCH_PARENT,
-                        ViewGroup.LayoutParams.WRAP_CONTENT
-                    )
-                    gravity = Gravity.START
-                    textSize = 25f
-                    text = HtmlCompat.fromHtml(
-                        getString(R.string.misnapSampleAppResultsDocumentDataTitle),
-                        HtmlCompat.FROM_HTML_MODE_COMPACT
-                    )
-                })
-
-                val documentDataView = MaterialTextView(requireActivity()).apply {
-                    layoutParams = ViewGroup.LayoutParams(
-                        ViewGroup.LayoutParams.MATCH_PARENT,
-                        ViewGroup.LayoutParams.WRAP_CONTENT
-                    )
-                    gravity = Gravity.START
-                    textSize = 20f
-
-                    text = HtmlCompat.fromHtml(
-                        String.format(
-                            getString(R.string.misnapSampleAppResultsDocumentData),
-                            documentData.docType ?: "",
-                            documentData.country ?: "",
-                            documentData.surname ?: "",
-                            documentData.firstName ?: "",
-                            documentData.sex ?: "",
-                            documentData.docNumber ?: "",
-                            documentData.nationality ?: "",
-                            documentData.dateOfBirth ?: "",
-                            documentData.dateOfExpiration ?: "",
-                            documentData.optionalData1 ?: "",
-                            documentData.optionalData2 ?: "",
-                        ),
-                        HtmlCompat.FROM_HTML_MODE_LEGACY
-                    )
-                }
-                addView(documentDataView)
-
-                documentData.rawData?.let {
-                    addView(MaterialTextView(requireActivity()).apply {
-                        layoutParams = ViewGroup.LayoutParams(
-                            ViewGroup.LayoutParams.MATCH_PARENT,
-                            ViewGroup.LayoutParams.WRAP_CONTENT
-                        )
-                        gravity = Gravity.START
-                        textSize = 25f
-                        text = HtmlCompat.fromHtml(
-                            getString(R.string.misnapSampleAppResultsRawMrzTitle),
-                            HtmlCompat.FROM_HTML_MODE_COMPACT
-                        )
-                    })
-
-                    addView(MaterialTextView(requireActivity()).apply {
-                        layoutParams = ViewGroup.LayoutParams(
-                            ViewGroup.LayoutParams.MATCH_PARENT,
-                            ViewGroup.LayoutParams.WRAP_CONTENT
-                        )
-                        gravity = Gravity.START
-                        textSize = 20f
-                        text = documentData.rawData
-                    })
-                }
-            }
-        }
-
-    private fun getBarcodeView(barcode: Barcode) =
-        LinearLayout(requireActivity()).apply {
-            layoutParams = ViewGroup.MarginLayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT
-            ).apply {
-                val activityMarginVertical =
-                    resources.getDimension(R.dimen.misnapSampleAppLayoutVerticalMargin).toInt()
-                val activityMarginHorizontal =
-                    resources.getDimension(R.dimen.misnapSampleAppLayoutHorizontalMargin)
-                        .toInt()
-                setMargins(
-                    activityMarginHorizontal,
-                    activityMarginVertical,
-                    activityMarginHorizontal,
-                    activityMarginVertical
-                )
-            }
-            orientation = LinearLayout.VERTICAL
-            barcode.type?.let {
-                addView(
-                    MaterialTextView(requireActivity()).apply {
-                        layoutParams = ViewGroup.LayoutParams(
-                            ViewGroup.LayoutParams.MATCH_PARENT,
-                            ViewGroup.LayoutParams.WRAP_CONTENT
-                        )
-                        gravity = Gravity.START
-                        textSize = 25f
-                        text = getString(R.string.misnapSampleAppResultsBarcodeType, it.name)
-                        setTextIsSelectable(true)
-                    }
-                )
-            }
-            barcode.encodedBarcode?.let {
-                addView(
-                    MaterialTextView(requireActivity()).apply {
-                        layoutParams = ViewGroup.LayoutParams(
-                            ViewGroup.LayoutParams.MATCH_PARENT,
-                            ViewGroup.LayoutParams.WRAP_CONTENT
-                        )
-                        gravity = Gravity.START
-                        textSize = 25f
-                        text = getString(R.string.misnapSampleAppResultsBarcodeData, it)
-                        setTextIsSelectable(true)
-                    }
-                )
-            }
-        }
-
-    private fun getBaseLinearLayoutView(
-        width: Int = ViewGroup.LayoutParams.MATCH_PARENT,
-        height: Int = ViewGroup.LayoutParams.WRAP_CONTENT,
-        layoutOrientation: Int = LinearLayout.VERTICAL
-    ) = LinearLayout(requireActivity()).apply {
-        layoutParams = ViewGroup.MarginLayoutParams(
-            width, height
-        ).apply {
-            val activityMarginVertical =
-                resources.getDimension(R.dimen.misnapSampleAppLayoutVerticalMargin).toInt()
-            val activityMarginHorizontal =
-                resources.getDimension(R.dimen.misnapSampleAppLayoutHorizontalMargin).toInt()
-            setMargins(
-                activityMarginHorizontal,
-                activityMarginVertical,
-                activityMarginHorizontal,
-                activityMarginVertical
-            )
-        }
-        orientation = layoutOrientation
-    }
-
-    private fun getWarningsView(warnings: List<UserAction>) =
-        LinearLayout(requireActivity()).apply {
-            layoutParams = ViewGroup.MarginLayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT
-            ).apply {
-                val activityMarginVertical =
-                    resources.getDimension(R.dimen.misnapSampleAppLayoutVerticalMargin).toInt()
-                val activityMarginHorizontal =
-                    resources.getDimension(R.dimen.misnapSampleAppLayoutHorizontalMargin)
-                        .toInt()
-                setMargins(
-                    activityMarginHorizontal,
-                    activityMarginVertical,
-                    activityMarginHorizontal,
-                    activityMarginVertical
-                )
-            }
-            orientation = LinearLayout.VERTICAL
-            warnings.forEach { userAction ->
-                addView(
-                    MaterialTextView(requireActivity()).apply {
-                        layoutParams = ViewGroup.MarginLayoutParams(
-                            ViewGroup.LayoutParams.MATCH_PARENT,
-                            ViewGroup.LayoutParams.MATCH_PARENT
-                        ).apply {
-                            val defaultMargin =
-                                resources.getDimension(R.dimen.misnapSampleAppSpaceDefault)
-                                    .toInt()
-                            setMargins(0, 0, 0, defaultMargin)
-                        }
-
-                        val defaultMarginDouble =
-                            resources.getDimension(R.dimen.misnapSampleAppSpaceLarge).toInt()
-                        setPadding(defaultMarginDouble, 0, 0, 0)
-                        background = AppCompatResources.getDrawable(
-                            requireContext(),
-                            R.drawable.misnap_list_background
-                        )
-                        gravity = Gravity.START
-                        textSize = 16f
-                        text = userAction.toString()
-                        setTextIsSelectable(true)
-                    }
-                )
-            }
-        }
-
-    private fun getGenericTextView(content: String, layoutGravity: Int = Gravity.START) =
-        MaterialTextView(requireActivity()).apply {
-            layoutParams = ViewGroup.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT
-            )
-            gravity = layoutGravity
-            textSize = 16f
-            text = content
-            setTextIsSelectable(true)
-        }
-
-    private fun getMiBiDataView(jpeg: ByteArray): View {
-        val mibiData = ExifUtil.readExifTag(jpeg, ExifTagConstants.EXIF_TAG_USER_COMMENT)
-            ?: getString(R.string.misnapSampleAppResultsMibiDataNotFound)
-
-        return getMiBiDataView(mibiData)
-    }
-
-    private fun getMiBiDataView(mibiData: String) =
-        LinearLayout(requireActivity()).apply {
-            layoutParams = ViewGroup.MarginLayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT
-            )
-            orientation = LinearLayout.VERTICAL
-            addView(MaterialButton(requireActivity()).apply {
-                layoutParams = ViewGroup.MarginLayoutParams(
-                    ViewGroup.LayoutParams.WRAP_CONTENT,
-                    ViewGroup.LayoutParams.WRAP_CONTENT
-                )
-                text = getString(R.string.misnapSampleAppResultsMibiCopyButtonLabel)
-                setOnClickListener {
-                    try {
-                        (requireActivity().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager).apply {
-                            setPrimaryClip(
-                                ClipData.newPlainText(
-                                    getString(R.string.misnapSampleAppName),
-                                    mibiData
-                                )
-                            )
-                        }
-                        Toast.makeText(
-                            requireActivity(),
-                            getString(R.string.misnapSampleAppResultsMibiCopySuccessMessage),
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    } catch (e: Exception) {
-                        Toast.makeText(
-                            requireActivity(),
-                            getString(R.string.misnapSampleAppResultsMibiCopyFailureMessage),
-                            Toast.LENGTH_LONG
-                        ).show()
-                    }
-                }
-            })
-
-            addView(JsonView(context).apply {
-                isVerticalScrollBarEnabled = true
-                this.setJson(mibiData)
-            })
-        }
 
     override fun onStop() {
         super.onStop()

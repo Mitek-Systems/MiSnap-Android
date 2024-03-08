@@ -76,6 +76,7 @@ private class BarcodeAnalysis : Fragment() {
                     is FrameResult.BarcodeAnalysis -> {
 
                     }
+                    else -> {}
                 }
             }
 
@@ -89,6 +90,7 @@ private class BarcodeAnalysis : Fragment() {
                 when (result) {
                     is ErrorResult.BarcodeAnalysis -> {
                     }
+                    else -> {}
                 }
             }
         }

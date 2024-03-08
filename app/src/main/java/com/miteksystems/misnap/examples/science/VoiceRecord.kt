@@ -57,6 +57,10 @@ private class VoiceRecord : Fragment() {
                 when (result) {
                     is MiSnapVoiceProcessor.Result.Success -> {
                         if (hasAllRecordings) {
+                            val wavBytes = result.audio
+                            val rts = result.rts
+                            val licenseExpired = result.licenseExpired
+
                             /**
                              * Releases all held up resources.
                              */
