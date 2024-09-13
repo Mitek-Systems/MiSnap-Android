@@ -1,4 +1,22 @@
-# MiSnap SDK v5.5.0 Change Log
+# MiSnap SDK v5.6.0 Change Log
+
+### **Version 5.5.0**
+#### **Added**
+* [Face] For selfie images, the device analyzes the ambient light available to the device camera and adjusts the screen if the environment is too dark.  Two levels of adjustments are automatically made: one, turning up the brightness of the device; and two, adding a white vignette to the screen to provide lighting for the face.
+  * See the in code documentation for more information about this feature and the [design considerations](./customization_guide.md#design-considerations) for more information on how to use the feature with a custom UI.
+* [Document] For identity documents, the MiSnap SDK now makes use of a device motion detector to prevent the user from capturing a frame while in movement, reducing the likelihood of a blurry image due to motion.
+  * See the in code documentation for `motionDetectorSensitivity` in `MiSnapSettings` for more information on this feature.
+* [NFC] Fixed an issue that prevented some ROU documents from scanning correctly.
+
+#### **Modified**
+* [Common] The target API level has been updated to 32. MiSnap is now compiled against API level 34.
+* [Common] The CameraX version has been updated to 1.3.0.
+* [Common] The Kotlin version has been updated to 1.8.10 and the Gradle version has been upgraded to 6.8.3.
+
+#### **Fixed**
+* [Common] An issue with combined workflows that prevented non document sessions combinations from working correctly when not depending on the `document-analysis` package.
+* [Common] An issue with the `SuccessView` not playing the default camera shutter sound on some devices.
+
 
 ### **Version 5.4.1**
 #### **Fixed**

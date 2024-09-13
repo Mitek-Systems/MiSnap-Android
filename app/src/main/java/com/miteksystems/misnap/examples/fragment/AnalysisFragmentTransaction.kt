@@ -24,6 +24,9 @@ import com.miteksystems.misnap.workflow.fragment.*
  * [NavigationError] through the [MiSnapWorkflowViewModel.navigationErrors] [LiveData] with the appropriate
  * context so that the navigation can be handled manually, in this case, through [FragmentTransaction]s.
  *
+ * NOTE: When working with the [MiSnapWorkflowViewModel] it is important to ensure that the view model
+ *  is acquired through the activity's [ViewModelProvider].
+ *
  * NOTE: Ensure that the provided license has all the necessary features enabled for the target
  *  MiSnap session.
  * @see com.miteksystems.misnap.workflow.fragment for the list of available fragments included in the

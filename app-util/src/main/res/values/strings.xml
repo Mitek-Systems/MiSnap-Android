@@ -146,6 +146,7 @@
 
     <!-- region NFC RESULTS LAYOUT -->
     <string name="misnapAppUtilResultsNfcDataTitle" translatable="false">NFC Data</string>
+    <string name="misnapAppUtilResultsNfcBioPhotoNotExtracted" translatable="false">Profile image not extracted</string>
     <string name="misnapAppUtilResultsNfcAuthenticationDataTitle" translatable="false">Authentication Data</string>
     <string name="misnapAppUtilResultsNfcFirstNameLabel" translatable="false">First name</string>
     <string name="misnapAppUtilResultsNfcLastNameLabel" translatable="false">Last name</string>

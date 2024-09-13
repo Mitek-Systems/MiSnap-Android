@@ -46,6 +46,8 @@ import com.miteksystems.misnap.workflow.util.CombinedWorkflowHandler
  * 7. Get all the results from [CombinedWorkflowHandler.CombinedViewModel.combinedWorkflowStepResultsList].
  * 8. Clear both [MiSnapWorkflowViewModel] and [CombinedWorkflowHandler.CombinedViewModel].
  *
+ * NOTE: When working with the [MiSnapWorkflowViewModel] or [CombinedWorkflowHandler.CombinedViewModel]
+ *  it is important to ensure that the view model is acquired through the activity's [ViewModelProvider].
  *
  * NOTE: Ensure that the provided license has all the necessary features enabled for the target
  *  MiSnap session.

@@ -1,4 +1,4 @@
-# MiSnap SDK v5.5.0 for Android
+# MiSnap SDK v5.6.0 for Android
 Mitek MiSnap™ is a patented mobile-capture SDK that enables an intuitive user experience and instant capture of quality images. It all starts with the quality of the image.
 
 # Table of Contents
@@ -31,24 +31,39 @@ Mitek MiSnap™ is a patented mobile-capture SDK that enables an intuitive user 
 
 ## Release Notes
 #### **Added**
-* [Face] For selfie images, the device analyzes the ambient light available to the device camera and adjusts the screen if the environment is too dark.  Two levels of adjustments are automatically made: one, turning up the brightness of the device; and two, adding a white vignette to the screen to provide lighting for the face.
-  * See the in code documentation for more information about this feature and the [design considerations](documentation/customization_guide.md#design-considerations) for more information on how to use the feature with a custom UI.
-* [Document] For identity documents, the MiSnap SDK now makes use of a device motion detector to prevent the user from capturing a frame while in movement, reducing the likelihood of a blurry image due to motion.
-  * See the in code documentation for `motionDetectorSensitivity` in `MiSnapSettings` for more information on this feature.
-* [NFC] Fixed an issue that prevented some ROU documents from scanning correctly.
+* [Common] Support for recording the session including audio, requires `RECORD_AUDIO` permission and to set the `MiSnapSettings.Camera.VideoRecord.recordAudio` property to true.
+    * _Note: integrators should make sure that the `RECORD_AUDIO` permission is granted when using audio recording, audio won't be recorded if the permission is missing._
+* [NFC] A configuration option to skip reading the profile picture from NFC-enabled documents. To enable this option, set the `MiSnapSettings.Nfc.skipPortraitImage` property to true.
+    * _Note: when using this option the image returned in the results will be empty, it is advised to send the `NfcSession.misnapMibiData.mibiData` to the Mitek APIs for diagnosis._
+* [Document] A configuration option to request a forced focus operation before acquiring the final frame, this increases the chances of acquiring a sharp and well detailed image that is suitable for human review. To enable this option, set the `MiSnapSettings.Analysis.Document.enableFocusOnFinalFrame` property to true.
+    * _Note: this feature is not supported for Check sessions._
+* [Document] A configuration option to prioritize the extraction of the MRZ for identity documents over the quality of the image. To enable this option, set the `MiSnapSettings.Analysis.Document.prioritizeDocumentExtractionOverImageQuality` property to true.
+    * _Note: this reduces the session time bypassing image quality checks as long as the document's MRZ has been extracted and it is only supported when the `MiSnapSettings.Analysis.Document.documentExtractionRequirement` is set to `ExtractionRequirement.REQUIRED`, as such, this feature is not compatible with On-Device Classification_
+* [Common] Support for displaying a cancel button in the `DocumentAnalysisFragment`, `FaceAnalysisFragment` and `BarcodeAnalysisFragment`, displaying the cancel button can be enabled by setting the `shouldShowCancelButton` property to true in the `WorkflowSettings` of the target fragment. The `cancelButtonDrawableId` property of the `WorkflowSettings` can be used to customize the cancel button drawable.
+    * _Note: pressing the cancel button has the same effect as pressing the back button on the device._
+* [Document] A configuration option to display an exit confirmation dialog when the user navigates back. To enable displaying the dialog, set the `MiSnapSettings.Workflow.showExitConfirmationDialog` property to true.
+    * _Note: the contents of the dialog can be customized through localization for string keys: `misnapDocumentAnalysisSessionExitConfirmationDialog*`, the display of the dialog is only supported in document sessions._
+* [Common] Incremental updates to Real-Time Security.
+* [NFC] Support for reading the holder optional info data group of ICAO documents.
 
 #### **Modified**
-* [Common] The target API level has been updated to 32. MiSnap is now compiled against API level 34.
-* [Common] The CameraX version has been updated to 1.3.0.
-* [Common] The Kotlin version has been updated to 1.8.10 and the Gradle version has been upgraded to 6.8.3.
+* [Common] Deprecated the `MiSnapSettings.Camera.VideoRecord.videoResolution` settings in favor of the new API `com.miteksystems.misnap.core.MiSnapSettings.Camera.VideoRecord.videoQuality`, the equivalent XML attributes of `CameraView` have been deprecated too, the new API defines `FHD(1080p)` and `HD(720p)` video quality constants rather than open sizes.
+* [Common] The `SurfaceRecorder` and `VideoWriter` classes have been deprecated in favor of using the `MiSnapView/CameraView` recording capabilities.
+* [Common] MiSnap now links the `OpenMP library dynamically` and the `libomp.so` library is included as part of the `core-module` to be used across the SDK.
+    * _Note: see the system requirements for information on the NDK version used in MiSnap for compiling the shipped native libraries, the NDK version indicates the libomp.so version used._
+* [Document] The `UserAction.MRZ_NOT_FOUND` now has a default message that can be customized through localization key `misnapWorkflowDocumentAnalysisFragmentHintViewMrzNotFoundMessage`.
 
 #### **Fixed**
-* [Common] An issue with combined workflows that prevented non document sessions combinations from working correctly when not depending on the `document-analysis` package.
-* [Common] An issue with the `SuccessView` not playing the default camera shutter sound on some devices.
+* [NFC] Removed the `com.gemalto.jp2:jp2-android` dependency and the jcenter repository from the `nfc-reader` module, this fixes a build error while satisfying the dependency in some build environments due to the jcenter repository being sunset.
+* [Common] An issue with Android 15 in which the camera initialization could take longer if the camera resource was being retained by a different process at the time of going into a MiSnap session.
+* [Common] A concurrency modification issue that would sometimes result in a crash during the session when the device motion detector was enabled.
+* [ODC] An issue where MRZ was not enforced despite setting `MiSnapSettings.Analysis.Document.documentExtractionRequirement` to `ExtractionRequirement.REQUIRED` when document classification was enabled.
+
+Please see the in-code documentation for more details and the full API.
+
+### **Version 5.6.0**
 
 Please see [the migration guide](documentation/migration_guide.md) for extended information on the changes introduced in this release that can affect your integration.
-
-### **Version 5.5.0**
 
 Please see [this page](documentation/change_log.md) for release notes from older releases.
 
@@ -60,27 +75,28 @@ Please see [this page](documentation/download_sizes.md) for the in-depth size ta
 <!-- SIZE_TABLE_START -->
 | Use Case                         | Download Size (MiB) | 
 | :------------------------------- | ------------------: |
-| Document                         | 5.82                | 
-| Document and Barcode             | 7.07                | 
-| Document and Biometric           | 13.55               | 
-| Document, Barcode, and Biometric | 14.81               | 
-| Document, Biometric, and NFC     | 17.52               | 
-| Document Classification          | 13.56               | 
+| Document                         | 6.0                 | 
+| Document and Barcode             | 7.25                | 
+| Document and Biometric           | 13.73               | 
+| Document, Barcode, and Biometric | 14.99               | 
+| Document, Biometric, and NFC     | 17.72               | 
+| Document Classification          | 13.75               | 
 <!-- SIZE_TABLE_END -->
 
 
 ## System Requirements
 
-| Technology                | Version |
-|:--------------------------|:--------|
-| Android Gradle Plugin     | 4.2.2   |
-| Gradle                    | 6.8.3   |
-| Kotlin                    | 1.8.10  |
-| CameraX                   | 1.3.0   |
-| JDK                       | 11      |
-| Android min API level     | 23      |
-| Android target API level  | 32      |
-| Android compile API level | 34      |
+| Technology                | Version    |
+|:--------------------------|:-----------|
+| Android Gradle Plugin     | 4.2.2      |
+| Gradle                    | 6.8.3      |
+| Kotlin                    | 1.8.10     |
+| CameraX                   | 1.3.0      |
+| JDK                       | 11         |
+| NDK                       | r25c       |
+| Android min API level     | 23         |
+| Android target API level  | 32         |
+| Android compile API level | 34         |
 
 Please see [versions.gradle](versions.gradle) for more details.
 
@@ -89,6 +105,7 @@ Please see [versions.gradle](versions.gradle) for more details.
 Please see the [devices tested](documentation/devices_tested.md) page for more details.
 
 ## Known Issues
+* When video recording is enabled the camera preview of some low-end devices could look slightly stretched, but the recorded contents and the resulting image aspect ratio will look correct.
 * As the `face-analysis`, `face` and `biometric` modules use `Google’s MLKit` for face detection, please follow [this link](https://developers.google.com/ml-kit/known-issues) for known issues.
 * The `document-classifier` and `classifier` modules use `Google’s MLKit` for document classification, please follow [this link](https://developers.google.com/ml-kit/known-issues) for known issues. 
 * The `minSdkVersion` used in the MiSnap SDK is not compatible with higher `jmrtd` versions. 
@@ -182,6 +199,14 @@ Always verify that the license you provide to the MiSnap SDK is licensed for the
 If the feature is not part of a core functionality, e.g. the `On Device Extraction` feature, the SDK will complete the session but won’t include the extraction data as part of the results.
 
 Please see the in-code documentation to learn more about which components require licensed features.
+
+### Does the SDK requires permissions to work?
+Yes, the MiSnap SDK defines the following permissions across its module's AndroidManifest.xml files:
+* `android.permission.CAMERA`: Required for camera access in all image session types.
+* `android.permission.RECORD_AUDIO`: Required for audio recording if using the `Voice` session type or the `Video Recording` feature with audio enabled.
+* `android.permission.VIBRATE`: Required for various haptic feedbacks in the SDK.
+* `android.permission.NFC`: Required for NFC reading in the `NFC` session type.
+* `android.permission.MODIFY_AUDIO_SETTINGS`: Required to facilitate audio recording when using the `Voice` session type.
 
 ### I want to customize the MiSnap SDK UI/UX. Where do I find the resources?
 The MiSnap SDK provides several options to customize the UI/UX, whether it is drawables, colors, styles, strings or behaviors. Please follow [this customization guide](documentation/customization_guide.md) for more information on how to locate the appropriate resource or option that fits your needs.

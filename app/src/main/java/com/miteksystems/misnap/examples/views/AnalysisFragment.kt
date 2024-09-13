@@ -2,6 +2,7 @@ package com.miteksystems.misnap.examples.views
 
 import android.os.Bundle
 import android.view.View
+import android.view.animation.AnimationUtils
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
@@ -70,7 +71,6 @@ class AnalysisFragment : Fragment(R.layout.example_document_analysis) {
             analysis.document.trigger = MiSnapSettings.Analysis.Document.Trigger.AUTO
             // Optionally set the camera profile to use.
             camera.profile = MiSnapSettings.Camera.Profile.DOCUMENT_BACK_CAMERA
-            camera.videoRecord.recordSession = true
         }
 
         /**
@@ -83,7 +83,18 @@ class AnalysisFragment : Fragment(R.layout.example_document_analysis) {
          *
          * @see [GuideView] for more information on the available properties that can be customized.
          */
-        binding.guideView.drawableId = R.drawable.misnap_guide_passport
+        binding.guideView.apply {
+            drawableId = R.drawable.custom_guideview
+            scale = 0.87f
+        }
+
+        /**
+         * Customize the look and feel of the [HintView], e.g. by setting a custom animation.
+         */
+        binding.hintView.apply {
+            animation = AnimationUtils.loadAnimation(context, R.anim.hintview_animation)
+            duration = 2000
+        }
 
         /**
          * Observe the [MiSnapView.feedbackResult] [LiveData] to handle the feedback from the analyzed
@@ -96,6 +107,7 @@ class AnalysisFragment : Fragment(R.layout.example_document_analysis) {
              * to an appropriate string message to use as hint.
              */
             binding.hintView.text = it.userAction.toString()
+
         }
 
         /**
@@ -153,7 +165,21 @@ class AnalysisFragment : Fragment(R.layout.example_document_analysis) {
          */
         binding.misnapView.cameraEvents.observe(viewLifecycleOwner) {
             when (it) {
+                is Event.CameraInitialized -> {
+                    // Make adjustments to the session based on the camera's capabilities.
+                    // if not queried before
+                    val cameraInfo = it.cameraInfo
+                    if (!cameraInfo.supportsAutoAnalysis) {
+
+                    }
+                }
                 is Event.InitializationError -> {
+
+                }
+                is Event.CameraReady -> {
+
+                }
+                is Event.VideoRecordingError -> {
 
                 }
                 else -> {}

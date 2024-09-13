@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -14,14 +15,36 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/nfcBioPhoto"
+    <LinearLayout
+        android:id="@+id/nfcBioPhotoContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:adjustViewBounds="true"
+        android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/fullName" />
+        app:layout_constraintTop_toBottomOf="@id/fullName"
+        >
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/nfcBioPhoto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+             />
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/nfcBioPhotoNotExtractedLabel"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/misnapAppUtilResultsNfcBioPhotoNotExtracted"
+            android:gravity="center"
+            android:textAppearance="@style/MiSnapTheme.TextAppearance.Headline.Medium"
+            android:textColor="@color/colorPrimary"
+            android:paddingTop="@dimen/misnapWorkflowLayoutHorizontalMarginDouble"
+            android:paddingBottom="@dimen/misnapWorkflowLayoutHorizontalMarginDouble"
+            tools:visibility="visible"
+            />
+    </LinearLayout>
+
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/nfcChipData"
@@ -33,7 +56,7 @@
         android:textAppearance="@style/MiSnapTheme.TextAppearance.Headline.Medium"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/nfcBioPhoto" />
+        app:layout_constraintTop_toBottomOf="@id/nfcBioPhotoContainer" />
 
     <LinearLayout
         android:id="@+id/nfcChipDataContainer"

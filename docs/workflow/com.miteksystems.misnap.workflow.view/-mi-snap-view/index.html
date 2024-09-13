@@ -37,8 +37,8 @@
 <span>android-MiSnap</span>            </a>    </div>
     <div>
 <dokka-template-command data="{&quot;@class&quot;:&quot;org.jetbrains.dokka.base.templating.ReplaceVersionsCommand&quot;,&quot;location&quot;:&quot;com.miteksystems.misnap.workflow.view/-mi-snap-view/index.html&quot;}"><div class="versions-dropdown">
-  <div class="versions-dropdown-button">5.5.0</div>
-  <div class="versions-dropdown-data"><a href="index.html">5.5.0</a><a href="../../../older/5.4.1/workflow/com.miteksystems.misnap.workflow.view/-mi-snap-view/index.html">5.4.1</a><a href="../../../older/5.4.0/workflow/com.miteksystems.misnap.workflow.view/-mi-snap-view/index.html">5.4.0</a><a href="../../../older/5.3.4/workflow/com.miteksystems.misnap.workflow.view/-mi-snap-view/index.html">5.3.4</a><a href="../../../older/5.3.3/workflow/com.miteksystems.misnap.workflow.view/-mi-snap-view/index.html">5.3.3</a><a href="../../../older/5.3.2/workflow/com.miteksystems.misnap.workflow.view/-mi-snap-view/index.html">5.3.2</a><a href="../../../older/5.3.1/workflow/com.miteksystems.misnap.workflow.view/-mi-snap-view/index.html">5.3.1</a><a href="../../../older/5.3.0/workflow/com.miteksystems.misnap.workflow.view/-mi-snap-view/index.html">5.3.0</a><a href="../../../older/5.2.1/workflow/com.miteksystems.misnap.workflow.view/-mi-snap-view/index.html">5.2.1</a><a href="../../../older/5.2.0/workflow/com.miteksystems.misnap.workflow.view/-mi-snap-view/index.html">5.2.0</a><a href="../../../older/5.1.1/workflow/com.miteksystems.misnap.workflow.view/-mi-snap-view/index.html">5.1.1</a><a href="../../../older/5.1.0/workflow/com.miteksystems.misnap.workflow.view/-mi-snap-view/index.html">5.1.0</a><a href="../../../older/5.0.0/workflow/com.miteksystems.misnap.workflow.view/-mi-snap-view/index.html">5.0.0</a></div>
+  <div class="versions-dropdown-button">5.6.0</div>
+  <div class="versions-dropdown-data"><a href="index.html">5.6.0</a><a href="../../../older/5.5.0/workflow/com.miteksystems.misnap.workflow.view/-mi-snap-view/index.html">5.5.0</a><a href="../../../older/5.4.1/workflow/com.miteksystems.misnap.workflow.view/-mi-snap-view/index.html">5.4.1</a><a href="../../../older/5.4.0/workflow/com.miteksystems.misnap.workflow.view/-mi-snap-view/index.html">5.4.0</a><a href="../../../older/5.3.4/workflow/com.miteksystems.misnap.workflow.view/-mi-snap-view/index.html">5.3.4</a><a href="../../../older/5.3.3/workflow/com.miteksystems.misnap.workflow.view/-mi-snap-view/index.html">5.3.3</a><a href="../../../older/5.3.2/workflow/com.miteksystems.misnap.workflow.view/-mi-snap-view/index.html">5.3.2</a><a href="../../../older/5.3.1/workflow/com.miteksystems.misnap.workflow.view/-mi-snap-view/index.html">5.3.1</a><a href="../../../older/5.3.0/workflow/com.miteksystems.misnap.workflow.view/-mi-snap-view/index.html">5.3.0</a><a href="../../../older/5.2.1/workflow/com.miteksystems.misnap.workflow.view/-mi-snap-view/index.html">5.2.1</a><a href="../../../older/5.2.0/workflow/com.miteksystems.misnap.workflow.view/-mi-snap-view/index.html">5.2.0</a><a href="../../../older/5.1.1/workflow/com.miteksystems.misnap.workflow.view/-mi-snap-view/index.html">5.1.1</a><a href="../../../older/5.1.0/workflow/com.miteksystems.misnap.workflow.view/-mi-snap-view/index.html">5.1.0</a><a href="../../../older/5.0.0/workflow/com.miteksystems.misnap.workflow.view/-mi-snap-view/index.html">5.0.0</a></div>
 </div>
 </dokka-template-command>    </div>
     <div class="pull-right d-flex">
@@ -189,6 +189,7 @@ class MiSnapViewXml : Fragment(R.layout.example_misnap_view_xml) {
    //sampleEnd
 }</code></pre></div><div class="sample-container"><pre><code class="runnablesample monospace block lang-kotlin" theme="idea">import android.os.Bundle
 import android.view.View
+import android.view.animation.AnimationUtils
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
@@ -258,7 +259,6 @@ class AnalysisFragment : Fragment(R.layout.example_document_analysis) {
             analysis.document.trigger = MiSnapSettings.Analysis.Document.Trigger.AUTO
             // Optionally set the camera profile to use.
             camera.profile = MiSnapSettings.Camera.Profile.DOCUMENT_BACK_CAMERA
-            camera.videoRecord.recordSession = true
         }
 
         /**
@@ -271,7 +271,18 @@ class AnalysisFragment : Fragment(R.layout.example_document_analysis) {
          *
          * @see [GuideView] for more information on the available properties that can be customized.
          */
-        binding.guideView.drawableId = R.drawable.misnap_guide_passport
+        binding.guideView.apply {
+            drawableId = R.drawable.custom_guideview
+            scale = 0.87f
+        }
+
+        /**
+         * Customize the look and feel of the [HintView], e.g. by setting a custom animation.
+         */
+        binding.hintView.apply {
+            animation = AnimationUtils.loadAnimation(context, R.anim.hintview_animation)
+            duration = 2000
+        }
 
         /**
          * Observe the [MiSnapView.feedbackResult] [LiveData] to handle the feedback from the analyzed
@@ -284,6 +295,7 @@ class AnalysisFragment : Fragment(R.layout.example_document_analysis) {
              * to an appropriate string message to use as hint.
              */
             binding.hintView.text = it.userAction.toString()
+
         }
 
         /**
@@ -341,7 +353,21 @@ class AnalysisFragment : Fragment(R.layout.example_document_analysis) {
          */
         binding.misnapView.cameraEvents.observe(viewLifecycleOwner) {
             when (it) {
+                is Event.CameraInitialized -&gt; {
+                    // Make adjustments to the session based on the camera's capabilities.
+                    // if not queried before
+                    val cameraInfo = it.cameraInfo
+                    if (!cameraInfo.supportsAutoAnalysis) {
+
+                    }
+                }
                 is Event.InitializationError -&gt; {
+
+                }
+                is Event.CameraReady -&gt; {
+
+                }
+                is Event.VideoRecordingError -&gt; {
 
                 }
                 else -&gt; {}
@@ -495,7 +521,7 @@ class AnalysisFragment : Fragment(R.layout.example_document_analysis) {
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":workflow:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="start-recording.html"><span class="token function">startRecording</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Starts recording the camera's view.</p></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":workflow:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="start-recording.html"><span class="token function">startRecording</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Starts the recording of a video, the results will be posted to <a href="recorded-video.html">recordedVideo</a> once the recording has been stopped with <a href="stop-recording.html">stopRecording</a>.</p></div></div></div>
                 </div>
               </div>
             </div>

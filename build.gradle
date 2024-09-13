@@ -25,7 +25,6 @@ allprojects {
     repositories {
         google()
         mavenCentral()
-        jcenter()
         maven {
             url = uri('https://maven.pkg.github.com/mitek-systems/misnap-android')
             credentials {

@@ -177,4 +177,24 @@
         android:text="@string/misnapSampleAppSettingsDocumentWorkflowShowDocumentLabelLabel"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/documentWorkflowSettingsShowManualButtonBox" />
+
+    <com.google.android.material.checkbox.MaterialCheckBox
+        android:id="@+id/documentWorkflowSettingsShowCancelButtonBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/misnapSampleAppLayoutVerticalMargin"
+        android:checked="false"
+        android:text="@string/misnapSampleAppSettingsDocumentWorkflowShowCancelButtonLabel"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/documentWorkflowSettingsShowDocumentLabelBox" />
+
+    <com.google.android.material.checkbox.MaterialCheckBox
+        android:id="@+id/documentWorkflowSettingsShowExitConfirmationDialogBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/misnapSampleAppLayoutVerticalMargin"
+        android:checked="false"
+        android:text="@string/misnapSampleAppSettingsDocumentWorkflowShowExitConfirmationDialogButtonLabel"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/documentWorkflowSettingsShowCancelButtonBox" />
 </androidx.constraintlayout.widget.ConstraintLayout>

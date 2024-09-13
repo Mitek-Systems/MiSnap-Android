@@ -419,10 +419,12 @@ object ViewUtil {
         }
 
     fun getMiBiDataView(jpeg: ByteArray, context: Context): View {
-        val mibiData = ExifUtil.readExifTag(jpeg, ExifTagConstants.EXIF_TAG_USER_COMMENT)
-            ?: context.getString(R.string.misnapAppUtilResultsMibiDataNotFound)
+        ExifUtil.readExifTag(jpeg, ExifTagConstants.EXIF_TAG_USER_COMMENT)?.let {
+            return getMiBiDataView(it, context)
+        }
 
-        return getMiBiDataView(mibiData, context)
+        //Return a generic text if mibi can't be parsedd
+        return getGenericTextView(context.getString(R.string.misnapAppUtilResultsMibiDataNotFound), context)
     }
 
     fun getMiBiDataView(mibiData: String, context: Context) =

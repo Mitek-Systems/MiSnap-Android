@@ -21,6 +21,9 @@ import com.miteksystems.misnap.workflow.fragment.MiSnapWorkflowViewModel
  * [R.navigation.barcode_session_flow] navgraph to take care of the navigation for a barcode session
  * while making use of the [MiSnapWorkflowViewModel] to configure the session.
  *
+ * NOTE: When working with the [MiSnapWorkflowViewModel] it is important to ensure that the view model
+ *  is acquired through the activity's [ViewModelProvider].
+ *
  * NOTE: Ensure that the provided license has all the necessary features enabled for the target
  *  MiSnap session.
  *

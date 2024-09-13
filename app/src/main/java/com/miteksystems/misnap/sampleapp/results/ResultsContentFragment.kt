@@ -189,10 +189,18 @@ class ResultsContentFragment : Fragment(R.layout.fragment_result_content) {
 
                                 val jpeg = getNfcImageByteArray(misnapResult.nfcData)
 
-                                adapter.addView(
-                                    ViewUtil.getMiBiDataView(jpeg, requireContext()),
-                                    getString(R.string.misnapAppUtilResultsMibiTabTitle)
-                                )
+                                // In cases where the portrait image is skipped we get MiBI from the raw string.
+                                if (jpeg.isNotEmpty()) {
+                                    adapter.addView(
+                                        ViewUtil.getMiBiDataView(jpeg, requireContext()),
+                                        getString(R.string.misnapAppUtilResultsMibiTabTitle)
+                                    )
+                                } else {
+                                    adapter.addView(
+                                        ViewUtil.getMiBiDataView(misnapResult.misnapMibiData.mibiData, requireContext()),
+                                        getString(R.string.misnapAppUtilResultsMibiTabTitle)
+                                    )
+                                }
                             }
 
                             is MiSnapFinalResult.VoiceSession -> {
@@ -390,8 +398,14 @@ class ResultsContentFragment : Fragment(R.layout.fragment_result_content) {
             text = "${nfcData.firstName} ${nfcData.lastName}"
         }
 
-        nfcResultsView.findViewById<ImageView>(R.id.nfcBioPhoto).apply {
-            setImageBitmap(BitmapFactory.decodeByteArray(nfcData.photo, 0, nfcData.photo.size))
+        if (nfcData.photo.isEmpty()) {
+            nfcResultsView.findViewById<TextView>(R.id.nfcBioPhotoNotExtractedLabel).visibility = View.VISIBLE
+            nfcResultsView.findViewById<ImageView>(R.id.nfcBioPhoto).visibility = View.GONE
+        } else {
+            nfcResultsView.findViewById<TextView>(R.id.nfcBioPhotoNotExtractedLabel).visibility = View.GONE
+            nfcResultsView.findViewById<ImageView>(R.id.nfcBioPhoto).apply {
+                setImageBitmap(BitmapFactory.decodeByteArray(nfcData.photo, 0, nfcData.photo.size))
+            }
         }
 
         //Set the nfc data
@@ -566,8 +580,14 @@ class ResultsContentFragment : Fragment(R.layout.fragment_result_content) {
             text = "${nfcData.firstName} ${nfcData.lastName}"
         }
 
-        nfcResultsView.findViewById<ImageView>(R.id.nfcBioPhoto).apply {
-            setImageBitmap(BitmapFactory.decodeByteArray(nfcData.photo, 0, nfcData.photo.size))
+        if (nfcData.photo.isEmpty()) {
+            nfcResultsView.findViewById<TextView>(R.id.nfcBioPhotoNotExtractedLabel).visibility = View.VISIBLE
+            nfcResultsView.findViewById<ImageView>(R.id.nfcBioPhoto).visibility = View.GONE
+        } else {
+            nfcResultsView.findViewById<TextView>(R.id.nfcBioPhotoNotExtractedLabel).visibility = View.GONE
+            nfcResultsView.findViewById<ImageView>(R.id.nfcBioPhoto).apply {
+                setImageBitmap(BitmapFactory.decodeByteArray(nfcData.photo, 0, nfcData.photo.size))
+            }
         }
 
         //Set the nfc data

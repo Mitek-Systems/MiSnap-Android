@@ -1,4 +1,4 @@
-# MiSnap SDK v5.5.0 Customization Guide
+# MiSnap SDK v5.6.0 Customization Guide
 While many of the customization options mentioned in this guide may be applicable to other MiSnap integration types, this guide focuses on customization options for the [activity-based integration](./activity_integration_guide.md).
 
 # Table of Contents
@@ -29,6 +29,7 @@ While many of the customization options mentioned in this guide may be applicabl
     * [Customizing the HintView](#customizing-the-hintview)
     * [Customizing the SuccessView](#customizing-the-successview)
     * [Controlling the Review Screen](#controlling-the-review-screen)
+    * [Displaying a Cancel Button](#displaying-a-cancel-button)
 * [Failover Screen](#failover-screen)
     * [Customizing the Failover Reasons](#customizing-the-failover-reasons)
 * [NFC Reader Screen](#nfc-reader-screen)
@@ -332,6 +333,24 @@ MiSnapSettings(
         getString(R.string.misnapWorkflowDocumentAnalysisFlowDocumentAnalysisFragmentLabel),
         DocumentAnalysisFragment.buildWorkflowSettings(
             reviewCondition = DocumentAnalysisFragment.ReviewCondition.NEVER
+        )
+    )
+}
+```
+
+### Displaying a Cancel Button
+The MiSnap SDK can display a cancel button on the analysis screen to allow the end user to cancel an ongoing analysis session anytime.
+This behavior can be customized using the `MiSnapSettings.Workflow` object, for example to display a cancel button and to customize the drawable it uses as display:
+```kotlin
+MiSnapSettings(
+    MiSnapSettings.UseCase.ID_FRONT,
+    license
+).apply {
+    workflow.add(
+        getString(R.string.misnapWorkflowDocumentAnalysisFlowDocumentAnalysisFragmentLabel),
+        DocumentAnalysisFragment.buildWorkflowSettings(
+            shouldShowCancelButton = true,
+            cancelButtonDrawableId = android.R.drawable.ic_menu_close_clear_cancel
         )
     )
 }

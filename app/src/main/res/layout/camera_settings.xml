@@ -72,16 +72,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/cameraSettingsRequestHighResolutionCheckbox" />
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/cameraSettingsVideoResolution"
-        android:layout_width="match_parent"
+    <com.google.android.material.checkbox.MaterialCheckBox
+        android:id="@+id/cameraSettingsRecordAudioCheckbox"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/misnapSampleAppLayoutVerticalMargin"
-        android:text="@string/misnapSampleAppSettingsCameraVideoResolutionLabel"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:checked="false"
+        android:text="@string/misnapSampleAppSettingsCameraShouldRecordVideoAudioLabel"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/cameraSettingsRecordSessionCheckbox" />
+
 
 
     <LinearLayout
@@ -89,47 +89,23 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/misnapSampleAppLayoutVerticalMargin"
-        android:baselineAligned="false"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cameraSettingsVideoResolution">
+        app:layout_constraintTop_toBottomOf="@id/cameraSettingsRecordAudioCheckbox">
 
-
-        <com.google.android.material.textfield.TextInputLayout
+        <com.google.android.material.textview.MaterialTextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/misnapSampleAppLayoutHorizontalMargin"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:text="@string/misnapSampleAppSettingsCameraVideoQualityLabel" />
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/cameraSettingsVideoResolutionWidth"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:digits="0123456789"
-                android:hint="@string/misnapSampleAppSettingsCameraVideoResolutionWidthLabel"
-                android:imeOptions="actionNext"
-                android:inputType="number"
-                android:maxLength="4" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
+        <Spinner
+            android:id="@+id/cameraSettingsVideoResolutionSpinner"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/misnapSampleAppLayoutHorizontalMargin"
-            android:layout_weight="1">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/cameraSettingsVideoResolutionHeight"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:digits="0123456789"
-                android:hint="@string/misnapSampleAppSettingsCameraVideoResolutionHeightLabel"
-                android:imeOptions="actionNext"
-                android:inputType="number"
-                android:maxLength="4" />
-        </com.google.android.material.textfield.TextInputLayout>
-
+            android:layout_weight="1"
+            android:entries="@array/cameraVideoQualitiesArray" />
     </LinearLayout>
 
     <com.google.android.material.textfield.TextInputLayout

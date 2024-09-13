@@ -12,9 +12,9 @@
         app:cameraProfile="DocumentBackCamera"
         app:requireTakePictureCapability="true"
         app:recordingEnabled="true"
+        app:recordAudio="true"
         app:torchEnabled="true"
         app:videoBitrate="1000000"
-        app:videoHeight="1920"
-        app:videoWidth="1080" />
+        app:videoQuality="HD" />
 
 </FrameLayout>

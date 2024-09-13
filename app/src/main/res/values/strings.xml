@@ -77,11 +77,10 @@
     <string name="misnapSampleAppSettingsCameraFacingDirectionLabel" translatable="false">Camera Facing Direction</string>
     <string name="misnapSampleAppSettingsCameraTorchModeLabel" translatable="false">Torch Mode</string>
     <string name="misnapSampleAppSettingsCameraShouldRecordVideoLabel" translatable="false">Should Record Session</string>
+    <string name="misnapSampleAppSettingsCameraShouldRecordVideoAudioLabel" translatable="false">Should Record Audio</string>
     <string name="misnapSampleAppSettingsCameraRequestHighResolutionLabel" translatable="false">Request High Resolution</string>
     <string name="misnapSampleAppSettingsCameraVideoBitrateLabel" translatable="false">Video Bitrate</string>
-    <string name="misnapSampleAppSettingsCameraVideoResolutionLabel" translatable="false">Video Resolution</string>
-    <string name="misnapSampleAppSettingsCameraVideoResolutionWidthLabel" translatable="false">Width</string>
-    <string name="misnapSampleAppSettingsCameraVideoResolutionHeightLabel" translatable="false">Height</string>
+    <string name="misnapSampleAppSettingsCameraVideoQualityLabel" translatable="false">Video Quality</string>
 
     <string-array name="cameraFacingDirectionsArray">
         <item>Back</item>
@@ -94,12 +93,19 @@
         <item>AUTO</item>
     </string-array>
 
+    <string-array name="cameraVideoQualitiesArray">
+        <item>FHD(1080p)</item>
+        <item>HD(720p)</item>
+    </string-array>
+
     <!-- Document Settings Tab -->
     <string name="misnapSampleAppSettingsDocumentTabTitle" translatable="false">Document</string>
     <string name="misnapSampleAppSettingsDocumentTriggerLabel" translatable="false">Trigger</string>
     <string name="misnapSampleAppSettingsDocumentEnableEnhancedManualLabel" translatable="false">Enable Enhanced Manual</string>
     <string name="misnapSampleAppSettingsDocumentRequestDocumentExtractionLabel" translatable="false">Request Document Extraction</string>
     <string name="misnapSampleAppSettingsDocumentRedactOptionalDataLabel" translatable="false">Redact Optional Data</string>
+    <string name="misnapSampleAppSettingsShouldEnableFocusFinalFrame" translatable="false">Enable Focus Before Final Frame</string>
+    <string name="misnapSampleAppSettingsDocumentPrioritizeExtractionOverImageQualityLabel" translatable="false">Prioritize Document Extraction Over Image Quality</string>
     <string name="misnapSampleAppSettingsDocumentClassificationLabel" translatable="false">Enable Document Classification</string>
     <string name="misnapSampleAppSettingsDocumentGeographyLabel" translatable="false">Geography</string>
     <string name="misnapSampleAppSettingsAnalysisDeviceMotionSensitivityLabel" translatable="false">Device Motion Sensitivity</string>
@@ -122,6 +128,8 @@
     <string name="misnapSampleAppSettingsDocumentRedactOptionalDataTooltip" translatable="false">Used to redact the BSN out of NLD documents.</string>
     <string name="misnapSampleAppSettingsDocumentClassificationTooltip" translatable="false">Used to enable document classification.</string>
     <string name="misnapSampleAppSettingsJpegQualityThreshold" translatable="false">JPEG Quality</string>
+    <string name="misnapSampleAppSettingsDocumentPrioritizeExtractionOverImageQualityTooltip" translatable="false">Only supported when extraction is REQUIRED for supported documents.</string>
+    <string name="misnapSampleAppSettingsDocumentFocusBeforeFinalFrameTooltip" translatable="false">Performs a focus before getting the final frame.</string>
 
     <string-array name="documentTriggersArray">
         <item>Auto</item>
@@ -164,6 +172,8 @@
     <string name="misnapSampleAppSettingsDocumentWorkflowSuccessViewShouldVibrateLabel" translatable="false">SuccessView Should Vibrate</string>
     <string name="misnapSampleAppSettingsDocumentWorkflowShowManualButtonLabel" translatable="false">Show Manual Button</string>
     <string name="misnapSampleAppSettingsDocumentWorkflowShowDocumentLabelLabel" translatable="false">Show Document Label</string>
+    <string name="misnapSampleAppSettingsDocumentWorkflowShowCancelButtonLabel" translatable="false">Show Cancel Button</string>
+    <string name="misnapSampleAppSettingsDocumentWorkflowShowExitConfirmationDialogButtonLabel" translatable="false">Show Exit Confirmation Dialog</string>
 
     <string-array name="documentReviewConditionsArray">
         <item>Always</item>
@@ -214,6 +224,7 @@
     <string name="misnapSampleAppSettingsBarcodeWorkflowGuideViewUnalignedScalePercentageLabel" translatable="false">GuideView Unaligned Scale Percentage</string>
     <string name="misnapSampleAppSettingsBarcodeWorkflowShowVignetteLabel" translatable="false">GuideView Show Vignette</string>
     <string name="misnapSampleAppSettingsBarcodeWorkflowSuccessViewShouldVibrateLabel" translatable="false">SuccessView Should Vibrate</string>
+    <string name="misnapSampleAppSettingsBarcodeWorkflowShowCancelButtonLabel" translatable="false">Show Cancel Button</string>
 
     <string-array name="barcodeReviewConditionsArray">
         <item>Always</item>
@@ -251,6 +262,7 @@
     <string name="misnapSampelAppSettingsFaceWorkflowHintViewShowBackground" translatable="false">HintView Show Background</string>
     <string name="misnapSampleAppSettingsFaceWorkflowSuccessViewShouldVibrateLabel" translatable="false">SuccessView Should Vibrate</string>
     <string name="misnapSampleAppSettingsFaceWorkflowLowLightSensitivityLabel" translatable="false">Low Light Sensitivity</string>
+    <string name="misnapSampleAppSettingsFaceWorkflowShowCancelButtonLabel" translatable="false">Show Cancel Button</string>
 
     <string-array name="lowLightSensitivitiesArray">
         <item>None</item>
@@ -271,6 +283,7 @@
     <string name="misnapSampleAppSettingsNfcDoctypeLabel" translatable="false">Document Type</string>
     <string name="misnapSampleAppSettingsNfcSoundAndVibrationLabel" translatable="false">Sound and Vibration</string>
     <string name="misnapSampleAppSettingsNfcRedactOptionalDataLabel" translatable="false">Redact Optional Data</string>
+    <string name="misnapSampleAppSettingsNfcSkipProfileImageLabel" translatable="false">Skip Profile Image</string>
 
     <string-array name="nfcDoctypesArray">
         <item>Passport</item>

@@ -1,4 +1,4 @@
-# MiSnap SDK v5.5.0 Science Integration Guide
+# MiSnap SDK v5.6.0 Science Integration Guide
 
 This guide is targeted towards customers who want to integrate **MiSnap's base processing** without the default workflow shipped with the MiSnap SDK.
 
@@ -26,27 +26,29 @@ Document, barcode, and face analysis use `MiSnapController` in the `controller` 
 
 Developers can, however, choose to integrate the science modules alone, but in doing so lose the high quality frame selection capabilities as the science modules only return the raw Image Quality Analysis (IQA) values. This guide provides the integration steps for an integration at the `controller` level.
 
+_Warning: This integration method is not compatible with the `Real-Time Security` feature._
+
 ## Dependencies 
 
 The easiest way to integrate document, face, or barcode analysis is to add the following to the integrating module's `build.gradle`:
 ```groovy
 dependencies {
-    implementation "com.miteksystems.misnap:controller:5.5.0"
+    implementation "com.miteksystems.misnap:controller:5.6.0"
 
     // Optional barcode analysis dependency
-    implementation "com.miteksystems.misnap:barcode-analysis:5.5.0"
+    implementation "com.miteksystems.misnap:barcode-analysis:5.6.0"
 
     // Optional document analysis dependency
-    implementation "com.miteksystems.misnap:document-analysis:5.5.0"
+    implementation "com.miteksystems.misnap:document-analysis:5.6.0"
 
     // Optional face analysis dependency
-    implementation "com.miteksystems.misnap:face-analysis:5.5.0"
+    implementation "com.miteksystems.misnap:face-analysis:5.6.0"
 
     // Optional MRZ detector dependency
-    implementation "com.miteksystems.misnap:feature-detector:5.5.0"
+    implementation "com.miteksystems.misnap:feature-detector:5.6.0"
 
     // Oprtional document classifier dependency
-    implementation "com.miteksystems.misnap:document-classifier:5.5.0"
+    implementation "com.miteksystems.misnap:document-classifier:5.6.0"
 }
 ```
 
@@ -77,7 +79,7 @@ Voice sessions don't go through the `MiSnapController` as they don't require a c
 The easiest way to integrate voice processing is to add the following to the integrating module's `build.gradle`:
 ```groovy
 dependencies {
-    implementation "com.miteksystems.misnap:voice-processor:5.5.0"
+    implementation "com.miteksystems.misnap:voice-processor:5.6.0"
 }
 ```
 
@@ -105,7 +107,7 @@ NFC sessions don't go through the `MiSnapController` as they don't require a cam
 The easiest way to integrate NFC reading is to add the following to the integrating module's `build.gradle`:
 ```groovy
 dependencies {
-    implementation "com.miteksystems.misnap:nfc-reader:5.5.0"
+    implementation "com.miteksystems.misnap:nfc-reader:5.6.0"
 }
 ```
 

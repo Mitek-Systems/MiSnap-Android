@@ -192,4 +192,14 @@
             android:entries="@array/lowLightSensitivitiesArray" />
     </LinearLayout>
 
+    <com.google.android.material.checkbox.MaterialCheckBox
+        android:id="@+id/faceWorkflowSettingsShowCancelButtonBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/misnapSampleAppLayoutVerticalMargin"
+        android:checked="false"
+        android:text="@string/misnapSampleAppSettingsFaceWorkflowShowCancelButtonLabel"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/faceWorkflowSettingsLowLightSensitivityContainer" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -6,7 +6,6 @@ import android.content.Context
 import android.content.pm.ActivityInfo
 import android.content.pm.PackageManager
 import android.os.Bundle
-import android.util.Size
 import android.view.View
 import android.widget.AdapterView
 import android.widget.AdapterView.OnItemSelectedListener
@@ -19,6 +18,7 @@ import androidx.appcompat.widget.TooltipCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.checkbox.MaterialCheckBox
 import com.miteksystems.misnap.R
 import com.miteksystems.misnap.barcode.default
 import com.miteksystems.misnap.barcode.getScanSpeed
@@ -53,11 +53,13 @@ import com.miteksystems.misnap.apputil.ViewPageAdapter
 import com.miteksystems.misnap.camera.*
 import com.miteksystems.misnap.controller.getImageQuality
 import com.miteksystems.misnap.controller.getMotionDetectorSensitivity
+import com.miteksystems.misnap.nfc.shouldSkipPortraitImage
 import com.miteksystems.misnap.voice.*
 import com.miteksystems.misnap.workflow.MiSnapWorkflowActivity
 import com.miteksystems.misnap.workflow.MiSnapWorkflowStep
 import com.miteksystems.misnap.workflow.fragment.*
 import com.miteksystems.misnap.workflow.getForcedOrientation
+import com.miteksystems.misnap.workflow.shouldShowExitConfirmationDialog
 import com.miteksystems.misnap.workflow.util.PermissionsUtil
 import com.miteksystems.misnap.workflow.util.SharedPrefsUtil
 import com.miteksystems.misnap.workflow.util.ViewBindingUtil
@@ -65,20 +67,6 @@ import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 
-/**
- *  NOTE : Assuming you've already have a shared resources module and a new app module depending on the former,
- *      these are the steps to split this fragment into individual SDKs, Face example:
- *      1. Copy the relevant resources, strings.xml and the settings layout face_settings.xml
- *      2. Adjust the lifecycle, state and helper common methods to exclude non face related code.
- *          - Depending on your case you might be able to ditch use case handling and tab management.
- *      3. Copy the related functions for face SDK
- *          - addFaceSettingsTab/addFaceWorkflowSettingsTab
- *          - applyFaceTabUiInputToSettings/applyFaceWorkflowTabUiInputToSettings
- *          - applySettingsToFaceTabUi/applySettingsToFaceWorkflowTabUi
- *          - Grab the helper functions for the face related tabs
- *      4. Streamline the methods as you see fit depending on what you were able to ditch, e.g. if you don't
- *          need tabs management, then do all the setup in onViewCreated
- */
 class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
     private val binding by ViewBindingUtil.viewBinding(
         this,
@@ -156,18 +144,22 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
                         //BarcodeSettingsInput
                         applyBarcodeTabUiInputToSettings(it)
                     }
+
                     MiSnapSettings.UseCase.FACE -> {
                         //FaceSettingsInput
                         applyFaceTabUiInputToSettings(it)
                     }
+
                     MiSnapSettings.UseCase.NFC -> {
                         //NFCSettingsInput
                         applyNfcTabUiInputToSettings(it)
                     }
+
                     MiSnapSettings.UseCase.VOICE -> {
                         //VoiceSettingsInput
                         applyVoiceTabUiInputToSettings(it)
                     }
+
                     else -> {
                         //Document Settings Tab
                         applyDocumentTabUiInputToSettings(it)
@@ -181,15 +173,19 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
                     MiSnapSettings.UseCase.BARCODE -> {
                         applyBarcodeWorkflowTabUiInputToSettings(it)
                     }
+
                     MiSnapSettings.UseCase.FACE -> {
                         applyFaceWorkflowTabUiInputToSettings(it)
                     }
+
                     MiSnapSettings.UseCase.NFC -> {
                         applyNfcWorkflowTabUiInputToSettings(it)
                     }
+
                     MiSnapSettings.UseCase.VOICE -> {
                         applyVoiceWorkflowTabUiInputToSettings(it)
                     }
+
                     else -> {
                         applyDocumentWorkflowTabUiInputToSettings(it)
                     }
@@ -342,15 +338,10 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
                 torchMode = getTorchModeAt(it.cameraSettingsTorchModeSpinner.selectedItemPosition)
 
                 videoRecord.recordSession = it.cameraSettingsRecordSessionCheckbox.isChecked
+                videoRecord.recordAudio = it.cameraSettingsRecordAudioCheckbox.isChecked
 
-                videoRecord.videoResolution = Size(
-                    kotlin.runCatching {
-                        it.cameraSettingsVideoResolutionWidth.text.toString().toInt()
-                    }.getOrDefault(videoRecord.getVideoResolution().width),
-                    kotlin.runCatching {
-                        it.cameraSettingsVideoResolutionHeight.text.toString().toInt()
-                    }.getOrDefault(videoRecord.getVideoResolution().height)
-                )
+                videoRecord.videoQuality =
+                    getVideoQualityAt(it.cameraSettingsVideoResolutionSpinner.selectedItemPosition)
 
                 videoRecord.videoBitrate =
                     kotlin.runCatching { it.cameraSettingsVideoBitrate.text.toString().toInt() }
@@ -383,6 +374,12 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
 
                 document.enableDocumentClassification =
                     it.documentSettingsEnableClassification.isChecked
+
+                document.prioritizeDocumentExtractionOverImageQuality =
+                    it.documentSettingsPrioritizeExtractionOverImageQuality.isChecked
+
+                document.enableFocusOnFinalFrame =
+                    it.documentSettingsEnableFocusFinalFrame.isChecked
 
                 document.advanced.cornerConfidence = kotlin.runCatching {
                     it.documentSettingsCornerConfidence.text.toString().toInt()
@@ -433,7 +430,8 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
                 }.getOrDefault(document.advanced.getMrzConfidence())
 
                 jpgQuality = kotlin.runCatching {
-                    it.analysisSettings.findViewById<EditText>(R.id.analysisSettingsJpegQuality).text.toString().toInt()
+                    it.analysisSettings.findViewById<EditText>(R.id.analysisSettingsJpegQuality).text.toString()
+                        .toInt()
                 }.getOrDefault(getImageQuality(settings.useCase))
             }
         }
@@ -465,13 +463,16 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
                 hintViewShouldShowBackground = it.documentWorkflowSettingsHintViewShowBackground.isChecked,
                 successViewShouldVibrate = it.documentWorkflowSettingsSuccessViewShouldVibrateBox.isChecked,
                 manualButtonVisible = it.documentWorkflowSettingsShowManualButtonBox.isChecked,
-                shouldShowDocumentLabel = it.documentWorkflowSettingsShowDocumentLabelBox.isChecked
+                shouldShowDocumentLabel = it.documentWorkflowSettingsShowDocumentLabelBox.isChecked,
+                shouldShowCancelButton = it.documentWorkflowSettingsShowCancelButtonBox.isChecked
             )
 
             settings.workflow.add(
                 getString(DOCUMENT_ANALYSIS_FRAGMENT_LABEL_RES),
                 workflowSettings
             )
+
+            settings.workflow.showExitConfirmationDialog= it.documentWorkflowSettingsShowExitConfirmationDialogBox.isChecked
         }
     }
 
@@ -504,7 +505,8 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
                         .toFloat()
                 }.getOrDefault(defaultWorkflowSettings.guideViewUnalignedScalePercentage),
                 guideViewShowVignette = it.barcodeWorkflowSettingsShowVignetteBox.isChecked,
-                successViewShouldVibrate = it.barcodeWorkflowSettingsSuccessViewShouldVibrateBox.isChecked
+                successViewShouldVibrate = it.barcodeWorkflowSettingsSuccessViewShouldVibrateBox.isChecked,
+                shouldShowCancelButton = it.barcodeWorkflowSettingsShowCancelButtonBox.isChecked,
             )
 
             settings.workflow.add(
@@ -548,7 +550,8 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
                 }.getOrDefault(face.advanced.getMinPadding())
 
                 jpgQuality = kotlin.runCatching {
-                    it.analysisSettings.findViewById<EditText>(R.id.analysisSettingsJpegQuality).text.toString().toInt()
+                    it.analysisSettings.findViewById<EditText>(R.id.analysisSettingsJpegQuality).text.toString()
+                        .toInt()
                 }.getOrDefault(getImageQuality(settings.useCase))
             }
         }
@@ -578,6 +581,7 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
                 successViewShouldVibrate = it.faceWorkflowSettingsSuccessViewShouldVibrateBox.isChecked,
                 changeGuideViewStateOnFeedback = it.faceWorkflowSettingsChangeGuideViewStateOnFeedbackBox.isChecked,
                 lowLightSensitivity = getLowLightSensitivityAt(it.faceWorkflowSettingsLowLightSensitivitySpinner.selectedItemPosition),
+                shouldShowCancelButton = it.faceWorkflowSettingsShowCancelButtonBox.isChecked,
             )
 
             settings.workflow.add(
@@ -595,6 +599,7 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
                 advanced.docType =
                     getNfcDoctypeAt(it.nfcSettingsDoctypeSpinner.selectedItemPosition)
                 redactOptionalData = it.nfcSettingsRedactOptionalData.isChecked
+                skipPortraitImage = it.nfcSettingsSkipProfileImage.isChecked
             }
         }
     }
@@ -701,6 +706,7 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
                 applySettingsToBarcodeTabUi(settings)
                 applySettingsToBarcodeWorkflowTabUi(settings)
             }
+
             MiSnapSettings.UseCase.FACE -> {
                 //Remove document settings
                 findTabIndexByTabTitle(getString(DOCUMENT_TAB_TITLE_RES))?.let {
@@ -747,6 +753,7 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
                 applySettingsToFaceTabUi(settings)
                 applySettingsToFaceWorkflowTabUi(settings)
             }
+
             MiSnapSettings.UseCase.NFC -> {
                 //Remove camera settings
                 findTabIndexByTabTitle(getString(CAMERA_TAB_TITLE_RES))?.let {
@@ -964,13 +971,14 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
             val shouldRecordSession = settings.camera.videoRecord.shouldRecordSession()
             it.cameraSettingsRecordSessionCheckbox.isChecked = shouldRecordSession
 
-            it.cameraSettingsVideoResolutionWidth.isEnabled = shouldRecordSession
-            it.cameraSettingsVideoResolutionHeight.isEnabled = shouldRecordSession
+            it.cameraSettingsRecordAudioCheckbox.isChecked =
+                settings.camera.videoRecord.shouldRecordAudio()
+
+            it.cameraSettingsVideoResolutionSpinner.isEnabled = shouldRecordSession
             it.cameraSettingsVideoBitrate.isEnabled = shouldRecordSession
 
+            it.cameraSettingsVideoResolutionSpinner.setSelection(settings.camera.videoRecord.getVideoQuality().ordinal)
 
-            it.cameraSettingsVideoResolutionWidth.setText(settings.camera.videoRecord.getVideoResolution().width.toString())
-            it.cameraSettingsVideoResolutionHeight.setText(settings.camera.videoRecord.getVideoResolution().height.toString())
             it.cameraSettingsVideoBitrate.setText(
                 settings.camera.videoRecord.getVideoBitrate().toString()
             )
@@ -983,9 +991,10 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
     private fun applySettingsToDocumentTabUi(settings: MiSnapSettings) {
         val isGeneric = settings.useCase == MiSnapSettings.UseCase.GENERIC_DOCUMENT
         documentSettingsBinding?.let {
-            it.analysisSettings.findViewById<Spinner>(R.id.analysisSettingsDeviceMotionSensitivitySpinner).setSelection(
-                settings.analysis.getMotionDetectorSensitivity(settings.useCase).ordinal
-            )
+            it.analysisSettings.findViewById<Spinner>(R.id.analysisSettingsDeviceMotionSensitivitySpinner)
+                .setSelection(
+                    settings.analysis.getMotionDetectorSensitivity(settings.useCase).ordinal
+                )
 
             if (settings.analysis.document.trigger == MiSnapSettings.Analysis.Document.Trigger.MANUAL) {
                 it.documentSettingsTriggerSpinner.setSelection(MiSnapSettings.Analysis.Document.Trigger.MANUAL.ordinal)
@@ -1015,6 +1024,12 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
                 setSelection(settings.analysis.document.getBarcodeExtractionRequirement().ordinal)
             }
 
+            it.documentSettingsPrioritizeExtractionOverImageQuality.isEnabled =
+                !settings.analysis.document.advanced.requireDocType().isCheck() && !isGeneric
+
+            it.documentSettingsEnableFocusFinalFrame.isEnabled =
+                !settings.analysis.document.advanced.requireDocType().isCheck()
+
             it.documentSettingsGeoSpinner.isEnabled =
                 settings.analysis.document.advanced.requireDocType().isCheck()
             it.documentSettingsGeoSpinner.setSelection(settings.analysis.document.check.getGeo().ordinal)
@@ -1024,6 +1039,12 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
 
             it.documentSettingsEnableClassification.isChecked =
                 settings.analysis.document.shouldEnableDocumentClassification()
+
+            it.documentSettingsPrioritizeExtractionOverImageQuality.isChecked =
+                settings.analysis.document.shouldPrioritizeDocumentExtractionOverImageQuality()
+
+            it.documentSettingsEnableFocusFinalFrame.isChecked =
+                settings.analysis.document.shouldEnableFocusOnFinalFrame()
 
             it.documentSettingsCornerConfidence.setText(
                 settings.analysis.document.advanced.getCornerConfidence()
@@ -1095,7 +1116,8 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
             documentSettingsBinding?.let { documentSettingsBinding ->
                 settings.apply {
                     analysis.document.trigger = getTriggerAt(
-                        documentSettingsBinding.documentSettingsTriggerSpinner.selectedItemPosition)
+                        documentSettingsBinding.documentSettingsTriggerSpinner.selectedItemPosition
+                    )
                 }
             }
 
@@ -1167,6 +1189,15 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
                 ?: defaultWorkflowSettings.shouldShowDocumentLabel)?.let {
                 binding.documentWorkflowSettingsShowDocumentLabelBox.isChecked = it
             }
+
+            (workflowSettings?.shouldShowCancelButton
+                ?: defaultWorkflowSettings.shouldShowCancelButton)?.let {
+                binding.documentWorkflowSettingsShowCancelButtonBox.isChecked = it
+            }
+
+            settings.workflow.shouldShowExitConfirmationDialog(getUseCaseAt(useCaseIndex)).let {
+                binding.documentWorkflowSettingsShowExitConfirmationDialogBox.isChecked = it
+            }
         }
     }
 
@@ -1237,14 +1268,20 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
                 ?: defaultWorkflowSettings.successViewShouldVibrate)?.let {
                 binding.barcodeWorkflowSettingsSuccessViewShouldVibrateBox.isChecked = it
             }
+
+            (workflowSettings?.shouldShowCancelButton
+                ?: defaultWorkflowSettings.shouldShowCancelButton)?.let {
+                binding.barcodeWorkflowSettingsShowCancelButtonBox.isChecked = it
+            }
         }
     }
 
     private fun applySettingsToFaceTabUi(settings: MiSnapSettings) {
         faceSettingsBinding?.let {
-            it.analysisSettings.findViewById<Spinner>(R.id.analysisSettingsDeviceMotionSensitivitySpinner).setSelection(
-                settings.analysis.getMotionDetectorSensitivity(settings.useCase).ordinal
-            )
+            it.analysisSettings.findViewById<Spinner>(R.id.analysisSettingsDeviceMotionSensitivitySpinner)
+                .setSelection(
+                    settings.analysis.getMotionDetectorSensitivity(settings.useCase).ordinal
+                )
             //Set the ttigger from the settings, or the default value, the "require" method is not a good fit here.
             settings.analysis.face.trigger?.let { faceTrigger ->
                 it.faceSettingsTriggerSpinner.setSelection(
@@ -1367,6 +1404,11 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
                 ?: defaultWorkflowSettings.changeGuideViewStateOnFeedback)?.let {
                 binding.faceWorkflowSettingsChangeGuideViewStateOnFeedbackBox.isChecked = it
             }
+
+            (workflowSettings?.shouldShowCancelButton
+                ?: defaultWorkflowSettings.shouldShowCancelButton)?.let {
+                binding.faceWorkflowSettingsShowCancelButtonBox.isChecked = it
+            }
         }
     }
 
@@ -1387,6 +1429,7 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
                 ?: it.nfcSettingsSoundAndVibrationSpinner.setSelection(MiSnapSettings.Nfc.SoundAndVibration.default().ordinal)
 
             it.nfcSettingsRedactOptionalData.isChecked = settings.nfc.shouldRedactOptionalData()
+            it.nfcSettingsSkipProfileImage.isChecked = settings.nfc.shouldSkipPortraitImage()
         }
     }
 
@@ -1507,6 +1550,13 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
         when (index) {
             1 -> MiSnapSettings.Camera.Profile.FACE_FRONT_CAMERA
             0 -> MiSnapSettings.Camera.Profile.DOCUMENT_BACK_CAMERA
+            else -> null
+        }
+
+    private fun getVideoQualityAt(index: Int) =
+        when (index) {
+            1 -> MiSnapSettings.Camera.VideoRecord.VideoQuality.HD
+            0 -> MiSnapSettings.Camera.VideoRecord.VideoQuality.FHD
             else -> null
         }
 
@@ -1858,8 +1908,8 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
 
         cameraSettingsBinding?.let {
             it.cameraSettingsRecordSessionCheckbox.setOnCheckedChangeListener { _, isChecked ->
-                it.cameraSettingsVideoResolutionWidth.isEnabled = isChecked
-                it.cameraSettingsVideoResolutionHeight.isEnabled = isChecked
+                it.cameraSettingsRecordAudioCheckbox.isEnabled = isChecked
+                it.cameraSettingsVideoResolutionSpinner.isEnabled = isChecked
                 it.cameraSettingsVideoBitrate.isEnabled = isChecked
             }
         }
@@ -2018,8 +2068,30 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
                 )
             }
 
+            it.prioritizeExtractionOverImageQualityTooltip.setOnClickListener { tooltip ->
+                showTooltipInfo(
+                    tooltip,
+                    getString(R.string.misnapSampleAppSettingsDocumentPrioritizeExtractionOverImageQualityTooltip)
+                )
+            }
+
+            it.enableFocusFinalFrameTooltip.setOnClickListener { tooltip ->
+                showTooltipInfo(
+                    tooltip,
+                    getString(R.string.misnapSampleAppSettingsDocumentFocusBeforeFinalFrameTooltip)
+                )
+            }
+
             it.documentSettingsRedactOptionalData.setOnCheckedChangeListener { _, checked ->
-                if (checked) {
+                if (checked && it.documentSettingsDocumentRequestOcrSpinner.isEnabled) {
+                    it.documentSettingsDocumentRequestOcrSpinner.setSelection(
+                        getDocumentExtractionRequirementIndex(MiSnapSettings.Analysis.Document.ExtractionRequirement.REQUIRED)
+                    )
+                }
+            }
+
+            it.documentSettingsPrioritizeExtractionOverImageQuality.setOnCheckedChangeListener { _, checked ->
+                if (checked && it.documentSettingsDocumentRequestOcrSpinner.isEnabled) {
                     it.documentSettingsDocumentRequestOcrSpinner.setSelection(
                         getDocumentExtractionRequirementIndex(MiSnapSettings.Analysis.Document.ExtractionRequirement.REQUIRED)
                     )
@@ -2092,7 +2164,8 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
                     override fun onNothingSelected(parent: AdapterView<*>?) {}
                 }
 
-            it.analysisSettings.findViewById<Spinner>(R.id.analysisSettingsDeviceMotionSensitivitySpinner).isEnabled = false
+            it.analysisSettings.findViewById<Spinner>(R.id.analysisSettingsDeviceMotionSensitivitySpinner).isEnabled =
+                false
         }
 
         adapter.addView(faceSettingsView, getString(FACE_TAB_TITLE_RES))
@@ -2254,12 +2327,14 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
                                         MiSnapSettings.Analysis.Face.Trigger.default()
                                 }
                             }
+
                             MiSnapSettings.UseCase.BARCODE -> {
                                 if (misnapWorkflowStep.settings.analysis.barcode.trigger == null) {
                                     misnapWorkflowStep.settings.analysis.barcode.trigger =
                                         MiSnapSettings.Analysis.Barcode.Trigger.AUTO
                                 }
                             }
+
                             else -> {
                                 if (misnapWorkflowStep.settings.analysis.document.trigger == null) {
                                     misnapWorkflowStep.settings.analysis.document.trigger =
@@ -2274,10 +2349,12 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
                                 misnapWorkflowStep.settings.analysis.face.trigger =
                                     MiSnapSettings.Analysis.Face.Trigger.MANUAL
                             }
+
                             MiSnapSettings.UseCase.BARCODE -> {
                                 misnapWorkflowStep.settings.analysis.barcode.trigger =
                                     MiSnapSettings.Analysis.Barcode.Trigger.MANUAL
                             }
+
                             else -> {
                                 misnapWorkflowStep.settings.analysis.document.trigger =
                                     MiSnapSettings.Analysis.Document.Trigger.MANUAL
@@ -2293,6 +2370,7 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
                         )
                     )
                 }
+
                 is CameraUtil.CameraSupportResult.Error -> {
                     // This camera does not support auto or manual,
                     displayError(R.string.misnapAppUtilCameraErrorMessage)

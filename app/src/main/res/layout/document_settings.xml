@@ -160,7 +160,7 @@
         android:id="@+id/documentSettingsEnableClassification"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/misnapSampleAppLayoutVerticalMargin"
+        android:layout_marginTop="@dimen/misnapSampleAppSpaceDefault"
         android:checked="false"
         android:text="@string/misnapSampleAppSettingsDocumentClassificationLabel"
         app:layout_constraintStart_toStartOf="parent"
@@ -179,7 +179,7 @@
         android:id="@+id/documentSettingsRedactOptionalData"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/misnapSampleAppLayoutVerticalMargin"
+        android:layout_marginTop="@dimen/misnapSampleAppSpaceDefault"
         android:checked="false"
         android:text="@string/misnapSampleAppSettingsDocumentRedactOptionalDataLabel"
         app:layout_constraintStart_toStartOf="parent"
@@ -194,6 +194,46 @@
         app:layout_constraintBottom_toBottomOf="@id/documentSettingsRedactOptionalData"
         app:layout_constraintStart_toEndOf="@id/documentSettingsRedactOptionalData"/>
 
+    <com.google.android.material.checkbox.MaterialCheckBox
+        android:id="@+id/documentSettingsPrioritizeExtractionOverImageQuality"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/misnapSampleAppSpaceDefault"
+        android:checked="false"
+        android:text="@string/misnapSampleAppSettingsDocumentPrioritizeExtractionOverImageQualityLabel"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/prioritizeExtractionOverImageQualityTooltip"
+        app:layout_constraintTop_toBottomOf="@id/documentSettingsRedactOptionalData" />
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/prioritizeExtractionOverImageQualityTooltip"
+        android:layout_width="@dimen/misnapSampleAppInfoIconSize"
+        android:layout_height="@dimen/misnapSampleAppInfoIconSize"
+        android:background="@drawable/settings_info_icon"
+        android:layout_marginStart="@dimen/misnapSampleAppSpaceDefault"
+        app:layout_constraintTop_toTopOf="@id/documentSettingsPrioritizeExtractionOverImageQuality"
+        app:layout_constraintBottom_toBottomOf="@id/documentSettingsPrioritizeExtractionOverImageQuality"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <com.google.android.material.checkbox.MaterialCheckBox
+        android:id="@+id/documentSettingsEnableFocusFinalFrame"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/misnapSampleAppSpaceDefault"
+        android:checked="false"
+        android:text="@string/misnapSampleAppSettingsShouldEnableFocusFinalFrame"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/enableFocusFinalFrameTooltip"
+        app:layout_constraintTop_toBottomOf="@id/documentSettingsPrioritizeExtractionOverImageQuality" />
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/enableFocusFinalFrameTooltip"
+        android:layout_width="@dimen/misnapSampleAppInfoIconSize"
+        android:layout_height="@dimen/misnapSampleAppInfoIconSize"
+        android:background="@drawable/settings_info_icon"
+        android:layout_marginStart="@dimen/misnapSampleAppSpaceDefault"
+        app:layout_constraintTop_toTopOf="@id/documentSettingsEnableFocusFinalFrame"
+        app:layout_constraintBottom_toBottomOf="@id/documentSettingsEnableFocusFinalFrame"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/documentSettingsCornerConfidenceContainer"
         android:layout_width="match_parent"
@@ -201,7 +241,7 @@
         android:layout_marginTop="@dimen/misnapSampleAppLayoutVerticalMargin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/documentSettingsRedactOptionalData">
+        app:layout_constraintTop_toBottomOf="@id/documentSettingsEnableFocusFinalFrame">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/documentSettingsCornerConfidence"

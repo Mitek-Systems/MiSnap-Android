@@ -41,7 +41,9 @@ class WorkflowSettings : AppCompatActivity() {
                 guideViewShowVignette = true,
                 hintViewShouldShowBackground = true,
                 successViewShouldVibrate = true,
-                reviewCondition = ReviewCondition.ALWAYS
+                reviewCondition = ReviewCondition.ALWAYS,
+                shouldShowCancelButton = true,
+                cancelButtonDrawableId = android.R.drawable.ic_menu_close_clear_cancel,
             )
 
         /**
