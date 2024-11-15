@@ -1,4 +1,4 @@
-# MiSnap SDK v5.6.0 for Android
+# MiSnap SDK v5.6.1 for Android
 Mitek MiSnap™ is a patented mobile-capture SDK that enables an intuitive user experience and instant capture of quality images. It all starts with the quality of the image.
 
 # Table of Contents
@@ -31,37 +31,26 @@ Mitek MiSnap™ is a patented mobile-capture SDK that enables an intuitive user 
 
 ## Release Notes
 #### **Added**
-* [Common] Support for recording the session including audio, requires `RECORD_AUDIO` permission and to set the `MiSnapSettings.Camera.VideoRecord.recordAudio` property to true.
-    * _Note: integrators should make sure that the `RECORD_AUDIO` permission is granted when using audio recording, audio won't be recorded if the permission is missing._
-* [NFC] A configuration option to skip reading the profile picture from NFC-enabled documents. To enable this option, set the `MiSnapSettings.Nfc.skipPortraitImage` property to true.
-    * _Note: when using this option the image returned in the results will be empty, it is advised to send the `NfcSession.misnapMibiData.mibiData` to the Mitek APIs for diagnosis._
-* [Document] A configuration option to request a forced focus operation before acquiring the final frame, this increases the chances of acquiring a sharp and well detailed image that is suitable for human review. To enable this option, set the `MiSnapSettings.Analysis.Document.enableFocusOnFinalFrame` property to true.
-    * _Note: this feature is not supported for Check sessions._
-* [Document] A configuration option to prioritize the extraction of the MRZ for identity documents over the quality of the image. To enable this option, set the `MiSnapSettings.Analysis.Document.prioritizeDocumentExtractionOverImageQuality` property to true.
-    * _Note: this reduces the session time bypassing image quality checks as long as the document's MRZ has been extracted and it is only supported when the `MiSnapSettings.Analysis.Document.documentExtractionRequirement` is set to `ExtractionRequirement.REQUIRED`, as such, this feature is not compatible with On-Device Classification_
-* [Common] Support for displaying a cancel button in the `DocumentAnalysisFragment`, `FaceAnalysisFragment` and `BarcodeAnalysisFragment`, displaying the cancel button can be enabled by setting the `shouldShowCancelButton` property to true in the `WorkflowSettings` of the target fragment. The `cancelButtonDrawableId` property of the `WorkflowSettings` can be used to customize the cancel button drawable.
-    * _Note: pressing the cancel button has the same effect as pressing the back button on the device._
-* [Document] A configuration option to display an exit confirmation dialog when the user navigates back. To enable displaying the dialog, set the `MiSnapSettings.Workflow.showExitConfirmationDialog` property to true.
-    * _Note: the contents of the dialog can be customized through localization for string keys: `misnapDocumentAnalysisSessionExitConfirmationDialog*`, the display of the dialog is only supported in document sessions._
-* [Common] Incremental updates to Real-Time Security.
-* [NFC] Support for reading the holder optional info data group of ICAO documents.
+* [NFC] Support for NLD 2024 documents.
+* [Document] Support for extracting the MRZ of TD2 documents by setting the `analysis.document.advanced.docType` property to `MiSnapSettings.Analysis.Document.Advanced.DocType.TD2`.
+* [Common] Support for 16KB memory page size devices.
+  * _For more information please see the official announcement in the [Android Developers Portal](https://developer.android.com/guide/practices/page-sizes)._
+* [Common] An option to configure the `delay of the initial hint message` to the `HintView` class.
+* [Barcode] An option to display a `barcode label` to indicate the expected type of barcode to read.
 
 #### **Modified**
-* [Common] Deprecated the `MiSnapSettings.Camera.VideoRecord.videoResolution` settings in favor of the new API `com.miteksystems.misnap.core.MiSnapSettings.Camera.VideoRecord.videoQuality`, the equivalent XML attributes of `CameraView` have been deprecated too, the new API defines `FHD(1080p)` and `HD(720p)` video quality constants rather than open sizes.
-* [Common] The `SurfaceRecorder` and `VideoWriter` classes have been deprecated in favor of using the `MiSnapView/CameraView` recording capabilities.
-* [Common] MiSnap now links the `OpenMP library dynamically` and the `libomp.so` library is included as part of the `core-module` to be used across the SDK.
-    * _Note: see the system requirements for information on the NDK version used in MiSnap for compiling the shipped native libraries, the NDK version indicates the libomp.so version used._
-* [Document] The `UserAction.MRZ_NOT_FOUND` now has a default message that can be customized through localization key `misnapWorkflowDocumentAnalysisFragmentHintViewMrzNotFoundMessage`.
+* [Common] Upgraded CameraX to version 1.4.0.
+* [Common] Upgraded the NDK to version r27c.
+* [Common] Upgraded the Android Gradle Plugin to 8.0.2.
+  * _NOTE: Please see [this question](#how-to-integrate-misnap-561-using-android-gradle-plugin-801-and-lower) for relevant information when working with `Android Gradle Plugin 8.0.1 and lower`._
 
 #### **Fixed**
-* [NFC] Removed the `com.gemalto.jp2:jp2-android` dependency and the jcenter repository from the `nfc-reader` module, this fixes a build error while satisfying the dependency in some build environments due to the jcenter repository being sunset.
-* [Common] An issue with Android 15 in which the camera initialization could take longer if the camera resource was being retained by a different process at the time of going into a MiSnap session.
-* [Common] A concurrency modification issue that would sometimes result in a crash during the session when the device motion detector was enabled.
-* [ODC] An issue where MRZ was not enforced despite setting `MiSnapSettings.Analysis.Document.documentExtractionRequirement` to `ExtractionRequirement.REQUIRED` when document classification was enabled.
+* [Workflow] An issue with Fragments that presented dialogs in which the dialog could outlive the Fragment's lifecycle and produce a crash with certain interactions.
+* [Workflow] An issue with the `HintView` in which the view was initially displayed regardless not having contents.
 
-Please see the in-code documentation for more details and the full API.
+Please see the in-code documentation and the [Customization Guide](#customization-guide) for more details and the full API.
 
-### **Version 5.6.0**
+### **Version 5.6.1**
 
 Please see [the migration guide](documentation/migration_guide.md) for extended information on the changes introduced in this release that can affect your integration.
 
@@ -75,28 +64,30 @@ Please see [this page](documentation/download_sizes.md) for the in-depth size ta
 <!-- SIZE_TABLE_START -->
 | Use Case                         | Download Size (MiB) | 
 | :------------------------------- | ------------------: |
-| Document                         | 6.0                 | 
-| Document and Barcode             | 7.25                | 
-| Document and Biometric           | 13.73               | 
-| Document, Barcode, and Biometric | 14.99               | 
-| Document, Biometric, and NFC     | 17.72               | 
-| Document Classification          | 13.75               | 
+| Document                         | 6.06                | 
+| Document and Barcode             | 7.31                | 
+| Document and Biometric           | 14.15               | 
+| Document, Barcode, and Biometric | 15.4                | 
+| Document, Biometric, and NFC     | 18.14               | 
+| Document Classification          | 14.23               | 
 <!-- SIZE_TABLE_END -->
 
 
 ## System Requirements
 
-| Technology                | Version    |
-|:--------------------------|:-----------|
-| Android Gradle Plugin     | 4.2.2      |
-| Gradle                    | 6.8.3      |
-| Kotlin                    | 1.8.10     |
-| CameraX                   | 1.3.0      |
-| JDK                       | 11         |
-| NDK                       | r25c       |
-| Android min API level     | 23         |
-| Android target API level  | 32         |
-| Android compile API level | 34         |
+| Technology                | Version |
+|:--------------------------|:--------|
+| Android Gradle Plugin     | 8.0.2*  |
+| Gradle                    | 6.8.3   |
+| Kotlin                    | 1.8.10  |
+| CameraX                   | 1.4.0   |
+| JDK                       | 11      |
+| NDK                       | r27c    |
+| Android min API level     | 23      |
+| Android target API level  | 32      |
+| Android compile API level | 34      |
+
+\* Please see [this question](#how-to-integrate-misnap-561-using-android-gradle-plugin-801-and-lower) for relevant information when working with `Android Gradle Plugin 8.0.1 and lower`.
 
 Please see [versions.gradle](versions.gradle) for more details.
 
@@ -177,7 +168,6 @@ Please follow these steps:
     ```groovy
     allProjects {
       repositories {
-        ...
         maven {
           url = uri('https://maven.pkg.github.com/mitek-systems/misnap-android')
           credentials {
@@ -257,7 +247,6 @@ b. Run the `maven-local-manager.bat /i` command.
     ```groovy
     allprojects {
       repositories {
-        ...
         //Please make sure that mavenLocal() is the last entry in the repositories block
         mavenLocal()
       }
@@ -266,6 +255,25 @@ b. Run the `maven-local-manager.bat /i` command.
 4. Add the required dependencies as per the [Integration Guides](#integration-guides).
 
 _Note: The artifacts hosted in Github are exclusively for use with online Maven integrations, please use the artifacts in the zip package for an offline integration with Maven._
+
+### How to integrate MiSnap 5.6.1+ using Android Gradle Plugin 8.0.1 and lower?
+Starting with MiSnap 5.6.1, the `CameraX library` used for camera access has been upgraded to a version that may result into a build error due to a an upgrade of `androidx` to `JDK21` that is not handled correctly in `AGP 8.0.1 and lower`. To fix this issue, please follow these steps:
+1. Add the `R8` releases repository to the **project level** `build.gradle`:
+```groovy
+    repositories {
+        maven {
+            url = uri("https://storage.googleapis.com/r8-releases/raw")
+        }
+    }
+```
+2. Add the following to the `dependencies` block of the **project level** `build.gradle`:
+```groovy
+    dependencies {
+        classpath("com.android.tools:r8:8.1.44")
+    }
+```
+The above steps will ensure that the `R8` compiler that includes the fix for the `JDK21` issue is used in the build process when working with AGP 8.0.1 and lower.
+
 - - - -
 
 # Third-Party Licenses

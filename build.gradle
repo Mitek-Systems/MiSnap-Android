@@ -5,6 +5,9 @@ buildscript {
         google()
         mavenCentral()
         gradlePluginPortal()
+        maven {
+            url = uri("https://storage.googleapis.com/r8-releases/raw")
+        }
     }
 
     dependencies {
@@ -16,6 +19,7 @@ buildscript {
         classpath "org.jetbrains.kotlinx:binary-compatibility-validator:$apiValidatorVersion"
         classpath "org.jacoco:org.jacoco.core:$jacocoVersion"
         classpath "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:$detektVersion"
+        classpath("com.android.tools:r8:$r8Version") //Using R8/D8 from AGP 8.0.2+ that fixes the bug https://issuetracker.google.com/issues/342522142 only needed if using AGP < 8.0.1
 //        classpath 'net.sf.proguard:proguard-gradle:6.2.2' //TODO: add dependency on Proguard 6.2 for it to work when R8 is disabled in documentation
 //        classpath 'com.guardsquare:proguard-gradle:7.1.0'
     }

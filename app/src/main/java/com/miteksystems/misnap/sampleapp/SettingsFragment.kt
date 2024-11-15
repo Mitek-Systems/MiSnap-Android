@@ -451,6 +451,9 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
                 hintDuration = kotlin.runCatching {
                     it.documentWorkflowSettingsHintDuration.text.toString().toInt()
                 }.getOrDefault(defaultWorkflowSettings.hintDuration),
+                hintViewInitialHintDelay = kotlin.runCatching {
+                    it.documentWorkflowSettingsHintInitialDelay.text.toString().toInt()
+                }.getOrDefault(defaultWorkflowSettings.hintViewInitialHintDelay),
                 guideViewAlignedScalePercentage = kotlin.runCatching {
                     it.documentWorkflowSettingsGuideViewScalePercentageAligned.text.toString()
                         .toFloat()
@@ -507,6 +510,7 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
                 guideViewShowVignette = it.barcodeWorkflowSettingsShowVignetteBox.isChecked,
                 successViewShouldVibrate = it.barcodeWorkflowSettingsSuccessViewShouldVibrateBox.isChecked,
                 shouldShowCancelButton = it.barcodeWorkflowSettingsShowCancelButtonBox.isChecked,
+                shouldShowBarcodeLabel = it.barcodeWorkflowSettingsShowBarcodeLabelBox.isChecked
             )
 
             settings.workflow.add(
@@ -573,6 +577,9 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
                 hintDuration = kotlin.runCatching {
                     it.faceWorkflowSettingsHintDuration.text.toString().toInt()
                 }.getOrDefault(defaultWorkflowSettings.hintDuration),
+                hintViewInitialHintDelay = kotlin.runCatching {
+                    it.faceWorkflowSettingsHintInitialDelay.text.toString().toInt()
+                }.getOrDefault(defaultWorkflowSettings.hintViewInitialHintDelay),
                 guideViewScalePercentage = kotlin.runCatching {
                     it.faceWorkflowSettingsGuideViewScalePercentage.text.toString().toFloat()
                 }.getOrDefault(defaultWorkflowSettings.guideViewScalePercentage),
@@ -1151,6 +1158,11 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
                 binding.documentWorkflowSettingsHintDuration.setText(it.toString())
             }
 
+            (workflowSettings?.hintViewInitialHintDelay
+                ?: defaultWorkflowSettings.hintViewInitialHintDelay)?.let {
+                binding.documentWorkflowSettingsHintInitialDelay.setText(it.toString())
+            }
+
             (workflowSettings?.guideViewAlignedScalePercentage
                 ?: defaultWorkflowSettings.guideViewAlignedScalePercentage)?.let {
                 binding.documentWorkflowSettingsGuideViewScalePercentageAligned.setText(
@@ -1273,6 +1285,11 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
                 ?: defaultWorkflowSettings.shouldShowCancelButton)?.let {
                 binding.barcodeWorkflowSettingsShowCancelButtonBox.isChecked = it
             }
+
+            (workflowSettings?.shouldShowBarcodeLabel
+                ?: defaultWorkflowSettings.shouldShowBarcodeLabel)?.let {
+                    binding.barcodeWorkflowSettingsShowBarcodeLabelBox.isChecked = it
+            }
         }
     }
 
@@ -1371,6 +1388,11 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
             (workflowSettings?.hintDuration
                 ?: defaultWorkflowSettings.hintDuration)?.let {
                 binding.faceWorkflowSettingsHintDuration.setText(it.toString())
+            }
+
+            (workflowSettings?.hintViewInitialHintDelay
+                ?: defaultWorkflowSettings.hintViewInitialHintDelay)?.let {
+                binding.faceWorkflowSettingsHintInitialDelay.setText(it.toString())
             }
 
             (workflowSettings?.guideViewScalePercentage

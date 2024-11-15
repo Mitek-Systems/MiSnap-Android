@@ -1,0 +1,209 @@
+<!doctype html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>Nfc</title>
+<link href="../../../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../../../";</script>    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="../../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../../styles/style.css" rel="Stylesheet">
+<link href="../../../../styles/jetbrains-mono.css" rel="Stylesheet">
+<link href="../../../../styles/main.css" rel="Stylesheet">
+<link href="../../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../../styles/logo-styles.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script>
+<link href="../../../../styles/multimodule.css" rel="Stylesheet"></head>
+<body>
+<div class="navigation-wrapper" id="navigation-wrapper">
+    <div id="leftToggler"><span class="icon-toggler"></span></div>
+    <div class="library-name">
+<a href="../../../../index.html">
+<span>android-MiSnap</span>            </a>    </div>
+    <div>
+<dokka-template-command data="{&quot;@class&quot;:&quot;org.jetbrains.dokka.base.templating.ReplaceVersionsCommand&quot;,&quot;location&quot;:&quot;com.miteksystems.misnap.core/-mi-snap-settings/-nfc/index.html&quot;}"><div class="versions-dropdown">
+  <div class="versions-dropdown-button">5.6.0</div>
+  <div class="versions-dropdown-data"><a href="../../../../../../core/com.miteksystems.misnap.core/-mi-snap-settings/-nfc/index.html">5.6.1</a><a href="index.html">5.6.0</a><a href="../../../../../5.5.0/core/com.miteksystems.misnap.core/-mi-snap-settings/-nfc/index.html">5.5.0</a><a href="../../../../../5.4.1/core/com.miteksystems.misnap.core/-mi-snap-settings/-nfc/index.html">5.4.1</a><a href="../../../../../5.4.0/core/com.miteksystems.misnap.core/-mi-snap-settings/-nfc/index.html">5.4.0</a><a href="../../../../../5.3.4/core/com.miteksystems.misnap.core/-mi-snap-settings/-nfc/index.html">5.3.4</a><a href="../../../../../5.3.3/core/com.miteksystems.misnap.core/-mi-snap-settings/-nfc/index.html">5.3.3</a><a href="../../../../../5.3.2/core/com.miteksystems.misnap.core/-mi-snap-settings/-nfc/index.html">5.3.2</a><a href="../../../../../5.3.1/core/com.miteksystems.misnap.core/-mi-snap-settings/-nfc/index.html">5.3.1</a><a href="../../../../../5.3.0/core/com.miteksystems.misnap.core/-mi-snap-settings/-nfc/index.html">5.3.0</a><a href="../../../../../5.2.1/core/com.miteksystems.misnap.core/-mi-snap-settings/-nfc/index.html">5.2.1</a><a href="../../../../../5.2.0/core/com.miteksystems.misnap.core/-mi-snap-settings/-nfc/index.html">5.2.0</a><a href="../../../../../5.1.1/core/com.miteksystems.misnap.core/-mi-snap-settings/-nfc/index.html">5.1.1</a><a href="../../../../../5.1.0/core/com.miteksystems.misnap.core/-mi-snap-settings/-nfc/index.html">5.1.0</a><a href="../../../../../5.0.0/core/com.miteksystems.misnap.core/-mi-snap-settings/-nfc/index.html">5.0.0</a></div>
+</div>
+</dokka-template-command>    </div>
+    <div class="pull-right d-flex">
+        <div class="filter-section" id="filter-section">
+                <button class="platform-tag platform-selector jvm-like" data-active="" data-filter=":core:dokkaHtmlPartial/release">androidJvm</button>
+        </div>
+        <button id="theme-toggle-button"><span id="theme-toggle"></span></button>
+        <div id="searchBar"></div>
+    </div>
+</div>
+<div id="container">
+    <div id="leftColumn">
+        <div id="sideMenu"></div>
+    </div>
+    <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="core::com.miteksystems.misnap.core/MiSnapSettings.Nfc///PointingToDeclaration//-27209644">
+  <div class="breadcrumbs"><a href="../../../index.html">core</a><span class="delimiter">/</span><a href="../../index.html">com.miteksystems.misnap.core</a><span class="delimiter">/</span><a href="../index.html">MiSnapSettings</a><span class="delimiter">/</span><span class="current">Nfc</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span><span>Nfc</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/release"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="kotlinx.serialization/Serializable///PointingToDeclaration/"><span class="token annotation builtin">Serializable</span></span></div></div><span class="token keyword">class </span><a href="index.html">Nfc</a> : <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-cloneable/index.html">Cloneable</a></div><p class="paragraph">Defines options and settings for NFC chip reading.</p></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,FUNCTION,PROPERTY">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="">Constructors</h2>
+        <div class="table"><a data-name="-106143144%2FConstructors%2F-27209644" anchor-label="Nfc" id="-106143144%2FConstructors%2F-27209644" data-filterable-set=":core:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-togglable="CONSTRUCTOR" data-filterable-current=":core:dokkaHtmlPartial/release" data-filterable-set=":core:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-nfc.html"><span><span>Nfc</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-106143144%2FConstructors%2F-27209644"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="TYPE">
+        <h2 class="">Types</h2>
+        <div class="table"><a data-name="-198921718%2FClasslikes%2F-27209644" anchor-label="Advanced" id="-198921718%2FClasslikes%2F-27209644" data-filterable-set=":core:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":core:dokkaHtmlPartial/release" data-filterable-set=":core:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-advanced/index.html"><span><span>Advanced</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-198921718%2FClasslikes%2F-27209644"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/release"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="kotlinx.serialization/Serializable///PointingToDeclaration/"><span class="token annotation builtin">Serializable</span></span></div></div><span class="token keyword">class </span><a href="-advanced/index.html">Advanced</a> : <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-cloneable/index.html">Cloneable</a></div><div class="brief "><p class="paragraph">WARNING: Advanced settings have the capacity to drastically alter the session and can lead to a poor user experience.  Please consult the support team before using any of these settings.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1774688020%2FClasslikes%2F-27209644" anchor-label="SoundAndVibration" id="-1774688020%2FClasslikes%2F-27209644" data-filterable-set=":core:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":core:dokkaHtmlPartial/release" data-filterable-set=":core:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-sound-and-vibration/index.html"><span>Sound</span><wbr><span>And</span><wbr><span><span>Vibration</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1774688020%2FClasslikes%2F-27209644"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">enum </span><a href="-sound-and-vibration/index.html">SoundAndVibration</a> : <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-enum/index.html">Enum</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-sound-and-vibration/index.html">MiSnapSettings.Nfc.SoundAndVibration</a><span class="token operator">&gt; </span></div><div class="brief "><p class="paragraph">Defines sound and vibration options for when the NFC chip is found during a session.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="472466389%2FProperties%2F-27209644" anchor-label="advanced" id="472466389%2FProperties%2F-27209644" data-filterable-set=":core:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":core:dokkaHtmlPartial/release" data-filterable-set=":core:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="advanced.html"><span><span>advanced</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="472466389%2FProperties%2F-27209644"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/release"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.jvm/-jvm-field/index.html"><span class="token annotation builtin">JvmField</span></a></div></div><span class="token keyword"></span><span class="token keyword">val </span><a href="advanced.html">advanced</a><span class="token operator">: </span><a href="-advanced/index.html">MiSnapSettings.Nfc.Advanced</a></div><div class="brief "><p class="paragraph">WARNING: Advanced settings have the capacity to drastically alter the session and can lead to a poor user experience.  Please consult the support team before using any of these settings.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-45119570%2FProperties%2F-27209644" anchor-label="mrz" id="-45119570%2FProperties%2F-27209644" data-filterable-set=":core:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":core:dokkaHtmlPartial/release" data-filterable-set=":core:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="mrz.html"><span><span>mrz</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-45119570%2FProperties%2F-27209644"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">var </span><a href="mrz.html">mrz</a><span class="token operator">: </span><a href="../../-mrz/index.html">Mrz</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">The MRZ used to unlock the NFC chip.  If not provided, the end user will need to manually enter the data.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-560336020%2FProperties%2F-27209644" anchor-label="redactOptionalData" id="-560336020%2FProperties%2F-27209644" data-filterable-set=":core:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":core:dokkaHtmlPartial/release" data-filterable-set=":core:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="redact-optional-data.html"><span>redact</span><wbr><span>Optional</span><wbr><span><span>Data</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-560336020%2FProperties%2F-27209644"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">var </span><a href="redact-optional-data.html">redactOptionalData</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Indicates if the optional data contents should be redacted out of the results. NOTE: Redaction is only supported for NLD Passports.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="523191010%2FProperties%2F-27209644" anchor-label="skipPortraitImage" id="523191010%2FProperties%2F-27209644" data-filterable-set=":core:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":core:dokkaHtmlPartial/release" data-filterable-set=":core:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="skip-portrait-image.html"><span>skip</span><wbr><span>Portrait</span><wbr><span><span>Image</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="523191010%2FProperties%2F-27209644"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">var </span><a href="skip-portrait-image.html">skipPortraitImage</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Indicates if the NFC chip scan should skip reading the portrait image. NOTE: If this setting is enabled the returned portrait image will be empty, it is advised to send the mibiString if working with Mitek APIs to improve session diagnostics.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1743927015%2FProperties%2F-27209644" anchor-label="soundAndVibration" id="-1743927015%2FProperties%2F-27209644" data-filterable-set=":core:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":core:dokkaHtmlPartial/release" data-filterable-set=":core:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="sound-and-vibration.html"><span>sound</span><wbr><span>And</span><wbr><span><span>Vibration</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1743927015%2FProperties%2F-27209644"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">var </span><a href="sound-and-vibration.html">soundAndVibration</a><span class="token operator">: </span><a href="-sound-and-vibration/index.html">MiSnapSettings.Nfc.SoundAndVibration</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Sets the sound and vibration behavior when the NFC chip is found.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2024 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+    </div>
+</div>
+</body>
+</html>
+
+

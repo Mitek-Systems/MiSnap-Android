@@ -1,4 +1,4 @@
-# MiSnap SDK v5.6.0 Customization Guide
+# MiSnap SDK v5.6.1 Customization Guide
 While many of the customization options mentioned in this guide may be applicable to other MiSnap integration types, this guide focuses on customization options for the [activity-based integration](./activity_integration_guide.md).
 
 # Table of Contents
@@ -25,6 +25,7 @@ While many of the customization options mentioned in this guide may be applicabl
     * [Customizing the GuideView](#customizing-the-guideview)
     * [Displaying the Manual Button in Auto Sessions](#displaying-the-manual-button-in-auto-sessions)
     * [Displaying a Document Label](#displaying-a-document-label)
+    * [Displaying a Barcode Label](#displaying-a-barcode-label)
     * [Adjusting the Session Timeout](#adjusting-the-session-timeout)
     * [Customizing the HintView](#customizing-the-hintview)
     * [Customizing the SuccessView](#customizing-the-successview)
@@ -43,6 +44,8 @@ While many of the customization options mentioned in this guide may be applicabl
     * [Removing/Skipping a Screen](#removingskipping-a-screen)
     * [Adding a New Screen](#adding-a-new-screen)
 * [Design Considerations](#design-considerations)
+    * [General](#general)
+    * [Views](#views)
 
 - - - - 
 
@@ -263,6 +266,24 @@ MiSnapSettings(
 }
 ```
 
+### Displaying a Barcode Label
+The MiSnap SDK also supports displaying a label for `Barcode` sessions on the analysis screen to assist the end user to read the correct barcode or provide a custom instruction.
+
+By default, the barcode label is not displayed on screen but it can be activated and customized through the `MiSnapSettings.Workflow` object as follows:
+```kotlin
+MiSnapSettings(
+    MiSnapSettings.UseCase.BARCODE,
+    license
+).apply {
+    workflow.add(getString(R.string.misnapWorkflowBarcodeAnalysisFlowBarcodeAnalysisFragmentLabel),
+        BarcodeAnalysisFragment.buildWorkflowSettings(
+            shouldShowBarcodeLabel = true,
+            barcodeLabelStringId = R.string.my_custom_barcode_label
+        )
+    )
+}
+```
+
 ### Adjusting the Session Timeout
 The MiSnap SDK features a timeout during the session analysis screen to prevent extended sessions, reduce resource usage, and to provide help to the end user for a successful session the next time in the `FailoverFragment`.
 
@@ -282,7 +303,7 @@ MiSnapSettings(
 ```
 
 ### Customizing the HintView
-The MiSnap SDK will display on screen live hints whenever there are improvements that can be made for a better image quality or there are actions that the end use must perform to finalize the session.
+The MiSnap SDK will display on-screen live hints whenever there are improvements that can be made for a better image quality or there are actions that the end use must perform to finalize the session.
 
 Several aspects of the HintView can be customized through the `MiSnapSettings.Workflow` object as follows:
 ```kotlin
@@ -295,11 +316,14 @@ MiSnapSettings(
         DocumentAnalysisFragment.buildWorkflowSettings(
             hintDuration = 2_500,
             hintAnimationId = R.anim.my_custom_animation,
-            hintViewShouldShowBackground = false
+            hintViewShouldShowBackground = false,
+            hintViewInitialHintDelay = 2_000
         )
     )
 }
 ```
+
+_Note: if you plan to use a custom `background drawable` in the `HintView` make sure to set the `hintViewShouldShowBackground` property to `false` to avoid displaying the default `backgroundColor`._
 
 ### Customizing the SuccessView
 By default, the MiSnap SDK displays a fullscreen success message when an image has been correctly acquired in a session through the `SuccessView`. There are several aspects of the `SuccessView` that can be customized by using the `MiSnapSettings.Workflow` object, for example:
@@ -571,9 +595,16 @@ Please see `examples/advanced/screens/addscreen/AddScreenActivity.kt` for the fu
 
 # Design Considerations
 The following list is a collection of things to look out for while customizing the MiSnap SDK:
+## General
 
 * For an optimal document analysis session, it is recommended to align the long side of the document with the long side of the device.
+* Keeping hint messages concise will ensure that the messages are easier to understand.
+* Keeping hint duration too short (might not allow users to read the hints and act on them fast enough) or too long (the hint shown may not be relevant anymore) can negatively impact the user's experience.
+* Making the session timeout duration too short might result in multiple fail-overs and users might opt to complete the session manually, thereby resulting in a non-optimal image being returned.
+* Synchronizing the trigger delay for a face analysis session and the duration of the CountdownTimerView yields a better experience.
+* All views in the `workflow` module extend from either material design components or `AppCompat` components. All customizations supported by material design and `AppCompat` are supported by the views.
 
+## Views
 * When using a `GuideView` in a document analysis session, ensure that the drawable is:
 
     * Of the same aspect ratio as the target document.
@@ -587,18 +618,10 @@ The following list is a collection of things to look out for while customizing t
   * Ensure that the `guideViewShowVignette` is set to `true`.
   * To customize the `GuideView` and use this feature use a [resource override](#through-resource-overrides) approach to override the `misnap_guide_face.xml` drawable and `misnap_guide_face_low_light_conditions.xml`.
 
-* Keeping hint messages concise will ensure that the messages are easier to understand.
-
-* Keeping hint duration too short (might not allow users to read the hints and act on them fast enough) or too long (the hint shown may not be relevant anymore) can negatively impact the user's experience.
+* It is recommended to set the initial state of the `HintView` to `INVISIBLE or GONE`, the `HintView` controls the visibility automatically based on the contents displayed and setting the visibility to `INVISIBLE or GONE` as the initial state helps to avoid displaying the view when there are no contents associated before a message is set.
 
 * Using a `CountdownTimerView`, especially for face sessions, can result in high quality, non-blurry images, as it provides visual feedback to users when the MiSnap SDK is ready to complete the session.
 
 * The `MiSnapView` and `CameraView` don't request access for camera permission. Ensure that the application holds the permission to use the camera before using them.
-
-* Making the session timeout duration too short might result in multiple fail-overs and users might opt to complete the session manually, thereby resulting in a non-optimal image being returned.
-
-* Synchronizing the trigger delay for a face analysis session and the duration of the CountdownTimerView yields a better experience.
-
-* All views in the `workflow` module extend from either material design components or `AppCompat` components. All customizations supported by material design and `AppCompat` are supported by the views.
 
 - - - -

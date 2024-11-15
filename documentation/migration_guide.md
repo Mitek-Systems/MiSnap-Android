@@ -1,4 +1,24 @@
-# MiSnap SDK v5.6.0 Migration Guide
+# MiSnap SDK v5.6.1 Migration Guide
+
+## Upgrading the MiSnap SDK from v5.4.x to v5.6.1
+### Project Configuration Changes
+Starting with MiSnap 5.6.1, the `CameraX library` used for camera access has been upgraded to a version that may result into a build error due to a an upgrade of `androidx` to `JDK21` that is not handled correctly in `AGP 8.0.1 and lower`. To fix this issue, please follow these steps:
+1. Add the `R8` releases repository to the **project level** `build.gradle`:
+```groovy
+    repositories {
+        maven {
+            url = uri("https://storage.googleapis.com/r8-releases/raw")
+        }
+    }
+```
+2. Add the following to the `dependencies` block of the **project level** `build.gradle`:
+```groovy
+    dependencies {
+        classpath("com.android.tools:r8:8.1.44")
+    }
+```
+The above steps will ensure that the `R8` compiler that includes the fix for the `JDK21` issue is used in the build process when working with AGP 8.0.1 and lower.
+
 
 ## Upgrading the MiSnap SDK from v5.3.x to v5.4.0
 ### API Changes

@@ -56,10 +56,16 @@ android {
         sourceCompatibility jdkVersion
         targetCompatibility jdkVersion
     }
+
+    packagingOptions {
+        jniLibs {
+            useLegacyPackaging = true
+        }
+
+    }
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     implementation "com.miteksystems.misnap:document:$misnapVersion"
     implementation "com.miteksystems.misnap:barcode:$misnapVersion"
@@ -67,6 +73,9 @@ dependencies {
     implementation "com.miteksystems.misnap:combined-nfc:$misnapVersion"
     implementation "com.miteksystems.misnap:classifier:$misnapVersion"
     implementation project(':app-util')
+
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
 
     // Memory Leak detection. Used only for this sample app. Not used within SDK modules.
     debugImplementation "com.squareup.leakcanary:leakcanary-android:$leakcanaryVersion"

@@ -162,13 +162,14 @@
     <!-- Document Workflow Settings Tab -->
     <string name="misnapSampleAppSettingsDocumentWorkflowTimeoutDurationLabel" translatable="false">Timeout Duration</string>
     <string name="misnapSampleAppSettingsDocumentWorkflowHintDurationLabel" translatable="false">Hint Duration</string>
+    <string name="misnapSampleAppSettingsDocumentWorkflowHintInitialDelayLabel" translatable="false">Hint Initial Delay</string>
     <string name="misnapSampleAppSettingsDocumentWorkflowShowBoundingBoxLabel" translatable="false">Show Bounding Box</string>
     <string name="misnapSampleAppSettingsDocumentWorkflowShowGlareBoxLabel" translatable="false">Show Glare Box</string>
     <string name="misnapSampleAppSettingsDocumentWorkflowReviewConditionLabel" translatable="false">Manual Review Condition</string>
     <string name="misnapSampleAppSettingsDocumentWorkflowGuideViewScalePercentageAlignedLabel" translatable="false">GuideView Aligned Scale Percentage</string>
     <string name="misnapSampleAppSettingsDocumentWorkflowGuideViewScalePercentageUnalignedLabel" translatable="false">GuideView Unaligned Scale Percentage</string>
     <string name="misnapSampleAppSettingsDocumentWorkflowShowVignetteLabel" translatable="false">GuideView Show Vignette</string>
-    <string name="misnapSampleAppSettingsDocumentWorkflowHintViewShowBackground" translatable="false">HintView Show Background</string>
+    <string name="misnapSampleAppSettingsDocumentWorkflowHintViewShowBackground" translatable="false">HintView Show Background Color</string>
     <string name="misnapSampleAppSettingsDocumentWorkflowSuccessViewShouldVibrateLabel" translatable="false">SuccessView Should Vibrate</string>
     <string name="misnapSampleAppSettingsDocumentWorkflowShowManualButtonLabel" translatable="false">Show Manual Button</string>
     <string name="misnapSampleAppSettingsDocumentWorkflowShowDocumentLabelLabel" translatable="false">Show Document Label</string>
@@ -225,6 +226,7 @@
     <string name="misnapSampleAppSettingsBarcodeWorkflowShowVignetteLabel" translatable="false">GuideView Show Vignette</string>
     <string name="misnapSampleAppSettingsBarcodeWorkflowSuccessViewShouldVibrateLabel" translatable="false">SuccessView Should Vibrate</string>
     <string name="misnapSampleAppSettingsBarcodeWorkflowShowCancelButtonLabel" translatable="false">Show Cancel Button</string>
+    <string name="misnapSampleAppSettingsBarcodeWorkflowShowBarcodeLabelLabel" translatable="false">Show Barcode Label</string>
 
     <string-array name="barcodeReviewConditionsArray">
         <item>Always</item>
@@ -252,6 +254,7 @@
     <!-- Face Workflow Settings Tab -->
     <string name="misnapSampleAppSettingsFaceWorkflowTimeoutDurationLabel" translatable="false">Timeout Duration</string>
     <string name="misnapSampleAppSettingsFaceWorkflowHintDurationLabel" translatable="false">Hint Duration</string>
+    <string name="misnapSampleAppSettingsFaceWorkflowHintInitialDelayLabel" translatable="false">Hint Initial Delay</string>
     <string name="misnapSampleAppSettingsFaceWorkflowCountdownTimerDurationLabel" translatable="false">Countdown Timer Duration</string>
     <string name="misnapSampleAppSettingsFaceWorkflowShowBoundingBoxLabel" translatable="false">Show Bounding Box</string>
     <string name="misnapSampleAppSettingsFaceWorkflowShowCountdownTimerLabel" translatable="false">Show Countdown Timer</string>

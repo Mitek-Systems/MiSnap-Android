@@ -109,13 +109,33 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/faceWorkflowSettingsGuideViewScalePercentageLayout"
+        android:id="@+id/faceWorkflowSettingsHintInitialDelayLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/misnapWorkflowLayoutVerticalMargin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/faceWorkflowSettingsHintDurationLayout">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/faceWorkflowSettingsHintInitialDelay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:digits="0123456789"
+            android:hint="@string/misnapSampleAppSettingsFaceWorkflowHintInitialDelayLabel"
+            android:imeOptions="actionNext"
+            android:inputType="number"
+            android:maxLength="5" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/faceWorkflowSettingsGuideViewScalePercentageLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/misnapWorkflowLayoutVerticalMargin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/faceWorkflowSettingsHintInitialDelayLayout">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/faceWorkflowSettingsGuideViewScalePercentage"

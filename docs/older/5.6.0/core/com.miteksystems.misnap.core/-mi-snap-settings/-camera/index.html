@@ -1,0 +1,258 @@
+<!doctype html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>Camera</title>
+<link href="../../../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../../../";</script>    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="../../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../../styles/style.css" rel="Stylesheet">
+<link href="../../../../styles/jetbrains-mono.css" rel="Stylesheet">
+<link href="../../../../styles/main.css" rel="Stylesheet">
+<link href="../../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../../styles/logo-styles.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script>
+<link href="../../../../styles/multimodule.css" rel="Stylesheet"></head>
+<body>
+<div class="navigation-wrapper" id="navigation-wrapper">
+    <div id="leftToggler"><span class="icon-toggler"></span></div>
+    <div class="library-name">
+<a href="../../../../index.html">
+<span>android-MiSnap</span>            </a>    </div>
+    <div>
+<dokka-template-command data="{&quot;@class&quot;:&quot;org.jetbrains.dokka.base.templating.ReplaceVersionsCommand&quot;,&quot;location&quot;:&quot;com.miteksystems.misnap.core/-mi-snap-settings/-camera/index.html&quot;}"><div class="versions-dropdown">
+  <div class="versions-dropdown-button">5.6.0</div>
+  <div class="versions-dropdown-data"><a href="../../../../../../core/com.miteksystems.misnap.core/-mi-snap-settings/-camera/index.html">5.6.1</a><a href="index.html">5.6.0</a><a href="../../../../../5.5.0/core/com.miteksystems.misnap.core/-mi-snap-settings/-camera/index.html">5.5.0</a><a href="../../../../../5.4.1/core/com.miteksystems.misnap.core/-mi-snap-settings/-camera/index.html">5.4.1</a><a href="../../../../../5.4.0/core/com.miteksystems.misnap.core/-mi-snap-settings/-camera/index.html">5.4.0</a><a href="../../../../../5.3.4/core/com.miteksystems.misnap.core/-mi-snap-settings/-camera/index.html">5.3.4</a><a href="../../../../../5.3.3/core/com.miteksystems.misnap.core/-mi-snap-settings/-camera/index.html">5.3.3</a><a href="../../../../../5.3.2/core/com.miteksystems.misnap.core/-mi-snap-settings/-camera/index.html">5.3.2</a><a href="../../../../../5.3.1/core/com.miteksystems.misnap.core/-mi-snap-settings/-camera/index.html">5.3.1</a><a href="../../../../../5.3.0/core/com.miteksystems.misnap.core/-mi-snap-settings/-camera/index.html">5.3.0</a><a href="../../../../../5.2.1/core/com.miteksystems.misnap.core/-mi-snap-settings/-camera/index.html">5.2.1</a><a href="../../../../../5.2.0/core/com.miteksystems.misnap.core/-mi-snap-settings/-camera/index.html">5.2.0</a><a href="../../../../../5.1.1/core/com.miteksystems.misnap.core/-mi-snap-settings/-camera/index.html">5.1.1</a><a href="../../../../../5.1.0/core/com.miteksystems.misnap.core/-mi-snap-settings/-camera/index.html">5.1.0</a><a href="../../../../../5.0.0/core/com.miteksystems.misnap.core/-mi-snap-settings/-camera/index.html">5.0.0</a></div>
+</div>
+</dokka-template-command>    </div>
+    <div class="pull-right d-flex">
+        <div class="filter-section" id="filter-section">
+                <button class="platform-tag platform-selector jvm-like" data-active="" data-filter=":core:dokkaHtmlPartial/release">androidJvm</button>
+        </div>
+        <button id="theme-toggle-button"><span id="theme-toggle"></span></button>
+        <div id="searchBar"></div>
+    </div>
+</div>
+<div id="container">
+    <div id="leftColumn">
+        <div id="sideMenu"></div>
+    </div>
+    <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="core::com.miteksystems.misnap.core/MiSnapSettings.Camera///PointingToDeclaration//-27209644">
+  <div class="breadcrumbs"><a href="../../../index.html">core</a><span class="delimiter">/</span><a href="../../index.html">com.miteksystems.misnap.core</a><span class="delimiter">/</span><a href="../index.html">MiSnapSettings</a><span class="delimiter">/</span><span class="current">Camera</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span><span>Camera</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/release"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="kotlinx.serialization/Serializable///PointingToDeclaration/"><span class="token annotation builtin">Serializable</span></span></div></div><span class="token keyword">class </span><a href="index.html">Camera</a> : <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-cloneable/index.html">Cloneable</a></div><p class="paragraph">Describes options and settings for the camera.</p></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,FUNCTION,PROPERTY">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="">Constructors</h2>
+        <div class="table"><a data-name="1680085904%2FConstructors%2F-27209644" anchor-label="Camera" id="1680085904%2FConstructors%2F-27209644" data-filterable-set=":core:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-togglable="CONSTRUCTOR" data-filterable-current=":core:dokkaHtmlPartial/release" data-filterable-set=":core:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-camera.html"><span><span>Camera</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1680085904%2FConstructors%2F-27209644"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="TYPE">
+        <h2 class="">Types</h2>
+        <div class="table"><a data-name="2119863688%2FClasslikes%2F-27209644" anchor-label="Advanced" id="2119863688%2FClasslikes%2F-27209644" data-filterable-set=":core:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":core:dokkaHtmlPartial/release" data-filterable-set=":core:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-advanced/index.html"><span><span>Advanced</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2119863688%2FClasslikes%2F-27209644"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/release"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="kotlinx.serialization/Serializable///PointingToDeclaration/"><span class="token annotation builtin">Serializable</span></span></div></div><span class="token keyword">class </span><a href="-advanced/index.html">Advanced</a> : <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-cloneable/index.html">Cloneable</a></div><div class="brief "><p class="paragraph">WARNING: Advanced settings have the capacity to drastically alter the session and can lead to a poor user experience.  Please consult the support team before using any of these settings.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="767962191%2FClasslikes%2F-27209644" anchor-label="Profile" id="767962191%2FClasslikes%2F-27209644" data-filterable-set=":core:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":core:dokkaHtmlPartial/release" data-filterable-set=":core:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-profile/index.html"><span><span>Profile</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="767962191%2FClasslikes%2F-27209644"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">enum </span><a href="-profile/index.html">Profile</a> : <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-enum/index.html">Enum</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-profile/index.html">MiSnapSettings.Camera.Profile</a><span class="token operator">&gt; </span></div><div class="brief "><p class="paragraph">Describes predefined camera profiles which determine the type of camera and capabilities to select for a session.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="3189049%2FClasslikes%2F-27209644" anchor-label="TorchMode" id="3189049%2FClasslikes%2F-27209644" data-filterable-set=":core:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":core:dokkaHtmlPartial/release" data-filterable-set=":core:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-torch-mode/index.html"><span>Torch</span><wbr><span><span>Mode</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="3189049%2FClasslikes%2F-27209644"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">enum </span><a href="-torch-mode/index.html">TorchMode</a> : <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-enum/index.html">Enum</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-torch-mode/index.html">MiSnapSettings.Camera.TorchMode</a><span class="token operator">&gt; </span></div><div class="brief "><p class="paragraph">Describes a camera torch operation mode.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1144782636%2FClasslikes%2F-27209644" anchor-label="VideoRecord" id="1144782636%2FClasslikes%2F-27209644" data-filterable-set=":core:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":core:dokkaHtmlPartial/release" data-filterable-set=":core:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-video-record/index.html"><span>Video</span><wbr><span><span>Record</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1144782636%2FClasslikes%2F-27209644"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/release"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="kotlinx.serialization/Serializable///PointingToDeclaration/"><span class="token annotation builtin">Serializable</span></span></div></div><span class="token keyword">class </span><a href="-video-record/index.html">VideoRecord</a> : <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-cloneable/index.html">Cloneable</a></div><div class="brief "><p class="paragraph">Describes options and settings for video recording capabilities.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="1721505146%2FFunctions%2F-27209644" anchor-label="hashCode" id="1721505146%2FFunctions%2F-27209644" data-filterable-set=":core:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":core:dokkaHtmlPartial/release" data-filterable-set=":core:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="hash-code.html"><span>hash</span><wbr><span><span>Code</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1721505146%2FFunctions%2F-27209644"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="hash-code.html"><span class="token function">hashCode</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="-1503715501%2FProperties%2F-27209644" anchor-label="advanced" id="-1503715501%2FProperties%2F-27209644" data-filterable-set=":core:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":core:dokkaHtmlPartial/release" data-filterable-set=":core:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="advanced.html"><span><span>advanced</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1503715501%2FProperties%2F-27209644"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/release"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.jvm/-jvm-field/index.html"><span class="token annotation builtin">JvmField</span></a></div></div><span class="token keyword"></span><span class="token keyword">val </span><a href="advanced.html">advanced</a><span class="token operator">: </span><a href="-advanced/index.html">MiSnapSettings.Camera.Advanced</a></div><div class="brief "><p class="paragraph">WARNING: Advanced settings have the capacity to drastically alter the session and can lead to a poor user experience.  Please consult the support team before using any of these settings.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="546275006%2FProperties%2F-27209644" anchor-label="enableHighResolutionFrames" id="546275006%2FProperties%2F-27209644" data-filterable-set=":core:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":core:dokkaHtmlPartial/release" data-filterable-set=":core:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="enable-high-resolution-frames.html"><span>enable</span><wbr><span>High</span><wbr><span>Resolution</span><wbr><span><span>Frames</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="546275006%2FProperties%2F-27209644"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">var </span><a href="enable-high-resolution-frames.html">enableHighResolutionFrames</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Specifies if the camera should be configured for high resolution frames.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-510447172%2FProperties%2F-27209644" anchor-label="profile" id="-510447172%2FProperties%2F-27209644" data-filterable-set=":core:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":core:dokkaHtmlPartial/release" data-filterable-set=":core:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="profile.html"><span><span>profile</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-510447172%2FProperties%2F-27209644"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">var </span><a href="profile.html">profile</a><span class="token operator">: </span><a href="-profile/index.html">MiSnapSettings.Camera.Profile</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Selects which native camera will be used in the session.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="988756582%2FProperties%2F-27209644" anchor-label="torchMode" id="988756582%2FProperties%2F-27209644" data-filterable-set=":core:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":core:dokkaHtmlPartial/release" data-filterable-set=":core:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="torch-mode.html"><span>torch</span><wbr><span><span>Mode</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="988756582%2FProperties%2F-27209644"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">var </span><a href="torch-mode.html">torchMode</a><span class="token operator">: </span><a href="-torch-mode/index.html">MiSnapSettings.Camera.TorchMode</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Toggles if the camera's torch will be on, off, or controlled by the results of image analysis.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="263728153%2FProperties%2F-27209644" anchor-label="videoRecord" id="263728153%2FProperties%2F-27209644" data-filterable-set=":core:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":core:dokkaHtmlPartial/release" data-filterable-set=":core:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="video-record.html"><span>video</span><wbr><span><span>Record</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="263728153%2FProperties%2F-27209644"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/release"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.jvm/-jvm-field/index.html"><span class="token annotation builtin">JvmField</span></a></div></div><span class="token keyword"></span><span class="token keyword">val </span><a href="video-record.html">videoRecord</a><span class="token operator">: </span><a href="-video-record/index.html">MiSnapSettings.Camera.VideoRecord</a></div><div class="brief "><p class="paragraph">Settings for configuring video recording during the session.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2024 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+    </div>
+</div>
+</body>
+</html>
+
+
