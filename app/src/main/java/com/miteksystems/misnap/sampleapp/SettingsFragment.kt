@@ -18,7 +18,6 @@ import androidx.appcompat.widget.TooltipCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.checkbox.MaterialCheckBox
 import com.miteksystems.misnap.R
 import com.miteksystems.misnap.barcode.default
 import com.miteksystems.misnap.barcode.getScanSpeed
@@ -53,6 +52,7 @@ import com.miteksystems.misnap.apputil.ViewPageAdapter
 import com.miteksystems.misnap.camera.*
 import com.miteksystems.misnap.controller.getImageQuality
 import com.miteksystems.misnap.controller.getMotionDetectorSensitivity
+import com.miteksystems.misnap.controller.shouldEnableAiBasedRts
 import com.miteksystems.misnap.nfc.shouldSkipPortraitImage
 import com.miteksystems.misnap.voice.*
 import com.miteksystems.misnap.workflow.MiSnapWorkflowActivity
@@ -523,6 +523,13 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
     private fun applyFaceTabUiInputToSettings(settings: MiSnapSettings) {
         settings.analysis.apply {
             faceSettingsBinding?.let {
+                //Also propagate the settings to the advanced settings for querying camera support
+                settings.camera.advanced.configureForAiBasedRts =
+                    it.faceSettingsEnableAiBasedRts.isChecked
+
+                enableAiBasedRts = it.faceSettingsEnableAiBasedRts.isChecked
+                //aiBasedRtsPayloadSize = getAiBasedRtsPayloadSizeAt(it.faceSettingsAiBasedRtsPayloadSizeSpinner.selectedItemPosition)
+
                 motionDetectorSensitivity =
                     getDeviceMotionSensitivityAt(it.analysisSettings.findViewById<Spinner>(R.id.analysisSettingsDeviceMotionSensitivitySpinner).selectedItemPosition)
 
@@ -1295,11 +1302,25 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
 
     private fun applySettingsToFaceTabUi(settings: MiSnapSettings) {
         faceSettingsBinding?.let {
+            it.faceSettingsEnableAiBasedRts.isChecked =
+                settings.analysis.shouldEnableAiBasedRts(settings.useCase)
+
+            //Set the AI-Based RTS preference from the settings, or the default value
+//            settings.analysis.aiBasedRtsPayloadSize?.let { payloadSize ->
+//                it.faceSettingsAiBasedRtsPayloadSizeSpinner.setSelection(
+//                    getAiBasedRtsPayloadSizeSpinnerIndex(
+//                        payloadSize
+//                    )
+//                )
+//            } ?: it.faceSettingsAiBasedRtsPayloadSizeSpinner.setSelection(
+//                settings.analysis.getAiBasedRtsPayloadSize().ordinal
+//            )
+
             it.analysisSettings.findViewById<Spinner>(R.id.analysisSettingsDeviceMotionSensitivitySpinner)
                 .setSelection(
                     settings.analysis.getMotionDetectorSensitivity(settings.useCase).ordinal
                 )
-            //Set the ttigger from the settings, or the default value, the "require" method is not a good fit here.
+            //Set the trigger from the settings, or the default value, the "require" method is not a good fit here.
             settings.analysis.face.trigger?.let { faceTrigger ->
                 it.faceSettingsTriggerSpinner.setSelection(
                     getFaceTriggerSpinnerIndex(
@@ -1766,6 +1787,19 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
             MiSnapSettings.Analysis.Face.Trigger.AUTO -> 0
             MiSnapSettings.Analysis.Face.Trigger.AUTO_SMILE -> 1
             MiSnapSettings.Analysis.Face.Trigger.MANUAL -> 2
+        }
+
+    private fun getAiBasedRtsPayloadSizeAt(index: Int) =
+        when (index) {
+            1 -> MiSnapSettings.Analysis.AiBasedRtsPayloadSize.NORMAL
+            0 -> MiSnapSettings.Analysis.AiBasedRtsPayloadSize.SMALL
+            else -> null
+        }
+
+    private fun getAiBasedRtsPayloadSizeSpinnerIndex(aiBasedRtsPayloadSize: MiSnapSettings.Analysis.AiBasedRtsPayloadSize) =
+        when (aiBasedRtsPayloadSize) {
+            MiSnapSettings.Analysis.AiBasedRtsPayloadSize.SMALL -> 0
+            MiSnapSettings.Analysis.AiBasedRtsPayloadSize.NORMAL -> 1
         }
 
     // endregion

@@ -158,5 +158,37 @@
         <include layout="@layout/analysis_settings" />
     </LinearLayout>
 
+    <com.google.android.material.checkbox.MaterialCheckBox
+        android:id="@+id/faceSettingsEnableAiBasedRts"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/misnapSampleAppLayoutVerticalMargin"
+        android:checked="false"
+        android:text="@string/misnapSampleAppSettingsFaceEnableAiBasedRtsBoxLabel"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/analysisSettings" />
 
+<!--    <LinearLayout-->
+<!--        android:id="@+id/faceSettingsAiBasedRtsPayloadSizeContainer"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:orientation="horizontal"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/faceSettingsEnableAiBasedRts">-->
+
+<!--        <com.google.android.material.textview.MaterialTextView-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_weight="1"-->
+<!--            android:text="@string/misnapSampleAppSettingsFaceAiBasedRtsPayloadSizeLabel" />-->
+
+<!--        <Spinner-->
+<!--            android:id="@+id/faceSettingsAiBasedRtsPayloadSizeSpinner"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_weight="1"-->
+<!--            android:entries="@array/aiBasedRtsPayloadSizeArray" />-->
+
+<!--    </LinearLayout>-->
 </androidx.constraintlayout.widget.ConstraintLayout>

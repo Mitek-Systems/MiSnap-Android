@@ -1,13 +1,13 @@
 project.ext {
     def buildNumber = String.format("%03d", System.getenv().BUILD_NUMBER?.toInteger() ?: 0)
-    def version = "5.6.1"
+    def version = "5.7.0"
 
     misnapVersionCode = Integer.parseInt("${version.replaceAll("\\.", "")}$buildNumber")
     misnapVersion = "$version"
 
     targetSdkVersion = 32
     compileSdkVersion = 34
-    coreMinSdk = 23
+    coreMinSdk = 24
     buildToolsVersion = "32.0.0"
 
     jdkVersion = JavaVersion.VERSION_1_8
@@ -20,6 +20,10 @@ project.ext {
     kotlinVersion = '1.8.10'
     kotlinCoroutinesVersion = '1.6.4'
     kotlinSerializationVersion = '1.5.0'
+
+    // Protobuf
+    protobufPluginVersion = '0.9.4'
+    protobufLiteVersion = '3.25.5'
 
     // AndroidX
     appcompatVersion = '1.4.1'
@@ -58,6 +62,6 @@ project.ext {
     apiValidatorVersion = '0.13.0'
     detektVersion = '1.18.1'
     dokkaVersion = '1.8.10'
-    jacocoVersion = '0.8.7'
+    jacocoVersion = '0.8.12'
     leakcanaryVersion = '2.9.1'
 }

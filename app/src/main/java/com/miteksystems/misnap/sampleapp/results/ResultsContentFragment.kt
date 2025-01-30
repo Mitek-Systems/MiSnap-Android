@@ -1,6 +1,8 @@
 package com.miteksystems.misnap.sampleapp.results
 
 import android.graphics.BitmapFactory
+import android.os.Handler
+import android.os.Looper
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
@@ -31,6 +33,8 @@ class ResultsContentFragment : Fragment(R.layout.fragment_result_content) {
         this,
         FragmentResultContentBinding::bind
     )
+
+    private val viewPagerHandler = Handler(Looper.myLooper() ?: Looper.getMainLooper())
 
     override fun onResume() {
         super.onResume()
@@ -291,7 +295,7 @@ class ResultsContentFragment : Fragment(R.layout.fragment_result_content) {
         )
         binding.tabLayout.setupWithViewPager(binding.viewPager)
 
-        binding.viewPager.post {
+        viewPagerHandler.post {
             onPageSelected(binding.viewPager, 0)
         }
     }
@@ -724,6 +728,7 @@ class ResultsContentFragment : Fragment(R.layout.fragment_result_content) {
     }
 
     private fun cleanup() {
+        viewPagerHandler.removeCallbacksAndMessages(null)
         binding.viewPager.removeAllViews()
         binding.tabLayout.removeAllTabs()
         binding.tabLayout.setOnClickListener(null)

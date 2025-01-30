@@ -244,6 +244,13 @@
     <string name="misnapSampleAppSettingsFaceEyesOpenConfidenceLabel" translatable="false">Eyes Open Confidence Threshold</string>
     <string name="misnapSampleAppSettingsFaceMaxAngleLabel" translatable="false">Max Angle Threshold</string>
     <string name="misnapSampleAppSettingsFaceSmileConfidenceLabel" translatable="false">Smile Confidence Threshold</string>
+    <string name="misnapSampleAppSettingsFaceEnableAiBasedRtsBoxLabel" translatable="false">Enable AI-Based RTS</string>
+    <string name="misnapSampleAppSettingsFaceAiBasedRtsPayloadSizeLabel" translatable="false">AI-Based RTS Payload Size</string>
+
+    <string-array name="aiBasedRtsPayloadSizeArray">
+        <item>Small</item>
+        <item>Normal</item>
+    </string-array>
 
     <string-array name="faceTriggerArray">
         <item>Auto</item>

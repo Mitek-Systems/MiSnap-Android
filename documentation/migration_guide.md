@@ -1,4 +1,4 @@
-# MiSnap SDK v5.6.1 Migration Guide
+# MiSnap SDK v5.7.0 Migration Guide
 
 ## Upgrading the MiSnap SDK from v5.4.x to v5.6.1
 ### Project Configuration Changes

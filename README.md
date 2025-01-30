@@ -1,4 +1,4 @@
-# MiSnap SDK v5.6.1 for Android
+# MiSnap SDK v5.7.0 for Android
 Mitek MiSnap™ is a patented mobile-capture SDK that enables an intuitive user experience and instant capture of quality images. It all starts with the quality of the image.
 
 # Table of Contents
@@ -31,26 +31,33 @@ Mitek MiSnap™ is a patented mobile-capture SDK that enables an intuitive user 
 
 ## Release Notes
 #### **Added**
-* [NFC] Support for NLD 2024 documents.
-* [Document] Support for extracting the MRZ of TD2 documents by setting the `analysis.document.advanced.docType` property to `MiSnapSettings.Analysis.Document.Advanced.DocType.TD2`.
-* [Common] Support for 16KB memory page size devices.
-  * _For more information please see the official announcement in the [Android Developers Portal](https://developer.android.com/guide/practices/page-sizes)._
-* [Common] An option to configure the `delay of the initial hint message` to the `HintView` class.
-* [Barcode] An option to display a `barcode label` to indicate the expected type of barcode to read.
+* [NFC] Added support for reading the NFC chip of MLT IDs and Residence Permits.
+* [Common] Added styles to customize the "manual trigger progress indicator" through the use of the `ManualTriggerProgressIndicator` style override.
 
 #### **Modified**
-* [Common] Upgraded CameraX to version 1.4.0.
-* [Common] Upgraded the NDK to version r27c.
-* [Common] Upgraded the Android Gradle Plugin to 8.0.2.
-  * _NOTE: Please see [this question](#how-to-integrate-misnap-561-using-android-gradle-plugin-801-and-lower) for relevant information when working with `Android Gradle Plugin 8.0.1 and lower`._
+* [Common] Updated the `minSdk` to 24.
+* [Common] Deprecated the `startPreview(surfaceHolder: SurfaceHolder)` and `startPreview(surface: Surface` methods from the `FrameProducer` interface in favor of the `startPreview(surfaceProvider: Preview.SurfaceProvider)`.
 
 #### **Fixed**
-* [Workflow] An issue with Fragments that presented dialogs in which the dialog could outlive the Fragment's lifecycle and produce a crash with certain interactions.
-* [Workflow] An issue with the `HintView` in which the view was initially displayed regardless not having contents.
+* [Common] An error in which the camera preview would sometimes look stretched for some devices when video recording was enabled.
+* [Common] An issue where the UI would overlap its contents for some devices when building for `targetSdk 35` and running on devices with `Android 15` due to the `edge to edge display` enforcement.
+* [NFC] A bug that caused the NFC reader to report errors with extended delays in some devices.
+* [NFC] An issue where the NFC reader would prompt for reading some PAK passports that do not support NFC.
+* [Common] Limitations on the background attribute when customizing the `SuccessView` through styles.
+
+#### **Digital Fraud Defender Users**
+Digital Fraud Defender is a paid package, when enabled on the device and the server, billing will start.
+
+[Face] A new AI-based RTS encrypted payload for advanced injection attacks detection.
+To enable this feature, set the `MiSnapSettings.Analysis.getEnableAiBasedRts` to true.
+
+NOTES:
+The use of this feature requires the use of the front camera.
+For more information on the full Digital Fraud Defender package, please contact your Customer Success Representative.
 
 Please see the in-code documentation and the [Customization Guide](#customization-guide) for more details and the full API.
 
-### **Version 5.6.1**
+### **Version 5.7.0**
 
 Please see [the migration guide](documentation/migration_guide.md) for extended information on the changes introduced in this release that can affect your integration.
 
@@ -64,12 +71,12 @@ Please see [this page](documentation/download_sizes.md) for the in-depth size ta
 <!-- SIZE_TABLE_START -->
 | Use Case                         | Download Size (MiB) | 
 | :------------------------------- | ------------------: |
-| Document                         | 6.06                | 
-| Document and Barcode             | 7.31                | 
-| Document and Biometric           | 14.15               | 
-| Document, Barcode, and Biometric | 15.4                | 
-| Document, Biometric, and NFC     | 18.14               | 
-| Document Classification          | 14.23               | 
+| Document                         | 6.42                | 
+| Document and Barcode             | 7.67                | 
+| Document and Biometric           | 14.42               | 
+| Document, Barcode, and Biometric | 15.67               | 
+| Document, Biometric, and NFC     | 18.43               | 
+| Document Classification          | 14.5                | 
 <!-- SIZE_TABLE_END -->
 
 
@@ -83,7 +90,7 @@ Please see [this page](documentation/download_sizes.md) for the in-depth size ta
 | CameraX                   | 1.4.0   |
 | JDK                       | 11      |
 | NDK                       | r27c    |
-| Android min API level     | 23      |
+| Android min API level     | 24      |
 | Android target API level  | 32      |
 | Android compile API level | 34      |
 
@@ -96,7 +103,6 @@ Please see [versions.gradle](versions.gradle) for more details.
 Please see the [devices tested](documentation/devices_tested.md) page for more details.
 
 ## Known Issues
-* When video recording is enabled the camera preview of some low-end devices could look slightly stretched, but the recorded contents and the resulting image aspect ratio will look correct.
 * As the `face-analysis`, `face` and `biometric` modules use `Google’s MLKit` for face detection, please follow [this link](https://developers.google.com/ml-kit/known-issues) for known issues.
 * The `document-classifier` and `classifier` modules use `Google’s MLKit` for document classification, please follow [this link](https://developers.google.com/ml-kit/known-issues) for known issues. 
 * The `minSdkVersion` used in the MiSnap SDK is not compatible with higher `jmrtd` versions. 
@@ -127,7 +133,7 @@ Please see [this](#how-should-i-provision-the-license-to-the-misnap-sdk) FAQ for
 
 # Migration Guide
 
-Please follow [this migration guide](documentation/migration_guide.md) to upgrade to the latest SDK version if you have an existing MiSnap SDK integration.
+Please follow [this migration guide](documentation/migration_guide.md) for relevant information on  upgrading to the latest SDK version if you have an existing MiSnap SDK integration.
 
 - - - -
 
@@ -180,67 +186,17 @@ Please follow these steps:
     ```
 3. Add the required dependencies as per the [Integration Guides](#integration-guides).
 
-### How should I provision the license to the MiSnap SDK?
-Avoid hard-coding the license in your application. Instead, fetch it from your application server before invoking the MiSnap SDK. This will allow you to easily switch the license in the future without requiring you to roll out a new version of your app.
-
-### What happens if I request a feature I don’t have a license for?
-Always verify that the license you provide to the MiSnap SDK is licensed for the features you need to use to avoid undesirable results. If you have requested to use a feature but the provisioned license does not allow the use of such feature the SDK can’t use it. If the requested feature is a core functionality, e.g. the `Identity Document Session` feature, then the SDK won’t complete the request and will return a `MiSnapErrorResult` instance with a `License` error.
-
-If the feature is not part of a core functionality, e.g. the `On Device Extraction` feature, the SDK will complete the session but won’t include the extraction data as part of the results.
-
-Please see the in-code documentation to learn more about which components require licensed features.
-
-### Does the SDK requires permissions to work?
-Yes, the MiSnap SDK defines the following permissions across its module's AndroidManifest.xml files:
-* `android.permission.CAMERA`: Required for camera access in all image session types.
-* `android.permission.RECORD_AUDIO`: Required for audio recording if using the `Voice` session type or the `Video Recording` feature with audio enabled.
-* `android.permission.VIBRATE`: Required for various haptic feedbacks in the SDK.
-* `android.permission.NFC`: Required for NFC reading in the `NFC` session type.
-* `android.permission.MODIFY_AUDIO_SETTINGS`: Required to facilitate audio recording when using the `Voice` session type.
-
-### I want to customize the MiSnap SDK UI/UX. Where do I find the resources?
-The MiSnap SDK provides several options to customize the UI/UX, whether it is drawables, colors, styles, strings or behaviors. Please follow [this customization guide](documentation/customization_guide.md) for more information on how to locate the appropriate resource or option that fits your needs.
-
-### What is the advantage of using the On Device Classification feature over regular document sessions?
-When the `On Device Classification(ODC)` feature is enabled, the MiSnap SDK will attempt to classify the document type and provide hints to the user to place the correct document type if needed. e.g. if a MiSnap session is invoked with the `UseCase.PASSPORT` use case but the user places a driver's license, the MiSnap SDK will provide a hint to the user to place the correct document type. These special instructions are also displayed in the `FailoverFragment`.
-
-Please see the in-code documentation to learn more about the ODC APIs.
-
-### What are the considerations of using the On Device Classification feature?
-The `On Device Classification(ODC)` feature requires extra processing and therefore, it can be slower than a regular document session. While the MiSnap SDK won't prevent any device from using the ODC feature, it is recommended to use the `DeviceCapabilityUtil.isDeviceSuitableForOdc` method to determine if the device is generally fast enough to use the ODC feature and maintain a good experience.
-
-Please see the in-code documentation to learn more about the ODC APIs.
-
-### Can I know in advance the device's camera capabilities before starting a session?
-Yes, when invoking the MiSnap SDK, it is a best practice to first query the camera support and set the `MiSnapSettings` capture mode according to the device's camera capabilities. This helps the asset selection of the `HelpFragment` be faster providing a smoother user experience. Look into `examples/camera/CameraSupport.Kt` for a code example on how to query the camera support.
-
-### Which regions and documents are supported by the MiSnap SDK for NFC?
-Please see the [regions and documents page](documentation/nfc_regions_documents_supported.md) for the full list of supported regions and documents.
-
-### How can I reduce the size of my application?
-The MiSnap SDK uses both JVM and native components, and so requires dedicated library versions for 
-different hardware architectures (ABIs). No single device requires multiple ABIs, and so bundling multiple
-ABIs into a single app increases its size without providing any addition functionality. This can be avoided
-by either using [App Bundles](https://developer.android.com/guide/app-bundle) 
-or by using [Apk Splits](https://developer.android.com/studio/build/configure-apk-splits#configure-abi-split).
-
-### How does the video recording feature work when optional data (BSN) redaction for NLD documents is enabled?
-The `video recording` feature requires no frame processing therefore optional data will not be redacted in a recorded video. It is your responsibility to enable or disable `video recording` as per your needs when `optional data redaction` is enabled.
-
-### What device info is collected when using `DeviceInfoUtil`?
-It's publicly available non-PII device properties exposed by the Android APIs along with a unique Mitek-specific ID. Note, an ID is unique for every application that has this SDK integrated and its sole purpose is tying a device along with biometrics (face and/or voice) in Mitek server products, i.e. it's impossible to use it to track any user activity for purposes of creating a user profile for advertisement and/or malicious activities.
-
 ### How to integrate the MiSnap SDK without having access to a remote Maven repository?
 **NOTE**: Local maven integration requires access to the offline MiSnap SDK zip package, and will not work with the version available on Github.  Please reach out to support for access.
 
 The offline MiSnap SDK provides the `Library_Modules/maven-local-manager.sh` script for Linux/MacOS and the `Library_Modules/maven-local-manager.bat` script for Windows in the offline release package. Please follow the below steps:
 1. Contact your Mitek support team to get access to the package that contains the MiSnap SDK artifacts and support scripts.
-2. Run the appropriate script to deploy all the MiSnap SDK aar files to maven local.<br>  
-___For Linux/MacOS___:  
-a. Open a terminal in the `Library_Modules` directory.  
+2. Run the appropriate script to deploy all the MiSnap SDK aar files to maven local.<br>
+___For Linux/MacOS___:
+a. Open a terminal in the `Library_Modules` directory.
 b. Run the `sh maven-local-manager.sh -i` command.  <br><br>
-___For Windows___:  
-a. Open a command prompt in the `Library_Modules` directory.  
+___For Windows___:
+a. Open a command prompt in the `Library_Modules` directory.
 b. Run the `maven-local-manager.bat /i` command.
 
 3. Add the following to the **project level** `build.gradle`:
@@ -273,6 +229,56 @@ Starting with MiSnap 5.6.1, the `CameraX library` used for camera access has bee
     }
 ```
 The above steps will ensure that the `R8` compiler that includes the fix for the `JDK21` issue is used in the build process when working with AGP 8.0.1 and lower.
+
+### How should I provision the license to the MiSnap SDK?
+Avoid hard-coding the license in your application. Instead, fetch it from your application server before invoking the MiSnap SDK. This will allow you to easily switch the license in the future without requiring you to roll out a new version of your app.
+
+### What happens if I request a feature I don’t have a license for?
+Always verify that the license you provide to the MiSnap SDK is licensed for the features you need to use to avoid undesirable results. If you have requested to use a feature but the provisioned license does not allow the use of such feature the SDK can’t use it. If the requested feature is a core functionality, e.g. the `Identity Document Session` feature, then the SDK won’t complete the request and will return a `MiSnapErrorResult` instance with a `License` error.
+
+If the feature is not part of a core functionality, e.g. the `On Device Extraction` feature, the SDK will complete the session but won’t include the extraction data as part of the results.
+
+Please see the in-code documentation to learn more about which components require licensed features.
+
+### Does the SDK requires permissions to work?
+Yes, the MiSnap SDK defines the following permissions across its module's AndroidManifest.xml files:
+* `android.permission.CAMERA`: Required for camera access in all image session types.
+* `android.permission.RECORD_AUDIO`: Required for audio recording if using the `Voice` session type or the `Video Recording` feature with audio enabled.
+* `android.permission.VIBRATE`: Required for various haptic feedbacks in the SDK.
+* `android.permission.NFC`: Required for NFC reading in the `NFC` session type.
+* `android.permission.MODIFY_AUDIO_SETTINGS`: Required to facilitate audio recording when using the `Voice` session type.
+
+### I want to customize the MiSnap SDK UI/UX. Where do I find the resources I can override?
+The MiSnap SDK provides several options to customize the UI/UX, whether it is drawables, colors, styles, strings or behaviors. Please follow [this customization guide](documentation/customization_guide.md) for more information on how to locate the appropriate resource or option that fits your needs.
+
+### What is the advantage of using the On Device Classification feature over regular document sessions?
+When the `On Device Classification(ODC)` feature is enabled, the MiSnap SDK will attempt to classify the document type and provide hints to the user to place the correct document type if needed. e.g. if a MiSnap session is invoked with the `UseCase.PASSPORT` use case but the user places a driver's license, the MiSnap SDK will provide a hint to the user to place the correct document type. These special instructions are also displayed in the `FailoverFragment`.
+
+Please see the in-code documentation to learn more about the ODC APIs.
+
+### What are the considerations of using the On Device Classification feature?
+The `On Device Classification(ODC)` feature requires extra processing and therefore, it can be slower than a regular document session. While the MiSnap SDK won't prevent any device from using the ODC feature, it is recommended to use the `DeviceCapabilityUtil.isDeviceSuitableForOdc` method to determine if the device is generally fast enough to use the ODC feature and maintain a good experience.
+
+Please see the in-code documentation to learn more about the ODC APIs.
+
+### Can I know in advance the device's camera capabilities before starting a session?
+Yes, when invoking the MiSnap SDK, it is a best practice to first query the camera support and set the `MiSnapSettings` capture mode according to the device's camera capabilities. This helps the asset selection of the `HelpFragment` be faster providing a smoother user experience. Look into `examples/camera/CameraSupport.Kt` for a code example on how to query the camera support.
+
+### Which regions and documents are supported by the MiSnap SDK for NFC?
+Please see the [regions and documents page](documentation/nfc_regions_documents_supported.md) for the full list of supported regions and documents.
+
+### How can I reduce the size of my application?
+The MiSnap SDK uses both JVM and native components, and so requires dedicated library versions for 
+different hardware architectures (ABIs). No single device requires multiple ABIs, and so bundling multiple
+ABIs into a single app increases its size without providing any addition functionality. This can be avoided
+by either using [App Bundles](https://developer.android.com/guide/app-bundle) 
+or by using [Apk Splits](https://developer.android.com/studio/build/configure-apk-splits#configure-abi-split).
+
+### How does the video recording feature work when optional data (BSN) redaction for NLD documents is enabled?
+The `video recording` feature requires no frame processing therefore optional data will not be redacted in a recorded video. It is your responsibility to enable or disable `video recording` as per your needs when `optional data redaction` is enabled.
+
+### What device info is collected when using `DeviceInfoUtil`?
+It's publicly available non-PII device properties exposed by the Android APIs along with a unique Mitek-specific ID. Note, an ID is unique for every application that has this SDK integrated and its sole purpose is tying a device along with biometrics (face and/or voice) in Mitek server products, i.e. it's impossible to use it to track any user activity for purposes of creating a user profile for advertisement and/or malicious activities.
 
 - - - -
 

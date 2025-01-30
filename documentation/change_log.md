@@ -1,4 +1,23 @@
-# MiSnap SDK v5.6.1 Change Log
+# MiSnap SDK v5.7.0 Change Log
+
+### **Version 5.6.1**
+#### **Added**
+* [NFC] Support for NLD 2024 documents.
+* [Document] Support for extracting the MRZ of TD2 documents by setting the `analysis.document.advanced.docType` property to `MiSnapSettings.Analysis.Document.Advanced.DocType.TD2`.
+* [Common] Support for 16KB memory page size devices.
+  * _For more information please see the official announcement in the [Android Developers Portal](https://developer.android.com/guide/practices/page-sizes)._
+* [Common] An option to configure the `delay of the initial hint message` to the `HintView` class.
+* [Barcode] An option to display a `barcode label` to indicate the expected type of barcode to read.
+
+#### **Modified**
+* [Common] Upgraded CameraX to version 1.4.0.
+* [Common] Upgraded the NDK to version r27c.
+* [Common] Upgraded the Android Gradle Plugin to 8.0.2.
+  * _NOTE: Please see [this question](../README.md#how-to-integrate-misnap-561-using-android-gradle-plugin-801-and-lower) for relevant information when working with `Android Gradle Plugin 8.0.1 and lower`._
+
+#### **Fixed**
+* [Workflow] An issue with Fragments that presented dialogs in which the dialog could outlive the Fragment's lifecycle and produce a crash with certain interactions.
+* [Workflow] An issue with the `HintView` in which the view was initially displayed regardless not having contents.
 
 ### **Version 5.6.0**
 #### **Added**
