@@ -12,7 +12,6 @@
         <!-- Declare customer's main activity -->
         <activity
             android:name="com.miteksystems.misnap.sampleapp.DemoActivity"
-            android:label="@string/misnapSampleAppName"
             android:configChanges="keyboardHidden"
             android:exported="true">
             <intent-filter>

@@ -1,4 +1,4 @@
-# MiSnap SDK v5.7.0 for Android Supported Regions and Documents for NFC
+# MiSnap SDK v5.8.0 for Android Supported Regions and Documents for NFC
 
 # Table of Contents
 [Regions with Full Support](#regions-with-full-support)
@@ -82,7 +82,6 @@
 | Norway | ID<br>Passport<br>Residence Permit |
 | Oman | Passport                           |
 | Panama | ID<br>Passport                     |
-| Pakistan | Passport                           |
 | Paraguay | Passport                           |
 | Peru | Passport                           |
 | Philippines | Passport                           |

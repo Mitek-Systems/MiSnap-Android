@@ -1,24 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-    This custom navgraph replaces the "helpFragment" definition with "replaceScreenCustomFragment" and
-    establishes it as the "startDestination".
-    The "navigateHelp" action of the "documentAnalysisFragment" is modified so that the destination
-    points to the "replaceScreenCustomFragment" effectively replacing the "helpFragment" with a custom
-    implementation.
+    This custom navgraph replaces the "failoverFragment" definition with "replaceScreenCustomFragment"
+    while keeping the rest of the SDK default fragments.
+    The "navigateFailover" action of the "documentAnalysisFragment" is modified so that the destination
+    points to the "replaceScreenCustomFragment" effectively replacing the "failoverFragment" with a custom
+    implementation that handles the actions to retry the session in auto or manual mode.
 -->
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/documentSessionFlow"
-    app:startDestination="@id/replaceScreenCustomFragment">
+    app:startDestination="@id/helpFragment">
 
     <fragment
-        android:id="@+id/replaceScreenCustomFragment"
-        android:name="com.miteksystems.misnap.examples.advanced.screens.replacescreen.ReplaceScreenCustomFragment"
-        android:label="replaceScreenCustomFragment">
+        android:id="@+id/helpFragment"
+        android:name="com.miteksystems.misnap.workflow.fragment.HelpFragment"
+        android:label="@string/misnapWorkflowDocumentAnalysisFlowHelpFragmentLabel">
+        <argument
+            android:name="handleOrientation"
+            android:defaultValue="false"
+            app:argType="boolean" />
+        <argument
+            android:name="showSkipCheckbox"
+            android:defaultValue="true"
+            app:argType="boolean" />
         <action
             android:id="@+id/navigateContinue"
             app:destination="@id/documentAnalysisFragment"
-            app:popUpTo="@id/replaceScreenCustomFragment"
+            app:popUpTo="@id/helpFragment"
             app:popUpToInclusive="true"/>
     </fragment>
 
@@ -32,7 +40,7 @@
             app:argType="boolean" />
         <action
             android:id="@+id/navigateFailover"
-            app:destination="@id/failoverFragment"
+            app:destination="@id/replaceScreenCustomFragment"
             app:popUpTo="@id/documentAnalysisFragment"
             app:popUpToInclusive="true"/>
 
@@ -44,7 +52,7 @@
 
         <action
             android:id="@+id/navigateHelp"
-            app:destination="@id/replaceScreenCustomFragment"
+            app:destination="@id/helpFragment"
             app:popUpTo="@id/documentAnalysisFragment"
             app:popUpToInclusive="true">
         </action>
@@ -70,22 +78,18 @@
     </fragment>
 
     <fragment
-        android:id="@+id/failoverFragment"
-        android:name="com.miteksystems.misnap.workflow.fragment.FailoverFragment"
-        android:label="@string/misnapWorkflowDocumentAnalysisFlowFailoverFragmentLabel">
-        <argument
-            android:name="handleOrientation"
-            android:defaultValue="false"
-            app:argType="boolean" />
+        android:id="@+id/replaceScreenCustomFragment"
+        android:name="com.miteksystems.misnap.examples.advanced.screens.replacescreen.ReplaceScreenCustomFragment"
+        android:label="replaceScreenCustomFragment">
         <action
             android:id="@+id/navigateManualSession"
             app:destination="@id/documentAnalysisFragment"
-            app:popUpTo="@id/failoverFragment"
+            app:popUpTo="@id/replaceScreenCustomFragment"
             app:popUpToInclusive="true"/>
         <action
             android:id="@+id/navigateAutoSession"
             app:destination="@id/documentAnalysisFragment"
-            app:popUpTo="@id/failoverFragment"
+            app:popUpTo="@id/replaceScreenCustomFragment"
             app:popUpToInclusive="true"/>
     </fragment>
 </navigation>

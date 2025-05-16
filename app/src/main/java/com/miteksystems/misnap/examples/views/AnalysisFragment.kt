@@ -12,6 +12,7 @@ import com.miteksystems.misnap.controller.MiSnapController
 import com.miteksystems.misnap.controller.MiSnapController.ErrorResult
 import com.miteksystems.misnap.core.MiSnapSettings
 import com.miteksystems.misnap.core.MibiData
+import com.miteksystems.misnap.core.UserAction
 import com.miteksystems.misnap.databinding.ExampleDocumentAnalysisBinding
 import com.miteksystems.misnap.workflow.fragment.MiSnapWorkflowViewModel
 import com.miteksystems.misnap.workflow.util.ViewBindingUtil
@@ -103,11 +104,11 @@ class AnalysisFragment : Fragment(R.layout.example_document_analysis) {
          */
         binding.misnapView.feedbackResult.observe(viewLifecycleOwner) {
             /**
-             * The [MiSnapController.FeedbackResult.userAction] is an identifier that should be mapped
-             * to an appropriate string message to use as hint.
+             * Optional: specify a custom accessibility message for screen readers. By default it
+             * will use the message displayed.
              */
+            binding.hintView.contentDescription = getCustomAccessibilityMessage(it.userAction)
             binding.hintView.text = it.userAction.toString()
-
         }
 
         /**
@@ -234,5 +235,15 @@ class AnalysisFragment : Fragment(R.layout.example_document_analysis) {
          * Optionally end the [MibiData] session outside of the view's lifecycle.
          */
         MibiData.releaseSession(this::class.java.name)
+    }
+
+    /**
+     * Gets an accessibility message given a [UserAction].
+     */
+    private fun getCustomAccessibilityMessage(userAction: UserAction): String {
+        /**
+         * Map the user action to a custom accessibility message.
+         */
+        return userAction.toString()
     }
 }

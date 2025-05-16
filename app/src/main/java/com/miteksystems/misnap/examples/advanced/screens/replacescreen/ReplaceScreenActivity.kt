@@ -12,7 +12,7 @@ import com.miteksystems.misnap.workflow.MiSnapWorkflowStep
 /**
  * This advanced example demonstrates how to replace a screen in an existing flow by creating a
  * custom navgraph. This example uses the "document_session_flow" default navgraph as baseline to
- * create a custom flow that replaces the HelpFragment with [ReplaceScreenCustomFragment].
+ * create a custom flow that replaces the FailoverFragment with [ReplaceScreenCustomFragment].
  *
  * This integration method uses [ActivityResultContracts] and [registerForActivityResult] to launch
  * a new [MiSnapWorkflowActivity] that handles the session.
@@ -23,7 +23,7 @@ import com.miteksystems.misnap.workflow.MiSnapWorkflowStep
  * @see R.navigation.example_replace_sceen_navigation for the navgraph definition and setup.
  * @see ReplaceScreenCustomFragment for the custom fragment definition.
  */
-class ReplaceScreenActivity: AppCompatActivity() {
+class ReplaceScreenActivity : AppCompatActivity() {
     private val license = "your_sdk_license"
     private lateinit var binding: ExampleReplaceScreenActivityBinding
 

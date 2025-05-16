@@ -1,4 +1,4 @@
-# MiSnap SDK v5.7.0 Customization Guide
+# MiSnap SDK v5.8.0 Customization Guide
 While many of the customization options mentioned in this guide may be applicable to other MiSnap integration types, this guide focuses on customization options for the [activity-based integration](./activity_integration_guide.md).
 
 # Table of Contents
@@ -39,12 +39,15 @@ While many of the customization options mentioned in this guide may be applicabl
 * [Voice Recording Screen](#voice-recording-screen)
     * [Customizing the ProgressTrackerView](#customizing-the-progresstrackerview)
     * [Adjusting the Session Timeout](#adjusting-the-session-timeout-1)
+* [Global Customizations](#global-customizations)
+    * [Displaying a Confirmation Dialog on Exit](#displaying-a-confirmation-dialog-on-exit)
 * [Custom Screens](#custom-screens)
     * [Replacing a Screen](#replacing-a-screen)
     * [Removing/Skipping a Screen](#removingskipping-a-screen)
     * [Adding a New Screen](#adding-a-new-screen)
 * [Design Considerations](#design-considerations)
     * [General](#general)
+    * [Accessibility](#accessibility)
     * [Views](#views)
 
 - - - - 
@@ -114,7 +117,7 @@ The customization of the colors used within the SDK can be achieved through reso
 </resources>
 ```
 
-Note that the MiSnap SDK uses some of the colors in multiple elements, and in some situations, integrators are required to customize other colors or to customize some colors through drawables instead.
+> NOTE: the MiSnap SDK uses some of the colors in multiple elements, and in some situations, integrators are required to customize other colors or to customize some colors through drawables instead.
 
 ## Strings
 Customizing the text that is displayed within the MiSnap SDK can be achieved through resource overriding. To override a string, first identify the target resource as explained [here](#approaching-customization).
@@ -153,7 +156,7 @@ Once the custom theme is defined, it must be specified in the `AndroidManifest.x
 To override a style used in the MiSnap SDK, first identify the style resource as explained [here](#approaching-customization), then define the target style in `styles.xml` to customize it, for example:
 
 ```xml
-<style name="MiSnapTheme.TextAppearance.HintView" parent="@style/TextAppearance.MaterialComponents.Headline3">
+<style name="MiSnapTheme.TextAppearance.HintView" parent="@style/TextAppearance.MaterialComponents.Headline4">
     <item name="android:fontFamily">monospace</item>
     <item name="android:textStyle">italic</item>
 </style>
@@ -178,6 +181,8 @@ Once identified, create a resource of the same type and name in the correspondin
 
 # Flow Screens
 The MiSnap SDK `Workflow` module defines `Fragments` or screens that can be used out of the box to invoke the various session flows, many visual aspects and behaviors can be customized in these screens through the `MiSnapSettings`.
+
+> NOTE: For the best integration experience, ensure the SDK is displayed without additional UI elements that could interfere with its intended functionality. Maintaining a **full-screen layout** allows users to interact seamlessly with all features while maximizing accessibility and usability.
 
 ## Tutorial/Help Screen
 ### Displaying Custom Instructions
@@ -245,7 +250,7 @@ MiSnapSettings(
 }
 ```
 
-**Note: turning on this setting while requesting high resolution frames in an auto trigger session mode will prevent the camera from generating high resolution frames.**
+**NOTE: turning on this setting while requesting high resolution frames in an auto trigger session mode will prevent the camera from generating high resolution frames.**
 
 ### Displaying a Document Label
 The MiSnap SDK can display a document label on the analysis screen to assist the end user to use the correct document for the session.
@@ -464,7 +469,7 @@ MiSnapSettings(
 ### Adjusting the Session Timeout
 The MiSnap SDK features a timeout during the voice processing screen to prevent extended sessions, reduce resource usage, and to provide help to the end user in a timely manner.
 
-The timeout can be adjusted through the `MiSnapSettings.Worrkflow` object as follows:
+The timeout can be adjusted through the `MiSnapSettings.Workflow` object as follows:
 ```kotlin
 MiSnapSettings(
     MiSnapSettings.UseCase.VOICE,
@@ -481,6 +486,23 @@ workflow.add(
 ```
 
 Please see the in-code documentation for more details and other supported customization options for the `VoiceProcessorFragment`.
+
+## Global Customizations
+Some of the configurations applied to the MiSnap SDK are shared between many screens or constrained to a specific MiSnap session flow, the available configurations and usage are described in this section.
+
+### Displaying a Confirmation Dialog on Exit
+The MiSnap SDK allows to enable displaying a confirmation dialog when the user is leaving a session, for example, when hitting the back button at any stage of the session or pressing the cancel button displayed in the document analysis screen. The dialog confirmation can be enabled through the `MiSnapSettings.Workflow` object as follows:
+
+```kotlin
+MiSnapSettings(
+    MiSnapSettings.UseCase.PASSPORT,
+    license
+).apply {
+    workflow.showExitConfirmationDialog = true
+}
+```
+
+> NOTE: this configuration is only applicable for `Document` sessions.
 
 - - - -
 
@@ -603,6 +625,23 @@ The following list is a collection of things to look out for while customizing t
 * Making the session timeout duration too short might result in multiple fail-overs and users might opt to complete the session manually, thereby resulting in a non-optimal image being returned.
 * Synchronizing the trigger delay for a face analysis session and the duration of the CountdownTimerView yields a better experience.
 * All views in the `workflow` module extend from either material design components or `AppCompat` components. All customizations supported by material design and `AppCompat` are supported by the views.
+
+## Accessibility
+* When introducing custom UI elements, such as a toolbar above the SDK interface, be mindful that screen readers may prioritize those elements, which can impact user interaction with the SDK. To maintain an optimal experience:
+    * Limit additional UI elements above the SDK to prevent unintended screen reader focus shifts.
+    * Ensure the MiSnap SDK remains the primary focus for accessibility, allowing users to engage with essential functionality.
+* Ensure that the analysis screen such as `DocumentAnalysisFragment`, `FaceAnalysisFragment` and NFC reader screen such as `NfcReaderFragment` are always used in full screen mode to take advantage of the full screen and enhance the accessibility and usability.
+* In `UseCase.FACE` sessions, it is recommended to disable the visibility of the `CountDownTimer` for users with accessibility needs as it may introduce excessive auditory clutter and reduce clarity. To disable it, set the `showCountdownTimer` property of the `FaceAnalysisFragment.WorkflowSettings` in the `MiSnapSettings.Workflow` to false.
+* Use the `AccessibilityUtil.isScreenReaderEnabled` API to query if a screen reader is enabled to customize the SDK experience, for example, by adjusting the `MiSnapSettings`.
+* Always test you custom UI with screen readers to ensure your users can interact with the most relevant content.
+* When working with `HintView` ensure to set the content description **before** setting the text if you want to set a custom accessibility message.
+  For example:
+
+  ```
+  hintView.contentDescription = getContentDescription("My custom content description") // Set the message for accessibility services.
+  hintView.text = getHintMessage("My custom display text") // Set the text to display.
+  ```
+For more details, refer to the documentation of the `HintView` class.
 
 ## Views
 * When using a `GuideView` in a document analysis session, ensure that the drawable is:

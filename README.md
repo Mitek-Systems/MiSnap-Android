@@ -1,19 +1,20 @@
-# MiSnap SDK v5.7.0 for Android
+# MiSnap SDK v5.8.0 for Android
 Mitek MiSnap™ is a patented mobile-capture SDK that enables an intuitive user experience and instant capture of quality images. It all starts with the quality of the image.
 
 # Table of Contents
 [Getting Started](#getting-started)
+* [Quick Start](#quick-start)
 * [Release Notes](#release-notes)
-* [SDK Size](#sdk-size)
 * [System Requirements](#system-requirements) 
+* [SDK Size](#sdk-size)
 * [Devices Tested](#devices-tested)
 * [Known Issues](#known-issues)
 
 [License Key](#license-key)
 
-[Migration Guide](#migration-guide)
-
 [Integration Guides](#integration-guides)
+
+[Migration Guide](#migration-guide)
 
 [Customization Guide](#customization-guide)
 
@@ -28,60 +29,22 @@ Mitek MiSnap™ is a patented mobile-capture SDK that enables an intuitive user 
 - - - -
 
 # Getting Started
+## Quick Start
+   1. The MiSnap SDK needs a valid license to work, before integrating, make sure to [obtain a license](#License-key).
+   2. MiSnap is deployed to Maven, before integrating or testing, make sure to obtain a [personal access token](#how-to-integrate-the-misnap-sdk-using-maven).
+   3. If you're integrating the MiSnap SDK for the first time, see the [integration guides](#integration-guides).
+   4. If you're upgrading an existing integration of the MiSnap SDK, see the [migration guide](#migration-guide).
+
+>_NOTE: You can use the `app` in this repository to try the MiSnap SDK, it includes a valid license for testing, just specify the PAT in the root `build.gradle` file._
 
 ## Release Notes
-#### **Added**
-* [NFC] Added support for reading the NFC chip of MLT IDs and Residence Permits.
-* [Common] Added styles to customize the "manual trigger progress indicator" through the use of the `ManualTriggerProgressIndicator` style override.
-
-#### **Modified**
-* [Common] Updated the `minSdk` to 24.
-* [Common] Deprecated the `startPreview(surfaceHolder: SurfaceHolder)` and `startPreview(surface: Surface` methods from the `FrameProducer` interface in favor of the `startPreview(surfaceProvider: Preview.SurfaceProvider)`.
-
-#### **Fixed**
-* [Common] An error in which the camera preview would sometimes look stretched for some devices when video recording was enabled.
-* [Common] An issue where the UI would overlap its contents for some devices when building for `targetSdk 35` and running on devices with `Android 15` due to the `edge to edge display` enforcement.
-* [NFC] A bug that caused the NFC reader to report errors with extended delays in some devices.
-* [NFC] An issue where the NFC reader would prompt for reading some PAK passports that do not support NFC.
-* [Common] Limitations on the background attribute when customizing the `SuccessView` through styles.
-
-#### **Digital Fraud Defender Users**
-Digital Fraud Defender is a paid package, when enabled on the device and the server, billing will start.
-
-[Face] A new AI-based RTS encrypted payload for advanced injection attacks detection.
-To enable this feature, set the `MiSnapSettings.Analysis.getEnableAiBasedRts` to true.
-
-NOTES:
-The use of this feature requires the use of the front camera.
-For more information on the full Digital Fraud Defender package, please contact your Customer Success Representative.
-
-Please see the in-code documentation and the [Customization Guide](#customization-guide) for more details and the full API.
-
-### **Version 5.7.0**
+See [here](https://github.com/Mitek-Systems/MiSnap-Android/releases).
 
 Please see [the migration guide](documentation/migration_guide.md) for extended information on the changes introduced in this release that can affect your integration.
 
-Please see [this page](documentation/change_log.md) for release notes from older releases.
-
-Please see [this page](documentation/nfc_regions_documents_supported.md) for the full list of regions and documents supported by the MiSnap SDK NFC Reader.
-
-## SDK Size
-All sizes are download sizes for the `arm64-v8a` architecture.
-Please see [this page](documentation/download_sizes.md) for the in-depth size tables.
-<!-- SIZE_TABLE_START -->
-| Use Case                         | Download Size (MiB) | 
-| :------------------------------- | ------------------: |
-| Document                         | 6.42                | 
-| Document and Barcode             | 7.67                | 
-| Document and Biometric           | 14.42               | 
-| Document, Barcode, and Biometric | 15.67               | 
-| Document, Biometric, and NFC     | 18.43               | 
-| Document Classification          | 14.5                | 
-<!-- SIZE_TABLE_END -->
-
+Please see the in-code documentation and the [Customization Guide](#customization-guide) for more details and the full API.
 
 ## System Requirements
-
 | Technology                | Version |
 |:--------------------------|:--------|
 | Android Gradle Plugin     | 8.0.2*  |
@@ -97,6 +60,22 @@ Please see [this page](documentation/download_sizes.md) for the in-depth size ta
 \* Please see [this question](#how-to-integrate-misnap-561-using-android-gradle-plugin-801-and-lower) for relevant information when working with `Android Gradle Plugin 8.0.1 and lower`.
 
 Please see [versions.gradle](versions.gradle) for more details.
+
+## SDK Size
+All sizes are download sizes for the `arm64-v8a` architecture.
+
+<!-- SIZE_TABLE_START -->
+| Use Case                         | Download Size (MiB) |
+| :------------------------------- | ------------------: |
+| Document                         | 6.41                |
+| Document and Barcode             | 7.66                |
+| Document and Biometric           | 14.42               |
+| Document, Barcode, and Biometric | 15.67               |
+| Document, Biometric, and NFC     | 18.42               |
+| Document Classification          | 14.49               |
+<!-- SIZE_TABLE_END -->
+
+Please see [this page](documentation/download_sizes.md) for the in-depth size tables.
 
 ## Devices Tested
 
@@ -131,21 +110,22 @@ Please see [this](#how-should-i-provision-the-license-to-the-misnap-sdk) FAQ for
 
 - - - -
 
-# Migration Guide
+# Integration Guides
+The MiSnap SDK provides several integration layer options you can choose from depending on your needs.
 
-Please follow [this migration guide](documentation/migration_guide.md) for relevant information on  upgrading to the latest SDK version if you have an existing MiSnap SDK integration.
+* [Activity-based Integration](documentation/activity_integration_guide.md): For integrators that want to use the MiSnap SDK in the quickest and easiest way possible. We ***highly recommend*** this integration method.
+
+* [Fragment-based Integration](documentation/fragment_integration_guide.md): For integrators that want to use the MiSnap SDK in single-activity architecture applications.
+
+* [Views Integration](documentation/views_integration_guide.md): For integrators that want to build their own UI/UX, the MiSnap SDK also provides some easy-to-use custom `Android Views` to recreate various screens without integrating the default `Fragment`s provided.
+
+* [Science Integration ](documentation/science_integration_guide.md): For integrators that want to use MiSnap's base processing without any UI/UX provided in the MiSnap SDK.
 
 - - - -
 
-# Integration Guides
+# Migration Guide
 
-The MiSnap SDK provides several integration layer options. We ***highly recommend*** [this activity-based integration guide](documentation/activity_integration_guide.md). 
-
-To integrate the MiSnap SDK in single-activity architecture applications, please follow [this fragment-based integration guide](documentation/fragment_integration_guide.md).  
-
-The MiSnap SDK also provides some easy-to-use custom Android Views to recreate various screens without integrating the default `Fragment`s provided in the SDK. Please follow [this views integration guide](documentation/views_integration_guide.md) for more information.
-
-To use MiSnap's base processing without any UI/UX provided in the MiSnap SDK, please follow [this science integration guide](documentation/science_integration_guide.md).
+Please follow [this migration guide](documentation/migration_guide.md) for relevant information on  upgrading to the latest SDK version if you have an existing MiSnap SDK integration.
 
 - - - -
 
@@ -280,6 +260,17 @@ The `video recording` feature requires no frame processing therefore optional da
 ### What device info is collected when using `DeviceInfoUtil`?
 It's publicly available non-PII device properties exposed by the Android APIs along with a unique Mitek-specific ID. Note, an ID is unique for every application that has this SDK integrated and its sole purpose is tying a device along with biometrics (face and/or voice) in Mitek server products, i.e. it's impossible to use it to track any user activity for purposes of creating a user profile for advertisement and/or malicious activities.
 
+### Does MiSnap support third-party obfuscators?
+Yes. MiSnap supports code obfuscation using the standard `Android R8/ProGuard` toolchain and includes all necessary ProGuard rules to keep required classes, methods, and resources.
+
+If you're using a third-party obfuscator, you may need to take a few extra steps to ensure compatibility. Here are some general guidelines:
+
+* **Start from ProGuard rules**: Most third-party tools allow you to import or translate existing ProGuard configurations. Use MiSnap’s included rules as a starting point.
+* **Build a minified release**: Run `./gradlew assembleRelease` with minification enabled to verify that the app builds and functions correctly after obfuscation.
+* **Inspect configuration**: Check the file `build/outputs/mapping/release/configuration.txt` to confirm what rules were applied.
+* **Watch for native libraries**: MiSnap dynamically loads `libomp.so`, which some tools might remove if not explicitly preserved. Add a keep rule if necessary.
+* **Test thoroughly**: Always test your app after obfuscation to catch any runtime issues early.
+
 - - - -
 
 # Third-Party Licenses
@@ -293,6 +284,9 @@ It's publicly available non-PII device properties exposed by the Android APIs al
 * #### [Kotlin Serialization](https://github.com/Kotlin/kotlinx.serialization/blob/master/license/)
 * #### [Kotlin Coroutines](https://github.com/Kotlin/kotlinx.coroutines/tree/master/license/)
 * #### [Material Components for Android](https://github.com/material-components/material-components-android/blob/master/LICENSE)
+* #### [AndroidX](https://github.com/androidx/androidx/blob/androidx-main/LICENSE.txt)
+* #### [Protocol Buffers](https://github.com/protocolbuffers/protobuf/blob/main/LICENSE)
+* #### [RootBeer](https://github.com/scottyab/rootbeer/blob/master/LICENSE)
 
 ### [BSD 2-Clause "Simplified" License](https://opensource.org/blog/license/bsd-2-clause)
 * #### [JP2ForAndroid](https://github.com/ThalesGroup/JP2ForAndroid/blob/master/LICENSE)

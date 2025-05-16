@@ -1,4 +1,93 @@
-# MiSnap SDK v5.7.0 Migration Guide
+# MiSnap SDK v5.8.0 Migration Guide
+
+## Upgrading the MiSnap SDK from v5.7.x to v5.8.0
+### Customisation Changes
+MiSnap 5.8.0 introduces several changes to existing screens and resources to provide greater customization flexibility and to make the design more accessible, which affect the default UI/UX and may affect your existing customizations, the following tables describe the affected elements.
+
+#### Added
+The following resources are additions that provide greater flexibility for customization and that have been introduced to improve the default workflow accessibility. Use this list of resources to extend your existing customization of the MiSnap SDK so that you cover the additional elements that may have shared resources in the past and that can be customized independently now.
+
+| Resource Name                 | Type        | Description      |
+|:------------------------------| :---------- | :---------- |
+|MiSnapTheme.TextAppearance.Headline.Small| style| An alternative `textAppearance` for default text in limited space layouts. |
+|MiSnapTheme.TextAppearance.FailoverReason| style| A `textAppearance` for customizing the failover messages in the `FailoverFragment`.|
+|MiSnapTheme.TextAppearance.HelpMessage.Compact| style| An alternative `textAppearance` for customizing messages in limited space tutorial layouts. |
+|MiSnapTheme.CheckBox| style| Customizes the `CheckBox` styles within the MiSnap SDK.|
+|MiSnapTheme.TextAppearance.RecordingIconView| style| A `textAppearance` to customize the text of the `RecordingIconView`.|
+|MiSnapTheme.View.RecordingIconView| style| A style to customize the appearance of the `RecordingiconView`.|
+|colorFaceSessionGuideViewLowLightConditionsOnError|color| A color to signal an error state in the `FaceAnalysisFragment` when the `adaptive brightness` feature is enabled and active.|
+|colorGuideViewBorder| color| A color to define the border color of the default guide images.|
+|misnapWorkflowCancelButtonIconSize| dimen| A dimension to customize the size of `the cancel button` in a session.|
+
+#### Updated
+The following resources have updated values to improve the default workflow accessibility. Use this list of resources to verify your existing customizations if you've overridden the MiSnap SDK resources, or to verify the default UI/UX if you haven't.
+
+| Resource Name                 | Type        | Description      |
+|:------------------------------| :---------- | :---------- |
+|MiSnapTheme.TextAppearance.Headline.Medium| style| Primary `textAppearance` used within the MiSnap SDK for regular text across screens. |
+|MiSnapTheme.Button.Outlined| style| Displays the button border of the `colorPrimary` color.|
+|MiSnapTheme.TextAppearance.DocumentLabel| style| Uses the color `colorOnLightBackgroundMessage` for the text.|
+|MiSnapTheme.TextAppearance.BarcodeLabel| style| Uses the color `colorOnLightBackgroundMessage` for the text.|
+|MiSnapTheme.TextAppearance.HintView| style| Uses the color `colorOnLightBackgroundMessage` for the text.|
+|MiSnapTheme.TextAppearance.SuccessView| style| Uses the color `colorOnLightBackgroundMessage` for the text.|
+|MiSnapTheme.TextAppearance.ManualTriggerProgressIndicator| style| Uses the color `colorOnLightBackgroundMessage` for the text.|
+|misnap_guide*| drawable| Adjustments to the color for better contrast, guide images are all `VectorDrawables` now and display a border.|
+|misnap_help_face_oval| drawable| Displays an oval to illustrate the alignment within the guide image.|
+|colorPrimary| color| Adjustments for better contrast in dark/light mode.|
+|colorSecondary| color| Adjustments for better contrast in dark/light mode.|
+|colorDefaultHumanSkin| color| Adjustments for better contrast in dark/light mode.|
+|colorDefaultHumanSkinShadow| color| Adjustments for better contrast in dark/light mode.|
+|colorDefaultHumanHair| color| Adjustments for better contrast in dark/light mode.|
+|colorDefaultHumanClothes| color| Adjustments for better contrast in dark/light mode.|
+|colorHelpFaceFeatures| color| Adjustments for better contrast in dark/light mode.|
+|colorBackgroundManualTriggerProgressIndicator| color| Adjustments for better contrast in dark/light mode.|
+|colorSuccess| color| Adjustments for better contrast in dark/light mode.|
+|colorFaceSessionGuideViewOnError| color| Adjustments for better contrast in dark/light mode, applicable to the selfie guide image.|
+|colorGuideImage| color| Adjustments for better contrast in dark/light mode, applicable to all the guide images.|
+|colorGuideViewVignette| color| Adjustments for better contrast in dark/light mode, applicable to all the guide images when vignette is enabled.|
+|colorRecordingIcon| color| Adjustments for better contrast in dark/light mode.|
+|colorBackgroundSuccessMessage| color| Adjustments for better contrast in dark/light mode.|
+|colorBackgroundHintViewMessage| color| Adjustments for better contrast in dark/light mode.|
+|colorBackgroundDocumentLabel| color| Adjustments for better contrast in dark/light mode.|
+|colorBackgroundBarcodeLabel| color| Adjustments for better contrast in dark/light mode.|
+|misnapWorkflowHelpButtonIconSize| dimen| Adjustments for improved accessibility.|
+|misnapWorkflowTorchViewIconSize| dimen| Adjustments for improved accessibility.|
+|misnapWorkflowSuccessViewMessagePadding| dimen| Adjustments for improved accessibility.|
+
+#### Deprecated
+The following resources are still part of the MiSnap SDK but they are no longer used within the SDK. Use this list to update your existing customizations to use relevant resources and avoid using the elements from this list in the future.
+
+| Resource Name                 | Type        | Description      |
+|:------------------------------| :---------- | :---------- |
+|MiSnapTheme.TextAppearance.Display1| style| Not used|
+|MiSnapTheme.TextAppearance.Headline| style| Not used|
+|MiSnapTheme.TextAppearance.Small| style| Not used|
+|misnap_help_face_smile| drawable| Not used|
+|misnap_help_face_neutral| drawable| Not used|
+|misnap_help_face_masked| drawable| Not used|
+|misnap_help_face_manual| drawable| Not used|
+|misnap_help_face_hat_glasses| drawable| Not used|
+|misnap_failover_timer_icon| drawable| Not used|
+|misnap_help_voice_avoid_noisy_environments| drawable| Not used|
+|misnap_help_voice_no_bluetooth_headsets| drawable| Not used|
+|colorHelpVoiceHeadset*| color| Not used|
+|colorHelpVoiceDialog*| color| Not used|
+|colorHelpVoiceDoNotSymbol| color| Not used|
+|colorHelpVoiceProfileSilhouettes| color| Not used|
+|colorHelpVoiceBluetooth| color| Not used|
+|colorHelpFaceFeatures| color| Not used|
+|colorHelpFaceFeaturesDetail| color| Not used|
+|colorHelpFaceHandIconBorder| color| Not used|
+
+#### Other Relevant UI/UX Changes
+* The `UseCase.CHECK_FRONT` now use a more accurate sharpness detection method and the default threshold was changed accordingly, if you've set a custom threshold using the `MiSnapSettings.Analysis.Document.Advanced.minSharpness` you must validate and adjust it to ensure optimal performance. **For best results and ongoing compatibility, we strongly recommend reverting to the default threshold, which is optimized for the latest improvements.**
+* The `HintView` class is now considered `ACCESSIBILITY_LIVE_REGION_ASSERTIVE`, to announce a different message than the one displayed you should call `HintView.setContentDescription` before calling `HintView.setText`, the accessibility message will match the `text` set by default otherwise.
+* By default, when `MiSnapSettings.Analysis.getEnableAiBasedRts` is set to `true` for `UseCase.FACE` sessions and `MiSnapSettings.Analysis.Face.Trigger.AUTO` is used, the `CountDown` timer in `FaceAnalysisFragment` will be displayed.
+* By default, the `timeoutDuration` setting in `DocumentAnalysisFragment.WorkflowSettings` and `FaceAnalysisFragment.WorkflowSettings` is set to `120_000`(120 seconds) when screen readers are enabled if the value is not explicitly set.
+* By default, the `hintViewInitialHintDelay` setting in `DocumentAnalysisFragment.WorkflowSettings` and `FaceAnalysisFragment.WorkflowSettings` is set to `5_000`(5 seconds) when screen readers are enabled if the value is not explicitly set.
+* By default, the `maxReasons` setting in `FailoverFragment.WorkflowSettings` has been reduced from 3 to 2.
+* A significant number of string resources have been updated to improve clarity, accessibility, and consistency across the UI.
+    * These updates include reworded messages, refined instructions, and adjusted labels for better alignment with user expectations and accessibility guidelines.
 
 ## Upgrading the MiSnap SDK from v5.4.x to v5.6.1
 ### Project Configuration Changes
