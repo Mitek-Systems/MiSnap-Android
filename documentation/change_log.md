@@ -1,4 +1,4 @@
-# MiSnap SDK v5.8.0 Change Log
+# MiSnap SDK v5.8.1 Change Log
 
 ### **Version 5.6.1**
 #### **Added**

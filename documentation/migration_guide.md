@@ -1,4 +1,4 @@
-# MiSnap SDK v5.8.0 Migration Guide
+# MiSnap SDK v5.8.1 Migration Guide
 
 ## Upgrading the MiSnap SDK from v5.7.x to v5.8.0
 ### Customisation Changes
