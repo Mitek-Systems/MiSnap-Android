@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
+import com.miteksystems.misnap.apputil.LicenseFetcher
 import com.miteksystems.misnap.core.MiSnapSettings
 import com.miteksystems.misnap.core.MibiData
 import com.miteksystems.misnap.voice.MiSnapVoiceProcessor
@@ -17,7 +18,14 @@ import com.miteksystems.misnap.voice.MiSnapVoiceProcessor
  *  MiSnap session.
  */
 private class VoiceRecord : Fragment() {
-    private val license = "your_sdk_license"
+
+    /**
+     * Fetch the Misnap SDK license.
+     * Good practice: Handle the license in a way that it is remotely updatable.
+     */
+    private val license by lazy {  
+        LicenseFetcher.fetch()
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

@@ -18,6 +18,7 @@ import androidx.appcompat.widget.TooltipCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.miteksystems.misnap.apputil.LicenseFetcher
 import com.miteksystems.misnap.R
 import com.miteksystems.misnap.barcode.default
 import com.miteksystems.misnap.barcode.getScanSpeed
@@ -76,7 +77,12 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
     private var useCaseIndex = 0
     private var voiceFlowIndex = 0
     private var barcodeExtractionRequirementIndex = 0
-    private val license by lazy { requireContext().getString(R.string.misnapSampleAppLicense) }
+
+    /**
+     * Fetch the Misnap SDK license.
+     * Good practice: Handle the license in a way that it is remotely updatable.
+     */
+    private val license by lazy { LicenseFetcher.fetch() }
     private val sharedPrefs by lazy {
         requireContext().getSharedPreferences(SHARED_PREFS_FILE_NAME, Context.MODE_PRIVATE)
     }

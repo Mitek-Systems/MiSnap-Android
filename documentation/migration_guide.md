@@ -1,4 +1,33 @@
-# MiSnap SDK v5.8.1 Migration Guide
+# MiSnap SDK v5.8.2 Migration Guide
+
+## Upgrading the MiSnap SDK from v5.8.1 to v5.8.2
+Starting with MiSnap SDK v5.8.2, the `nfc`, `combined-nfc` or `nfc-reader` modules depend on JMRTD v0.7.42, which addresses security vulnerabilities by updating to Bouncy Castle 1.78.
+
+This upgrade introduces two new transitive dependencies:
+* `org.bouncycastle:bcprov-jdk18on`
+* `org.bouncycastle:bcutil-jdk18on`
+
+Both of these include OSGI metadata files (OSGI-INF/MANIFEST.MF) that are intended for modular Java environments. 
+
+Consumers of any of the above modules must add the following packaging options into the `android` block of their application module's `build.gradle` file to avoid build issues:
+```groovy
+// For AGP < 8.0
+android {
+    packagingOptions {
+        pickFirst 'META-INF/versions/9/OSGI-INF/MANIFEST.MF'
+    }
+}
+
+// For AGP >= 8.0
+android {
+  packaging {
+    resources {
+      pickFirsts += ['META-INF/versions/9/OSGI-INF/MANIFEST.MF']
+    }
+  }
+}
+```
+These manifest files are not relevant in Android builds but are treated as duplicate resources when both libraries are merged into an app, causing the build to fail unless handled explicitly due to limitations of the gradle build system.
 
 ## Upgrading the MiSnap SDK from v5.7.x to v5.8.0
 ### Customisation Changes

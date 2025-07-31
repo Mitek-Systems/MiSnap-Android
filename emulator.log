@@ -1,0 +1,355 @@
+INFO    | Android emulator version 31.2.10.0 (build_id 8420304) (CL:N/A)
+INFO    | Found AVD name 'misnap_release'
+INFO    | Found AVD target architecture: x86
+INFO    | Deleting file /Users/jenkins/Library/Android/sdk/.android/avd/misnap_release.avd/system.img.qcow2 failed
+INFO    | Deleting file /Users/jenkins/Library/Android/sdk/.android/avd/misnap_release.avd/vendor.img.qcow2 failed
+INFO    | Deleting file /Users/jenkins/Library/Android/sdk/.android/avd/misnap_release.avd/userdata-qemu.img failed
+INFO    | Deleting file /Users/jenkins/Library/Android/sdk/.android/avd/misnap_release.avd/userdata-qemu.img.qcow2 failed
+INFO    | Deleting file /Users/jenkins/Library/Android/sdk/.android/avd/misnap_release.avd/userdata.img done
+INFO    | Deleting file /Users/jenkins/Library/Android/sdk/.android/avd/misnap_release.avd/userdata.img.qcow2 failed
+INFO    | Deleting file /Users/jenkins/Library/Android/sdk/.android/avd/misnap_release.avd/cache.img failed
+INFO    | Deleting file /Users/jenkins/Library/Android/sdk/.android/avd/misnap_release.avd/cache.img.qcow2 failed
+INFO    | Deleting file /Users/jenkins/Library/Android/sdk/.android/avd/misnap_release.avd/version_num.cache failed
+INFO    | Deleting file /Users/jenkins/Library/Android/sdk/.android/avd/misnap_release.avd/sdcard.img.qcow2 failed
+INFO    | Deleting file /Users/jenkins/Library/Android/sdk/.android/avd/misnap_release.avd/encryptionkey.img failed
+INFO    | Deleting file /Users/jenkins/Library/Android/sdk/.android/avd/misnap_release.avd/encryptionkey.img.qcow2 failed
+INFO    | Deleting file /Users/jenkins/Library/Android/sdk/.android/avd/misnap_release.avd/hardware-qemu.ini failed
+INFO    | Deleting file /Users/jenkins/Library/Android/sdk/.android/avd/misnap_release.avd/emulator-user.ini failed
+INFO    | Deleting file /Users/jenkins/Library/Android/sdk/.android/avd/misnap_release.avd/default.dtb failed
+INFO    | Failed to remove snapshot directory '/Users/jenkins/Library/Android/sdk/.android/avd/misnap_release.avd/snapshots'
+INFO    | Failed to remove ADB command directory '/Users/jenkins/Library/Android/sdk/.android/avd/misnap_release.avd/tmpAdbCmds'
+INFO    | argv[0]: '/Users/jenkins/Library/Android/sdk/emulator/emulator'; program directory: '/Users/jenkins/Library/Android/sdk/emulator'
+VERBOSE |  Found directory: /Users/jenkins/Library/Android/sdk//system-images/android-28/google_apis/x86/
+INFO    | emuDirName: '/Users/jenkins/Library/Android/sdk/emulator'
+VERBOSE |  Found directory: /Users/jenkins/Library/Android/sdk//system-images/android-28/google_apis/x86/
+INFO    | Probing for /Users/jenkins/Library/Android/sdk//system-images/android-28/google_apis/x86//kernel-ranchu-64: file exists
+INFO    | try dir /Users/jenkins/Library/Android/sdk/emulator
+INFO    | Trying emulator path '/Users/jenkins/Library/Android/sdk/emulator/qemu/darwin-x86_64/qemu-system-x86_64'
+INFO    | Found target-specific 64-bit emulator binary: /Users/jenkins/Library/Android/sdk/emulator/qemu/darwin-x86_64/qemu-system-x86_64
+INFO    | Adding library search path: '/Users/jenkins/Library/Android/sdk/emulator/lib64'
+INFO    | Adding library search path: '/Users/jenkins/Library/Android/sdk/emulator/lib64/gles_swiftshader'
+VERBOSE | Adding library search path for Qt: '/Users/jenkins/Library/Android/sdk/emulator/lib64/qt/lib'
+VERBOSE | Silencing all qWarning(); use qCWarning(...) instead: QT_LOGGING_RULES=default.warning=false
+VERBOSE | Setting Qt plugin search path: QT_QPA_PLATFORM_PLUGIN_PATH=/Users/jenkins/Library/Android/sdk/emulator/lib64/qt/plugins
+VERBOSE | Setting Qt to use software OpenGL: QT_OPENGL=software
+VERBOSE | Setting QML to use software QtQuick2D: QMLSCENE_DEVICE=softwarecontext
+VERBOSE | Overriding pre-existing bad Qt high dpi settings...
+VERBOSE | emulator: Running :/Users/jenkins/Library/Android/sdk/emulator/qemu/darwin-x86_64/qemu-system-x86_64
+VERBOSE | qemu backend: argv[00] = "/Users/jenkins/Library/Android/sdk/emulator/qemu/darwin-x86_64/qemu-system-x86_64"
+VERBOSE | qemu backend: argv[01] = "-avd"
+VERBOSE | qemu backend: argv[02] = "misnap_release"
+VERBOSE | qemu backend: aWARNING | unexpected '-prop' value ('persist.sys.language=en'), only 'qemu.*' properties are supported
+WARNING | unexpected '-prop' value ('persist.sys.country=US'), only 'qemu.*' properties are supported
+VERBOSE | autoconfig: -skin 1080x1920
+VERBOSE | autoconfig: -skindir (null)
+VERBOSE | autoconfig: -kernel /Users/jenkins/Library/Android/sdk//system-images/android-28/google_apis/x86//kernel-ranchu-64
+VERBOSE | Target arch = 'x86'
+VERBOSE | Auto-config: -qemu -cpu qemu32
+VERBOSE | Auto-detect: Kernel image requires new device naming scheme.
+VERBOSE | Auto-detect: Kernel does not support YAFFS2 partitions.
+VERBOSE | autoconfig: -ramdisk /Users/jenkins/Library/Android/sdk//system-images/android-28/google_apis/x86//ramdisk.img
+VERBOSE | Using initial system image: /Users/jenkins/Library/Android/sdk//system-images/android-28/google_apis/x86//system.img
+VERBOSE | Using initial vendor image: /Users/jenkins/Library/Android/sdk//system-images/android-28/google_apis/x86//vendor.img
+VERBOSE | autoconfig: -initdata /Users/jenkins/Library/Android/sdk//system-images/android-28/google_apis/x86//userdata.img
+VERBOSE | autoconfig: -cache /Users/jenkins/Library/Android/sdk/.android/avd/misnap_release.avd/cache.img
+VERBOSE | autoconfig: -sdcard /Users/jenkins/Library/Android/sdk/.android/avd/misnap_release.avd/sdcard.img
+VERBOSE | Physical RAM size: 4096MB
+VERBOSE | VM heap size 0MB is below hardware specified minimum of 576MB,setting it to that value
+VERBOSE | System image is read only
+VERBOSE | Found 2 DNS servers:
+VERBOSE | 	10.200.0.12
+VERBOSE | 	10.100.0.11
+VERBOSE | found magic skin width=1080 height=1920 bpp=16
+
+VERBOSE | Requested console port 5562: Inferring adb port 5563.
+VERBOSE | Creating ext4 userdata partition: /Users/jenkins/Library/Android/sdk/.android/avd/misnap_release.avd/data
+Creating filesystem with parameters:
+    Size: 2147483648
+    Block size: 4096
+    Blocks per group: 32768
+    Inodes per group: 8192
+    Inode size: 256
+    Journal blocks: 8192
+    Label: 
+    Blocks: 524288
+    Block groups: 16
+    Reserved block group size: 127
+Created filesystem with 25/131072 inodes and 17280/524288 blocks
+VERBOSE | Creating empty ext4 cache partition: /Users/jenkins/Library/Android/sdk/.android/avd/misnap_release.avd/cache.img
+Creating filesystem with parameters:
+    Size: 69206016
+    Block size: 4096
+    Blocks per group: 32768
+    Inodes per group: 4224
+    Inode size: 256
+    Journal blocks: 1024
+    Label: 
+    Blocks: 16896
+    Block groups: 1
+    Reserved block group size: 7
+Created filesystem with 11/4224 inodes and 1302/16896 blocks
+VERBOSE | CPU Acceleration: working
+VERBOSE | CPU Acceleration status: Hypervisor.Framework OS X Version 13.6
+VERBOSE | handleCpuAcceleration: feature check for hvf
+VERBOSE | registered 'boot-properties' qemud service
+VERBOSE | Adding boot property: 'qemu.cmdline' = 'androidboot.logcat=*:V androidboot.consolepipe=qemu_pipe,pipe:logcat'
+VERBOSE | Adding boot property: 'qemu.logcat' = 'start'
+VERBOSE | GPU emulation enabled using 'host' mode
+VERBOSE | Initializing hardware OpenGLES emulation support
+VERBOSE | create display 0
+VERBOSE | setDisplayPose 0 x 0 y 0 w 1080 h 1920 dpi 0
+INFO    | configAndStartRenderer: setting vsync to 60 hz
+VERBOSE | Found 2 DNS servers:
+VERBOSE | 	10.200.0.12
+VERBOSE | 	10.100.0.11
+INFO    | Content of hardware configuration file:
+INFO    | 	hw.cpu.arch = x86
+INFO    | 	hw.cpu.model = qemu32
+INFO    | 	hw.cpu.ncore = 4
+INFO    | 	hw.ramSize = 4096
+INFO    | 	hw.screen = multi-touch
+INFO    | 	hw.mainKeys = false
+INFO    | 	hw.trackBall = false
+INFO    | 	hw.keyboard = false
+INFO    | 	hw.keyboard.lid = true
+INFO    | 	hw.keyboard.charmap = qwerty2
+INFO    | 	hw.dPad = false
+INFO    | 	hw.rotaryInput = false
+INFO    | 	hw.gsmModem = true
+INFO    | 	hw.gps = true
+INFO    | 	hw.battery = true
+INFO    | 	hw.accelerometer = true
+INFO    | 	hw.gyroscope = true
+INFO    | 	hw.audioInput = true
+INFO    | 	hw.audioOutput = true
+INFO    | 	hw.sdCard = true
+INFO    | 	hw.sdCard.path = /Users/jenkins/Library/Android/sdk/.android/avd/misnap_release.avd/sdcard.img
+INFO    | 	disk.cachePartition = true
+INFO    | 	disk.cachePartition.path = /Users/jenkins/Library/Android/sdk/.android/avd/misnap_release.avd/cache.img
+INFO    | 	disk.cachePartition.size = 66m
+INFO    | 	test.quitAfterBootTimeOut = -1
+INFO    | 	test.delayAdbTillBootComplete = 0
+INFO    | 	test.monitorAdb = 0
+INFO    | 	hw.lcd.width = 1080
+INFO    | 	hw.lcd.height = 1920
+INFO    | 	hw.lcd.depth = 16
+INFO    | 	hw.lcd.density = 420
+INFO    | 	hw.lcd.backlight = true
+INFO    | 	hw.lcd.vsync = 60
+INFO    | 	hw.gltransport = pipe
+INFO    | 	hw.gltransport.asg.writeBufferSize = 1048576
+INFO    | 	hw.gltransport.asg.writeStepSize = 4096
+INFO    | 	hw.gltransport.asg.dataRingSize = 32768
+INFO    | 	hw.gltransport.drawFlushInterval = 800
+INFO    | 	hw.displayRegion.0.1.xOffset = -1
+INFO    | 	hw.displayRegion.0.1.yOffset = -1
+INFO    | 	hw.displayRegion.0.1.width = 0
+INFO    | 	hw.displayRegion.0.1.height = 0
+INFO    | 	hw.displayRegion.0.2.xOffset = -1
+INFO    | 	hw.displayRegion.0.2.yOffset = -1
+INFO    | 	hw.displayRegion.0.2.width = 0
+INFO    | 	hw.displayRegion.0.2.height = 0
+INFO    | 	hw.displayRegion.0.3.xOffset = -1
+INFO    | 	hw.displayRegion.0.3.yOffset = -1
+INFO    | 	hw.displayRegion.0.3.width = 0
+INFO    | 	hw.displayRegion.0.3.height = 0
+INFO    | 	hw.display1.width = 0
+INFO    | 	hw.display1.height = 0
+INFO    | 	hw.display1.density = 0
+INFO    | 	hw.display1.xOffset = -1
+INFO    | 	hw.display1.yOffset = -1
+INFO    | 	hw.display1.flag = 0
+INFO    | 	hw.display2.width = 0
+INFO    | 	hw.display2.height = 0
+INFO    | 	hw.display2.density = 0
+INFO    | 	hw.display2.xOffset = -1
+INFO    | 	hw.display2.yOffset = -1
+INFO    | 	hw.display2.flag = 0
+INFO    | 	hw.display3.width = 0
+INFO    | 	hw.display3.height = 0
+INFO    | 	hw.display3.density = 0
+INFO    | 	hw.display3.xOffset = -1
+INFO    | 	hw.display3.yOffset = -1
+INFO    | 	hw.display3.flag = 0
+INFO    | 	hw.gpu.enabled = true
+INFO    | 	hw.gpu.mode = host
+INFO    | 	hw.initialOrientation = portrait
+INFO    | 	hw.camera.back = virtualscene
+INFO    | 	hw.camera.front = emulated
+INFO    | 	vm.heapSize = 576
+INFO    | 	hw.sensors.light = true
+INFO    | 	hw.sensors.pressure = true
+INFO    | 	hw.sensors.humidity = true
+INFO    | 	hw.sensors.proximity = true
+INFO    | 	hw.sensors.magnetic_field = true
+INFO    | 	hw.sensors.magnetic_field_uncalibrated = true
+INFO    | 	hw.sensors.gyroscope_uncalibrated = true
+INFO    | 	hw.sensors.orientation = true
+INFO    | 	hw.sensors.temperature = true
+INFO    | 	hw.sensors.rgbclight = false
+INFO    | 	hw.sensor.hinge = false
+INFO    | 	hw.sensor.hinge.count = 0
+INFO    | 	hw.sensor.hinge.type = 0
+INFO    | 	hw.sensor.hinge.sub_type = 0
+INFO    | 	hw.sensor.hinge.fold_to_displayRegion.0.1_at_posture = 1
+INFO    | 	hw.sensor.roll = false
+INFO    | 	hw.sensor.roll.count = 0
+INFO    | 	hw.sensor.roll.resize_to_displayRegion.0.1_at_posture = 6
+INFO    | 	hw.sensor.roll.resize_to_displayRegion.0.2_at_posture = 6
+INFO    | 	hw.sensor.roll.resize_to_displayRegion.0.3_at_posture = 6
+INFO    | 	hw.sensors.heart_rate = false
+INFO    | 	hw.sensors.wrist_tilt = false
+INFO    | 	hw.useext4 = true
+INFO    | 	hw.arc = false
+INFO    | 	hw.arc.autologin = false
+INFO    | 	hw.device.name = pixel
+INFO    | 	kernel.path = /Users/jenkins/Library/Android/sdk//system-images/android-28/google_apis/x86//kernel-ranchu-64
+INFO    | 	kernel.newDeviceNaming = yes
+INFO    | 	kernel.supportsYaffs2 = no
+INFO    | 	disk.ramdisk.path = /Users/jenkins/Library/Android/sdk//system-images/android-28/google_apis/x86//ramdisk.img
+INFO    | 	disk.systemPartition.initPath = /Users/jenkins/Library/Android/sdk//system-images/android-28/google_apis/x86//system.img
+INFO    | 	disk.systemPartition.size = 2562m
+INFO    | 	disk.vendorPartition.initPath = /Users/jenkins/Library/Android/sdk//system-images/android-28/google_apis/x86//vendor.img
+INFO    | 	disk.vendorPartition.size = 2g
+INFO    | 	disk.dataPartition.path = /Users/jenkins/Library/Android/sdk/.android/avd/misnap_release.avd/userdata-qemu.img
+INFO    | 	disk.dataPartition.initPath = /Users/jenkins/Library/Android/sdk//system-images/android-28/google_apis/x86//userdata.img
+INFO    | 	disk.dataPartition.size = 2g
+INFO    | 	disk.encryptionKeyPartition.path = /Users/jenkins/Library/Android/sdk/.android/avd/misnap_release.avd/encryptionkey.img
+INFO    | 	PlayStore.enabled = false
+INFO    | 	avd.name = misnap_release
+INFO    | 	avd.id = misnap_release
+INFO    | 	fastboot.forceColdBoot = false
+INFO    | 	android.sdk.root = /Users/jenkins/Library/Android/sdk/
+INFO    | 	android.avd.home = /Users/jenkins/Library/Android/sdk/.android/avd
+INFO    | .
+INFO    | QEMU options list:
+INFO    | 	 argv[00] = "/Users/jenkins/Library/Android/sdk/emulator/qemu/darwin-x86_64/qemu-system-x86_64"
+INFO    | 	 argv[01] = "-dns-server"
+INFO    | 	 argv[02] = "10.200.0.12,10.100.0.11"
+INFO    | 	 argv[03] = "-no-audio"
+INFO    | 	 argv[04] = "-mem-path"
+INFO    | 	 argv[05] = "/Users/jenkins/Library/Android/sdk/.android/avd/misnap_release.avd/snapshots/default_boot/ram.img"
+INFO    | 	 argv[06] = "-mem-file-shared"
+INFO    | 	 argv[07] = "-serial"
+INFO    | 	 argv[08] = "null"
+INFO    | 	 argv[09] = "-boot-property"
+INFO    | 	 argv[10] = "persist.sys.language=en"
+INFO    | 	 argv[11] = "-boot-property"
+INFO    | 	 argv[12] = "persist.sys.country=US"
+INFO    | 	 argv[13] = "-android-ports"
+INFO    | 	 argv[14] = "5562,5563"
+INFO    | 	 argv[15] = "-device"
+INFO    | 	 argv[16] = "goldfish_pstore,addr=0xff018000,size=0x10000,file=/Users/jenkins/Library/Android/sdk/.android/avd/misnap_release.avd/data/misc/pstore/pstore.bin"
+INFO    | 	 argv[17] = "-cpu"
+INFO    | 	 argv[18] = "android64"
+INFO    | 	 argv[19] = "-enable-hvf"
+INFO    | 	 argv[20] = "-smp"
+INFO    | 	 argv[21] = "cores=4"
+INFO    | 	 argv[22] = "-m"
+INFO    | 	 argv[23] = "4096"
+INFO    | 	 argv[24] = "-lcd-density"
+INFO    | 	 argv[25] = "420"
+INFO    | 	 argv[26] = "-nodefaults"
+INFO    | 	 argv[27] = "-kernel"
+INFO    | 	 argv[28] = "/Users/jenkins/Library/Android/sdk//system-images/android-28/google_apis/x86//kernel-ranchu-64"
+INFO    | 	 argv[29] = "-initrd"
+INFO    | 	 argv[30] = "/Users/jenkins/Library/Android/sdk//system-images/android-28/google_apis/x86//ramdisk.img"
+INFO    | 	 argv[31] = "-drive"
+INFO    | 	 argv[32] = "if=none,index=0,id=system,if=none,file=/Users/jenkins/Library/Android/sdk//system-images/android-28/google_apis/x86//system.img,read-only"
+INFO    | 	 argv[33] = "-device"
+INFO    | 	 argv[34] = "virtio-blk-pci,drive=system,modern-pio-notify"
+INFO    | 	 argv[35] = "-drive"
+INFO    | 	 argv[36] = "if=none,index=1,id=cache,if=none,file=/Users/jenkins/Library/Android/sdk/.android/avd/misnap_release.avd/cache.img.qcow2,overlap-check=none,cache=unsafe,l2-cache-size=1048576"
+INFO    | 	 argv[37] = "-device"
+INFO    | 	 argv[38] = "virtio-blk-pci,drive=cache,modern-pio-notify"
+INFO    | 	 argv[39] = "-drive"
+INFO    | 	 argv[40] = "if=none,index=2,id=userdata,if=none,file=/Users/jenkins/Library/Android/sdk/.android/avd/misnap_release.avd/userdata-qemu.img.qcow2,overlap-check=none,cache=unsafe,l2-cache-size=1048576"
+INFO    | 	 argv[41] = "-device"
+INFO    | 	 argv[42] = "virtio-blk-pci,drive=userdata,modern-pio-notify"
+INFO    | 	 argv[43] = "-drive"
+INFO    | 	 argv[44] = "if=none,index=3,id=encrypt,if=none,file=/Users/jenkins/Library/Android/sdk/.android/avd/misnap_release.avd/encryptionkey.img.qcow2,overlap-check=none,cache=unsafe,l2-cache-size=1048576"
+INFO    | 	 argv[45] = "-device"
+INFO    | 	 argv[46] = "virtio-blk-pci,drive=encrypt,modern-pio-notify"
+INFO    | 	 argv[47] = "-drive"
+INFO    | 	 argv[48] = "if=none,index=4,id=vendor,if=none,file=/Users/jenkins/Library/Android/sdk//system-images/android-28/google_apis/x86//vendor.img,read-only"
+INFO    | 	 argv[49] = "-device"
+INFO    | 	 argv[50] = "virtio-blk-pci,drive=vendor,modern-pio-notify"
+INFO    | 	 argv[51] = "-drive"
+INFO    | 	 argv[52] = "if=none,index=5,id=sdcard,if=none,file=/Users/jenkins/Library/Android/sdk/.android/avd/misnap_release.avd/sdcard.img.qcow2,overlap-check=none,cache=unsafe,l2-cache-size=1048576"
+INFO    | 	 argv[53] = "-device"
+INFO    | 	 argv[54] = "virtio-blk-pci,drive=sdcard,modern-pio-notify"
+INFO    | 	 argv[55] = "-netdev"
+INFO    | 	 argv[56] = "user,id=mynet"
+INFO    | 	 argv[57] = "-device"
+INFO    | 	 argv[58] = "virtio-net-pci,netdev=mynet"
+INFO    | 	 argv[59] = "-device"
+INFO    | 	 argv[60] = "virtio-rng-pci"
+INFO    | 	 argv[61] = "-show-cursor"
+INFO    | 	 argv[62] = "-L"
+INFO    | 	 argv[63] = "/Users/jenkins/Library/Android/sdk/emulator/lib/pc-bios"
+INFO    | 	 argv[64] = "-soundhw"
+INFO    | 	 argv[65] = "hda"
+INFO    | 	 argv[66] = "-vga"
+INFO    | 	 argv[67] = "none"
+INFO    | 	 argv[68] = "-append"
+INFO    | 	 argv[69] = "no_timer_check clocksource=pit no-kvmclock console=0 cma=288M@0-4G ndns=2 mac80211_hwsim.radios=2 mac80211_hwsim.channels=2 skip_initramfs rootwait ro init=/init loop.max_part=7 ramoops.mem_address=0xff018000 ramoops.mem_size=0x10000 memmap=0x10000$0xff018000 printk.devkmsg=on qemu=1 androidboot.hardware=ranchu androidboot.serialno=EMULATOR31X2X10X0 android.bootanim=0 qemu.gles=1 qemu.settings.system.screen_off_timeout=2147483647 qemu.encrypt=1 qemu.vsync=60 qemu.gltransport=pipe qemu.gltransport.drawFlushInterval=800 qemu.opengles.version=196608 qemu.uirenderer=skiagl qemu.dalvik.vm.heapsize=576m qemu.camera_hq_edge_processing=0 androidboot.android_dt_dir=/sys/bus/platform/devices/ANDR0001:00/properties/android/ dm="1 vroot none ro 1,0 5159992 verity 1 PARTUUID=CCBCABD5-6445-412D-A10F-2F74DBBACCD1 PARTUUID=CCBCABD5-6445-412D-A10F-2F74DBBACCD1 4096 4096 644999 644999 sha1 0011390ef3aa44087ea27d0e16a4107410518496 7e1037d90feb2438fcc16ac51c9aca000bcf6746 1 ignore_zero_blocks" androidboot.veritymode=enforcing androidboot.verifiedbootstate=orange root=/dev/dm-0 qemu.wifi=1 android.qemud=1 qemu.avd_name=misnap_release"
+INFO    | 	 argv[70] = "-android-hw"
+INFO    | 	 argv[71] = "/Users/jenkins/Library/Android/sdk/.android/avd/misnap_release.avd/hardware-qemu.ini"
+INFO    | Concatenated QEMU options: /Users/jenkins/Library/Android/sdk/emulator/qemu/darwin-x86_64/qemu-system-x86_64 -dns-server 10.200.0.12,10.100.0.11 -no-audio -mem-path /Users/jenkins/Library/Android/sdk/.android/avd/misnap_release.avd/snapshots/default_boot/ram.img -mem-file-shared -serial null -boot-property persist.sys.language=en -boot-property persist.sys.country=US -android-ports 5562,5563 -device goldfish_pstore,addr=0xff018000,size=0x10000,file=/Users/jenkins/Library/Android/sdk/.android/avd/misnap_release.avd/data/misc/pstore/pstore.bin -cpu android64 -enable-hvf -smp cores=4 -m 4096 -lcd-density 420 -nodefaults -kernel /Users/jenkins/Library/Android/sdk//system-images/android-28/google_apis/x86//kernel-ranchu-64 -initrd /Users/jenkins/Library/Android/sdk//system-images/android-28/google_apis/x86//ramdisk.img -drive if=none,index=0,id=system,if=none,file=/Users/jenkins/Library/Android/sdk//system-images/android-28/google_apis/x86//system.img,read-only -device virtio-blk-pci,drive=system,modern-pio-notify -drive if=none,index=1,id=cache,if=none,file=/Users/jenkins/Library/Android/sdk/.android/avd/misnap_release.avd/cache.img.qcow2,overlap-check=none,cache=unsafe,l2-cache-size=1048576 -device virtio-blk-pci,drive=cache,modern-pio-notify -drive if=none,index=2,id=userdata,if=none,file=/Users/jenkins/Library/Android/sdk/.android/avd/misnap_release.avd/userdata-qemu.img.qcow2,overlap-check=none,cache=unsafe,l2-cache-size=1048576 -device virtio-blk-pci,drive=userdata,modern-pio-notify -drive if=none,index=3,id=encrypt,if=none,file=/Users/jenkins/Library/Android/sdk/.android/avd/misnap_release.avd/encryptionkey.img.qcow2,overlap-check=none,cache=unsafe,l2-cache-size=1048576 -device virtio-blk-pci,drive=encrypt,modern-pio-notify -drive if=none,index=4,id=vendor,if=none,file=/Users/jenkins/Library/Android/sdk//system-images/android-28/google_apis/x86//vendor.img,read-only -device virtio-blk-pci,drive=vendor,modern-pio-notify -drive if=none,index=5,id=sdcard,if=none,file=/Users/jenkins/Library/Android/sdk/.android/avd/misnap_release.avd/sdcard.img.qcow2,overlap-check=none,cache=unsafe,l2-cache-size=1048576 -device virtio-blk-pci,drive=sdcard,modern-pio-notify -netdev user,id=mynet -device virtio-net-pci,netdev=mynet -device virtio-rng-pci -show-cursor -L /Users/jenkins/Library/Android/sdk/emulator/lib/pc-bios -soundhw hda -vga none -append 'no_timer_check clocksource=pit no-kvmclock console=0 cma=288M@0-4G ndns=2 mac80WARNING | cannot add library /Users/jenkins/Library/Android/sdk/emulator/qemu/darwin-x86_64/lib64/vulkan/libvulkan.dylib: failed
+211_hwsim.radios=2 mac80211_hwsim.channels=2 skip_initramfs rootwait ro init=/init loop.max_part=7 ramoops.mem_address=0xff018000 ramoops.mem_size=0x10000 memmap=0x10000$0xff018000 printk.devkmsg=on qemu=1 androidboot.hardware=ranchu androidboot.serialno=EMULATOR31X2X10X0 android.bootanim=0 qemu.gles=1 qemu.settings.system.screen_off_timeout=2147483647 qemu.encrypt=1 qemu.vsync=60 qemu.gltransport=pipe qemu.gltransport.drawFlushInterval=800 qemu.opengles.version=196608 qemu.uirenderer=skiagl qemu.dalvik.vm.heapsize=576m qemu.camera_hq_edge_processing=0 androidboot.android_dt_dir=/sys/bus/platform/devices/ANDR0001:00/properties/android/ dm="1 vroot none ro 1,0 5159992 verity 1 PARTUUID=CCBCABD5-6445-412D-A10F-2F74DBBACCD1 PARTUUID=CCBCABD5-6445-412D-A10F-2F74DBBACCD1 4096 4096 644999 644999 sha1 0011390ef3aa44087ea27d0e16a4107410518496 7e1037d90feb2438fcc16ac51c9aca000bcf6746 1 ignore_zero_blocks" androidboot.veritymode=enforcing androidboot.verifiedbootstate=orange root=/dev/dm-0 qemu.wifi=1 android.qemud=1 qemu.avd_name=misnap_release' -android-hw /Users/jenkins/Library/Android/sdk/.android/avd/misnap_release.avd/hardware-qemu.ini
+VERBOSE | Android qemu version 31.2.10.0 (build_id 8420304) (CL:N/A)
+VERBOSE | Starting QEMU main loop
+VERBOSE | Adding boot property: 'ro.opengles.version' = '196608'
+VERBOSE | Adding boot property: 'qemu.sf.fake_camera' = 'front'
+VERBOSE | Adding boot property: 'dalvik.vm.heapsize' = '576m'
+VERBOSE | Adding boot property: 'qemu.hw.mainkeys' = '0'
+VERBOSE | Adding boot property: 'qemu.sf.lcd_density' = '420'
+INFO    | added library /Users/jenkins/Library/Android/sdk/emulator/lib64/vulkan/libvulkan.dylib
+VERBOSE | goldfish_events.have-dpad: false
+VERBOSE | goldfish_events.have-trackball: false
+VERBOSE | goldfish_events.have-camera: true
+VERBOSE | goldfish_events.have-keyboard: false
+VERBOSE | goldfish_events.have-lidswitch: true
+VERBOSE | goldfish_events.have-tabletmode: false
+VERBOSE | goldfish_events.have-touch: false
+VERBOSE | goldfish_events.have-multitouch: true
+VERBOSE | Adding boot property: 'persist.sys.language' = 'en'
+VERBOSE | Adding boot property: 'persist.sys.country' = 'US'
+pc_memory_init: above 4g size: 40000000
+VERBOSE | Not using any http proxy
+VERBOSE | Adding boot property: 'qemu.timezone' = 'America/Los_Angeles'
+VERBOSE | android_hw_fingerprint_init: fingerprint qemud listen service initialized
+VERBOSE | emulator_window_fb_rotate
+VERBOSE | No acpi ini file provided, using default
+VERBOSE | Path:/Users/jenkins/Library/Android/sdk/platform-tools/adb protocol version: 41
+VERBOSE | Path:/Users/jenkins/Library/Android/sdk/platform-tools/adb protocol version: 41
+VERBOSE | Path:/Users/jenkins/Library/Android/sdk//platform-tools//adb protocol version: 41
+VERBOSE | Found: 3 adb executables
+VERBOSE | Adb: /Users/jenkins/Library/Android/sdk/platform-tools/adb
+VERBOSE | Adb: /Users/jenkins/Library/Android/sdk/platform-tools/adb
+VERBOSE | Adb: /Users/jenkins/Library/Android/sdk//platform-tools//adb
+VERBOSE | Path:/Users/jenkins/Library/Android/sdk/platform-tools/adb protocol version: 41
+VERBOSE | Path:/Users/jenkins/Library/Android/sdk/platform-tools/adb protocol version: 41
+VERBOSE | Path:/Users/jenkins/Library/Android/sdk//platform-tools//adb protocol version: 41
+VERBOSE | No acpi ini file provided, using default
+VERBOSE | onGuestSendCommand: [0x600003249ad0] Adb connected, start proxing data
+VERBOSE | _hwFingerprint_connect: connect finger print listen is called
+VERBOSE | got message from guest system fingerprint HAL
+INFO    | boot completed
+INFO    | boot time 35357 ms
+INFO    | Increasing screen off timeout, logcat buffer size to 2M.
+INFO    | Revoking microphone permissions for Google App.
+ERROR   | bad color buffer handle 0x1f1
+ERROR   | bad color buffer handle 0x272
+VERBOSE | Emulator killed by console kill command.
+
+VERBOSE | Saving state on exit with session uptime 260509 ms
+INFO    | Critical: Uncaught SyntaxError: Unexpected token ? (qrc:/html/js/location-mock-web-channel.js:46, (null))
+
+INFO    | Critical: Uncaught SyntaxError: Unexpected token ? (qrc:/html/js/location-mock-web-channel.js:46, (null))
+
+INFO    | Critical: Uncaught TypeError: Cannot read property 'update' of undefined (qrc:/html/js/location-mock-web-channel.js:130, (null))
+
+VERBOSE | Done with QEMU main loop
+VERBOSE | User configuration saved to /Users/jenkins/Library/Android/sdk/.android/avd/misnap_release.avd/emulator-user.ini
+VERBOSE | Adb transition disconnected -> disconnected

@@ -9,6 +9,7 @@ import com.miteksystems.misnap.R
 import com.miteksystems.misnap.core.MiSnapSettings
 import com.miteksystems.misnap.databinding.ExampleActivityIntegrationBinding
 import com.miteksystems.misnap.nfc.MiSnapNfcReader
+import com.miteksystems.misnap.apputil.LicenseFetcher
 import com.miteksystems.misnap.workflow.MiSnapFinalResult
 import com.miteksystems.misnap.workflow.MiSnapWorkflowActivity
 import com.miteksystems.misnap.workflow.MiSnapWorkflowError
@@ -29,7 +30,15 @@ import com.miteksystems.misnap.workflow.fragment.DocumentAnalysisFragment
  * using your own activity.
  */
 class IntegrationActivity : AppCompatActivity() {
-    private val license = "your_sdk_license"
+
+    /**
+     * Fetch the Misnap SDK license.
+     * Good practice: Handle the license in a way that it is remotely updatable.
+     */
+    private val license by lazy {  
+        LicenseFetcher.fetch()
+    }
+
     private lateinit var binding: ExampleActivityIntegrationBinding
 
     /**

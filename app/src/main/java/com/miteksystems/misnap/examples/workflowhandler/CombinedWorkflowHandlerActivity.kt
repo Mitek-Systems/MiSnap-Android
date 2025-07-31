@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
+import com.miteksystems.misnap.apputil.LicenseFetcher
 import com.miteksystems.misnap.R
 import com.miteksystems.misnap.core.MiSnapSettings
 import com.miteksystems.misnap.databinding.ExampleActivityCombinedWorkflowHandlerBinding
@@ -28,7 +29,15 @@ import com.miteksystems.misnap.workflow.util.CombinedWorkflowHandler
  *  MiSnap session.
  */
 class CombinedWorkflowHandlerActivity : AppCompatActivity() {
-    private val license = "your_sdk_license"
+
+    /**
+     * Fetch the Misnap SDK license.
+     * Good practice: Handle the license in a way that it is remotely updatable.
+     */
+    private val license by lazy {  
+        LicenseFetcher.fetch()
+    }
+
     private lateinit var binding: ExampleActivityCombinedWorkflowHandlerBinding
 
     private val combinedWorkflowHandler: CombinedWorkflowHandler by lazy {

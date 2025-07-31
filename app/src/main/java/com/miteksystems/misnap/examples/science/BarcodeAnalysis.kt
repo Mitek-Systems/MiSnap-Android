@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
+import com.miteksystems.misnap.apputil.LicenseFetcher
 import com.miteksystems.misnap.controller.MiSnapController
 import com.miteksystems.misnap.controller.MiSnapController.ErrorResult
 import com.miteksystems.misnap.controller.MiSnapController.FrameResult
@@ -22,7 +23,15 @@ import com.miteksystems.misnap.core.MiSnapSettings
  * MiSnap SDK sciences.
  */
 private class BarcodeAnalysis : Fragment() {
-    private val license = "your_sdk_license"
+
+    /**
+     * Fetch the Misnap SDK license.
+     * Good practice: Handle the license in a way that it is remotely updatable.
+     */
+    private val license by lazy {  
+        LicenseFetcher.fetch()
+    }
+
     private lateinit var misnapController: MiSnapController
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

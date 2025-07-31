@@ -6,6 +6,7 @@ import androidx.fragment.app.FragmentContainerView
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModelProvider
+import com.miteksystems.misnap.apputil.LicenseFetcher
 import com.miteksystems.misnap.R
 import com.miteksystems.misnap.core.MiSnapSettings
 import com.miteksystems.misnap.workflow.MiSnapErrorResult
@@ -33,7 +34,14 @@ import com.miteksystems.misnap.workflow.fragment.MiSnapWorkflowViewModel
  * integration that doesn't use Jetpack Navigation and drives the navigation with [FragmentTransaction]s.
  */
 class AnalysisFragmentNavigation : AppCompatActivity(R.layout.example_fragment_navigation) {
-    private val license = "your_sdk_license"
+
+    /**
+     * Fetch the Misnap SDK license.
+     * Good practice: Handle the license in a way that it is remotely updatable.
+     */
+    private val license by lazy {  
+        LicenseFetcher.fetch()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

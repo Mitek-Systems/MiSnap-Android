@@ -7,6 +7,7 @@ import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.miteksystems.misnap.apputil.LicenseFetcher
 import com.miteksystems.misnap.core.MiSnapSettings
 import com.miteksystems.misnap.databinding.ExampleFragmentTransactionBinding
 import com.miteksystems.misnap.workflow.MiSnapErrorResult
@@ -35,7 +36,14 @@ import com.miteksystems.misnap.workflow.fragment.*
  * integration that doesn't use [FragmentTransaction]s.
  */
 class AnalysisFragmentTransaction : AppCompatActivity() {
-    private val license = "your_sdk_license"
+
+    /**
+     * Fetch the Misnap SDK license.
+     * Good practice: Handle the license in a way that it is remotely updatable.
+     */
+    private val license by lazy {  
+        LicenseFetcher.fetch()
+    }
 
     private lateinit var binding: ExampleFragmentTransactionBinding
 

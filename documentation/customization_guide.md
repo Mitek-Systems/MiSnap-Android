@@ -1,4 +1,4 @@
-# MiSnap SDK v5.8.1 Customization Guide
+# MiSnap SDK v5.8.2 Customization Guide
 While many of the customization options mentioned in this guide may be applicable to other MiSnap integration types, this guide focuses on customization options for the [activity-based integration](./activity_integration_guide.md).
 
 # Table of Contents

@@ -3,6 +3,7 @@ package com.miteksystems.misnap.examples.science
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
+import com.miteksystems.misnap.apputil.LicenseFetcher
 import com.miteksystems.misnap.core.DeviceInfoResult
 import com.miteksystems.misnap.core.DeviceInfoUtil
 
@@ -14,7 +15,14 @@ import com.miteksystems.misnap.core.DeviceInfoUtil
  *  MiSnap session.
  */
 class DeviceInfo : Fragment() {
-    private val license = "your_sdk_license"
+
+    /**
+     * Fetch the Misnap SDK license.
+     * Good practice: Handle the license in a way that it is remotely updatable.
+     */
+    private val license by lazy {  
+        LicenseFetcher.fetch()
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

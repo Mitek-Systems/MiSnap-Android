@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
-import com.miteksystems.misnap.R
+import com.miteksystems.misnap.apputil.LicenseFetcher
 import com.miteksystems.misnap.controller.MiSnapController
 import com.miteksystems.misnap.controller.MiSnapController.ErrorResult
 import com.miteksystems.misnap.controller.MiSnapController.FrameResult
@@ -30,7 +30,15 @@ import com.miteksystems.misnap.workflow.view.MiSnapView
  * [MiSnapView] from an XML layout.
  */
 class MiSnapViewCode : Fragment() {
-    private val license = "your_sdk_license"
+
+    /**
+     * Fetch the Misnap SDK license.
+     * Good practice: Handle the license in a way that it is remotely updatable.
+     */
+    private val license by lazy {  
+        LicenseFetcher.fetch()
+    }
+
     private lateinit var settings: MiSnapSettings
 
     override fun onCreateView(

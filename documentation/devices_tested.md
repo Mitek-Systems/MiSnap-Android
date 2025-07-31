@@ -1,4 +1,4 @@
-# MiSnap SDK v5.8.1 Devices Tested
+# MiSnap SDK v5.8.2 Devices Tested
 
 # Internal Devices
 | Device                        | OS          |

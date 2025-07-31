@@ -33,7 +33,7 @@
     <div id="leftToggler"><span class="icon-toggler"></span></div>
     <div class="library-name">
 <a href="../../../index.html">
-<span>misnap</span>            </a>    </div>
+<span>MiSnap 5.x Release Pipeline</span>            </a>    </div>
     <div>
     </div>
     <div class="pull-right d-flex">
@@ -57,6 +57,7 @@
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
+import com.miteksystems.misnap.apputil.LicenseFetcher
 import com.miteksystems.misnap.R
 import com.miteksystems.misnap.controller.MiSnapController
 import com.miteksystems.misnap.controller.MiSnapController.ErrorResult
@@ -82,7 +83,15 @@ fun main() {
  * build an use a [MiSnapView].
  */
 class MiSnapViewXml : Fragment(R.layout.example_misnap_view_xml) {
-    private val license = "your_sdk_license"
+
+    /**
+     * Fetch the Misnap SDK license.
+     * Good practice: Handle the license in a way that it is remotely updatable.
+     */
+    private val license by lazy {  
+        LicenseFetcher.fetch()
+    }
+
     private lateinit var settings: MiSnapSettings
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -188,6 +197,7 @@ import android.view.animation.AnimationUtils
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
+import com.miteksystems.misnap.apputil.LicenseFetcher
 import com.miteksystems.misnap.R
 import com.miteksystems.misnap.camera.frameproducers.FrameProducer.Event
 import com.miteksystems.misnap.controller.MiSnapController
@@ -226,7 +236,14 @@ fun main() {
  * behavior of the SDK.
  */
 class AnalysisFragment : Fragment(R.layout.example_document_analysis) {
-    private val license = "your_sdk_license"
+
+    /**
+     * Fetch the Misnap SDK license.
+     * Good practice: Handle the license in a way that it is remotely updatable.
+     */
+    private val license by lazy {  
+        LicenseFetcher.fetch()
+    }
 
     /**
      * To accurately track the number of auto and manual mode session retries in [MibiData] it is

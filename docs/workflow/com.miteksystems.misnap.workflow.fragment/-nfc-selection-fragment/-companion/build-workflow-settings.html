@@ -33,7 +33,7 @@
     <div id="leftToggler"><span class="icon-toggler"></span></div>
     <div class="library-name">
 <a href="../../../../index.html">
-<span>misnap</span>            </a>    </div>
+<span>MiSnap 5.x Release Pipeline</span>            </a>    </div>
     <div>
     </div>
     <div class="pull-right d-flex">
@@ -56,6 +56,7 @@
   </div>
   <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":workflow:dokkaHtmlPartial/release"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin.jvm/-jvm-static/index.html"><span class="token annotation builtin">JvmStatic</span></a></div><div class="block"><span class="token annotation builtin">@</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin.jvm/-jvm-overloads/index.html"><span class="token annotation builtin">JvmOverloads</span></a></div></div><span class="token keyword"></span><span class="token keyword">fun </span><a href="build-workflow-settings.html"><span class="token function">buildWorkflowSettings</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">showSkipButton<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">handleOrientation<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-string/index.html">String</a></div><p class="paragraph">Formats an encoded workflow settings JSON string for this fragment to use with <a href="../../../../core/com.miteksystems.misnap.core/-mi-snap-settings/-workflow/add.html">MiSnapSettings.Workflow.add</a>.</p><span class="kdoc-tag"><h4 class="">Return</h4><p class="paragraph"><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-string/index.html">String</a> with the relevant settings, pass it into <a href="../../../../core/com.miteksystems.misnap.core/-mi-snap-settings/-workflow/add.html">MiSnapSettings.Workflow.add</a> along with the Fragment's label to apply the settings.</p></span><h4 class="">Parameters</h4><div class="table"><div class="table-row" data-filterable-current=":workflow:dokkaHtmlPartial/release" data-filterable-set=":workflow:dokkaHtmlPartial/release"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>show</span><wbr><span>Skip</span><wbr><span><span>Button</span></span></u></div></span></div><div><div class="title"><p class="paragraph">Formats the <a href="-s-h-o-w_-s-k-i-p_-b-u-t-t-o-n.html">SHOW_SKIP_BUTTON</a>.</p></div></div></div></div><div class="table-row" data-filterable-current=":workflow:dokkaHtmlPartial/release" data-filterable-set=":workflow:dokkaHtmlPartial/release"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>handle</span><wbr><span><span>Orientation</span></span></u></div></span></div><div><div class="title"><p class="paragraph">Formats the <a href="-h-a-n-d-l-e_-o-r-i-e-n-t-a-t-i-o-n.html">HANDLE_ORIENTATION</a>.</p></div></div></div></div></div><h4 class="">Samples</h4><div class="sample-container"><pre><code class="runnablesample monospace block lang-kotlin" theme="idea">import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.miteksystems.misnap.apputil.LicenseFetcher
 import com.miteksystems.misnap.R
 import com.miteksystems.misnap.core.MiSnapSettings
 import com.miteksystems.misnap.workflow.fragment.DocumentAnalysisFragment
@@ -78,7 +79,14 @@ fun main() {
  * the UI and behavior using [Bundle]s instead.
  */
 class WorkflowSettings : AppCompatActivity() {
-    private val license = "your_sdk_license"
+
+    /**
+     * Fetch the Misnap SDK license.
+     * Good practice: Handle the license in a way that it is remotely updatable.
+     */
+    private val license by lazy {  
+        LicenseFetcher.fetch()
+    }
 
     override fun onStart() {
         super.onStart()

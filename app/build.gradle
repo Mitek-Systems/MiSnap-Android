@@ -18,8 +18,6 @@ android {
         versionCode project.misnapVersionCode
         versionName project.misnapVersion
 
-        buildConfigField "String", "MISNAP_APP_AC_KEY", "\"${System.getenv().APPCENTER_CRASH_REPORT_KEY ?: ""}\""
-
         // Only armeabi-v7a and arm64-v8a is currently enabled, but if you need one of these other variants,
         // then uncomment the variant you need and copy the relevant SO libraries into the project.
         ndk {
@@ -62,6 +60,13 @@ android {
             useLegacyPackaging = true
         }
 
+
+        /**
+         * JMRTD uses Bouncy Castle in the NFC module, which includes an OSGI manifest file.
+         * This file is not used in the MiSnap SDK but appears in both bcprov and bcutil in v1.78+,
+         * causing build conflicts.
+         */
+        pickFirst 'META-INF/versions/9/OSGI-INF/MANIFEST.MF'
     }
 }
 
@@ -80,6 +85,4 @@ dependencies {
     // Memory Leak detection. Used only for this sample app. Not used within SDK modules.
     debugImplementation "com.squareup.leakcanary:leakcanary-android:$leakcanaryVersion"
 
-    // AppCenter crash reporting. Used only for this sample app. Not used within SDK modules.
-    implementation 'com.microsoft.appcenter:appcenter-crashes:3.2.2'
 }

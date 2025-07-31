@@ -6,6 +6,7 @@ import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
+import com.miteksystems.misnap.apputil.LicenseFetcher
 import com.miteksystems.misnap.R
 import com.miteksystems.misnap.core.MiSnapSettings
 import com.miteksystems.misnap.databinding.ExampleActivityCombinedWorkflowIntegrationBinding
@@ -53,7 +54,15 @@ import com.miteksystems.misnap.workflow.util.CombinedWorkflowHandler
  *  MiSnap session.
  */
 class CombinedWorkflowIntegrationActivity : AppCompatActivity() {
-    private val license = "your_sdk_license"
+
+    /**
+     * Fetch the Misnap SDK license.
+     * Good practice: Handle the license in a way that it is remotely updatable.
+     */
+    private val license by lazy {  
+        LicenseFetcher.fetch()
+    }
+
     private lateinit var binding: ExampleActivityCombinedWorkflowIntegrationBinding
 
     private val misnapWorkflowViewModel: MiSnapWorkflowViewModel by lazy {

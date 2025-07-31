@@ -1,4 +1,4 @@
-# MiSnap SDK v5.8.1 for Android
+# MiSnap SDK v5.8.2 for Android
 Mitek MiSnap™ is a patented mobile-capture SDK that enables an intuitive user experience and instant capture of quality images. It all starts with the quality of the image.
 
 # Table of Contents
@@ -30,7 +30,7 @@ Mitek MiSnap™ is a patented mobile-capture SDK that enables an intuitive user 
 
 # Getting Started
 ## Quick Start
-   1. The MiSnap SDK needs a valid license to work, before integrating, make sure to [obtain a license](#License-key).
+   1. The MiSnap SDK needs a valid license to work, before integrating, make sure to [obtain a license](#license-key).
    2. MiSnap is deployed to Maven, before integrating or testing, make sure to obtain a [personal access token](#how-to-integrate-the-misnap-sdk-using-maven).
    3. If you're integrating the MiSnap SDK for the first time, see the [integration guides](#integration-guides).
    4. If you're upgrading an existing integration of the MiSnap SDK, see the [migration guide](#migration-guide).
@@ -65,14 +65,14 @@ Please see [versions.gradle](versions.gradle) for more details.
 All sizes are download sizes for the `arm64-v8a` architecture.
 
 <!-- SIZE_TABLE_START -->
-| Use Case                         | Download Size (MiB) |
+| Use Case                         | Download Size (MiB) | 
 | :------------------------------- | ------------------: |
-| Document                         | 6.41                |
-| Document and Barcode             | 7.66                |
-| Document and Biometric           | 14.42               |
-| Document, Barcode, and Biometric | 15.67               |
-| Document, Biometric, and NFC     | 18.42               |
-| Document Classification          | 14.49               |
+| Document                         | 6.43                | 
+| Document and Barcode             | 7.68                | 
+| Document and Biometric           | 14.43               | 
+| Document, Barcode, and Biometric | 15.68               | 
+| Document, Biometric, and NFC     | 20.04               | 
+| Document Classification          | 14.51               | 
 <!-- SIZE_TABLE_END -->
 
 Please see [this page](documentation/download_sizes.md) for the in-depth size tables.
@@ -84,7 +84,7 @@ Please see the [devices tested](documentation/devices_tested.md) page for more d
 ## Known Issues
 * As the `face-analysis`, `face` and `biometric` modules use `Google’s MLKit` for face detection, please follow [this link](https://developers.google.com/ml-kit/known-issues) for known issues.
 * The `document-classifier` and `classifier` modules use `Google’s MLKit` for document classification, please follow [this link](https://developers.google.com/ml-kit/known-issues) for known issues. 
-* The `minSdkVersion` used in the MiSnap SDK is not compatible with higher `jmrtd` versions. 
+* The NFC reader component of MiSnap may fail to read some NFC enabled documents on devices that run a lower version than Android 8(API 26) due to limitations with the security provider support.
 * When using the Voice component of MiSnap, there is limited support for screen readers.
 
 - - - -

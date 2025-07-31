@@ -11,6 +11,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.miteksystems.misnap.apputil.LicenseFetcher
 import com.miteksystems.misnap.R
 import com.miteksystems.misnap.camera.requireProfile
 import com.miteksystems.misnap.camera.util.CameraUtil
@@ -50,7 +51,11 @@ class DemoFragment : Fragment(R.layout.fragment_demo) {
 
         checkPermissions()
 
-        val license = getString(R.string.misnapSampleAppLicense)
+        /**
+         * Fetch the Misnap SDK license.
+         * Good practice: Handle the license in a way that it is remotely updatable.
+         */
+        val license = LicenseFetcher.fetch()
 
         binding.checkFrontSessionButton.setOnClickListener {
             startMiSnapSession(

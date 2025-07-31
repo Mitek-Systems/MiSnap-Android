@@ -6,6 +6,7 @@ import android.view.animation.AnimationUtils
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
+import com.miteksystems.misnap.apputil.LicenseFetcher
 import com.miteksystems.misnap.R
 import com.miteksystems.misnap.camera.frameproducers.FrameProducer.Event
 import com.miteksystems.misnap.controller.MiSnapController
@@ -43,7 +44,14 @@ import com.miteksystems.misnap.workflow.view.*
  * behavior of the SDK.
  */
 class AnalysisFragment : Fragment(R.layout.example_document_analysis) {
-    private val license = "your_sdk_license"
+
+    /**
+     * Fetch the Misnap SDK license.
+     * Good practice: Handle the license in a way that it is remotely updatable.
+     */
+    private val license by lazy {  
+        LicenseFetcher.fetch()
+    }
 
     /**
      * To accurately track the number of auto and manual mode session retries in [MibiData] it is

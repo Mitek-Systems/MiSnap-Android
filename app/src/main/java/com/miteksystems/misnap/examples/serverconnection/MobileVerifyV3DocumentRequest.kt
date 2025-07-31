@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import com.miteksystems.misnap.apputil.LicenseFetcher
 import com.miteksystems.misnap.core.MiSnapSettings
 import com.miteksystems.misnap.core.serverconnection.MiSnapTransactionResult
 import com.miteksystems.misnap.core.serverconnection.MobileVerifyV3Request
@@ -24,7 +25,15 @@ import com.miteksystems.misnap.workflow.util.toServerResult
  * @see [MobileVerifyV3Request] for the full list of properties used to build the payload.
  */
 class MobileVerifyV3DocumentRequestActivity : AppCompatActivity() {
-    private val license = "your_sdk_license"
+
+    /**
+     * Fetch the Misnap SDK license.
+     * Good practice: Handle the license in a way that it is remotely updatable.
+     */
+    private val license by lazy {  
+        LicenseFetcher.fetch()
+    }
+
     private lateinit var binding: ExampleActivityIntegrationBinding
 
     /**
