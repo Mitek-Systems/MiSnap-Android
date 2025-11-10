@@ -1,4 +1,4 @@
-# MiSnap SDK v5.6.1 for Android
+# MiSnap SDK v5.6.2 for Android
 Mitek MiSnap™ is a patented mobile-capture SDK that enables an intuitive user experience and instant capture of quality images. It all starts with the quality of the image.
 
 # Table of Contents
@@ -30,31 +30,15 @@ Mitek MiSnap™ is a patented mobile-capture SDK that enables an intuitive user 
 # Getting Started
 
 ## Release Notes
-#### **Added**
-* [NFC] Support for NLD 2024 documents.
-* [Document] Support for extracting the MRZ of TD2 documents by setting the `analysis.document.advanced.docType` property to `MiSnapSettings.Analysis.Document.Advanced.DocType.TD2`.
-* [Common] Support for 16KB memory page size devices.
-  * _For more information please see the official announcement in the [Android Developers Portal](https://developer.android.com/guide/practices/page-sizes)._
-* [Common] An option to configure the `delay of the initial hint message` to the `HintView` class.
-* [Barcode] An option to display a `barcode label` to indicate the expected type of barcode to read.
-
-#### **Modified**
-* [Common] Upgraded CameraX to version 1.4.0.
-* [Common] Upgraded the NDK to version r27c.
-* [Common] Upgraded the Android Gradle Plugin to 8.0.2.
-  * _NOTE: Please see [this question](#how-to-integrate-misnap-561-using-android-gradle-plugin-801-and-lower) for relevant information when working with `Android Gradle Plugin 8.0.1 and lower`._
-
-#### **Fixed**
-* [Workflow] An issue with Fragments that presented dialogs in which the dialog could outlive the Fragment's lifecycle and produce a crash with certain interactions.
-* [Workflow] An issue with the `HintView` in which the view was initially displayed regardless not having contents.
-
-Please see the in-code documentation and the [Customization Guide](#customization-guide) for more details and the full API.
-
-### **Version 5.6.1**
+See [here](https://github.com/Mitek-Systems/MiSnap-Android/releases).
 
 Please see [the migration guide](documentation/migration_guide.md) for extended information on the changes introduced in this release that can affect your integration.
 
-Please see [this page](documentation/change_log.md) for release notes from older releases.
+Please see the in-code documentation and the [Customization Guide](#customization-guide) for more details and the full API.
+
+### **Version 5.6.2**
+
+Please see [the migration guide](documentation/migration_guide.md) for extended information on the changes introduced in this release that can affect your integration.
 
 Please see [this page](documentation/nfc_regions_documents_supported.md) for the full list of regions and documents supported by the MiSnap SDK NFC Reader.
 
@@ -65,10 +49,10 @@ Please see [this page](documentation/download_sizes.md) for the in-depth size ta
 | Use Case                         | Download Size (MiB) | 
 | :------------------------------- | ------------------: |
 | Document                         | 6.06                | 
-| Document and Barcode             | 7.31                | 
+| Document and Barcode             | 9.19                | 
 | Document and Biometric           | 14.15               | 
-| Document, Barcode, and Biometric | 15.4                | 
-| Document, Biometric, and NFC     | 18.14               | 
+| Document, Barcode, and Biometric | 17.29               | 
+| Document, Biometric, and NFC     | 19.74               | 
 | Document Classification          | 14.23               | 
 <!-- SIZE_TABLE_END -->
 
@@ -99,7 +83,7 @@ Please see the [devices tested](documentation/devices_tested.md) page for more d
 * When video recording is enabled the camera preview of some low-end devices could look slightly stretched, but the recorded contents and the resulting image aspect ratio will look correct.
 * As the `face-analysis`, `face` and `biometric` modules use `Google’s MLKit` for face detection, please follow [this link](https://developers.google.com/ml-kit/known-issues) for known issues.
 * The `document-classifier` and `classifier` modules use `Google’s MLKit` for document classification, please follow [this link](https://developers.google.com/ml-kit/known-issues) for known issues. 
-* The `minSdkVersion` used in the MiSnap SDK is not compatible with higher `jmrtd` versions. 
+* The NFC reader component of MiSnap may fail to read some NFC enabled documents on devices that run a lower version than Android 8(API 26) due to limitations with the security provider support.
 * When using the Voice component of MiSnap, there is limited support for screen readers.
 
 - - - -

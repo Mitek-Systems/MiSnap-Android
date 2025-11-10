@@ -6,4 +6,5 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:defaultNavHost="true"
-    app:navGraph="@navigation/sample_app_flow"/>
+    app:navGraph="@navigation/sample_app_flow"
+    android:fitsSystemWindows="true"/>
