@@ -106,6 +106,8 @@
     <string name="misnapAppUtilResultsServerResultExtractedDataAddress3" translatable="false">Address Line 3: %1$s</string>
 
     <string name="misnapAppUtilResultsServerResultExtractedDataDynamicPropertiesTitle" translatable="false">Dynamic Properties</string>
+    <string name="misnapAppUtilResultsServerResultExtractedDataDynamicPropertiesDataExpirationDate" translatable="false">Data Expiration Date: %1$s</string>
+    <string name="misnapAppUtilResultsServerResultExtractedDataDynamicPropertiesIsOfLegalAge" translatable="false">Is of Legal Age: %1$s</string>
     <string name="misnapAppUtilResultsServerResultExtractedDataDynamicPropertiesSex" translatable="false">Sex: %1$s</string>
     <string name="misnapAppUtilResultsServerResultExtractedDataDynamicPropertiesPersonalGovID" translatable="false">Personal Gov. ID: %1$s</string>
     <string name="misnapAppUtilResultsServerResultExtractedDataDynamicPropertiesSecondaryPersonalGovID" translatable="false">Secondary Personal Gov. ID: %1$s</string>
@@ -212,8 +214,15 @@
     <string name="misnapAppUtilResultsMibiCopyFailureMessage" translatable="false">Please select and copy manually</string>
     <string name="misnapAppUtilResultsMibiDataNotFound" translatable="false">Unable to read MiBI from EXIF Tag</string>
 
-    <string name="misnapAppUtilResultsBarcodeData" translatable="false">Data: %1$s</string>
-    <string name="misnapAppUtilResultsBarcodeType" translatable="false">Type: %1$s</string>
+    <string name="misnapAppUtilResultsBarcodeVds" translatable="false">VDS Data</string>
+    <string name="misnapAppUtilResultsBarcodeVdsContents" translatable="false">
+        <![CDATA[<b>Country:</b>]]> %1$s <![CDATA[<br>]]>
+        <![CDATA[<b>Feature Definition Reference:</b>]]> %2$d <![CDATA[<br>]]>
+        <![CDATA[<b>Type Category:</b>]]> %3$d <![CDATA[<br>]]>
+        <![CDATA[<b>Payload Size:</b>]]> %4$d KB<![CDATA[<br>]]>
+    </string>
+    <string name="misnapAppUtilResultsBarcodeData" translatable="false">Data</string>
+    <string name="misnapAppUtilResultsBarcodeType" translatable="false">Type</string>
 
     <string name="misnapAppUtilResultsMrzDataTitle" translatable="false"><![CDATA[<b>Parsed MRZ</b>]]><![CDATA[<br>]]></string>
     <string name="misnapAppUtilResultsMrzData" translatable="false">
@@ -222,7 +231,8 @@
         <![CDATA[<b>Issuing Country:</b>]]> %3$s <![CDATA[<br>]]>
         <![CDATA[<b>Date of Birth:</b>]]> %4$s <![CDATA[<br>]]>
         <![CDATA[<b>Date of Expiry:</b>]]> %5$s <![CDATA[<br>]]>
-        <![CDATA[<b>Optional Data1:</b>]]> %6$s
+        <![CDATA[<b>Optional Data1:</b>]]> %6$s <![CDATA[<br>]]>
+        <![CDATA[<b>Nationality:</b>]]> %7$s <![CDATA[<br>]]>
     </string>
 
     <string name="misnapAppUtilResultsMrzOneLineData" translatable="false"><![CDATA[<b>Parsed Mrz Data:</b>]]> %1$s</string>

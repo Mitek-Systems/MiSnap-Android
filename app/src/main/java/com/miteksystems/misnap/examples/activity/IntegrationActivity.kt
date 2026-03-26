@@ -10,6 +10,8 @@ import com.miteksystems.misnap.core.MiSnapSettings
 import com.miteksystems.misnap.databinding.ExampleActivityIntegrationBinding
 import com.miteksystems.misnap.nfc.MiSnapNfcReader
 import com.miteksystems.misnap.apputil.LicenseFetcher
+import com.miteksystems.misnap.core.Barcode
+import com.miteksystems.misnap.core.Vds
 import com.miteksystems.misnap.workflow.MiSnapFinalResult
 import com.miteksystems.misnap.workflow.MiSnapWorkflowActivity
 import com.miteksystems.misnap.workflow.MiSnapWorkflowError
@@ -122,8 +124,26 @@ class IntegrationActivity : AppCompatActivity() {
                                 val mibiData = result.misnapMibiData
                                 val videoBytes = result.video
                                 val sessionWarnings = result.warnings
-                                val barcode = result.barcode
+                                val barcode: Barcode? = result.barcode
                                 val rts = result.rts
+                                /**
+                                 * Handle the VDS results from the barcode if a VDS barcode was scanned.
+                                 * Otherwise handle the results as a regular barcode session.
+                                 * NOTE: if the scan is a VDS, the raw barcode contents are not available.
+                                 */
+                                barcode?.let { barcodeResult ->
+                                    if (barcode.isVds == true) {
+                                        val vdsResult: Vds? = barcodeResult.vds
+                                        val encryptedPayload = vdsResult?.encryptedPayload
+                                        val vdsHeader: Vds.VdsHeader? = vdsResult?.header
+                                        val country = vdsHeader?.country
+                                        val featureDefinitionReference = vdsHeader?.featureDefinitionReference
+                                        val typeCategory = vdsHeader?.typeCategory
+                                    } else {
+                                        val rawBarcode = barcode.rawBarcode
+                                        val encodedBarcode = barcode.encodedBarcode
+                                    }
+                                }
                             }
                             is MiSnapFinalResult.VoiceSession -> {
                                 /**

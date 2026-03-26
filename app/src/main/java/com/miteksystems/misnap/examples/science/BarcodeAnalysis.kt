@@ -8,8 +8,12 @@ import com.miteksystems.misnap.apputil.LicenseFetcher
 import com.miteksystems.misnap.controller.MiSnapController
 import com.miteksystems.misnap.controller.MiSnapController.ErrorResult
 import com.miteksystems.misnap.controller.MiSnapController.FrameResult
+import com.miteksystems.misnap.core.Barcode
 import com.miteksystems.misnap.core.Frame
 import com.miteksystems.misnap.core.MiSnapSettings
+import com.miteksystems.misnap.core.Vds
+import com.miteksystems.misnap.workflow.MiSnapFinalResult
+import com.miteksystems.misnap.workflow.MiSnapFinalResult.BarcodeSession
 
 /**
  * This example demonstrates a direct integration with MiSnap SDK's barcode analysis science through
@@ -78,12 +82,39 @@ private class BarcodeAnalysis : Fragment() {
             /**
              * Observe the [MiSnapController.frameResult] [LiveData] to handle the successful results
              * of a session, e.g. by collecting the barcode data in [FrameResult.BarcodeAnalysis.barcode]
-             * to send it to the server.
+             * to send it to the server depending on if it's a VDS or regular Barcode scan.
              */
             frameResult.observe(viewLifecycleOwner) { result ->
                 when (result) {
                     is FrameResult.BarcodeAnalysis -> {
-
+                        /**
+                         * Recover the session data from the results.
+                         * Please see [MiSnapFinalResult.BarcodeSession] for more information on the available data.
+                         */
+                        val jpegImageBytes = result.frame
+                        val licenseExpiredNotification = result.licenseExpired
+                        val mibiData = result.misnapMibiData
+                        val sessionWarnings = result.warnings
+                        val barcode: Barcode? = result.barcode
+                        val rts = result.rts
+                        /**
+                         * Handle the VDS results from the barcode if a VDS barcode was scanned.
+                         * Otherwise handle the results as a regular barcode session.
+                         * NOTE: if the scan is a VDS, the raw barcode contents are not available.
+                         */
+                        barcode?.let { barcodeResult ->
+                            if (barcode.isVds == true) {
+                                val vdsResult: Vds? = barcodeResult.vds
+                                val encryptedPayload = vdsResult?.encryptedPayload
+                                val vdsHeader: Vds.VdsHeader? = vdsResult?.header
+                                val country = vdsHeader?.country
+                                val featureDefinitionReference = vdsHeader?.featureDefinitionReference
+                                val typeCategory = vdsHeader?.typeCategory
+                            } else {
+                                val rawBarcode = barcode.rawBarcode
+                                val encodedBarcode = barcode.encodedBarcode
+                            }
+                        }
                     }
                     else -> {}
                 }

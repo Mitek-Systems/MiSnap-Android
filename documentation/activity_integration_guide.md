@@ -1,4 +1,4 @@
-# MiSnap SDK v5.10.1 Activity-based Integration Guide
+# MiSnap SDK v5.11.0 Activity-based Integration Guide
 
 This **recommended** guide is targeted towards developers who want the **easiest integration** of the MiSnap SDK and is best suited for applications with a **multi-activity architecture**.
 
@@ -23,28 +23,28 @@ The easiest way to integrate the MiSnap SDK is to add the dependencies you need 
 ```groovy
 dependencies {
     // Use this for check + id sessions
-    implementation "com.miteksystems.misnap:document:5.10.1"
+    implementation "com.miteksystems.misnap:document:5.11.0"
 
     // Use this for document classification
-    implementation "com.miteksystems.misnap:classifier:5.10.1"
+    implementation "com.miteksystems.misnap:classifier:5.11.0"
 
     // Use this for barcode sessions
-    implementation "com.miteksystems.misnap:barcode:5.10.1"
+    implementation "com.miteksystems.misnap:barcode:5.11.0"
 
     // Use this for selfie + voice sessions
-    implementation "com.miteksystems.misnap:biometric:5.10.1"
+    implementation "com.miteksystems.misnap:biometric:5.11.0"
 
     // Use this for selfie sessions
-    implementation "com.miteksystems.misnap:face:5.10.1"
+    implementation "com.miteksystems.misnap:face:5.11.0"
 
     // Use this for voice sessions
-    implementation "com.miteksystems.misnap:voice:5.10.1"
+    implementation "com.miteksystems.misnap:voice:5.11.0"
 
     // Use this for automatically getting the nfc credentials and then reading the chip
-    implementation "com.miteksystems.misnap:combined-nfc:5.10.1"
+    implementation "com.miteksystems.misnap:combined-nfc:5.11.0"
 
     // Use this for only reading the nfc chip
-    implementation "com.miteksystems.misnap:nfc:5.10.1"
+    implementation "com.miteksystems.misnap:nfc:5.11.0"
 }
 ```
 > NOTE: a typical MiSnap SDK integration won't need all of the above dependencies, it is advised to only include the dependencies needed for the features you plan to use from the MiSnap SDK to reduce the size of your application.

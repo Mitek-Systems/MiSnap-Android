@@ -1,7 +1,6 @@
 package com.miteksystems.misnap.sampleapp
 
 import android.Manifest
-import android.app.AlertDialog
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.View
@@ -11,8 +10,9 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.miteksystems.misnap.apputil.LicenseFetcher
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.miteksystems.misnap.R
+import com.miteksystems.misnap.apputil.LicenseFetcher
 import com.miteksystems.misnap.camera.requireProfile
 import com.miteksystems.misnap.camera.util.CameraUtil
 import com.miteksystems.misnap.camera.util.CameraUtil.CameraSupportResult
@@ -243,18 +243,20 @@ class DemoFragment : Fragment(R.layout.fragment_demo) {
 
         permissions.forEach { permission ->
             if (shouldShowRequestPermissionRationale(permission)) {
-                AlertDialog.Builder(requireContext()).apply {
-                    setTitle(getPermissionRationaleTitle(permission))
-                    setMessage(getPermissionRationaleMessage(permission))
-                    setOnDismissListener {
+                MaterialAlertDialogBuilder(
+                    requireContext(),
+                    R.style.MiSnapTheme_Dialog,
+                )
+                    .setTitle(getPermissionRationaleTitle(permission))
+                    .setMessage(getPermissionRationaleMessage(permission))
+                    .setOnDismissListener {
                         requestPermissions(
                             arrayOf(permission),
                             getPermissionRequestCode(permission)
                         )
                     }
-                    setPositiveButton(android.R.string.ok, null)
-                    show()
-                }
+                    .setPositiveButton(android.R.string.ok, null)
+                    .show()
             } else {
                 nonRationalePermissions.add(permission)
             }

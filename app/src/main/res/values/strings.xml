@@ -81,8 +81,9 @@
     <string name="misnapSampleAppSettingsCameraVideoQualityLabel" translatable="false">Video Quality</string>
 
     <string-array name="cameraFacingDirectionsArray">
-        <item>Back</item>
-        <item>Front</item>
+        <item>Document Back</item>
+        <item>Selfie Front</item>
+        <item>Selfie Back</item>
     </string-array>
 
     <string-array name="cameraTorchModesArray">

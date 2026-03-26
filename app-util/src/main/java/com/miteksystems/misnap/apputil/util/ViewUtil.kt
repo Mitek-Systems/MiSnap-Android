@@ -34,6 +34,7 @@ import com.miteksystems.misnap.core.Mrz1Line
 import com.miteksystems.misnap.core.MrzData
 import com.miteksystems.misnap.core.UserAction
 import org.apache.commons.imaging.formats.tiff.constants.ExifTagConstants
+import androidx.core.text.htmlEncode
 
 object ViewUtil {
     private const val LOG_TAG = "MiSnapAppUtilViewUtil"
@@ -102,12 +103,13 @@ object ViewUtil {
                             text = HtmlCompat.fromHtml(
                                 String.format(
                                     context.getString(R.string.misnapAppUtilResultsMrzData),
-                                    mrz.documentNumber,
-                                    mrz.documentCode,
-                                    mrz.country,
-                                    mrz.dateOfBirth,
-                                    mrz.dateOfExpiry,
-                                    mrz.optionalData1
+                                    mrz.documentNumber.htmlEncode(),
+                                    mrz.documentCode.htmlEncode(),
+                                    mrz.country.htmlEncode(),
+                                    mrz.dateOfBirth.htmlEncode(),
+                                    mrz.dateOfExpiry.htmlEncode(),
+                                    mrz.optionalData1.htmlEncode(),
+                                    mrz.nationality.htmlEncode()
                                 ),
                                 HtmlCompat.FROM_HTML_MODE_COMPACT
                             )
@@ -117,7 +119,7 @@ object ViewUtil {
                             text = HtmlCompat.fromHtml(
                                 String.format(
                                     context.getString(R.string.misnapAppUtilResultsMrzOneLineData),
-                                    mrz.mrzString
+                                    mrz.mrzString.htmlEncode()
                                 ),
                                 HtmlCompat.FROM_HTML_MODE_COMPACT
                             )
@@ -217,6 +219,44 @@ object ViewUtil {
                 )
             }
             orientation = LinearLayout.VERTICAL
+            barcode.vds?.let {
+                addView(
+                    MaterialTextView(context).apply {
+                        layoutParams = ViewGroup.LayoutParams(
+                            ViewGroup.LayoutParams.MATCH_PARENT,
+                            ViewGroup.LayoutParams.WRAP_CONTENT
+                        )
+                        gravity = Gravity.START
+                        textSize = 25f
+                        text = context.getString(R.string.misnapAppUtilResultsBarcodeVds)
+                        setTextIsSelectable(true)
+                    }
+                )
+
+                addView(
+                    MaterialTextView(context).apply {
+                        layoutParams = ViewGroup.LayoutParams(
+                            ViewGroup.LayoutParams.MATCH_PARENT,
+                            ViewGroup.LayoutParams.WRAP_CONTENT
+                        )
+                        gravity = Gravity.START
+                        textSize = 18f
+                        text = HtmlCompat.fromHtml(
+                            String.format(
+                                context.getString(
+                                    R.string.misnapAppUtilResultsBarcodeVdsContents
+                                ),
+                                it.header.country,
+                                it.header.featureDefinitionReference,
+                                it.header.typeCategory,
+                                it.encryptedPayload?.toByteArray(Charsets.UTF_8)?.size?.div(1024) ?: 0,
+                            ),
+                            HtmlCompat.FROM_HTML_MODE_LEGACY
+                        )
+                        setTextIsSelectable(true)
+                    }
+                )
+            }
             barcode.type?.let {
                 addView(
                     MaterialTextView(context).apply {
@@ -226,7 +266,19 @@ object ViewUtil {
                         )
                         gravity = Gravity.START
                         textSize = 25f
-                        text = context.getString(R.string.misnapAppUtilResultsBarcodeType, it.name)
+                        text = context.getString(R.string.misnapAppUtilResultsBarcodeType)
+                        setTextIsSelectable(true)
+                    }
+                )
+                addView(
+                    MaterialTextView(context).apply {
+                        layoutParams = ViewGroup.LayoutParams(
+                            ViewGroup.LayoutParams.MATCH_PARENT,
+                            ViewGroup.LayoutParams.WRAP_CONTENT
+                        )
+                        gravity = Gravity.START
+                        textSize = 18f
+                        text = it.toString()
                         setTextIsSelectable(true)
                     }
                 )
@@ -240,7 +292,19 @@ object ViewUtil {
                         )
                         gravity = Gravity.START
                         textSize = 25f
-                        text = context.getString(R.string.misnapAppUtilResultsBarcodeData, it)
+                        text = context.getString(R.string.misnapAppUtilResultsBarcodeData)
+                        setTextIsSelectable(true)
+                    }
+                )
+                addView(
+                    MaterialTextView(context).apply {
+                        layoutParams = ViewGroup.LayoutParams(
+                            ViewGroup.LayoutParams.MATCH_PARENT,
+                            ViewGroup.LayoutParams.WRAP_CONTENT
+                        )
+                        gravity = Gravity.START
+                        textSize = 18f
+                        text = it
                         setTextIsSelectable(true)
                     }
                 )
@@ -424,7 +488,10 @@ object ViewUtil {
         }
 
         //Return a generic text if mibi can't be parsedd
-        return getGenericTextView(context.getString(R.string.misnapAppUtilResultsMibiDataNotFound), context)
+        return getGenericTextView(
+            context.getString(R.string.misnapAppUtilResultsMibiDataNotFound),
+            context
+        )
     }
 
     fun getMiBiDataView(mibiData: String, context: Context) =

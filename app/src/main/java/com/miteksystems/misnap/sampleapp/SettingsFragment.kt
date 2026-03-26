@@ -1,7 +1,6 @@
 package com.miteksystems.misnap.sampleapp
 
 import android.Manifest
-import android.app.AlertDialog
 import android.content.Context
 import android.content.pm.ActivityInfo
 import android.content.pm.PackageManager
@@ -18,6 +17,7 @@ import androidx.appcompat.widget.TooltipCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.miteksystems.misnap.R
 import com.miteksystems.misnap.apputil.LicenseFetcher
 import com.miteksystems.misnap.apputil.ViewPageAdapter
@@ -290,18 +290,20 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
 
         permissions.forEach { permission ->
             if (shouldShowRequestPermissionRationale(permission)) {
-                AlertDialog.Builder(requireContext()).apply {
-                    setTitle(getPermissionRationaleTitle(permission))
-                    setMessage(getPermissionRationaleMessage(permission))
-                    setOnDismissListener {
+                MaterialAlertDialogBuilder(
+                    requireContext(),
+                    R.style.MiSnapTheme_Dialog,
+                )
+                    .setTitle(getPermissionRationaleTitle(permission))
+                    .setMessage(getPermissionRationaleMessage(permission))
+                    .setOnDismissListener {
                         requestPermissions(
                             arrayOf(permission),
                             getPermissionRequestCode(permission)
                         )
                     }
-                    setPositiveButton(android.R.string.ok, null)
-                    show()
-                }
+                    .setPositiveButton(android.R.string.ok, null)
+                    .show()
             } else {
                 nonRationalePermissions.add(permission)
             }
@@ -1632,6 +1634,7 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
 
     private fun getCameraDirectionAt(index: Int) =
         when (index) {
+            2 -> MiSnapSettings.Camera.Profile.FACE_BACK_CAMERA
             1 -> MiSnapSettings.Camera.Profile.FACE_FRONT_CAMERA
             0 -> MiSnapSettings.Camera.Profile.DOCUMENT_BACK_CAMERA
             else -> null

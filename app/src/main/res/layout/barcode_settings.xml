@@ -101,4 +101,5 @@
             android:entries="@array/barcodeOrientationsArray" />
 
     </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

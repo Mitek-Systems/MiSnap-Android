@@ -8,7 +8,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.miteksystems.misnap.apputil.LicenseFetcher
+import com.miteksystems.misnap.core.Barcode
 import com.miteksystems.misnap.core.MiSnapSettings
+import com.miteksystems.misnap.core.Vds
 import com.miteksystems.misnap.databinding.ExampleFragmentTransactionBinding
 import com.miteksystems.misnap.workflow.MiSnapErrorResult
 import com.miteksystems.misnap.workflow.MiSnapFinalResult
@@ -126,10 +128,38 @@ class AnalysisFragmentTransaction : AppCompatActivity() {
          * Observe the [MiSnapWorkflowViewModel.results] [LiveData] for [MiSnapFinalResult]s and handle
          * them accordingly.
          */
-        viewModel.results.observe(this) { result ->
-            result?.let {
-                when (it) {
+        viewModel.results.observe(this) {
+            it?.let { result ->
+                when (result) {
                     is MiSnapFinalResult.BarcodeSession -> {
+                        /**
+                         * Recover the session data from the results.
+                         * Please see [MiSnapFinalResult.BarcodeSession] for more information on the available data.
+                         */
+                        val jpegImageBytes = result.jpegImage
+                        val licenseExpiredNotification = result.licenseExpired
+                        val mibiData = result.misnapMibiData
+                        val videoBytes = result.video
+                        val sessionWarnings = result.warnings
+                        val barcode: Barcode? = result.barcode
+                        val rts = result.rts
+                        /**
+                         * Handle the VDS results from the barcode if a VDS barcode was scanned.
+                         * Otherwise handle the results as a regular barcode session.
+                         */
+                        barcode?.let { barcodeResult ->
+                            if (barcode.isVds == true) {
+                                val vdsResult: Vds? = barcodeResult.vds
+                                val encryptedPayload = vdsResult?.encryptedPayload
+                                val vdsHeader: Vds.VdsHeader? = vdsResult?.header
+                                val country = vdsHeader?.country
+                                val featureDefinitionReference = vdsHeader?.featureDefinitionReference
+                                val typeCategory = vdsHeader?.typeCategory
+                            } else {
+                                val rawBarcode = barcode.rawBarcode
+                                val encodedBarcode = barcode.encodedBarcode
+                            }
+                        }
                     }
                     else -> {}
                 }
@@ -140,9 +170,13 @@ class AnalysisFragmentTransaction : AppCompatActivity() {
          * Observe the [MiSnapWorkflowViewModel.error] [LiveData] for [MiSnapErrorResult]s and handle
          * them accordingly.
          */
-        viewModel.error.observe(this) { error ->
-            error?.let {
-                when (it.error) {
+        viewModel.error.observe(this) {
+            it?.let { miSnapErrorResult ->
+                /**
+                 * Handle the error, please see [MiSnapWorkflowError] for the different errors
+                 * applicable to the target MiSnap session.
+                 */
+                when (val errorResult = miSnapErrorResult.error) {
                     is MiSnapWorkflowError.Permission -> {
                     }
                     is MiSnapWorkflowError.Camera -> {

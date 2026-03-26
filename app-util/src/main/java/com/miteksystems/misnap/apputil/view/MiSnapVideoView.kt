@@ -1,6 +1,5 @@
 package com.miteksystems.misnap.apputil.view
 
-import android.app.AlertDialog
 import android.content.Context
 import android.media.*
 import android.media.MediaPlayer.*
@@ -12,7 +11,9 @@ import android.util.Pair
 import android.view.*
 import android.widget.MediaController
 import android.widget.MediaController.MediaPlayerControl
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.miteksystems.misnap.apputil.MiSnapVideoSource
+import com.miteksystems.misnap.workflow.R
 import java.io.IOException
 import java.io.InputStream
 import java.util.*
@@ -164,7 +165,10 @@ class MiSnapVideoView @JvmOverloads constructor(
                     } else {
                         "Unknown Error"
                     }
-                AlertDialog.Builder(getContext())
+                MaterialAlertDialogBuilder(
+                    getContext(),
+                    R.style.MiSnapTheme_Dialog
+                )
                     .setMessage(message)
                     .setPositiveButton(
                         "Exit"

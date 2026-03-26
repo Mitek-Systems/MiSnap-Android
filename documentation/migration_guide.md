@@ -1,4 +1,11 @@
-# MiSnap SDK v5.10.1 Migration Guide
+# MiSnap SDK v5.11.0 Migration Guide
+
+## Upgrading the MiSnap SDK from v5.10.x to v5.11.0
+
+### Customization changes
+The "permission rationale" `AlertDialog`s are now created with the `MaterialAlertDialogBuilder` class and themed with the standard `R.style.MiSnapTheme_Dialog` MiSnap SDK style matching other dialogs within the SDK.
+
+If you previously customized those dialogs via styles or themes that no longer apply, move your customizations onto a style that extends MiSnapTheme.Dialog, or override that style in your app resources as documented in the [customization guide](customization_guide.md).
 
 ## Upgrading the MiSnap SDK from v5.9.1 to v5.10.0
 
@@ -166,7 +173,7 @@ The following resources are still part of the MiSnap SDK but they are no longer 
 
 ## Upgrading the MiSnap SDK from v5.4.x to v5.6.1
 ### Project Configuration Changes
-Starting with MiSnap 5.6.1, the `CameraX library` used for camera access has been upgraded to a version that may result into a build error due to a an upgrade of `androidx` to `JDK21` that is not handled correctly in `AGP 8.0.1 and lower`. To fix this issue, please follow these steps:
+Starting with MiSnap 5.6.1, the `CameraX library` used for camera access has been upgraded to a version that may result in a build error due to an upgrade of `androidx` to `JDK21` that is not handled correctly in `AGP 8.0.1 and lower`. To fix this issue, please follow these steps:
 1. Add the `R8` releases repository to the **project level** `build.gradle`:
 ```groovy
     repositories {
