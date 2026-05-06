@@ -1,4 +1,4 @@
-# MiSnap SDK v5.11.0 Migration Guide
+# MiSnap SDK v5.11.1 Migration Guide
 
 ## Upgrading the MiSnap SDK from v5.10.x to v5.11.0
 

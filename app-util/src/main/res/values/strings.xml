@@ -215,40 +215,35 @@
     <string name="misnapAppUtilResultsMibiDataNotFound" translatable="false">Unable to read MiBI from EXIF Tag</string>
 
     <string name="misnapAppUtilResultsBarcodeVds" translatable="false">VDS Data</string>
-    <string name="misnapAppUtilResultsBarcodeVdsContents" translatable="false">
-        <![CDATA[<b>Country:</b>]]> %1$s <![CDATA[<br>]]>
-        <![CDATA[<b>Feature Definition Reference:</b>]]> %2$d <![CDATA[<br>]]>
-        <![CDATA[<b>Type Category:</b>]]> %3$d <![CDATA[<br>]]>
-        <![CDATA[<b>Payload Size:</b>]]> %4$d KB<![CDATA[<br>]]>
-    </string>
+    <string name="misnapAppUtilResultsBarcodeVdsLabelCountry" translatable="false">Country:</string>
+    <string name="misnapAppUtilResultsBarcodeVdsLabelFeatureDefinitionReference" translatable="false">Feature Definition Reference:</string>
+    <string name="misnapAppUtilResultsBarcodeVdsLabelTypeCategory" translatable="false">Type Category:</string>
+    <string name="misnapAppUtilResultsBarcodeVdsLabelPayloadSize" translatable="false">Payload Size:</string>
     <string name="misnapAppUtilResultsBarcodeData" translatable="false">Data</string>
     <string name="misnapAppUtilResultsBarcodeType" translatable="false">Type</string>
 
     <string name="misnapAppUtilResultsMrzDataTitle" translatable="false"><![CDATA[<b>Parsed MRZ</b>]]><![CDATA[<br>]]></string>
-    <string name="misnapAppUtilResultsMrzData" translatable="false">
-        <![CDATA[<b>Document Number:</b>]]> %1$s <![CDATA[<br>]]>
-        <![CDATA[<b>Document Code:</b>]]> %2$s <![CDATA[<br>]]>
-        <![CDATA[<b>Issuing Country:</b>]]> %3$s <![CDATA[<br>]]>
-        <![CDATA[<b>Date of Birth:</b>]]> %4$s <![CDATA[<br>]]>
-        <![CDATA[<b>Date of Expiry:</b>]]> %5$s <![CDATA[<br>]]>
-        <![CDATA[<b>Optional Data1:</b>]]> %6$s <![CDATA[<br>]]>
-        <![CDATA[<b>Nationality:</b>]]> %7$s <![CDATA[<br>]]>
-    </string>
+    <string name="misnapAppUtilResultsMrzLabelDocumentNumber" translatable="false">Document Number:</string>
+    <string name="misnapAppUtilResultsMrzLabelDocumentCode" translatable="false">Document Code:</string>
+    <string name="misnapAppUtilResultsMrzLabelIssuingCountry" translatable="false">Issuing Country:</string>
+    <string name="misnapAppUtilResultsMrzLabelDateOfBirth" translatable="false">Date of Birth:</string>
+    <string name="misnapAppUtilResultsMrzLabelDateOfExpiry" translatable="false">Date of Expiry:</string>
+    <string name="misnapAppUtilResultsMrzLabelOptionalData1" translatable="false">Optional Data1:</string>
+    <string name="misnapAppUtilResultsMrzLabelNationality" translatable="false">Nationality:</string>
+    <string name="misnapAppUtilResultsMrzLabelRawData" translatable="false">Raw Data:</string>
+    <string name="misnapAppUtilResultsMrzLabelParsedOneLine" translatable="false">Parsed Mrz Data:</string>
 
-    <string name="misnapAppUtilResultsMrzOneLineData" translatable="false"><![CDATA[<b>Parsed Mrz Data:</b>]]> %1$s</string>
     <string name="misnapAppUtilResultsRawMrzTitle" translatable="false"><![CDATA[<br>]]><![CDATA[<b>Raw Data</b>]]><![CDATA[<br>]]></string>
     <string name="misnapAppUtilResultsDocumentDataTitle" translatable="false"><![CDATA[<br>]]><![CDATA[<b>Extracted Data</b>]]><![CDATA[<br>]]></string>
-    <string name="misnapAppUtilResultsDocumentData" translatable="false">
-        <![CDATA[<b>Document Type:</b>]]> %1$s <![CDATA[<br>]]>
-        <![CDATA[<b>Country:</b>]]> %2$s <![CDATA[<br>]]>
-        <![CDATA[<b>Last Name:</b>]]> %3$s <![CDATA[<br>]]>
-        <![CDATA[<b>First Name:</b>]]> %4$s <![CDATA[<br>]]>
-        <![CDATA[<b>Sex:</b>]]> %5$s <![CDATA[<br>]]>
-        <![CDATA[<b>Document Number:</b>]]> %6$s <![CDATA[<br>]]>
-        <![CDATA[<b>Nationality:</b>]]> %7$s <![CDATA[<br>]]>
-        <![CDATA[<b>Date of Birth:</b>]]> %8$s <![CDATA[<br>]]>
-        <![CDATA[<b>Date of Expiration:</b>]]> %9$s <![CDATA[<br>]]>
-        <![CDATA[<b>Optional Data 1:</b>]]> %10$s <![CDATA[<br>]]>
-        <![CDATA[<b>Optional Data 2:</b>]]> %11$s <![CDATA[<br>]]>
-    </string>
+    <string name="misnapAppUtilResultsDocLabelDocType" translatable="false">Document Type:</string>
+    <string name="misnapAppUtilResultsDocLabelCountry" translatable="false">Country:</string>
+    <string name="misnapAppUtilResultsDocLabelLastName" translatable="false">Last Name:</string>
+    <string name="misnapAppUtilResultsDocLabelFirstName" translatable="false">First Name:</string>
+    <string name="misnapAppUtilResultsDocLabelSex" translatable="false">Sex:</string>
+    <string name="misnapAppUtilResultsDocLabelDocNumber" translatable="false">Document Number:</string>
+    <string name="misnapAppUtilResultsDocLabelNationality" translatable="false">Nationality:</string>
+    <string name="misnapAppUtilResultsDocLabelDateOfBirth" translatable="false">Date of Birth:</string>
+    <string name="misnapAppUtilResultsDocLabelDateOfExpiration" translatable="false">Date of Expiration:</string>
+    <string name="misnapAppUtilResultsDocLabelOptionalData1" translatable="false">Optional Data 1:</string>
+    <string name="misnapAppUtilResultsDocLabelOptionalData2" translatable="false">Optional Data 2:</string>
 </resources>

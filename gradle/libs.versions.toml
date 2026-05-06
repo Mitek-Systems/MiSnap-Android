@@ -35,7 +35,7 @@ lifecycle = "2.4.1"
 apiValidator = "0.13.0"
 detekt = "1.18.1"
 dokka = "1.8.10"
-leakcanary = "2.9.1"
+leakcanary = "2.10"
 jacoco = "0.8.12"
 
 # Test

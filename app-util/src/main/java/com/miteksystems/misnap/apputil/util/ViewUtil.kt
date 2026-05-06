@@ -8,6 +8,7 @@ import android.graphics.BitmapFactory
 import android.graphics.Typeface
 import android.util.Base64
 import android.util.Log
+import android.text.Spanned
 import android.util.TypedValue
 import android.view.Gravity
 import android.view.View
@@ -20,6 +21,8 @@ import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.text.HtmlCompat
+import androidx.core.text.bold
+import androidx.core.text.buildSpannedString
 import androidx.core.widget.TextViewCompat
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textview.MaterialTextView
@@ -33,8 +36,8 @@ import com.miteksystems.misnap.core.ExifUtil
 import com.miteksystems.misnap.core.Mrz1Line
 import com.miteksystems.misnap.core.MrzData
 import com.miteksystems.misnap.core.UserAction
+import kotlin.text.Charsets
 import org.apache.commons.imaging.formats.tiff.constants.ExifTagConstants
-import androidx.core.text.htmlEncode
 
 object ViewUtil {
     private const val LOG_TAG = "MiSnapAppUtilViewUtil"
@@ -100,28 +103,29 @@ object ViewUtil {
                     textSize = 20f
                     when (mrz) {
                         is MrzData -> {
-                            text = HtmlCompat.fromHtml(
-                                String.format(
-                                    context.getString(R.string.misnapAppUtilResultsMrzData),
-                                    mrz.documentNumber.htmlEncode(),
-                                    mrz.documentCode.htmlEncode(),
-                                    mrz.country.htmlEncode(),
-                                    mrz.dateOfBirth.htmlEncode(),
-                                    mrz.dateOfExpiry.htmlEncode(),
-                                    mrz.optionalData1.htmlEncode(),
-                                    mrz.nationality.htmlEncode()
-                                ),
-                                HtmlCompat.FROM_HTML_MODE_COMPACT
+                            val mrzDataMap = mapOf(
+                                R.string.misnapAppUtilResultsMrzLabelDocumentNumber to mrz.documentNumber,
+                                R.string.misnapAppUtilResultsMrzLabelDocumentCode to mrz.documentCode,
+                                R.string.misnapAppUtilResultsMrzLabelIssuingCountry to mrz.country,
+                                R.string.misnapAppUtilResultsMrzLabelDateOfBirth to mrz.dateOfBirth,
+                                R.string.misnapAppUtilResultsMrzLabelDateOfExpiry to mrz.dateOfExpiry,
+                                R.string.misnapAppUtilResultsMrzLabelOptionalData1 to mrz.optionalData1,
+                                R.string.misnapAppUtilResultsMrzLabelNationality to mrz.nationality,
+                                R.string.misnapAppUtilResultsMrzLabelRawData to mrz.rawData
+                            )
+
+                            text = buildLabeledLinesSpanned(
+                                context,
+                                mrzDataMap
                             )
                         }
 
                         is Mrz1Line -> {
-                            text = HtmlCompat.fromHtml(
-                                String.format(
-                                    context.getString(R.string.misnapAppUtilResultsMrzOneLineData),
-                                    mrz.mrzString.htmlEncode()
-                                ),
-                                HtmlCompat.FROM_HTML_MODE_COMPACT
+                            text = buildLabeledLinesSpanned(
+                                context,
+                                mapOf(
+                                    R.string.misnapAppUtilResultsMrzLabelParsedOneLine to mrz.mrzString
+                                )
                             )
                         }
                     }
@@ -145,6 +149,30 @@ object ViewUtil {
                     )
                 })
 
+                val documentDataMap = mapOf(
+                    R.string.misnapAppUtilResultsDocLabelDocType to (documentData.docType
+                        ?: ""),
+                    R.string.misnapAppUtilResultsDocLabelCountry to (documentData.country
+                        ?: ""),
+                    R.string.misnapAppUtilResultsDocLabelLastName to (documentData.surname
+                        ?: ""),
+                    R.string.misnapAppUtilResultsDocLabelFirstName to (documentData.firstName
+                        ?: ""),
+                    R.string.misnapAppUtilResultsDocLabelSex to (documentData.sex ?: ""),
+                    R.string.misnapAppUtilResultsDocLabelDocNumber to (documentData.docNumber
+                        ?: ""),
+                    R.string.misnapAppUtilResultsDocLabelNationality to (documentData.nationality
+                        ?: ""),
+                    R.string.misnapAppUtilResultsDocLabelDateOfBirth to (documentData.dateOfBirth
+                        ?: ""),
+                    R.string.misnapAppUtilResultsDocLabelDateOfExpiration to
+                            (documentData.dateOfExpiration ?: ""),
+                    R.string.misnapAppUtilResultsDocLabelOptionalData1 to
+                            (documentData.optionalData1 ?: ""),
+                    R.string.misnapAppUtilResultsDocLabelOptionalData2 to
+                            (documentData.optionalData2 ?: "")
+                )
+
                 val documentDataView = MaterialTextView(context).apply {
                     layoutParams = ViewGroup.LayoutParams(
                         ViewGroup.LayoutParams.MATCH_PARENT,
@@ -153,22 +181,9 @@ object ViewUtil {
                     gravity = Gravity.START
                     textSize = 20f
 
-                    text = HtmlCompat.fromHtml(
-                        String.format(
-                            context.getString(R.string.misnapAppUtilResultsDocumentData),
-                            documentData.docType ?: "",
-                            documentData.country ?: "",
-                            documentData.surname ?: "",
-                            documentData.firstName ?: "",
-                            documentData.sex ?: "",
-                            documentData.docNumber ?: "",
-                            documentData.nationality ?: "",
-                            documentData.dateOfBirth ?: "",
-                            documentData.dateOfExpiration ?: "",
-                            documentData.optionalData1 ?: "",
-                            documentData.optionalData2 ?: "",
-                        ),
-                        HtmlCompat.FROM_HTML_MODE_LEGACY
+                    text = buildLabeledLinesSpanned(
+                        context,
+                        documentDataMap
                     )
                 }
                 addView(documentDataView)
@@ -219,7 +234,7 @@ object ViewUtil {
                 )
             }
             orientation = LinearLayout.VERTICAL
-            barcode.vds?.let {
+            barcode.vds?.let { vds ->
                 addView(
                     MaterialTextView(context).apply {
                         layoutParams = ViewGroup.LayoutParams(
@@ -233,6 +248,16 @@ object ViewUtil {
                     }
                 )
 
+                val payloadKb =
+                    vds.encryptedPayload?.toByteArray(Charsets.UTF_8)?.size?.div(1024) ?: 0
+                val vdsMap = mapOf(
+                    R.string.misnapAppUtilResultsBarcodeVdsLabelCountry to vds.header.country,
+                    R.string.misnapAppUtilResultsBarcodeVdsLabelFeatureDefinitionReference to
+                            vds.header.featureDefinitionReference.toString(),
+                    R.string.misnapAppUtilResultsBarcodeVdsLabelTypeCategory to
+                            vds.header.typeCategory.toString(),
+                    R.string.misnapAppUtilResultsBarcodeVdsLabelPayloadSize to "$payloadKb KB"
+                )
                 addView(
                     MaterialTextView(context).apply {
                         layoutParams = ViewGroup.LayoutParams(
@@ -241,17 +266,9 @@ object ViewUtil {
                         )
                         gravity = Gravity.START
                         textSize = 18f
-                        text = HtmlCompat.fromHtml(
-                            String.format(
-                                context.getString(
-                                    R.string.misnapAppUtilResultsBarcodeVdsContents
-                                ),
-                                it.header.country,
-                                it.header.featureDefinitionReference,
-                                it.header.typeCategory,
-                                it.encryptedPayload?.toByteArray(Charsets.UTF_8)?.size?.div(1024) ?: 0,
-                            ),
-                            HtmlCompat.FROM_HTML_MODE_LEGACY
+                        text = buildLabeledLinesSpanned(
+                            context,
+                            vdsMap
                         )
                         setTextIsSelectable(true)
                     }
@@ -550,3 +567,22 @@ object ViewUtil {
         }
     }
 }
+
+/**
+ * Creates a [Spanned] string with each entry rendered as one line: bold label (resolved from `labelResId`) + space + value + newline.
+ * The order of the entries is as determined by the iteration order of the `labelResIdToValue` map.
+ */
+private fun buildLabeledLinesSpanned(
+    context: Context,
+    labelResIdToValueMap: Map<Int, String>
+): Spanned =
+    buildSpannedString {
+        for ((labelResId, value) in labelResIdToValueMap) {
+            bold {
+                append(context.getString(labelResId))
+            }
+            append(" ")
+            append(value)
+            append("\n")
+        }
+    }

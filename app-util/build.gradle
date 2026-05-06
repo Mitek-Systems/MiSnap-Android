@@ -5,13 +5,12 @@ plugins {
 
 android {
     namespace "com.miteksystems.misnap.apputil"
-    compileSdkVersion project.compileSdkVersion
+    compileSdk project.compileSdkVersion
+    buildToolsVersion = project.buildToolsVersion
 
     defaultConfig {
         minSdkVersion project.coreMinSdk
         targetSdkVersion project.targetSdkVersion
-
-        buildToolsVersion project.buildToolsVersion
 
         buildConfigField("String", "MODULE_NAME", "\"$project.name\"")
         buildConfigField("String", "MODULE_VERSION", "\"$versionName\"")

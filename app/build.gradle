@@ -6,13 +6,12 @@ plugins {
 
 android {
     namespace "com.miteksystems.misnap"
-    compileSdkVersion project.compileSdkVersion
+    compileSdk project.sampleAppCompileSdkVersion
+    buildToolsVersion = project.buildToolsVersion
 
     defaultConfig {
         minSdkVersion project.coreMinSdk
-        targetSdkVersion project.targetSdkVersion
-
-        buildToolsVersion project.buildToolsVersion
+        targetSdkVersion project.sampleAppTargetSdkVersion
 
         applicationId "com.miteksystems.misnap.sampleapp"
 
