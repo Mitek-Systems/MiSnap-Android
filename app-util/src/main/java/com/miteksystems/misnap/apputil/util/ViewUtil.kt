@@ -448,16 +448,15 @@ object ViewUtil {
             settings.displayZoomControls = false
             settings.useWideViewPort = true
             settings.loadWithOverviewMode = true
-            loadData(
-                "<html><body style='margin:0;padding:0;'><img src=\"data:image/jpeg;base64,${
-                    Base64.encodeToString(
-                        byteImage,
-                        Base64.DEFAULT
-                    )
-                }\" /></body></html>",
-                "text/html",
-                "charset=utf-8"
-            )
+            val base64Image = Base64.encodeToString(byteImage, Base64.NO_WRAP)
+            val html = """
+            <html>
+            <body style='margin:0;padding:0;'>
+                <img src="data:image/jpeg;base64,$base64Image" />
+            </body>
+            </html>
+        """.trimIndent()
+            loadDataWithBaseURL(null, html, "text/html", "UTF-8", null)
         }
 
     fun getMiSnapVideoView(data: ByteArray, context: Context) =

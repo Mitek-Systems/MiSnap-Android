@@ -239,7 +239,9 @@
     <string name="misnapSampleAppSettingsFaceTriggerLabel" translatable="false">Trigger</string>
     <string name="misnapSampleAppSettingsFaceTriggerDelayLabel" translatable="false">Trigger Delay</string>
     <string name="misnapSampleAppSettingsFaceMinFillLabel" translatable="false">Min Fill Threshold</string>
+    <string name="misnapSampleAppSettingsFaceMinVerticalFillLabel" translatable="false">Min Vertical Fill Threshold</string>
     <string name="misnapSampleAppSettingsFaceMinPaddingLabel" translatable="false">Min Padding Threshold</string>
+    <string name="misnapSampleAppSettingsFaceMinVerticalPaddingLabel" translatable="false">Min Vertical Padding Threshold</string>
     <string name="misnapSampleAppSettingsFaceEyesOpenConfidenceLabel" translatable="false">Eyes Open Confidence Threshold</string>
     <string name="misnapSampleAppSettingsFaceMaxAngleLabel" translatable="false">Max Angle Threshold</string>
     <string name="misnapSampleAppSettingsFaceSmileConfidenceLabel" translatable="false">Smile Confidence Threshold</string>
@@ -265,7 +267,8 @@
     <string name="misnapSampleAppSettingsFaceWorkflowShowBoundingBoxLabel" translatable="false">Show Bounding Box</string>
     <string name="misnapSampleAppSettingsFaceWorkflowShowCountdownTimerLabel" translatable="false">Show Countdown Timer</string>
     <string name="misnapSampleAppSettingsFaceWorkflowReviewConditionLabel" translatable="false">Manual Review Condition</string>
-    <string name="misnapSampleAppSettingsFaceWorkflowGuideViewScalePercentageLabel" translatable="false">GuideView Scale Percentage</string>
+    <string name="misnapSampleAppSettingsFaceWorkflowGuideViewScalePercentageLabel" translatable="false">GuideView Aligned Scale Percentage</string>
+    <string name="misnapSampleAppSettingsFaceWorkflowGuideViewScalePercentageUnalignedLabel" translatable="false">GuideView Unaligned Scale Percentage</string>
     <string name="misnapSampleAppSettingsFaceWorkflowShowVignetteLabel" translatable="false">GuideView Show Vignette</string>
     <string name="misnapSampleAppSettingsFaceWorkflowChangeGuideViewStateOnFeedbackLabel" translatable="false">Change GuideView State on Feedback</string>
     <string name="misnapSampelAppSettingsFaceWorkflowHintViewShowBackground" translatable="false">HintView Show Background</string>

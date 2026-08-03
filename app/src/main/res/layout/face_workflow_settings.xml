@@ -148,6 +148,26 @@
             android:maxLength="4" />
     </com.google.android.material.textfield.TextInputLayout>
 
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/faceWorkflowSettingsGuideViewScalePercentageUnalignedLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/misnapWorkflowLayoutVerticalMargin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/faceWorkflowSettingsGuideViewScalePercentageLayout">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/faceWorkflowSettingsGuideViewScalePercentageUnaligned"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:digits="0123456789."
+            android:hint="@string/misnapSampleAppSettingsFaceWorkflowGuideViewScalePercentageUnalignedLabel"
+            android:imeOptions="actionNext"
+            android:inputType="numberDecimal"
+            android:maxLength="4" />
+    </com.google.android.material.textfield.TextInputLayout>
+
     <com.google.android.material.checkbox.MaterialCheckBox
         android:id="@+id/faceWorkflowSettingsShowVignetteBox"
         android:layout_width="wrap_content"
@@ -156,7 +176,7 @@
         android:checked="false"
         android:text="@string/misnapSampleAppSettingsFaceWorkflowShowVignetteLabel"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/faceWorkflowSettingsGuideViewScalePercentageLayout" />
+        app:layout_constraintTop_toBottomOf="@id/faceWorkflowSettingsGuideViewScalePercentageUnalignedLayout" />
 
     <com.google.android.material.checkbox.MaterialCheckBox
         android:id="@+id/faceWorkflowSettingsChangeGuideViewStateOnFeedbackBox"

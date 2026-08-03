@@ -1,4 +1,4 @@
-# MiSnap SDK v5.11.1 Science Integration Guide
+# MiSnap SDK v5.12.0 Science Integration Guide
 
 This guide is targeted towards customers who want to integrate **MiSnap's base processing** without the default workflow shipped with the MiSnap SDK.
 
@@ -51,8 +51,8 @@ Add the following to your `build.gradle`:
 
 ```groovy
 dependencies {
-    implementation "com.miteksystems.misnap:controller:5.11.1"
-    implementation "com.miteksystems.misnap:document-analysis:5.11.1"
+    implementation "com.miteksystems.misnap:controller:5.12.0"
+    implementation "com.miteksystems.misnap:document-analysis:5.12.0"
 }
 ```
 
@@ -74,17 +74,17 @@ You may optionally add `barcode-analysis` for barcode scanning, `feature-detecto
 
 ```groovy
 dependencies {
-    implementation "com.miteksystems.misnap:controller:5.11.1"
-    implementation "com.miteksystems.misnap:document-analysis:5.11.1"
+    implementation "com.miteksystems.misnap:controller:5.12.0"
+    implementation "com.miteksystems.misnap:document-analysis:5.12.0"
 
     // Optional barcode scanner dependency
-    implementation "com.miteksystems.misnap:barcode-analysis:5.11.1"
+    implementation "com.miteksystems.misnap:barcode-analysis:5.12.0"
     
     // Optional MRZ detector dependency
-    implementation "com.miteksystems.misnap:feature-detector:5.11.1"
+    implementation "com.miteksystems.misnap:feature-detector:5.12.0"
 
     // Optional document classifier dependency
-    implementation "com.miteksystems.misnap:document-classifier:5.11.1"
+    implementation "com.miteksystems.misnap:document-classifier:5.12.0"
 }
 ```
 
@@ -105,8 +105,8 @@ Barcode analysis uses the `controller` module with the `barcode-analysis` scienc
 
 ```groovy
 dependencies {
-    implementation "com.miteksystems.misnap:controller:5.11.1"
-    implementation "com.miteksystems.misnap:barcode-analysis:5.11.1"
+    implementation "com.miteksystems.misnap:controller:5.12.0"
+    implementation "com.miteksystems.misnap:barcode-analysis:5.12.0"
 }
 ```
 
@@ -127,8 +127,8 @@ Face analysis uses the `controller` module with the `face-analysis` science modu
 
 ```groovy
 dependencies {
-    implementation "com.miteksystems.misnap:controller:5.11.1"
-    implementation "com.miteksystems.misnap:face-analysis:5.11.1"
+    implementation "com.miteksystems.misnap:controller:5.12.0"
+    implementation "com.miteksystems.misnap:face-analysis:5.12.0"
 }
 ```
 
@@ -150,7 +150,7 @@ Voice sessions don't go through the `MiSnapController` as they don't require a c
 The easiest way to integrate voice processing is to add the following to the integrating module's `build.gradle`:
 ```groovy
 dependencies {
-    implementation "com.miteksystems.misnap:voice-processor:5.11.1"
+    implementation "com.miteksystems.misnap:voice-processor:5.12.0"
 }
 ```
 
@@ -178,7 +178,7 @@ NFC sessions don't go through the `MiSnapController` as they don't require a cam
 The easiest way to integrate NFC reading is to add the following to the integrating module's `build.gradle`:
 ```groovy
 dependencies {
-    implementation "com.miteksystems.misnap:nfc-reader:5.11.1"
+    implementation "com.miteksystems.misnap:nfc-reader:5.12.0"
 }
 ```
 

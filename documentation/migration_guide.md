@@ -1,4 +1,46 @@
-# MiSnap SDK v5.11.1 Migration Guide
+# MiSnap SDK v5.12.0 Migration Guide
+
+## Upgrading the MiSnap SDK from v5.11.x to v5.12.0
+
+### Orientation and analysis behavior
+
+#### Platform orientation locks
+
+If your integration relies on **portrait-only** UX or on `MiSnapSettings.Workflow.forceOrientation` to keep sessions in portrait, re-test on **Android 16+ large-screen devices (mostly tablets)** when your app targets API 36+. The platform might [ignore orientation locks](https://developer.android.com/about/versions/16/behavior-changes-16#ignore-orientation); sessions can rotate to landscape and **portrait-only UX cannot be guaranteed**.
+
+#### Face sessions
+
+Face sessions now display correctly in **landscape** when the device is not locked to portrait (for example on affected tablets). **Prepare your integration for landscape face capture**: re-test face workflows on large-screen devices.
+
+If you customize the face `GuideView`, set `guideViewUnalignedScalePercentage` for landscape in `FaceAnalysisFragment.buildWorkflowSettings` (portrait uses `guideViewScalePercentage`) — see the [customization guide](customization_guide.md) (GuideView section).
+
+If you also customize face analysis thresholds in `MiSnapSettings.Analysis.Face.Advanced`, portrait tuning typically includes `minHorizontalFill` (with `guideViewScalePercentage`). After upgrading to 5.12.0, add or review `minVerticalFill` for landscape (with `guideViewUnalignedScalePercentage`). If you customize edge padding, review `minPadding` for portrait and `minVerticalPadding` for landscape.
+
+#### Document analysis
+
+The combination `MiSnapSettings.Analysis.Document.Orientation.PORTRAIT` with an **effective device orientation of landscape** is not supported for document capture. MiSnap 5.12.0 **remaps analysis orientation to DEVICE** in that scenario instead of running portrait document analysis while the device is in landscape.
+
+If you previously relied on portrait document analysis while the device could be in landscape, expect this behavior change after upgrading.
+
+#### Barcode sessions
+
+`UseCase.BARCODE` sessions can now **scan barcodes in any direction**, regardless of `MiSnapSettings.Analysis.Barcode.orientation`. If you previously set barcode orientation expecting it to restrict scanning on a specific orientation, that no longer applies after upgrading to 5.12.0.
+
+`MiSnapSettings.Analysis.Barcode.orientation` is still used to **present the workflow UI** in the correct orientation (for example, guide view, help content).
+
+To avoid reaching this scenario in the first place:
+- Prefer the default **`MiSnapSettings.Analysis.Document.Orientation.DEVICE`**.
+- Set **`Orientation.PORTRAIT` only on devices where orientation lock is expected to work**
+
+For full orientation settings, incompatible combinations, and activity vs fragment behavior, see the [customization guide](customization_guide.md) (Orientations section).
+
+### Build changes
+
+#### AGP 9.x — convenience module namespaces
+
+The barcode, document, face, voice, biometric, nfc, combined-nfc, and classifier Maven artifacts now use unique namespaces (`com.miteksystems.misnap.bundle.*`) instead of `com.miteksystems.misnap`. Maven coordinates and SDK behavior are unchanged; no action is expected for standard integrations.
+
+If you explicitly referenced `com.miteksystems.misnap.R` from a convenience artifact, replace it with the corresponding `com.miteksystems.misnap.bundle.*.R`, `com.miteksystems.misnap.workflow.R`, or your app's `R` class.
 
 ## Upgrading the MiSnap SDK from v5.10.x to v5.11.0
 

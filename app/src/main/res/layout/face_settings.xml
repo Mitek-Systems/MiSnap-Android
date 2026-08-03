@@ -69,13 +69,33 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/faceSettingsFaceMinPaddingThresholdContainer"
+        android:id="@+id/faceSettingsFaceMinVerticalFillThresholdContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/misnapSampleAppLayoutVerticalMargin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/faceSettingsFaceMinFillThresholdContainer">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/faceSettingsMinVerticalFillThreshold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:digits="0123456789"
+            android:hint="@string/misnapSampleAppSettingsFaceMinVerticalFillLabel"
+            android:imeOptions="actionNext"
+            android:inputType="number"
+            android:maxLength="4" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/faceSettingsFaceMinPaddingThresholdContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/misnapSampleAppLayoutVerticalMargin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/faceSettingsFaceMinVerticalFillThresholdContainer">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/faceSettingsMinPaddingThreshold"
@@ -89,13 +109,33 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/faceSettingsFaceEyesOpenConfidenceThresholdContainer"
+        android:id="@+id/faceSettingsFaceMinVerticalPaddingThresholdContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/misnapSampleAppLayoutVerticalMargin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/faceSettingsFaceMinPaddingThresholdContainer">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/faceSettingsMinVerticalPaddingThreshold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:digits="0123456789"
+            android:hint="@string/misnapSampleAppSettingsFaceMinVerticalPaddingLabel"
+            android:imeOptions="actionNext"
+            android:inputType="number"
+            android:maxLength="4" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/faceSettingsFaceEyesOpenConfidenceThresholdContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/misnapSampleAppLayoutVerticalMargin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/faceSettingsFaceMinVerticalPaddingThresholdContainer">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/faceSettingsEyesOpenConfidenceThreshold"
@@ -168,27 +208,27 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/analysisSettings" />
 
-<!--    <LinearLayout-->
-<!--        android:id="@+id/faceSettingsAiBasedRtsPayloadSizeContainer"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:orientation="horizontal"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@id/faceSettingsEnableAiBasedRts">-->
+    <LinearLayout
+        android:id="@+id/faceSettingsAiBasedRtsPayloadSizeContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/faceSettingsEnableAiBasedRts">
 
-<!--        <com.google.android.material.textview.MaterialTextView-->
-<!--            android:layout_width="0dp"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_weight="1"-->
-<!--            android:text="@string/misnapSampleAppSettingsFaceAiBasedRtsPayloadSizeLabel" />-->
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/misnapSampleAppSettingsFaceAiBasedRtsPayloadSizeLabel" />
 
-<!--        <Spinner-->
-<!--            android:id="@+id/faceSettingsAiBasedRtsPayloadSizeSpinner"-->
-<!--            android:layout_width="0dp"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_weight="1"-->
-<!--            android:entries="@array/aiBasedRtsPayloadSizeArray" />-->
+        <Spinner
+            android:id="@+id/faceSettingsAiBasedRtsPayloadSizeSpinner"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:entries="@array/aiBasedRtsPayloadSizeArray" />
 
-<!--    </LinearLayout>-->
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

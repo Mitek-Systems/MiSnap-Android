@@ -1,4 +1,4 @@
-# MiSnap SDK v5.11.1 Customization Guide
+# MiSnap SDK v5.12.0 Customization Guide
 While many of the customization options mentioned in this guide may be applicable to other MiSnap integration types, this guide focuses on customization options for the [activity-based integration](./activity_integration_guide.md).
 
 # Table of Contents
@@ -22,6 +22,17 @@ While many of the customization options mentioned in this guide may be applicabl
 * [Tutorial/Help Screen](#tutorialhelp-screen)
     * [Displaying Custom Instructions](#displaying-custom-instructions)
     * [Skipping the Tutorial](#skipping-the-tutorial)
+* [Orientations](#orientations)
+    * [Screen orientation locks](#screen-orientation-locks)
+        * [Face screen orientation lock](#face-screen-orientation-lock)
+    * [Analysis orientation](#analysis-orientation)
+        * [Document analysis orientation](#document-analysis-orientation)
+        * [Barcode analysis orientation](#barcode-analysis-orientation)
+        * [Unaligned configurations](#unaligned-configurations)
+            * [Document unaligned configurations](#document-unaligned-configurations)
+            * [Barcode unaligned configurations](#barcode-unaligned-configurations)
+    * [Activity-based integration](#activity-based-integration)
+    * [Fragment-based integration](#fragment-based-integration)
 * [Analysis Screen](#analysis-screen)
     * [Customizing the GuideView](#customizing-the-guideview)
     * [Displaying the Manual Button in Auto Sessions](#displaying-the-manual-button-in-auto-sessions)
@@ -51,7 +62,7 @@ While many of the customization options mentioned in this guide may be applicabl
     * [Accessibility](#accessibility)
     * [Views](#views)
 
-- - - - 
+- - - -
 
 # Customization Options
 ## Through MiSnapSettings
@@ -73,7 +84,7 @@ Please see the [integration guides](../README.md#integration-guides) for more in
 Identifying the best customization approach can be challenging. The following is a series of steps that can be used as reference to determine what is the best customization option when customizing the MiSnap SDK.
 
 1. Identify the target element, resource, or behavior to customize.
-2. Explore the `MiSnapSettings` in-code documentation and identify if there is an existing setting that satisfies the customization needs. 
+2. Explore the `MiSnapSettings` in-code documentation and identify if there is an existing setting that satisfies the customization needs.
 The `MiSnapSettings.Workflow` object can be configured to use `sets of per fragment options` to customize several aspects of built-in `Fragments`.
 Explore the `Workflow` module's built-in `Fragments` and look for the `WorkflowSettings` object inside each of them to learn about all the customization options applicable to that `Fragment`.
 3. Identify the `Workflow` module's available resources that can be overridden.
@@ -213,7 +224,7 @@ The displayed instructions can be customized through the `MiSnapSettings.Workflo
 MiSnapSettings(
     MiSnapSettings.UseCase.FACE,
     license
-).apply { 
+).apply {
     workflow.add(
         getString(R.string.misnapWorkflowFaceAnalysisFlowHelpFragmentLabel),
         HelpFragment.buildWorkflowSettings(manualLayoutId = R.layout.my_custom_layout)
@@ -222,7 +233,7 @@ MiSnapSettings(
 ```
 
 ### Skipping the Tutorial
-The MiSnap SDK will always display a tutorial screen at the start of every session unless the end-user has opted out, to entirely skip this screen follow the guide explained [here](#removingskipping-a-screen). 
+The MiSnap SDK will always display a tutorial screen at the start of every session unless the end-user has opted out, to entirely skip this screen follow the guide explained [here](#removingskipping-a-screen).
 
 Please see the in-code documentation for more details and other supported customization options for the `HelpFragment`.
 
@@ -236,6 +247,87 @@ Customize the message set by overriding the string-array resource:
   `misnapWorkflowHelpFragmentDocumentAccessibilityTutorialMessagesArray`
 
 The `misnapWorkflowHelpFragmentAccessibilityTutorialButtonStartSessionLabel` and `misnapWorkflowHelpFragmentAccessibilityTutorialButtonContinueLabel` strings allow customization of the button labels in the accessibility tutorial.
+
+## Orientations
+### Screen orientation locks
+
+Controls how the hosting activity or fragment locks orientation in the screen.
+
+Set `MiSnapSettings.Workflow.forceOrientation` to an `ActivityInfo` constant to define an specific orientation (see in-code documentation).
+
+If no screen orientation lock is defined MiSnap will run based on the current device orientation.
+
+Some use cases set a default screen orientation lock:
+- Face, NFC and Voice uses ActivityInfo.SCREEN_ORIENTATION_USER_PORTRAIT
+- Check uses ActivityInfo.SCREEN_ORIENTATION_USER_LANDSCAPE
+
+Note: Screen orientation locks might be ignored on Android 16+ large-screen devices when your app targets API 36+. See [Android documentation](https://developer.android.com/about/versions/17/changes/ff-restrictions-ignored)
+
+#### Face screen orientation lock
+
+Face sessions request portrait orientation lock by default through `MiSnapSettings.Workflow.forceOrientation`. When orientation lock is not enforced by the platform, the session runs in the **current screen orientation**, including landscape.
+
+If you customize the face `GuideView`, set **`guideViewScalePercentage`** for portrait and **`guideViewUnalignedScalePercentage`** for landscape — see [Customizing the GuideView](#customizing-the-guideview).
+
+If you tune face analysis together with the `GuideView`, portrait settings typically use **`MiSnapSettings.Analysis.Face.Advanced.minHorizontalFill`** (and **`minPadding`**). For landscape, configure **`minVerticalFill`** (and **`minVerticalPadding`**) alongside **`guideViewUnalignedScalePercentage`**. Keep portrait and landscape thresholds aligned so capture quality is consistent in both orientations.
+
+### Analysis orientation
+#### Document analysis orientation
+
+Controls the expected document orientation for analysis.
+
+To customize it, set `MiSnapSettings.Analysis.Document.orientation` to one of:
+- `MiSnapSettings.Analysis.Document.Orientation.DEVICE` — **default**; analysis orientation follows the effective device orientation (recommended).
+- `MiSnapSettings.Analysis.Document.Orientation.PORTRAIT` — the document is treated as portrait-oriented
+- `MiSnapSettings.Analysis.Document.Orientation.LANDSCAPE` — the document is treated as landscape-oriented.
+
+Note: Tutorial screen uses this setting to show proper indications.
+
+MiSnap SDK defaults for **screen orientation locks** (`MiSnapSettings.Workflow.forceOrientation`) and **analysis orientation** (`MiSnapSettings.Analysis.Document.orientation`) are chosen to maximize user experience and image quality. **Changing them is discouraged unless necessary** for your product requirements.
+
+#### Barcode analysis orientation
+
+Controls the guide view scale and orientation
+
+Barcodes decoding is **omni-directional**, thus **`MiSnapSettings.Analysis.Barcode.orientation` is ignored for analysis**, however the UI depends on this setting to show guide view properly.
+
+To customize it set `MiSnapSettings.Analysis.Barcode.orientation` to one of:
+- `MiSnapSettings.Analysis.Barcode.Orientation.DEVICE` — **default** (recommended).
+- `MiSnapSettings.Analysis.Barcode.Orientation.PORTRAIT` — the guide view is portrait-oriented and scaled accordingly.
+- `MiSnapSettings.Analysis.Barcode.Orientation.LANDSCAPE` — the guide view is landscape-oriented and scaled accordingly.
+
+#### Unaligned configurations
+
+##### Document unaligned configurations
+
+An **unaligned** configuration happens when the screen orientation **doesn't match** the analysis orientation.
+
+The combination `MiSnapSettings.Analysis.Document.Orientation.LANDSCAPE` while the effective screen orientation is portrait is supported, thought it could offer lower frame quality.
+
+The combination **`MiSnapSettings.Analysis.Document.Orientation.PORTRAIT`** while the **effective screen orientation is landscape** is **not supported**. MiSnap **remaps analysis orientation to DEVICE** for document and barcode in that scenario instead of presenting a portrait-oriented document workflow while the screen is in landscape.
+**Warning**: Android is susceptible to change the screen orientation at runtime when:
+- Device has auto-rotate on
+- Device ignores screen orientation screen locks
+Which can cause to run in an unaligned configuration **unintentionally**.
+If you set `MiSnapSettings.Analysis.Document.Orientation.PORTRAIT`, plan for this override whenever the effective screen orientation is landscape, not only when you explicitly choose landscape in `forceOrientation`.
+
+Note: Document accessibility tutorial is only available for **aligned** configurations.
+
+##### Barcode unaligned configurations
+
+For barcode sessions, unaligned orientations can still affect **UI layout and guidance** even though scanning works in any direction.
+
+Prefer `MiSnapSettings.Analysis.Barcode.Orientation.DEVICE` or keep device and analysis orientation aligned.
+
+Note: Just like Documents, Barcode doesn't support analysis portrait + screen landscape configuration, which makes MiSnap to also remap the analysis orientation, however this remap only affects UI as barcode scann work in any direction
+
+### Activity-based integration
+
+`MiSnapWorkflowActivity` applies the orientation behavior described above for built-in workflow sessions. See the [activity integration guide](activity_integration_guide.md).
+
+### Fragment-based integration
+
+Workflow fragments that support `handleOrientation` (including `HelpFragment` and `DocumentAnalysisFragment`, enabled by default in SDK navigation graphs) apply the same orientation handling. If `handleOrientation` is `false`, the **host activity** is responsible for orientation. See the [fragment integration guide](fragment_integration_guide.md).
 
 ## Analysis Screen
 Most of these customizations are applicable to Document, Barcode and Face sessions. Please see the in-code documentation for more details and other supported customization options for the `DocumentAnalysisFragment`, `BarcodeAnalysisFragment` and `FaceAnalysisFragment`.
@@ -261,6 +353,7 @@ MiSnapSettings(
     )
 }
 ```
+**NOTE: In `FaceAnalysisFragment`, `guideViewScalePercentage` sets the `GuideView` scale in portrait and is typically tuned together with `MiSnapSettings.Analysis.Face.Advanced.minHorizontalFill`. `guideViewUnalignedScalePercentage` sets the scale in landscape and is typically tuned together with `minVerticalFill` (and `minPadding` / `minVerticalPadding` for edge padding in portrait / landscape respectively).**
 
 ### Displaying the Manual Button in Auto Sessions
 By default, the MiSnap SDK does not display the manual button in sessions configured with an auto trigger. However, it is possible to still display the manual button in auto trigger sessions using the `MiSnapSettings.Workflow` object, for example:

@@ -15,6 +15,8 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.widget.TooltipCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.DefaultLifecycleObserver
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -33,6 +35,7 @@ import com.miteksystems.misnap.camera.shouldRecordSession
 import com.miteksystems.misnap.camera.util.CameraUtil
 import com.miteksystems.misnap.controller.getImageQuality
 import com.miteksystems.misnap.controller.getMotionDetectorSensitivity
+import com.miteksystems.misnap.controller.resolvePayloadSize
 import com.miteksystems.misnap.controller.shouldEnableAiBasedRts
 import com.miteksystems.misnap.core.MiSnapSettings
 import com.miteksystems.misnap.databinding.BarcodeSettingsBinding
@@ -76,6 +79,8 @@ import com.miteksystems.misnap.face.getMinEyesOpenConfidence
 import com.miteksystems.misnap.face.getMinHorizontalFill
 import com.miteksystems.misnap.face.getMinPadding
 import com.miteksystems.misnap.face.getMinSmileConfidence
+import com.miteksystems.misnap.face.getMinVerticalFill
+import com.miteksystems.misnap.face.getMinVerticalPadding
 import com.miteksystems.misnap.face.getTriggerDelay
 import com.miteksystems.misnap.face.requireTrigger
 import com.miteksystems.misnap.nfc.default
@@ -111,6 +116,7 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
     private var useCaseIndex = 0
     private var voiceFlowIndex = 0
     private var barcodeExtractionRequirementIndex = 0
+    private var documentManualButtonVisibleUserSet: Boolean = false
 
     /**
      * Fetch the Misnap SDK license.
@@ -157,6 +163,16 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
         super.onViewCreated(view, savedInstanceState)
 
         checkPermissions()
+        val binding = binding
+
+        // setup cleanup
+        viewLifecycleOwner.lifecycle.addObserver(object : DefaultLifecycleObserver {
+            override fun onDestroy(owner: LifecycleOwner) {
+                // You can not access binding delegate in Fragment.onDestroyView()
+                binding.settingsTabLayout.setupWithViewPager(null)
+                binding.settingsViewPager.adapter = null
+            }
+        })
 
         //Setup the viewpager + tabs
         binding.settingsViewPager.adapter = adapter
@@ -507,7 +523,11 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
                 guideViewShowVignette = it.documentWorkflowSettingsShowVignetteBox.isChecked,
                 hintViewShouldShowBackground = it.documentWorkflowSettingsHintViewShowBackground.isChecked,
                 successViewShouldVibrate = it.documentWorkflowSettingsSuccessViewShouldVibrateBox.isChecked,
-                manualButtonVisible = it.documentWorkflowSettingsShowManualButtonBox.isChecked,
+                manualButtonVisible = if (documentManualButtonVisibleUserSet) {
+                    it.documentWorkflowSettingsShowManualButtonBox.isChecked
+                } else {
+                    null
+                },
                 shouldShowDocumentLabel = it.documentWorkflowSettingsShowDocumentLabelBox.isChecked,
                 shouldShowCancelButton = it.documentWorkflowSettingsShowCancelButtonBox.isChecked
             )
@@ -571,7 +591,8 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
                     it.faceSettingsEnableAiBasedRts.isChecked
 
                 enableAiBasedRts = it.faceSettingsEnableAiBasedRts.isChecked
-                //aiBasedRtsPayloadSize = getAiBasedRtsPayloadSizeAt(it.faceSettingsAiBasedRtsPayloadSizeSpinner.selectedItemPosition)
+                aiBasedRts.payloadSize =
+                    getAiBasedRtsPayloadSizeAt(it.faceSettingsAiBasedRtsPayloadSizeSpinner.selectedItemPosition)
 
                 motionDetectorSensitivity =
                     getDeviceMotionSensitivityAt(it.analysisSettings.findViewById<Spinner>(R.id.analysisSettingsDeviceMotionSensitivitySpinner).selectedItemPosition)
@@ -599,9 +620,17 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
                     it.faceSettingsMinFillThreshold.text.toString().toInt()
                 }.getOrDefault(face.advanced.getMinHorizontalFill())
 
+                face.advanced.minVerticalFill = kotlin.runCatching {
+                    it.faceSettingsMinVerticalFillThreshold.text.toString().toInt()
+                }.getOrDefault(face.advanced.getMinVerticalFill())
+
                 face.advanced.minPadding = kotlin.runCatching {
                     it.faceSettingsMinPaddingThreshold.text.toString().toInt()
                 }.getOrDefault(face.advanced.getMinPadding())
+
+                face.advanced.minVerticalPadding = kotlin.runCatching {
+                    it.faceSettingsMinVerticalPaddingThreshold.text.toString().toInt()
+                }.getOrDefault(face.advanced.getMinVerticalPadding())
 
                 jpgQuality = kotlin.runCatching {
                     it.analysisSettings.findViewById<EditText>(R.id.analysisSettingsJpegQuality).text.toString()
@@ -631,8 +660,13 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
                     it.faceWorkflowSettingsHintInitialDelay.text.toString().toInt()
                 }.getOrDefault(defaultWorkflowSettings.hintViewInitialHintDelay),
                 guideViewScalePercentage = kotlin.runCatching {
-                    it.faceWorkflowSettingsGuideViewScalePercentage.text.toString().toFloat()
+                    it.faceWorkflowSettingsGuideViewScalePercentage.text.toString()
+                        .toFloat()
                 }.getOrDefault(defaultWorkflowSettings.guideViewScalePercentage),
+                guideViewUnalignedScalePercentage = kotlin.runCatching {
+                    it.faceWorkflowSettingsGuideViewScalePercentageUnaligned.text.toString()
+                        .toFloat()
+                }.getOrDefault(defaultWorkflowSettings.guideViewUnalignedScalePercentage),
                 guideViewShowVignette = it.faceWorkflowSettingsShowVignetteBox.isChecked,
                 hintViewShouldShowBackground = it.faceWorkflowSettingsHintViewShowBackground.isChecked,
                 successViewShouldVibrate = it.faceWorkflowSettingsSuccessViewShouldVibrateBox.isChecked,
@@ -1169,6 +1203,8 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
                         )
                     }
 
+            documentManualButtonVisibleUserSet = false
+
             //Trigger is needed to determine the correct manual button visibility
             documentSettingsBinding?.let { documentSettingsBinding ->
                 settings.apply {
@@ -1349,15 +1385,9 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
                 settings.analysis.shouldEnableAiBasedRts(settings.useCase)
 
             //Set the AI-Based RTS preference from the settings, or the default value
-//            settings.analysis.aiBasedRtsPayloadSize?.let { payloadSize ->
-//                it.faceSettingsAiBasedRtsPayloadSizeSpinner.setSelection(
-//                    getAiBasedRtsPayloadSizeSpinnerIndex(
-//                        payloadSize
-//                    )
-//                )
-//            } ?: it.faceSettingsAiBasedRtsPayloadSizeSpinner.setSelection(
-//                settings.analysis.getAiBasedRtsPayloadSize().ordinal
-//            )
+            it.faceSettingsAiBasedRtsPayloadSizeSpinner.setSelection(
+                getAiBasedRtsPayloadSizeSpinnerIndex(settings.analysis.aiBasedRts.resolvePayloadSize())
+            )
 
             it.analysisSettings.findViewById<Spinner>(R.id.analysisSettingsDeviceMotionSensitivitySpinner)
                 .setSelection(
@@ -1392,8 +1422,16 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
                 settings.analysis.face.advanced.getMinHorizontalFill().toString()
             )
 
+            it.faceSettingsMinVerticalFillThreshold.setText(
+                settings.analysis.face.advanced.getMinVerticalFill().toString()
+            )
+
             it.faceSettingsMinPaddingThreshold.setText(
                 settings.analysis.face.advanced.getMinPadding().toString()
+            )
+
+            it.faceSettingsMinVerticalPaddingThreshold.setText(
+                settings.analysis.face.advanced.getMinVerticalPadding().toString()
             )
 
             it.faceSettingsSmileConfidenceThreshold.setText(
@@ -1462,6 +1500,13 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
             (workflowSettings?.guideViewScalePercentage
                 ?: defaultWorkflowSettings.guideViewScalePercentage)?.let {
                 binding.faceWorkflowSettingsGuideViewScalePercentage.setText(it.toString())
+            }
+
+            (workflowSettings?.guideViewUnalignedScalePercentage
+                ?: defaultWorkflowSettings.guideViewUnalignedScalePercentage)?.let {
+                binding.faceWorkflowSettingsGuideViewScalePercentageUnaligned.setText(
+                    it.toString()
+                )
             }
 
             (workflowSettings?.guideViewShowVignette
@@ -1835,15 +1880,15 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
 
     private fun getAiBasedRtsPayloadSizeAt(index: Int) =
         when (index) {
-            1 -> MiSnapSettings.Analysis.AiBasedRtsPayloadSize.NORMAL
-            0 -> MiSnapSettings.Analysis.AiBasedRtsPayloadSize.SMALL
+            1 -> MiSnapSettings.Analysis.AiBasedRts.PayloadSize.NORMAL
+            0 -> MiSnapSettings.Analysis.AiBasedRts.PayloadSize.SMALL
             else -> null
         }
 
-    private fun getAiBasedRtsPayloadSizeSpinnerIndex(aiBasedRtsPayloadSize: MiSnapSettings.Analysis.AiBasedRtsPayloadSize) =
+    private fun getAiBasedRtsPayloadSizeSpinnerIndex(aiBasedRtsPayloadSize: MiSnapSettings.Analysis.AiBasedRts.PayloadSize) =
         when (aiBasedRtsPayloadSize) {
-            MiSnapSettings.Analysis.AiBasedRtsPayloadSize.SMALL -> 0
-            MiSnapSettings.Analysis.AiBasedRtsPayloadSize.NORMAL -> 1
+            MiSnapSettings.Analysis.AiBasedRts.PayloadSize.SMALL -> 0
+            MiSnapSettings.Analysis.AiBasedRts.PayloadSize.NORMAL -> 1
         }
 
     // endregion
@@ -2125,6 +2170,7 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
                         position: Int,
                         id: Long,
                     ) {
+                        documentManualButtonVisibleUserSet = false
                         documentWorkflowSettingsBinding?.documentWorkflowSettingsShowManualButtonBox?.isChecked =
                             getDocumentAnalysisTriggerAt(position) ==
                                     MiSnapSettings.Analysis.Document.Trigger.MANUAL
@@ -2219,7 +2265,11 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
         val documentWorkflowSettingsView =
             layoutInflater.inflate(R.layout.document_workflow_settings, null)
         documentWorkflowSettingsBinding =
-            DocumentWorkflowSettingsBinding.bind(documentWorkflowSettingsView)
+            DocumentWorkflowSettingsBinding.bind(documentWorkflowSettingsView).also {
+                it.documentWorkflowSettingsShowManualButtonBox.setOnClickListener {
+                    documentManualButtonVisibleUserSet = true
+                }
+            }
 
         adapter.addView(documentWorkflowSettingsView, getString(WORKFLOW_TAB_TITLE_RES))
     }

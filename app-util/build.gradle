@@ -11,19 +11,11 @@ android {
     defaultConfig {
         minSdkVersion project.coreMinSdk
         targetSdkVersion project.targetSdkVersion
-
-        buildConfigField("String", "MODULE_NAME", "\"$project.name\"")
-        buildConfigField("String", "MODULE_VERSION", "\"$versionName\"")
     }
 
     buildTypes {
-        debug {
-            versionNameSuffix ' debug'
-
-            buildConfigField("String", "MODULE_VERSION", "\"${defaultConfig.versionName}$versionNameSuffix\"")
-        }
         release {
-            minifyEnabled true
+            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
