@@ -15,7 +15,7 @@ camerax = "1.5.3"
 # NFC
 jmrtd = "0.8.4"
 scubaSmartCard = "0.0.23"
-bouncycastle = "1.84"
+bouncycastle = "1.86"
 
 # IAD
 protobufLite = "3.25.5"

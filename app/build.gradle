@@ -56,18 +56,19 @@ android {
     kotlinOptions {
         jvmTarget = jdkVersion.toString()
     }
-    packagingOptions {
-        jniLibs {
-            useLegacyPackaging = true
+    packaging {
+        resources {
+
+            /**
+             * JMRTD uses Bouncy Castle in the NFC module. Both bcprov and bcutil include an OSGI
+             * manifest file (v1.78+) and META-INF/LICENSE.md (v1.85+). These files are not used in
+             * the MiSnap SDK but cause build conflicts when both libraries are merged into an app.
+             */
+            pickFirsts += [
+                    'META-INF/versions/9/OSGI-INF/MANIFEST.MF',
+                    'META-INF/LICENSE.md'
+            ]
         }
-
-
-        /**
-         * JMRTD uses Bouncy Castle in the NFC module, which includes an OSGI manifest file.
-         * This file is not used in the MiSnap SDK but appears in both bcprov and bcutil in v1.78+,
-         * causing build conflicts.
-         */
-        pickFirst 'META-INF/versions/9/OSGI-INF/MANIFEST.MF'
     }
 }
 

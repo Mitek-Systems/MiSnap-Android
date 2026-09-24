@@ -1,4 +1,4 @@
-# MiSnap SDK v5.12.0 for Android
+# MiSnap SDK v5.12.1 for Android
 Mitek MiSnap™ is a patented mobile-capture SDK that enables an intuitive user experience and instant capture of quality images. It all starts with the quality of the image.
 
 # Table of Contents

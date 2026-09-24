@@ -1,4 +1,4 @@
-# MiSnap SDK v5.12.0 Download Sizes
+# MiSnap SDK v5.12.1 Download Sizes
 
 The following tables provide the APK download size for various SDK configurations. These values represent
 the maximum size increase, however due to potential shared dependencies the actual increase in size may

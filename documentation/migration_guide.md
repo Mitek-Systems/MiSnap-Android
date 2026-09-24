@@ -1,4 +1,28 @@
-# MiSnap SDK v5.12.0 Migration Guide
+# MiSnap SDK v5.12.1 Migration Guide
+
+## Upgrading the MiSnap SDK from v5.12.0 to v5.12.1
+Starting with MiSnap SDK v5.12.1, the `nfc`, `combined-nfc` and `nfc-reader` modules depend on Bouncy Castle 1.86, which addresses security vulnerabilities in earlier versions.
+
+This upgrade continues to use the following transitive dependencies:
+* `org.bouncycastle:bcprov-jdk18on`
+* `org.bouncycastle:bcutil-jdk18on`
+
+In addition to the OSGI metadata files (`OSGI-INF/MANIFEST.MF`) introduced in Bouncy Castle 1.78+, both libraries now also include `META-INF/LICENSE.md` (added in Bouncy Castle 1.86).
+
+Consumers of the above modules must add the following packaging options into the `android` block of their application module's `build.gradle` file to avoid build issues:
+```groovy
+android {
+  packaging {
+    resources {
+      pickFirsts += [
+        'META-INF/versions/9/OSGI-INF/MANIFEST.MF',
+        'META-INF/LICENSE.md'
+      ]
+    }
+  }
+}
+```
+These license and manifest files are not relevant in Android builds, but are treated as duplicate resources when both libraries are merged into an app, causing the build to fail unless handled explicitly due to limitations of the gradle build system.
 
 ## Upgrading the MiSnap SDK from v5.11.x to v5.12.0
 
