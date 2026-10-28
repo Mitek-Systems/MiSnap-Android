@@ -32,23 +32,75 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/misnapSampleAppLayoutVerticalMargin"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/barcodeSettingsTriggerContainer">
 
         <com.google.android.material.textview.MaterialTextView
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:text="@string/misnapSampleAppSettingsBarcodeTypeLabel" />
 
-        <Spinner
-            android:id="@+id/barcodeSettingsTypeSpinner"
-            android:layout_width="0dp"
+        <com.google.android.material.checkbox.MaterialCheckBox
+            android:id="@+id/barcodeSettingsTypeQrCodeCheckbox"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:entries="@array/barcodeTypesArray" />
+            android:text="@string/misnapSampleAppSettingsBarcodeTypeQrCodeLabel" />
+
+        <com.google.android.material.checkbox.MaterialCheckBox
+            android:id="@+id/barcodeSettingsTypeDataMatrixCheckbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/misnapSampleAppSettingsBarcodeTypeDataMatrixLabel" />
+
+        <com.google.android.material.checkbox.MaterialCheckBox
+            android:id="@+id/barcodeSettingsTypeRssCheckbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/misnapSampleAppSettingsBarcodeTypeRssLabel" />
+
+        <com.google.android.material.checkbox.MaterialCheckBox
+            android:id="@+id/barcodeSettingsTypeCode39Checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/misnapSampleAppSettingsBarcodeTypeCode39Label" />
+
+        <com.google.android.material.checkbox.MaterialCheckBox
+            android:id="@+id/barcodeSettingsTypeCode128Checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/misnapSampleAppSettingsBarcodeTypeCode128Label" />
+
+        <com.google.android.material.checkbox.MaterialCheckBox
+            android:id="@+id/barcodeSettingsTypePdf417Checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/misnapSampleAppSettingsBarcodeTypePdf417Label" />
+
+        <com.google.android.material.checkbox.MaterialCheckBox
+            android:id="@+id/barcodeSettingsTypeAztecCodeCheckbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/misnapSampleAppSettingsBarcodeTypeAztecCodeLabel" />
+
+        <com.google.android.material.checkbox.MaterialCheckBox
+            android:id="@+id/barcodeSettingsTypeCode2Of5Checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/misnapSampleAppSettingsBarcodeTypeCode2Of5Label" />
+
+        <com.google.android.material.checkbox.MaterialCheckBox
+            android:id="@+id/barcodeSettingsTypeCode93Checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/misnapSampleAppSettingsBarcodeTypeCode93Label" />
+
+        <com.google.android.material.checkbox.MaterialCheckBox
+            android:id="@+id/barcodeSettingsTypeCodabarCheckbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/misnapSampleAppSettingsBarcodeTypeCodabarLabel" />
 
     </LinearLayout>
 

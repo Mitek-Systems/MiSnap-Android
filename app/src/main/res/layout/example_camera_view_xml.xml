@@ -14,7 +14,8 @@
         app:recordingEnabled="true"
         app:recordAudio="true"
         app:torchEnabled="true"
-        app:videoBitrate="1000000"
-        app:videoQuality="HD" />
+        app:videoBitrate="1300000"
+        app:videoQuality="HD"
+        app:videoRecordingDuration="5000" />
 
 </FrameLayout>

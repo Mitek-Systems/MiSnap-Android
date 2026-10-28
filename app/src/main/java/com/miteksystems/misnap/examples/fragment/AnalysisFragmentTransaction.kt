@@ -92,6 +92,9 @@ class AnalysisFragmentTransaction : AppCompatActivity() {
                         is NavigationAction.BarcodeAnalysis.NavigateHelp -> {
                             executeFragmentTransaction(HelpFragment())
                         }
+                        is NavigationAction.BarcodeAnalysis.NavigateFailover -> {
+                            executeFragmentTransaction(FailoverFragment())
+                        }
                         else -> {}
                     }
                 }

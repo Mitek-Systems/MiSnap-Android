@@ -78,6 +78,7 @@
     <string name="misnapSampleAppSettingsCameraShouldRecordVideoAudioLabel" translatable="false">Should Record Audio</string>
     <string name="misnapSampleAppSettingsCameraRequestHighResolutionLabel" translatable="false">Request High Resolution</string>
     <string name="misnapSampleAppSettingsCameraVideoBitrateLabel" translatable="false">Video Bitrate</string>
+    <string name="misnapSampleAppSettingsCameraVideoRecordingDurationLabel" translatable="false">Video Recording Duration (ms)</string>
     <string name="misnapSampleAppSettingsCameraVideoQualityLabel" translatable="false">Video Quality</string>
 
     <string-array name="cameraFacingDirectionsArray">
@@ -188,16 +189,21 @@
     <string name="misnapSampleAppSettingsBarcodeScanSpeedLabel" translatable="false">Barcode Scan Speed</string>
     <string name="misnapSampleAppSettingsBarcodeRequestBarcodeExtractionLabel" translatable="false">Request Barcode Extraction</string>
     <string name="misnapSampleAppSettingsBarcodeTypeLabel" translatable="false">Barcode Type</string>
+    <string name="misnapSampleAppSettingsBarcodeTypeQrCodeLabel" translatable="false">QR Code</string>
+    <string name="misnapSampleAppSettingsBarcodeTypeDataMatrixLabel" translatable="false">Data Matrix</string>
+    <string name="misnapSampleAppSettingsBarcodeTypeRssLabel" translatable="false">RSS</string>
+    <string name="misnapSampleAppSettingsBarcodeTypeCode39Label" translatable="false">Code 39</string>
+    <string name="misnapSampleAppSettingsBarcodeTypeCode128Label" translatable="false">Code 128</string>
+    <string name="misnapSampleAppSettingsBarcodeTypePdf417Label" translatable="false">PDF417</string>
+    <string name="misnapSampleAppSettingsBarcodeTypeAztecCodeLabel" translatable="false">Aztec Code</string>
+    <string name="misnapSampleAppSettingsBarcodeTypeCode2Of5Label" translatable="false">Code 2 of 5</string>
+    <string name="misnapSampleAppSettingsBarcodeTypeCode93Label" translatable="false">Code 93</string>
+    <string name="misnapSampleAppSettingsBarcodeTypeCodabarLabel" translatable="false">Codabar</string>
     <string name="misnapSampleAppSettingsBarcodeOrientationLabel" translatable="false">Barcode Orientation</string>
 
     <string-array name="barcodeTriggerArray">
         <item>Auto</item>
         <item>Manual</item>
-    </string-array>
-
-    <string-array name="barcodeTypesArray">
-        <item>Barcode PDF14</item>
-        <item>Barcode Many</item>
     </string-array>
 
     <string-array name="barcodeScanSpeedsArray">
@@ -220,6 +226,7 @@
 
     <!-- Barcode Workflow Settings Tab -->
     <string name="misnapSampleAppSettingsBarcodeWorkflowReviewConditionLabel" translatable="false">Manual Review Condition</string>
+    <string name="misnapSampleAppSettingsBarcodeWorkflowTimeoutDurationLabel" translatable="false">Timeout Duration</string>
     <string name="misnapSampleAppSettingsBarcodeWorkflowGuideViewAlignedScalePercentageLabel" translatable="false">GuideView Aligned Scale Percentage</string>
     <string name="misnapSampleAppSettingsBarcodeWorkflowGuideViewUnalignedScalePercentageLabel" translatable="false">GuideView Unaligned Scale Percentage</string>
     <string name="misnapSampleAppSettingsBarcodeWorkflowShowVignetteLabel" translatable="false">GuideView Show Vignette</string>

@@ -281,6 +281,9 @@ class AnalysisFragmentTransaction : AppCompatActivity() {
                         is NavigationAction.BarcodeAnalysis.NavigateHelp -&gt; {
                             executeFragmentTransaction(HelpFragment())
                         }
+                        is NavigationAction.BarcodeAnalysis.NavigateFailover -&gt; {
+                            executeFragmentTransaction(FailoverFragment())
+                        }
                         else -&gt; {}
                     }
                 }

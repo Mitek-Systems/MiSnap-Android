@@ -23,6 +23,7 @@ import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.text.HtmlCompat
 import androidx.core.text.bold
 import androidx.core.text.buildSpannedString
+import androidx.core.view.children
 import androidx.core.widget.TextViewCompat
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textview.MaterialTextView
@@ -460,17 +461,35 @@ object ViewUtil {
         }
 
     fun getMiSnapVideoView(data: ByteArray, context: Context) =
-        MiSnapVideoView(context).apply {
-            layoutParams = ViewGroup.LayoutParams(
-                ViewGroup.LayoutParams.WRAP_CONTENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT
+        getBaseLinearLayoutView(
+            context,
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.MATCH_PARENT
+        ).apply {
+            addView(
+                getGenericTextView(
+                    String.format(
+                        context.getString(R.string.misnapAppUtilResultsFinalFrameDiskSize),
+                        "${data.size / 1024}KB"
+                    ),
+                    context
+                )
             )
+            addView(
+                MiSnapVideoView(context).apply {
+                    layoutParams = LinearLayout.LayoutParams(
+                        ViewGroup.LayoutParams.MATCH_PARENT,
+                        0,
+                        1f
+                    )
 
-            MediaController(context).also {
-                it.setAnchorView(this)
-                setVideoData(data)
-                setMediaController(it)
-            }
+                    MediaController(context).also {
+                        it.setAnchorView(this)
+                        setVideoData(data)
+                        setMediaController(it)
+                    }
+                }
+            )
         }
 
     fun getGenericTextView(content: String, context: Context, layoutGravity: Int = Gravity.START) =
@@ -565,6 +584,22 @@ object ViewUtil {
             }
         }
     }
+
+    /**
+     * Resolves a playable media view that may be nested under a results layout
+     * (e.g. recorded video tab with a size-on-disk label above [MiSnapVideoView]).
+     */
+    fun findMediaView(view: View): View =
+        when (view) {
+            is MiSnapVideoView, is MiSnapAudioView -> view
+            is ViewGroup -> {
+                view.children.firstOrNull { child ->
+                    child is MiSnapVideoView || child is MiSnapAudioView
+                } ?: view
+            }
+
+            else -> view
+        }
 }
 
 /**

@@ -1,4 +1,4 @@
-# MiSnap SDK v5.12.1 Customization Guide
+# MiSnap SDK v5.13.0 Customization Guide
 While many of the customization options mentioned in this guide may be applicable to other MiSnap integration types, this guide focuses on customization options for the [activity-based integration](./activity_integration_guide.md).
 
 # Table of Contents
@@ -39,12 +39,14 @@ While many of the customization options mentioned in this guide may be applicabl
     * [Displaying a Document Label](#displaying-a-document-label)
     * [Displaying a Barcode Label](#displaying-a-barcode-label)
     * [Adjusting the Session Timeout](#adjusting-the-session-timeout)
+    * [Configuring Session Video Recording](#configuring-session-video-recording)
     * [Customizing the HintView](#customizing-the-hintview)
     * [Customizing the SuccessView](#customizing-the-successview)
     * [Controlling the Review Screen](#controlling-the-review-screen)
     * [Displaying a Cancel Button](#displaying-a-cancel-button)
 * [Failover Screen](#failover-screen)
     * [Customizing the Failover Reasons](#customizing-the-failover-reasons)
+    * [Session Timeout Failover Behavior](#session-timeout-failover-behavior)
 * [NFC Reader Screen](#nfc-reader-screen)
     * [Displaying Custom Scan Instructions](#displaying-custom-scan-instructions)
     * [Controlling the Skip and Failover](#controlling-the-skip-and-failover)
@@ -413,6 +415,12 @@ MiSnapSettings(
 ### Adjusting the Session Timeout
 The MiSnap SDK features a timeout during the session analysis screen to prevent extended sessions, reduce resource usage, and to provide help to the end user for a successful session the next time in the `FailoverFragment`.
 
+For Document, Face, and Barcode sessions, this timeout applies to:
+* **AUTO** sessions
+* **MANUAL** sessions when session video recording is enabled (`MiSnapSettings.Camera.VideoRecord.recordSession`)
+
+MANUAL sessions without video recording do not time out.
+
 The timeout can be adjusted through the `MiSnapSettings.Workflow` object as follows:
 ```kotlin
 MiSnapSettings(
@@ -427,6 +435,50 @@ MiSnapSettings(
     )
 }
 ```
+
+For barcode sessions, set `timeoutDuration` on `BarcodeAnalysisFragment.WorkflowSettings`:
+```kotlin
+MiSnapSettings(
+    MiSnapSettings.UseCase.BARCODE,
+    license
+).apply {
+    workflow.add(
+        getString(R.string.misnapWorkflowBarcodeAnalysisFlowBarcodeAnalysisFragmentLabel),
+        BarcodeAnalysisFragment.buildWorkflowSettings(
+            timeoutDuration = 20_000
+        )
+    )
+}
+```
+
+> Note: `timeoutDuration` values are clamped to a maximum of `120_000` milliseconds (120 seconds).
+
+### Configuring Session Video Recording
+Session video recording is configured through `MiSnapSettings.Camera.VideoRecord`:
+
+```kotlin
+MiSnapSettings(
+    MiSnapSettings.UseCase.ID_FRONT,
+    license
+).apply {
+    camera.videoRecord.recordSession = true
+    camera.videoRecord.recordAudio = false
+    camera.videoRecord.videoQuality = MiSnapSettings.Camera.VideoRecord.VideoQuality.HD
+    camera.videoRecord.videoRecordingDuration = 5_000
+    camera.videoRecord.videoBitrate = 1_300_000
+}
+```
+
+Relevant settings:
+* `recordSession` — enables recording of the session video. When `recordSession` is `true`, MANUAL Document, Face, and Barcode sessions also apply `timeoutDuration`.
+* `recordAudio` — records audio with the video. Requires the `RECORD_AUDIO` permission; the calling app must request it.
+* `videoQuality` — one of `MiSnapSettings.Camera.VideoRecord.VideoQuality` (`HD` or `FHD`).
+* `videoRecordingDuration` — target length of the output video in milliseconds after the session ends. The video is trimmed to the last portion of the session; this setting does not limit how long recording runs while the session is active. Values outside the supported range are clamped.
+* `videoBitrate` — encoding bitrate in bits per second. Values outside the supported range are clamped.
+
+The default workflow shows a `RecordingIconView` while session video recording is active.
+
+Please see the in-code documentation for `MiSnapSettings.Camera.VideoRecord` for more details.
 
 ### Customizing the HintView
 The MiSnap SDK will display on-screen live hints whenever there are improvements that can be made for a better image quality or there are actions that the end use must perform to finalize the session.
@@ -532,6 +584,11 @@ MiSnapSettings(
 ```
 
 Please see the in-code documentation for more details and other supported customization options for the `FailoverFragment`.
+
+### Session Timeout Failover Behavior
+When a session times out and navigates to `FailoverFragment`:
+* After a timeout from an **AUTO** session, the failover screen can offer AUTO and MANUAL retries according to the flow configuration.
+* After a timeout from a **MANUAL** session (including MANUAL with video recording), only a **MANUAL** retry is offered.
 
 ## NFC Reader Screen
 ### Displaying Custom Scan Instructions

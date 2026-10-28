@@ -1,4 +1,54 @@
-# MiSnap SDK v5.12.1 Migration Guide
+# MiSnap SDK v5.13.0 Migration Guide
+
+## Upgrading the MiSnap SDK from v5.12.1 to v5.13.0
+
+### Session timeout and failover
+
+#### MANUAL sessions with video recording
+Document, Face, and Barcode sessions that use a **MANUAL** trigger and have session video recording enabled now time out and navigate to `FailoverFragment`, matching AUTO session behavior.
+
+* `DocumentAnalysisFragment`, `FaceAnalysisFragment` and `BarcodeAnalysisFragment` use the existing workflow `timeoutDuration`. See [Adjusting the Session Timeout](customization_guide.md#adjusting-the-session-timeout).
+* MANUAL sessions **without** video recording are unchanged and the session doesn't time out.
+* On the failover screen, only MANUAL session retries are allowed after a timeout from a MANUAL session.
+
+#### Barcode AUTO failover
+`UseCase.BARCODE` AUTO sessions now time out and show the `FailoverFragment`. Session duration is controlled by the new `timeoutDuration` setting on `BarcodeAnalysisFragment.WorkflowSettings`. See [Adjusting the Session Timeout](customization_guide.md#adjusting-the-session-timeout).
+
+If you use the SDK-provided `barcode_session_flow`, no action is required.
+
+If you maintain a **custom barcode navigation graph**, add the same failover wiring used by document/face flows:
+* A `failoverFragment` destination
+* A `navigateFailover` action from the barcode analysis destination
+
+Without a failover destination, timeout either posts a navigation error with `NavigationAction.BarcodeAnalysis.NavigateFailover` or falls back to seamless MANUAL mode if a destination is not provided. Update exhaustive `NavigationAction` / navigation-error handlers for the new `NavigateFailover` type and handle accordingly.
+
+#### Session timeout duration clamp
+`timeoutDuration` on `DocumentAnalysisFragment`, `FaceAnalysisFragment`, and `BarcodeAnalysisFragment` is clamped to a maximum of `120_000` milliseconds (120 seconds). Values above this maximum are reduced to 120 seconds.
+
+When session video recording is enabled, set `timeoutDuration` so the session (and therefore recording) cannot run indefinitely.
+
+### API Changes
+
+#### Barcode Analysis
+
+`MiSnapBarcodeAnalyzer.Result.Failure.Execution` is a new failure subtype returned when the underlying barcode scanner cannot process a frame. If you handle `MiSnapBarcodeAnalyzer.Result.Failure` and handle specific types, add a branch for the new error type.
+
+### Dependency Changes
+
+If you deploy MiSnap SDK artifacts to **private repositories**, note that MiSnap 5.13.0 adds a new module dependency: `barcode-analysis` now depends on `barcode-scanner`. Make sure to publish `barcode-scanner` alongside the other MiSnap SDK artifacts so that dependency resolution succeeds.
+
+Consumers using the official GitHub package registry do not need to take any extra action.
+
+### Video Recording Settings
+* The default `MiSnapSettings.Camera.VideoRecord.videoQuality` is now **HD (720p)**. Previously it was FHD (1080p). If your integration relied on the previous default and you need 1080p, set `videoQuality` to `FHD` explicitly.
+* Recorded videos in MiSnap now have a limited output duration. `MiSnapSettings.Camera.VideoRecord.videoRecordingDuration` configures the target length of the video in milliseconds after the session ends; the resulting video is trimmed to the last portion of the session. This setting does not stop recording while the session is active. Values outside the supported range are clamped to the nearest bound.
+* `MiSnapSettings.Camera.VideoRecord.videoBitrate` is constrained to a specific range to balance video quality and size (bits per second). The default is now `1300000` (1.3 Mbps); previously it was `1000000` (1 Mbps). Values outside the supported range are clamped to the nearest bound.
+
+See [Configuring Session Video Recording](customization_guide.md#configuring-session-video-recording).
+
+### Non-terminal session warnings
+
+Workflow results now expose `nonTerminalWarnings` for issues that occurred during the session without ending it. For example, video recording problems are reported as `SessionWarning.VideoRecordingWarning` entries instead of failing the session. If you handle workflow results, consider reading `nonTerminalWarnings` when present.
 
 ## Upgrading the MiSnap SDK from v5.12.0 to v5.12.1
 Starting with MiSnap SDK v5.12.1, the `nfc`, `combined-nfc` and `nfc-reader` modules depend on Bouncy Castle 1.86, which addresses security vulnerabilities in earlier versions.

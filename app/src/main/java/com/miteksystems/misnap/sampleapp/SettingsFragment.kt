@@ -28,6 +28,7 @@ import com.miteksystems.misnap.barcode.getScanSpeed
 import com.miteksystems.misnap.camera.getTorchMode
 import com.miteksystems.misnap.camera.getVideoBitrate
 import com.miteksystems.misnap.camera.getVideoQuality
+import com.miteksystems.misnap.camera.getVideoRecordingDuration
 import com.miteksystems.misnap.camera.requireProfile
 import com.miteksystems.misnap.camera.shouldEnableHighResolutionFrames
 import com.miteksystems.misnap.camera.shouldRecordAudio
@@ -405,6 +406,11 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
                     kotlin.runCatching { it.cameraSettingsVideoBitrate.text.toString().toInt() }
                         .getOrDefault(videoRecord.getVideoBitrate())
 
+                videoRecord.videoRecordingDuration =
+                    kotlin.runCatching {
+                        it.cameraSettingsVideoRecordingDuration.text.toString().toInt()
+                    }.getOrDefault(videoRecord.getVideoRecordingDuration())
+
                 enableHighResolutionFrames =
                     it.cameraSettingsRequestHighResolutionCheckbox.isChecked
             }
@@ -547,7 +553,7 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
             barcodeSettingsBinding?.let {
                 trigger =
                     getBarcodeTriggerAt(it.barcodeSettingsTriggerSpinner.selectedItemPosition)
-                type = getBarcodeTypeAt(it.barcodeSettingsTypeSpinner.selectedItemPosition)
+                type = it.getBarcodeTypeFromCheckboxes()
                 scanSpeed =
                     getBarcodeScanSpeedAt(it.barcodeSettingsScanSpeedSpinner.selectedItemPosition)
                 orientation =
@@ -562,6 +568,9 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
                 BarcodeAnalysisFragment.getDefaultWorkflowSettings(settings)
             val workflowSettings = BarcodeAnalysisFragment.buildWorkflowSettings(
                 reviewCondition = getBarcodeReviewConditionAt(it.barcodeWorkflowSettingsReviewConditionSpinner.selectedItemPosition),
+                timeoutDuration = kotlin.runCatching {
+                    it.barcodeWorkflowSettingsTimeoutDuration.text.toString().toInt()
+                }.getOrDefault(defaultWorkflowSettings.timeoutDuration),
                 guideViewAlignedScalePercentage = kotlin.runCatching {
                     it.barcodeWorkflowSettingsGuideViewAlignedScalePercentage.text.toString()
                         .toFloat()
@@ -1067,11 +1076,16 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
 
             it.cameraSettingsVideoResolutionSpinner.isEnabled = shouldRecordSession
             it.cameraSettingsVideoBitrate.isEnabled = shouldRecordSession
+            it.cameraSettingsVideoRecordingDuration.isEnabled = shouldRecordSession
 
             it.cameraSettingsVideoResolutionSpinner.setSelection(settings.camera.videoRecord.getVideoQuality().ordinal)
 
             it.cameraSettingsVideoBitrate.setText(
                 settings.camera.videoRecord.getVideoBitrate().toString()
+            )
+
+            it.cameraSettingsVideoRecordingDuration.setText(
+                settings.camera.videoRecord.getVideoRecordingDuration().toString()
             )
 
             it.cameraSettingsRequestHighResolutionCheckbox.isChecked =
@@ -1303,7 +1317,7 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
         barcodeSettingsBinding?.let {
             val isBarcodeUseCase = getUseCaseAt(useCaseIndex) == MiSnapSettings.UseCase.BARCODE
             it.barcodeSettingsTriggerSpinner.isEnabled = isBarcodeUseCase
-            it.barcodeSettingsTypeSpinner.isEnabled = isBarcodeUseCase
+            it.setBarcodeTypeCheckboxesEnabled(isBarcodeUseCase)
             it.barcodeSettingsScanSpeedSpinner.isEnabled = isBarcodeUseCase
             it.barcodeSettingsOrientationSpinner.isEnabled = isBarcodeUseCase
 
@@ -1314,10 +1328,8 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
             }
 
             settings.analysis.barcode.type?.let { barcodeType ->
-                it.barcodeSettingsTypeSpinner.setSelection(getBarcodeSpinnerIndex(barcodeType))
-            } ?: it.barcodeSettingsTypeSpinner.setSelection(
-                getBarcodeSpinnerIndex(MiSnapSettings.Analysis.Barcode.Type.default())
-            )
+                it.applyBarcodeTypeToCheckboxes(barcodeType)
+            } ?: it.applyBarcodeTypeToCheckboxes(MiSnapSettings.Analysis.Barcode.Type.default())
 
             it.barcodeSettingsScanSpeedSpinner.setSelection(settings.analysis.barcode.getScanSpeed().ordinal)
 
@@ -1345,6 +1357,11 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
                 binding.barcodeWorkflowSettingsReviewConditionSpinner.setSelection(
                     getBarcodeReviewConditionIndex(it)
                 )
+            }
+
+            (workflowSettings?.timeoutDuration
+                ?: defaultWorkflowSettings.timeoutDuration)?.let {
+                binding.barcodeWorkflowSettingsTimeoutDuration.setText(it.toString())
             }
 
             (workflowSettings?.guideViewAlignedScalePercentage
@@ -1810,19 +1827,80 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
             else -> null
         }
 
-    private fun getBarcodeSpinnerIndex(barcodeType: Int): Int {
-        return when (barcodeType) {
-            MiSnapSettings.Analysis.Barcode.Type.PDF417 -> 0
-            else -> 1
+    private fun BarcodeSettingsBinding.getBarcodeTypeFromCheckboxes(): Int {
+        var barcodeType = 0
+        if (barcodeSettingsTypeQrCodeCheckbox.isChecked) {
+            barcodeType = barcodeType or MiSnapSettings.Analysis.Barcode.Type.QR_CODE
+        }
+        if (barcodeSettingsTypeDataMatrixCheckbox.isChecked) {
+            barcodeType = barcodeType or MiSnapSettings.Analysis.Barcode.Type.DATA_MATRIX
+        }
+        if (barcodeSettingsTypeRssCheckbox.isChecked) {
+            barcodeType = barcodeType or MiSnapSettings.Analysis.Barcode.Type.RSS
+        }
+        if (barcodeSettingsTypeCode39Checkbox.isChecked) {
+            barcodeType = barcodeType or MiSnapSettings.Analysis.Barcode.Type.CODE_39
+        }
+        if (barcodeSettingsTypeCode128Checkbox.isChecked) {
+            barcodeType = barcodeType or MiSnapSettings.Analysis.Barcode.Type.CODE_128
+        }
+        if (barcodeSettingsTypePdf417Checkbox.isChecked) {
+            barcodeType = barcodeType or MiSnapSettings.Analysis.Barcode.Type.PDF417
+        }
+        if (barcodeSettingsTypeAztecCodeCheckbox.isChecked) {
+            barcodeType = barcodeType or MiSnapSettings.Analysis.Barcode.Type.AZTEC_CODE
+        }
+        if (barcodeSettingsTypeCode2Of5Checkbox.isChecked) {
+            barcodeType = barcodeType or MiSnapSettings.Analysis.Barcode.Type.CODE_2_OF_5
+        }
+        if (barcodeSettingsTypeCode93Checkbox.isChecked) {
+            barcodeType = barcodeType or MiSnapSettings.Analysis.Barcode.Type.CODE_93
+        }
+        if (barcodeSettingsTypeCodabarCheckbox.isChecked) {
+            barcodeType = barcodeType or MiSnapSettings.Analysis.Barcode.Type.CODABAR
+        }
+        return if (barcodeType == 0) {
+            MiSnapSettings.Analysis.Barcode.Type.default()
+        } else {
+            barcodeType
         }
     }
 
-    private fun getBarcodeTypeAt(index: Int) =
-        when (index) {
-            1 -> MiSnapSettings.Analysis.Barcode.Type.ALL - MiSnapSettings.Analysis.Barcode.Type.CODE_128
-            0 -> MiSnapSettings.Analysis.Barcode.Type.PDF417
-            else -> null
-        }
+    private fun BarcodeSettingsBinding.applyBarcodeTypeToCheckboxes(barcodeType: Int) {
+        barcodeSettingsTypeQrCodeCheckbox.isChecked =
+            barcodeType and MiSnapSettings.Analysis.Barcode.Type.QR_CODE != 0
+        barcodeSettingsTypeDataMatrixCheckbox.isChecked =
+            barcodeType and MiSnapSettings.Analysis.Barcode.Type.DATA_MATRIX != 0
+        barcodeSettingsTypeRssCheckbox.isChecked =
+            barcodeType and MiSnapSettings.Analysis.Barcode.Type.RSS != 0
+        barcodeSettingsTypeCode39Checkbox.isChecked =
+            barcodeType and MiSnapSettings.Analysis.Barcode.Type.CODE_39 != 0
+        barcodeSettingsTypeCode128Checkbox.isChecked =
+            barcodeType and MiSnapSettings.Analysis.Barcode.Type.CODE_128 != 0
+        barcodeSettingsTypePdf417Checkbox.isChecked =
+            barcodeType and MiSnapSettings.Analysis.Barcode.Type.PDF417 != 0
+        barcodeSettingsTypeAztecCodeCheckbox.isChecked =
+            barcodeType and MiSnapSettings.Analysis.Barcode.Type.AZTEC_CODE != 0
+        barcodeSettingsTypeCode2Of5Checkbox.isChecked =
+            barcodeType and MiSnapSettings.Analysis.Barcode.Type.CODE_2_OF_5 != 0
+        barcodeSettingsTypeCode93Checkbox.isChecked =
+            barcodeType and MiSnapSettings.Analysis.Barcode.Type.CODE_93 != 0
+        barcodeSettingsTypeCodabarCheckbox.isChecked =
+            barcodeType and MiSnapSettings.Analysis.Barcode.Type.CODABAR != 0
+    }
+
+    private fun BarcodeSettingsBinding.setBarcodeTypeCheckboxesEnabled(enabled: Boolean) {
+        barcodeSettingsTypeQrCodeCheckbox.isEnabled = enabled
+        barcodeSettingsTypeDataMatrixCheckbox.isEnabled = enabled
+        barcodeSettingsTypeRssCheckbox.isEnabled = enabled
+        barcodeSettingsTypeCode39Checkbox.isEnabled = enabled
+        barcodeSettingsTypeCode128Checkbox.isEnabled = enabled
+        barcodeSettingsTypePdf417Checkbox.isEnabled = enabled
+        barcodeSettingsTypeAztecCodeCheckbox.isEnabled = enabled
+        barcodeSettingsTypeCode2Of5Checkbox.isEnabled = enabled
+        barcodeSettingsTypeCode93Checkbox.isEnabled = enabled
+        barcodeSettingsTypeCodabarCheckbox.isEnabled = enabled
+    }
 
     private fun getBarcodeScanSpeedAt(index: Int) =
         when (index) {
@@ -2056,6 +2134,7 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
                 it.cameraSettingsRecordAudioCheckbox.isEnabled = isChecked
                 it.cameraSettingsVideoResolutionSpinner.isEnabled = isChecked
                 it.cameraSettingsVideoBitrate.isEnabled = isChecked
+                it.cameraSettingsVideoRecordingDuration.isEnabled = isChecked
             }
         }
 
@@ -2093,8 +2172,9 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
                             barcodeSettingsBinding?.let { barcodeBinding ->
                                 barcodeBinding.barcodeSettingsTriggerSpinner.isEnabled =
                                     isDocumentOcrNone
-                                barcodeBinding.barcodeSettingsTypeSpinner.isEnabled =
+                                barcodeBinding.setBarcodeTypeCheckboxesEnabled(
                                     isDocumentOcrNone
+                                )
                                 barcodeBinding.barcodeSettingsScanSpeedSpinner.isEnabled =
                                     isDocumentOcrNone
                                 barcodeBinding.barcodeSettingsOrientationSpinner.isEnabled =
@@ -2148,8 +2228,9 @@ class SettingsFragment : Fragment(R.layout.fragment_settings_root) {
                             barcodeSettingsBinding?.let { barcodeBinding ->
                                 barcodeBinding.barcodeSettingsTriggerSpinner.isEnabled =
                                     !isBarcodeOcrNone
-                                barcodeBinding.barcodeSettingsTypeSpinner.isEnabled =
+                                barcodeBinding.setBarcodeTypeCheckboxesEnabled(
                                     !isBarcodeOcrNone
+                                )
                                 barcodeBinding.barcodeSettingsScanSpeedSpinner.isEnabled =
                                     !isBarcodeOcrNone
                                 barcodeBinding.barcodeSettingsOrientationSpinner.isEnabled =

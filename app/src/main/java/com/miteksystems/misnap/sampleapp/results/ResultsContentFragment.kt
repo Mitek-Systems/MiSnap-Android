@@ -305,20 +305,20 @@ class ResultsContentFragment : Fragment(R.layout.fragment_result_content) {
             page.findViewById<LinearLayout>(ViewPageAdapter.CONTENT_VIEW_ID)
                 ?.getChildAt(0)
                 ?.let { view ->
-                    when (view) {
+                    when (val mediaView = ViewUtil.findMediaView(view)) {
                         is MiSnapVideoView -> {
-                            if (view.isPlaying) {
-                                view.seekTo(0)
-                                view.pause()
+                            if (mediaView.isPlaying) {
+                                mediaView.seekTo(0)
+                                mediaView.pause()
                             }
                         }
 
                         is MiSnapAudioView -> {
-                            if (view.isPlaying) {
-                                view.seekTo(0)
-                                view.pause()
+                            if (mediaView.isPlaying) {
+                                mediaView.seekTo(0)
+                                mediaView.pause()
                             }
-                            view.hideMediaControls()
+                            mediaView.hideMediaControls()
                         }
 
                         else -> {
@@ -328,15 +328,21 @@ class ResultsContentFragment : Fragment(R.layout.fragment_result_content) {
                                     viewPagerPage.findViewById<LinearLayout>(ViewPageAdapter.CONTENT_VIEW_ID)
                                         ?.getChildAt(0)
                                         ?.let {
-                                            if (it is MiSnapVideoView && it.isPlaying) {
-                                                it.seekTo(0)
-                                                it.pause()
-                                            } else if (it is MiSnapAudioView) {
-                                                if (it.isPlaying) {
-                                                    it.seekTo(0)
-                                                    it.pause()
+                                            when (val nestedMediaView = ViewUtil.findMediaView(it)) {
+                                                is MiSnapVideoView -> {
+                                                    if (nestedMediaView.isPlaying) {
+                                                        nestedMediaView.seekTo(0)
+                                                        nestedMediaView.pause()
+                                                    }
                                                 }
-                                                it.hideMediaControls()
+
+                                                is MiSnapAudioView -> {
+                                                    if (nestedMediaView.isPlaying) {
+                                                        nestedMediaView.seekTo(0)
+                                                        nestedMediaView.pause()
+                                                    }
+                                                    nestedMediaView.hideMediaControls()
+                                                }
                                             }
                                         }
                                 }
@@ -349,18 +355,18 @@ class ResultsContentFragment : Fragment(R.layout.fragment_result_content) {
             ?.findViewById<LinearLayout>(ViewPageAdapter.CONTENT_VIEW_ID)
             ?.getChildAt(0)
             ?.let { view ->
-                when (view) {
+                when (val mediaView = ViewUtil.findMediaView(view)) {
                     is MiSnapVideoView -> {
-                        view.start()
+                        mediaView.start()
                     }
 
                     is MiSnapAudioView -> {
-                        view.start()
+                        mediaView.start()
                     }
 
                     is ViewGroup -> {
                         // search for inner viewpager and look for MiSnapVideoView to play
-                        view.children.filterIsInstance<ViewPager>().toList()
+                        mediaView.children.filterIsInstance<ViewPager>().toList()
                             .firstOrNull()?.let {
                                 if (it.currentItem == 0) {
                                     onPageSelected(it, 0)
